@@ -1,0 +1,52 @@
+group 'io.openim.flutter_openim_sdk'
+version '1.0'
+
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        google()
+        maven {
+            url 'http://127.0.0.1:8081/repository/maven-releases/'  //这个路径就是Browse下maven-release右边有一个copy按钮，复制出来的。
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.1'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        google()
+        maven {
+            url 'http://127.0.0.1:8081/repository/maven-releases'  //这个路径就是Browse下maven-release右边有一个copy按钮，复制出来的。
+        }
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+dependencies {
+    implementation 'com.alibaba:fastjson:1.1.72.android'
+    implementation 'io.openim:localsdk:1.1.4@aar'//graoupId:artifactId:version@aar
+}
