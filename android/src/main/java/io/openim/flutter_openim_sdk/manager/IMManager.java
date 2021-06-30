@@ -37,7 +37,7 @@ public class IMManager {
     }
 
     public void getUsersInfo(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getUsersInfo(CommonUtil.getSDKJsonParam(methodCall), new BaseImpl(result));
+        Open_im_sdk.getUsersInfo(CommonUtil.getUidList(methodCall), new BaseImpl(result));
     }
 
     public void setSelfInfo(MethodCall methodCall, MethodChannel.Result result) {

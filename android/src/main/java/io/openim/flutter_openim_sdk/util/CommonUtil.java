@@ -124,6 +124,10 @@ public class CommonUtil {
         return getParamValue(methodCall, KEY_LOGIN_UID);
     }
 
+    public static String getJsonUid(MethodCall methodCall) {
+        return JsonUtil.toString(getParamValue(methodCall, KEY_LOGIN_UID));
+    }
+
     public static String getToken(MethodCall methodCall) {
         return getParamValue(methodCall, KEY_LOGIN_TOKEN);
     }
@@ -247,6 +251,11 @@ public class CommonUtil {
         return getParamValue(methodCall, KEY_CONVERSATION_PINNED);
     }
 
+    public static String getUidList(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_USER_IDS);
+    }
+
+
     //login
     final static String KEY_LOGIN_UID = "uid";
     final static String KEY_LOGIN_TOKEN = "token";
@@ -283,4 +292,6 @@ public class CommonUtil {
     final static String KEY_CONVERSATION_IDS = "conversationIDList";
     final static String KEY_CONVERSATION_DRAFT = "draftText";
     final static String KEY_CONVERSATION_PINNED = "isPinned";
+    // user info
+    final static String KEY_USER_IDS = "uidList";
 }
