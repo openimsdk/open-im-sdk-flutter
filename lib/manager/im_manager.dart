@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/enum/listener_type.dart';
 import 'package:flutter_openim_sdk/listener/int_sdk_listener.dart';
@@ -150,7 +149,8 @@ class IMManager {
         } else if (call.method == ListenerType.advancedMsgListener) {
           var type = call.arguments['type'];
           var id = call.arguments['data']['id'];
-          var msg = Message.fromJson(_formatJson(call.arguments['data']['message']));
+          var msg =
+              Message.fromJson(_formatJson(call.arguments['data']['message']));
           switch (type) {
             case 'onRecvNewMessage':
               for (var listener in messageManager.advancedMsgListeners) {
@@ -181,7 +181,6 @@ class IMManager {
           int progress = data['progress'] ?? 100;
           switch (type) {
             case 'onProgress':
-              print('===========$msgID======$progress');
               messageManager.msgSendProgressListener?.onProgress(
                 msgID,
                 progress,

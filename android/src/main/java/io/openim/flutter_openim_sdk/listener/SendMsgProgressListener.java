@@ -25,13 +25,11 @@ public class SendMsgProgressListener implements SendMsgCallBack {
 
     @Override
     public void onError(long l, String s) {
-        System.out.println("=================onError============" + s);
         CommonUtil.runMainThreadReturnError(result, l, s, null);
     }
 
     @Override
     public void onProgress(long l) {
-        System.out.println("================onProgress============" + l);
         values.put("clientMsgID", CommonUtil.getSendMessageClientMsgID(call));
         values.put("progress", l);
         CommonUtil.emitEvent(channel, "messageProgressListener", "onProgress", values);
@@ -39,7 +37,6 @@ public class SendMsgProgressListener implements SendMsgCallBack {
 
     @Override
     public void onSuccess(String s) {
-        System.out.println("=================onSuccess============" + s);
         CommonUtil.runMainThreadReturn(result, s);
     }
 }
