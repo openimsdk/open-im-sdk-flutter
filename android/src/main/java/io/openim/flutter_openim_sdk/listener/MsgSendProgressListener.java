@@ -8,10 +8,10 @@ import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.SendMsgCallBack;
 
-public class SendMsgProgressListener implements SendMsgCallBack {
+public class MsgSendProgressListener implements SendMsgCallBack {
 
 
-    public SendMsgProgressListener(MethodChannel.Result result, MethodChannel channel, MethodCall call) {
+    public MsgSendProgressListener(MethodChannel.Result result, MethodChannel channel, MethodCall call) {
         this.result = result;
         this.channel = channel;
         this.call = call;
