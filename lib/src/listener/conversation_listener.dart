@@ -1,4 +1,4 @@
-import 'package:flutter_openim_sdk/models/conversation_info.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationListener {
   void onConversationChanged(List<ConversationInfo> list) {}

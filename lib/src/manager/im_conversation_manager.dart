@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_openim_sdk/listener/conversation_listener.dart';
-import 'package:flutter_openim_sdk/models/conversation_info.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationManager {
   MethodChannel _channel;
@@ -21,17 +20,17 @@ class ConversationManager {
         .then((value) => _toList(value));
   }
 
+  /// sourceID 若为单聊则为userID,若为群聊则为groupID
+  /// sessionType 若为单聊则为1,若为群聊则为2
   Future<ConversationInfo> getSingleConversation(
-      {required String conversationID}) {
+      {required String sourceID, required String sessionType}) {
     return _channel
-        .invokeMethod(
-            'getOneConversation',
-            _buildParam({
-              "conversationID": conversationID,
-            }))
+        .invokeMethod('getOneConversation',
+            _buildParam({"sourceID": sourceID, "sessionType": sessionType}))
         .then((value) => _toObj(value));
   }
 
+  /// ["single_1234","group_3434"]
   Future<List<ConversationInfo>> getMultipleConversation(
       {required List<String> conversationIDList}) {
     return _channel
@@ -71,7 +70,6 @@ class ConversationManager {
     return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
   }
 
-  ///@nodoc
   static Map _buildParam(Map param) {
     param["ManagerName"] = "conversationManager";
     return param;
@@ -86,7 +84,6 @@ class ConversationManager {
   static ConversationInfo _toObj(String value) =>
       ConversationInfo.fromJson(_formatJson(value));
 
-  ///@nodoc
   static dynamic _formatJson(value) {
     return jsonDecode(_printValue(value));
   }

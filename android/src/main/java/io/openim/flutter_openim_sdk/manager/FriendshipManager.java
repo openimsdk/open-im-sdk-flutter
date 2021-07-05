@@ -20,7 +20,7 @@ public class FriendshipManager {
     }
 
     public void getFriendsInfo(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getFriendsInfo(new BaseImpl(result), CommonUtil.getSDKJsonParam(methodCall));
+        Open_im_sdk.getFriendsInfo(new BaseImpl(result), CommonUtil.getUidList(methodCall));
     }
 
     public void addFriend(MethodCall methodCall, MethodChannel.Result result) {
@@ -40,7 +40,7 @@ public class FriendshipManager {
     }
 
     public void addToBlackList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.addToBlackList(new BaseImpl(result), CommonUtil.getSDKJsonParam(methodCall));
+        Open_im_sdk.addToBlackList(new BaseImpl(result), CommonUtil.getJsonUid(methodCall));
     }
 
     public void getBlackList(MethodCall methodCall, MethodChannel.Result result) {
@@ -48,23 +48,23 @@ public class FriendshipManager {
     }
 
     public void deleteFromBlackList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteFromBlackList(new BaseImpl(result), CommonUtil.getSDKJsonParam(methodCall));
+        Open_im_sdk.deleteFromBlackList(new BaseImpl(result), CommonUtil.getJsonUid(methodCall));
     }
 
     public void checkFriend(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.checkFriend(new BaseImpl(result), CommonUtil.getSDKJsonParam(methodCall));
+        Open_im_sdk.checkFriend(new BaseImpl(result), CommonUtil.getUidList(methodCall));
     }
 
     public void deleteFromFriendList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteFromFriendList(CommonUtil.getSDKJsonParam(methodCall), new BaseImpl(result));
+        Open_im_sdk.deleteFromFriendList(CommonUtil.getJsonUid(methodCall), new BaseImpl(result));
     }
 
     public void acceptFriendApplication(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.acceptFriendApplication(new BaseImpl(result), CommonUtil.getSDKJsonParam(methodCall));
+        Open_im_sdk.acceptFriendApplication(new BaseImpl(result), CommonUtil.getJsonUid(methodCall));
     }
 
     public void refuseFriendApplication(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.refuseFriendApplication(new BaseImpl(result), CommonUtil.getSDKJsonParam(methodCall));
+        Open_im_sdk.refuseFriendApplication(new BaseImpl(result), CommonUtil.getJsonUid(methodCall));
     }
 
     public void forceSyncFriendApplication(MethodCall methodCall, MethodChannel.Result result) {

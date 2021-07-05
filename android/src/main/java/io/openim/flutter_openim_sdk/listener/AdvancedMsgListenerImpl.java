@@ -11,9 +11,9 @@ public class AdvancedMsgListenerImpl implements OnAdvancedMsgListener {
     final MethodChannel channel;
     final Map<String, String> values = new HashMap<>();
 
-    public AdvancedMsgListenerImpl(MethodChannel channel, String id) {
+    public AdvancedMsgListenerImpl(MethodChannel channel, String listenerId) {
         this.channel = channel;
-        this.values.put("id", id);
+        this.values.put("id", listenerId);
     }
 
     @Override

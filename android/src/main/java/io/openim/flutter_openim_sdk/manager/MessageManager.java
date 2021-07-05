@@ -7,7 +7,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.listener.AdvancedMsgListenerImpl;
 import io.openim.flutter_openim_sdk.listener.BaseImpl;
-import io.openim.flutter_openim_sdk.listener.SendMsgProgressListener;
+import io.openim.flutter_openim_sdk.listener.MsgSendProgressListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.OnAdvancedMsgListener;
 import open_im_sdk.Open_im_sdk;
@@ -29,7 +29,6 @@ public class MessageManager {
             AdvancedMsgListenerImpl listener = new AdvancedMsgListenerImpl(channel, key);
             listeners.put(methodCall.argument(KEY_ID), listener);
             Open_im_sdk.addAdvancedMsgListener(listener);
-            System.out.println("=================add msg listener======" + listener);
         }
     }
 
@@ -37,12 +36,10 @@ public class MessageManager {
         String key = methodCall.argument(KEY_ID);
         OnAdvancedMsgListener listener = listeners.remove(key);
         Open_im_sdk.removeAdvancedMsgListener(listener);
-        System.out.println("=================remove msg listener======" + listener);
     }
 
     public void sendMessage(MethodCall methodCall, MethodChannel.Result result) {
-        SendMsgProgressListener listener = new SendMsgProgressListener(result, channel, methodCall);
-        System.out.println("===============sendMessage===============");
+        MsgSendProgressListener listener = new MsgSendProgressListener(result, channel, methodCall);
         Open_im_sdk.sendMessage(listener, CommonUtil.getSendMessageContent(methodCall), CommonUtil.getSendMessageReceiver(methodCall), CommonUtil.geSendMessageGroupId(methodCall), CommonUtil.getSendMessageOnlineOnly(methodCall));
     }
 

@@ -12,9 +12,6 @@ import io.openim.flutter_openim_sdk.FlutterOpenimSdkPlugin;
 
 
 public class CommonUtil {
-    /**
-     * 主线程处理器
-     */
     private final static Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
 
     public static <T> T getParamValue(MethodCall methodCall, String param) {
@@ -42,14 +39,7 @@ public class CommonUtil {
         MAIN_HANDLER.post(runnable);
     }
 
-    /**
-     * 运行主线程返回错误结果执行
-     *
-     * @param result       返回结果对象
-     * @param errorCode    错误码
-     * @param errorMessage 错误信息
-     * @param errorDetails 错误内容
-     */
+
     public static void runMainThreadReturnError(final MethodChannel.Result result, final String errorCode, final String errorMessage, final Object errorDetails) {
         MAIN_HANDLER.post(new Runnable() {
             @Override
@@ -62,33 +52,6 @@ public class CommonUtil {
     public static void runMainThreadReturnError(final MethodChannel.Result result, final long errorCode, final String errorMessage, final Object errorDetails) {
         runMainThreadReturnError(result, String.valueOf(errorCode), errorMessage, errorDetails);
     }
-
-/*
-
-    public static void returnError(final MethodChannel.Result result, int i, String s) {
-        HashMap<String, Object> err = new HashMap<String, Object>();
-        err.put("code", i);
-        err.put("desc", s);
-        result.success(err);
-    }
-
-    public static void returnError(final MethodChannel.Result result, int i, String s, HashMap<String, Object> data) {
-        HashMap<String, Object> err = new HashMap<String, Object>();
-        err.put("code", i);
-        err.put("desc", s);
-        err.put("data", data);
-        result.success(err);
-    }
-
-    public static <T> void returnSuccess(final MethodChannel.Result result, T data) {
-        HashMap<String, Object> succ = new HashMap<String, Object>();
-        succ.put("code", 0);
-        succ.put("desc", "ok");
-        succ.put("data", data);
-        result.success(succ);
-    }
-*/
-
 
     public static <T> void emitEvent(MethodChannel channel, String method, String type, Long errCode, String errMsg, T data) {
         runMainThread(new Runnable() {
@@ -122,6 +85,10 @@ public class CommonUtil {
     //////////////////////////////////////
     public static String getUid(MethodCall methodCall) {
         return getParamValue(methodCall, KEY_LOGIN_UID);
+    }
+
+    public static String getJsonUid(MethodCall methodCall) {
+        return JsonUtil.toString(getParamValue(methodCall, KEY_LOGIN_UID));
     }
 
     public static String getToken(MethodCall methodCall) {
@@ -239,6 +206,14 @@ public class CommonUtil {
         return getSDKJsonParam(methodCall, KEY_CONVERSATION_IDS);
     }
 
+    public static String getConversationSourceId(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_CONVERSATION_SOURCE_ID);
+    }
+
+    public static int getConversationSessionType(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_CONVERSATION_SESSION_TYPE);
+    }
+
     public static String getConversationDraft(MethodCall methodCall) {
         return getParamValue(methodCall, KEY_CONVERSATION_DRAFT);
     }
@@ -246,6 +221,11 @@ public class CommonUtil {
     public static boolean isPinnedConversation(MethodCall methodCall) {
         return getParamValue(methodCall, KEY_CONVERSATION_PINNED);
     }
+
+    public static String getUidList(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_USER_IDS);
+    }
+
 
     //login
     final static String KEY_LOGIN_UID = "uid";
@@ -283,4 +263,8 @@ public class CommonUtil {
     final static String KEY_CONVERSATION_IDS = "conversationIDList";
     final static String KEY_CONVERSATION_DRAFT = "draftText";
     final static String KEY_CONVERSATION_PINNED = "isPinned";
+    final static String KEY_CONVERSATION_SOURCE_ID = "sourceID";
+    final static String KEY_CONVERSATION_SESSION_TYPE = "sessionType";
+    // user info
+    final static String KEY_USER_IDS = "uidList";
 }

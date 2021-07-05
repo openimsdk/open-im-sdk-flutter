@@ -1,4 +1,5 @@
-import 'package:flutter_openim_sdk/models/message.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+
 
 class AdvancedMsgListener {
   /// listener uniquely identifies

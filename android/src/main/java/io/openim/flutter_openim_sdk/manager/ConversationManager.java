@@ -17,13 +17,13 @@ public class ConversationManager {
     public void setConversationListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setConversationListener(new ConversationListenerImpl(channel));
     }
-    
+
     public void getAllConversationList(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getAllConversationList(new BaseImpl(result));
     }
 
     public void getOneConversation(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getOneConversation(CommonUtil.getConversationId(methodCall), new BaseImpl(result));
+        Open_im_sdk.getOneConversation(CommonUtil.getConversationSourceId(methodCall), CommonUtil.getConversationSessionType(methodCall), new BaseImpl(result));
     }
 
     public void getMultipleConversation(MethodCall methodCall, MethodChannel.Result result) {

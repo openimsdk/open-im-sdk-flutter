@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_openim_sdk/listener/friendship_listener.dart';
-import 'package:flutter_openim_sdk/models/user_info.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class FriendshipManager {
   MethodChannel _channel;
@@ -90,7 +89,6 @@ class FriendshipManager {
     return _channel.invokeMethod('forceSyncBlackList', _buildParam({}));
   }
 
-  ///@nodoc
   static Map _buildParam(Map param) {
     param["ManagerName"] = "friendshipManager";
     return param;
@@ -104,7 +102,6 @@ class FriendshipManager {
 
   static UserInfo _toObj(String value) => UserInfo.fromJson(_formatJson(value));
 
-  ///@nodoc
   static dynamic _formatJson(value) {
     return jsonDecode(_printValue(value));
   }

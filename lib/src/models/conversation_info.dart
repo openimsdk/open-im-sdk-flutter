@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_openim_sdk/models/message.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationInfo {
   String conversationID;

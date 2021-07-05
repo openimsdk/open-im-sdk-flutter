@@ -1,4 +1,4 @@
-import 'package:flutter_openim_sdk/models/user_info.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class InitSDKListener {
   /// SDK 正在连接到服务器

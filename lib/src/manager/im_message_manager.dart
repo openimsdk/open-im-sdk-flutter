@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_openim_sdk/listener/advanced_msg_listener.dart';
-import 'package:flutter_openim_sdk/listener/msg_send_progress_listener.dart';
-import 'package:flutter_openim_sdk/models/message.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class MessageManager {
   MethodChannel _channel;
@@ -24,7 +22,7 @@ class MessageManager {
         'removeAdvancedMsgListener', _buildParam({'id': listener.id}));
   }
 
-  void setMsgProgressListener(MsgSendProgressListener listener) {
+  void setMsgSendProgressListener(MsgSendProgressListener listener) {
     msgSendProgressListener = listener;
   }
 
@@ -74,7 +72,8 @@ class MessageManager {
   }
 
   void deleteMessages({required List<Message> msgList}) {
-    // _channel.invokeMethod('deleteMessages', _buildParam(msgList.toJson()));
+    _channel.invokeMethod('deleteMessages',
+        _buildParam({"msgList": msgList.map((e) => e.toJson()).toList()}));
   }
 
   void insertSingleMessageToLocalStorage({
@@ -194,9 +193,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///@nodoc
   static Map _buildParam(Map param) {
-    print('param:$param');
     param["ManagerName"] = "messageManager";
     return param;
   }
@@ -206,7 +203,6 @@ class MessageManager {
 
   static Message _toObj(String value) => Message.fromJson(_formatJson(value));
 
-  ///@nodoc
   static dynamic _formatJson(value) {
     return jsonDecode(_printValue(value));
   }

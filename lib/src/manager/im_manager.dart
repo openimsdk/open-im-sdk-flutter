@@ -1,18 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_openim_sdk/enum/listener_type.dart';
-import 'package:flutter_openim_sdk/listener/int_sdk_listener.dart';
-import 'package:flutter_openim_sdk/manager/im_conversation_manager.dart';
-import 'package:flutter_openim_sdk/manager/im_friendship_manager.dart';
-import 'package:flutter_openim_sdk/manager/im_group_manager.dart';
-import 'package:flutter_openim_sdk/manager/im_message_manager.dart';
-import 'package:flutter_openim_sdk/manager/im_offline_push_manager.dart';
-import 'package:flutter_openim_sdk/manager/im_signaling_manager.dart';
-import 'package:flutter_openim_sdk/models/conversation_info.dart';
-import 'package:flutter_openim_sdk/models/message.dart';
-import 'package:flutter_openim_sdk/models/user_info.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class IMManager {
   MethodChannel _channel;
@@ -37,21 +26,6 @@ class IMManager {
   void addNativeCallback(MethodChannel _channel) {
     _channel.setMethodCallHandler((call) {
       try {
-        /*if (call.method == ListenerType.simpleMsgListener) {
-          var args = call.arguments;
-          var data = args['data'];
-          String type = args['type'];
-          switch (type) {
-            case 'onRecvC2CCustomMessage':
-              break;
-            case 'onRecvC2CTextMessage':
-              break;
-            case 'onRecvGroupCustomMessage':
-              break;
-            case 'onRecvGroupTextMessage':
-              break;
-          }
-        } else */
         if (call.method == ListenerType.initSDKListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
@@ -150,7 +124,8 @@ class IMManager {
         } else if (call.method == ListenerType.advancedMsgListener) {
           var type = call.arguments['type'];
           var id = call.arguments['data']['id'];
-          var msg = Message.fromJson(_formatJson(call.arguments['data']['message']));
+          var msg =
+              Message.fromJson(_formatJson(call.arguments['data']['message']));
           switch (type) {
             case 'onRecvNewMessage':
               for (var listener in messageManager.advancedMsgListeners) {
@@ -174,14 +149,13 @@ class IMManager {
               }
               break;
           }
-        } else if (call.method == ListenerType.messageProgressListener) {
+        } else if (call.method == ListenerType.msgSendProgressListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
           String msgID = data['clientMsgID'] ?? '';
           int progress = data['progress'] ?? 100;
           switch (type) {
             case 'onProgress':
-              print('===========$msgID======$progress');
               messageManager.msgSendProgressListener?.onProgress(
                 msgID,
                 progress,
@@ -227,8 +201,6 @@ class IMManager {
               break;
           }
         } else if (call.method == ListenerType.friendListener) {
-          // int errCode = call.arguments['errCode'];
-          // String errMsg = call.arguments['errMsg'];
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
           switch (type) {
@@ -265,36 +237,6 @@ class IMManager {
               break;
           }
         }
-        /*else if (call.method == 'logFromSwift') {
-          var data = call.arguments["data"];
-          var msg = call.arguments["msg"];
-        } else if (call.method == ListenerType.signalingListener) {
-          var args = call.arguments;
-          String type = args['type'];
-          Map<String, dynamic> params = args['data'];
-          String inviteID =
-              params['inviteID'] == null ? '' : params['inviteID'];
-          String inviter = params['inviter'] == null ? '' : params['inviter'];
-          String groupID = params['groupID'] == null ? '' : params['groupID'];
-          List<String>? inviteeList = params['inviteeList'] == null
-              ? null
-              : List.from(params['inviteeList']);
-          String data = params['data'] == null ? '' : params['data'];
-          String invitee = params['invitee'] == null ? '' : params['invitee'];
-
-          switch (type) {
-            case 'onReceiveNewInvitation':
-              break;
-            case 'onInviteeAccepted':
-              break;
-            case 'onInviteeRejected':
-              break;
-            case 'onInvitationCancelled':
-              break;
-            case 'onInvitationTimeout':
-              break;
-          }
-        }*/
       } catch (err) {
         print(
             "回调失败了，数据类型异常。$err ${call.method} ${call.arguments['type']} ${call.arguments['data']}");
@@ -357,7 +299,6 @@ class IMManager {
     return _channel.invokeMethod('forceSyncLoginUerInfo', _buildParam({}));
   }
 
-  ///@nodoc
   static Map _buildParam(Map param) {
     param["ManagerName"] = "imManager";
     return param;
@@ -366,7 +307,6 @@ class IMManager {
   static List<UserInfo> _toList(String value) =>
       (_formatJson(value) as List).map((e) => UserInfo.fromJson(e)).toList();
 
-  ///@nodoc
   static dynamic _formatJson(value) {
     return jsonDecode(_printValue(value));
   }

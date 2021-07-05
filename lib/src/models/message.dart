@@ -109,16 +109,16 @@ class Message {
     data['ext'] = this.ext;
     data['sessionType'] = this.sessionType;
     if (this.pictureElem != null) {
-      data['pictureElem'] = this.pictureElem?.toJson();
+      data['pictureElem'] = this.pictureElem!.toJson();
     }
     if (this.soundElem != null) {
-      data['soundElem'] = this.soundElem?.toJson();
+      data['soundElem'] = this.soundElem!.toJson();
     }
     if (this.videoElem != null) {
-      data['videoElem'] = this.videoElem?.toJson();
+      data['videoElem'] = this.videoElem!.toJson();
     }
     if (this.fileElem != null) {
-      data['fileElem'] = this.fileElem?.toJson();
+      data['fileElem'] = this.fileElem!.toJson();
     }
     return data;
   }
@@ -127,7 +127,7 @@ class Message {
   bool operator ==(Object other) {
     // TODO: implement ==
     if (other is Message) {
-      return other.id == id;
+      return other._id == _id;
     }
     return super == other;
   }
@@ -136,7 +136,7 @@ class Message {
   // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
-  String? get id =>
+  String? get _id =>
       clientMsgID == null || clientMsgID!.isEmpty ? serverMsgID : clientMsgID;
 }
 
