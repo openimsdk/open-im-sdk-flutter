@@ -6,6 +6,7 @@ import android.os.Looper;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.flutter.Log;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.FlutterOpenimSdkPlugin;
@@ -53,7 +54,7 @@ public class CommonUtil {
         runMainThreadReturnError(result, String.valueOf(errorCode), errorMessage, errorDetails);
     }
 
-    public static <T> void emitEvent(MethodChannel channel, String method, String type, Long errCode, String errMsg, T data) {
+    public static <T> void emitEvent(String method, String type, Long errCode, String errMsg, T data) {
         runMainThread(new Runnable() {
             @Override
             public void run() {
@@ -70,14 +71,14 @@ public class CommonUtil {
                 if (null != errMsg) {
                     res.put("errMsg", errMsg);
                 }
-                System.out.println("native call flutter { method:" + method + ",  type:" + type + " }");
+                Log.i("F-OpenIMSDK(native call flutter)", "{ method:" + method + ",  type:" + type + " }");
                 FlutterOpenimSdkPlugin.channel.invokeMethod(method, res);
             }
         });
     }
 
-    public static <T> void emitEvent(MethodChannel channel, String method, String type, T data) {
-        emitEvent(channel, method, type, null, null, data);
+    public static <T> void emitEvent(String method, String type, T data) {
+        emitEvent(method, type, null, null, data);
     }
 
 

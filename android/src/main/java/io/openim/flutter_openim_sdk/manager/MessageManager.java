@@ -1,5 +1,7 @@
 package io.openim.flutter_openim_sdk.manager;
 
+import android.content.Context;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,18 +17,12 @@ import open_im_sdk.Open_im_sdk;
 
 public class MessageManager {
     private final static String KEY_ID = "id";
-    private final MethodChannel channel;
     private final static Map<String, OnAdvancedMsgListener> listeners = new HashMap<>();
-
-
-    public MessageManager(MethodChannel channel) {
-        this.channel = channel;
-    }
 
     public void addAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
         String key = methodCall.argument(KEY_ID);
         if (!listeners.containsKey(key)) {
-            AdvancedMsgListenerImpl listener = new AdvancedMsgListenerImpl(channel, key);
+            AdvancedMsgListenerImpl listener = new AdvancedMsgListenerImpl(key);
             listeners.put(methodCall.argument(KEY_ID), listener);
             Open_im_sdk.addAdvancedMsgListener(listener);
         }
@@ -39,7 +35,7 @@ public class MessageManager {
     }
 
     public void sendMessage(MethodCall methodCall, MethodChannel.Result result) {
-        MsgSendProgressListener listener = new MsgSendProgressListener(result, channel, methodCall);
+        MsgSendProgressListener listener = new MsgSendProgressListener(result, methodCall);
         Open_im_sdk.sendMessage(listener, CommonUtil.getSendMessageContent(methodCall), CommonUtil.getSendMessageReceiver(methodCall), CommonUtil.geSendMessageGroupId(methodCall), CommonUtil.getSendMessageOnlineOnly(methodCall));
     }
 

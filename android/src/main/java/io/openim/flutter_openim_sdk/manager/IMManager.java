@@ -9,14 +9,8 @@ import open_im_sdk.Open_im_sdk;
 
 public class IMManager {
 
-    final private MethodChannel channel;
-
-    public IMManager(MethodChannel channel) {
-        this.channel = channel;
-    }
-
     public void initSDK(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.initSDK(CommonUtil.getSDKJsonParam(methodCall), new SDKListenerImpl(channel));
+        Open_im_sdk.initSDK(CommonUtil.getSDKJsonParam(methodCall), new SDKListenerImpl());
         CommonUtil.runMainThreadReturn(result, null);
     }
 

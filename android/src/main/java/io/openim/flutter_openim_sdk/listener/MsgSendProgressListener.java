@@ -9,19 +9,14 @@ import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.SendMsgCallBack;
 
 public class MsgSendProgressListener implements SendMsgCallBack {
-
-
-    public MsgSendProgressListener(MethodChannel.Result result, MethodChannel channel, MethodCall call) {
-        this.result = result;
-        this.channel = channel;
-        this.call = call;
-    }
-
     final private MethodChannel.Result result;
-    final private MethodChannel channel;
     final private MethodCall call;
     final Map<String, Object> values = new HashMap<>();
 
+    public MsgSendProgressListener(MethodChannel.Result result, MethodCall call) {
+        this.result = result;
+        this.call = call;
+    }
 
     @Override
     public void onError(long l, String s) {
@@ -32,7 +27,7 @@ public class MsgSendProgressListener implements SendMsgCallBack {
     public void onProgress(long l) {
         values.put("clientMsgID", CommonUtil.getSendMessageClientMsgID(call));
         values.put("progress", l);
-        CommonUtil.emitEvent(channel, "messageProgressListener", "onProgress", values);
+        CommonUtil.emitEvent("msgSendProgressListener", "onProgress", values);
     }
 
     @Override

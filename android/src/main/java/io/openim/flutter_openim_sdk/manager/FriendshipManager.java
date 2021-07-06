@@ -9,14 +9,9 @@ import open_im_sdk.Open_im_sdk;
 
 public class FriendshipManager {
 
-    final private MethodChannel channel;
-
-    public FriendshipManager(MethodChannel channel) {
-        this.channel = channel;
-    }
 
     public void setFriendListener(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setFriendListener(new FriendshipListenerImpl(channel));
+        Open_im_sdk.setFriendListener(new FriendshipListenerImpl());
     }
 
     public void getFriendsInfo(MethodCall methodCall, MethodChannel.Result result) {

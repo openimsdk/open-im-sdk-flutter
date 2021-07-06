@@ -8,14 +8,9 @@ import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
 
 public class ConversationManager {
-    final private MethodChannel channel;
-
-    public ConversationManager(MethodChannel channel) {
-        this.channel = channel;
-    }
 
     public void setConversationListener(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setConversationListener(new ConversationListenerImpl(channel));
+        Open_im_sdk.setConversationListener(new ConversationListenerImpl());
     }
 
     public void getAllConversationList(MethodCall methodCall, MethodChannel.Result result) {
