@@ -15,4 +15,6 @@ class MessageType {
   static const file = 105;
 
   static const accept_friend = 201;
+
+  static const create_group = 502;
 }

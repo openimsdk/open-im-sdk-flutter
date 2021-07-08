@@ -9,7 +9,7 @@ buildscript {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         google()
         maven {
-            url 'http://127.0.0.1:8081/repository/maven-releases/'  //这个路径就是Browse下maven-release右边有一个copy按钮，复制出来的。
+            url 'http://127.0.0.1:8081/repository/maven-releases/'
         }
         mavenCentral()
     }
@@ -27,7 +27,7 @@ rootProject.allprojects {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         google()
         maven {
-            url 'http://127.0.0.1:8081/repository/maven-releases'  //这个路径就是Browse下maven-release右边有一个copy按钮，复制出来的。
+            url 'http://127.0.0.1:8081/repository/maven-releases'
         }
         mavenCentral()
     }
@@ -47,6 +47,5 @@ android {
     }
 }
 dependencies {
-    implementation 'com.alibaba:fastjson:1.1.72.android'
-    implementation 'io.openim:localsdk:1.1.4@aar'//graoupId:artifactId:version@aar
+    implementation 'io.openim:localsdk:1.2.6@aar'//graoupId:artifactId:version@aar
 }

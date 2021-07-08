@@ -20,8 +20,8 @@ class ConversationManager {
         .then((value) => _toList(value));
   }
 
-  /// sourceID 若为单聊则为userID,若为群聊则为groupID
-  /// sessionType 若为单聊则为1,若为群聊则为2
+  /// sourceID:     userID(single chat) ,groupID(group chat)
+  /// sessionType:  1(single chat) ,2(group chat)
   Future<ConversationInfo> getSingleConversation(
       {required String sourceID, required String sessionType}) {
     return _channel
