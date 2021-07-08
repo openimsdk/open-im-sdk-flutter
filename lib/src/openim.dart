@@ -6,4 +6,6 @@ class OpenIM {
       const MethodChannel('flutter_openim_sdk');
 
   static IMManager iMManager = IMManager(_channel);
+
+  OpenIM._();
 }

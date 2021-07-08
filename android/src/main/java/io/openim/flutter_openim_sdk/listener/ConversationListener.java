@@ -3,7 +3,7 @@ package io.openim.flutter_openim_sdk.listener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.OnConversationListener;
 
-public class ConversationListenerImpl implements OnConversationListener {
+public class ConversationListener implements OnConversationListener {
 
 
     @Override

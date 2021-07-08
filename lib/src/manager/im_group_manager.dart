@@ -1,12 +1,19 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_openim_sdk/src/listener/group_listener.dart';
 import 'package:flutter_openim_sdk/src/models/group_info.dart';
 
 class GroupManager {
   MethodChannel _channel;
+  late GroupListener groupListener;
 
   GroupManager(this._channel);
+
+  void setGroupListener(GroupListener listener) {
+    this.groupListener = listener;
+    _channel.invokeMethod('setGroupListener', _buildParam({}));
+  }
 
   Future<List<GroupInviteResult>> inviteUserToGroup({
     required String groupId,
@@ -21,7 +28,7 @@ class GroupManager {
               'reason': reason,
               'uidList': uidList,
             }))
-        .then((value) => _formatJson(value)
+        .then((value) => (_formatJson(value) as List)
             .map((e) => GroupInviteResult.fromJson(e))
             .toList());
   }
@@ -55,7 +62,7 @@ class GroupManager {
               'gid': groupId,
               'uidList': uidList,
             }))
-        .then((value) => _formatJson(value)
+        .then((value) => (_formatJson(value) as List)
             .map((e) => GroupMembersInfo.fromJson(e))
             .toList());
   }
@@ -80,22 +87,27 @@ class GroupManager {
 
   Future<List<GroupInfo>> getJoinedGroupList() {
     return _channel.invokeMethod('getJoinedGroupList', _buildParam({})).then(
-        (value) =>
-            _formatJson(value).map((e) => GroupInfo.fromJson(e)).toList());
+        (value) => (_formatJson(value) as List)
+            .map((e) => GroupInfo.fromJson(e))
+            .toList());
   }
 
-  Future<String> createGroup({
-    required GroupInfo groupInfo,
+  Future<bool> isJoinedGroup({required String gid}) {
+    return getJoinedGroupList()
+        .then((list) => list.where((e) => e.groupID == gid).length > 0);
+  }
+
+  Future<dynamic> createGroup({
+    GroupInfo? groupInfo,
     required List<GroupMemberRole> list,
   }) {
-    return _channel
-        .invokeMethod(
-            'createGroup',
-            _buildParam({
-              'gInfo': groupInfo.toJson(),
-              'memberList': list.map((e) => e.toJson()).toList()
-            }))
-        .then((value) => _formatJson(value)['groupID']);
+    return _channel.invokeMethod(
+        'createGroup',
+        _buildParam({
+          'gInfo': groupInfo?.toJson(),
+          'memberList': list.map((e) => e.toJson()).toList()
+        }));
+    /*.then((value) => _formatJson(value)['groupID'])*/
   }
 
   Future<dynamic> setGroupInfo({
@@ -113,13 +125,15 @@ class GroupManager {
   }) {
     return _channel
         .invokeMethod('getGroupsInfo', _buildParam({'gidList': gidList}))
-        .then((value) =>
-            _formatJson(value).map((e) => GroupInfo.fromJson(e)).toList());
+        .then((value) {
+      List list = _formatJson(value) ?? [];
+      return list.map((e) => GroupInfo.fromJson(e)).toList();
+    });
   }
 
   Future<dynamic> joinGroup({
     required String gid,
-    required String reason,
+    String? reason,
   }) {
     return _channel.invokeMethod(
         'joinGroup',

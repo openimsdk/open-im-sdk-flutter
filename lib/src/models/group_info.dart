@@ -1,5 +1,5 @@
 class GroupInfo {
-  String? groupID;
+  String groupID;
   String? groupName;
   String? notification;
   String? introduction;
@@ -9,7 +9,7 @@ class GroupInfo {
   int? memberCount;
 
   GroupInfo(
-      {this.groupID,
+      {required this.groupID,
       this.groupName,
       this.notification,
       this.introduction,
@@ -18,8 +18,8 @@ class GroupInfo {
       this.createTime,
       this.memberCount});
 
-  GroupInfo.fromJson(Map<String, dynamic> json) {
-    groupID = json['groupID'];
+  GroupInfo.fromJson(Map<String, dynamic> json): groupID = json['groupID'] {
+    /*groupID = json['groupID'];*/
     groupName = json['groupName'];
     notification = json['notification'];
     introduction = json['introduction'];
@@ -126,7 +126,7 @@ class GroupInviteResult {
 
 class GroupMemberRole {
   String? uid;
-  int? setRole; //0普通成员，2管理员
+  int? setRole;
 
   GroupMemberRole({this.uid, this.setRole});
 

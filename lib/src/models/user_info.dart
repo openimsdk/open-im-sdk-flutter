@@ -2,16 +2,16 @@ class UserInfo {
   String uid;
   String? name;
   String? icon;
-  int? gender; // 0 未知，1 男，2 女
+  int? gender;
   String? mobile;
   String? birth;
   String? email;
   String? ex;
   String? comment;
-  int? isInBlackList; // 0 不在黑名单，1 在黑名单
+  int? isInBlackList;
   String? reqMessage;
   String? applyTime;
-  int? flag; // //0请求添加好友，1同意添加好友，-1拒绝添加好友
+  int? flag;
 
   UserInfo(
       {required this.uid,
@@ -61,5 +61,25 @@ class UserInfo {
     return data;
   }
 
-  String get nickname => comment ?? name ?? uid;
+  String getShowName() {
+    if (null != comment && comment!.trim().isNotEmpty) {
+      return comment!;
+    } else if (null != name && name!.trim().isNotEmpty) {
+      return name!;
+    }
+    return uid;
+  }
+
+  bool get isMan => gender == 1;
+
+  bool get isWoman => gender == 2;
+
+  ///  blacklist
+  bool get isBlocked => isInBlackList == 1;
+
+  /// friend application
+  bool get isAgreed => flag == 1;
+
+  /// friend application
+  bool get isRejected => flag == -1;
 }

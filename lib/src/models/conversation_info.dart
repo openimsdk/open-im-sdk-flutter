@@ -74,4 +74,8 @@ class ConversationInfo {
     data['isPinned'] = this.isPinned;
     return data;
   }
+
+  bool get isSingleChat => conversationType == ConversationType.single_chat;
+
+  bool get isGroupChat => conversationType == ConversationType.group_chat;
 }

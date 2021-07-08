@@ -103,6 +103,11 @@ class MessageManager {
         'markSingleMessageHasRead', _buildParam({'userID': userID}));
   }
 
+  Future<dynamic> markGroupMessageHasRead({required String groupID}) {
+    return _channel.invokeMethod(
+        'markGroupMessageHasRead', _buildParam({'groupID': groupID}));
+  }
+
   Future<Message> createTextMessage({required String text}) {
     return _channel
         .invokeMethod('createTextMessage', _buildParam({'text': text}))

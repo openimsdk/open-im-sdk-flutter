@@ -85,15 +85,15 @@ public class CommonUtil {
     ///////////////////////////////////////
     //////////////////////////////////////
     public static String getUid(MethodCall methodCall) {
-        return getParamValue(methodCall, KEY_LOGIN_UID);
+        return getParamValue(methodCall, KEY_UID);
     }
 
     public static String getJsonUid(MethodCall methodCall) {
-        return JsonUtil.toString(getParamValue(methodCall, KEY_LOGIN_UID));
+        return JsonUtil.toString(getParamValue(methodCall, KEY_UID));
     }
 
     public static String getToken(MethodCall methodCall) {
-        return getParamValue(methodCall, KEY_LOGIN_TOKEN);
+        return getParamValue(methodCall, KEY_TOKEN);
     }
 
     public static String getMessageText(MethodCall methodCall) {
@@ -191,6 +191,10 @@ public class CommonUtil {
         return getParamValue(methodCall, KEY_SINGLE_MESSAGE_USERID);
     }
 
+    public static String getGroupMessageGroupid(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_GROUP_MESSAGE_GROUPID);
+    }
+
     public static String getSingleMessageSender(MethodCall methodCall) {
         return getParamValue(methodCall, KEY_SINGLE_MESSAGE_SENDER);
     }
@@ -227,10 +231,41 @@ public class CommonUtil {
         return getSDKJsonParam(methodCall, KEY_USER_IDS);
     }
 
+    public static String getGid(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_GROUP_ID);
+    }
+
+    public static String getGidList(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_GROUP_IDS);
+    }
+
+    public static String getGroupOpReason(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_GROUP_OP_REASON);
+    }
+
+    public static int getGroupListFilter(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_GROUP_LIST_FILTER);
+    }
+
+    public static int getGroupListNext(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_GROUP_LIST_NEXT);
+    }
+
+    public static String getGroupInfo(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_GROUP_INFO);
+    }
+
+    public static String getGroupMemberRoleList(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_GROUP_MEMBER_ROLE_LIST);
+    }
+
+    public static String getGroupApplicationInfo(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_GROUP_APPLICATION_INFO);
+    }
 
     //login
-    final static String KEY_LOGIN_UID = "uid";
-    final static String KEY_LOGIN_TOKEN = "token";
+    final static String KEY_UID = "uid";
+    final static String KEY_TOKEN = "token";
     //create message body
     final static String KEY_TEXT = "text";
     final static String KEY_AT_USER_LIST = "atUserList";
@@ -257,6 +292,8 @@ public class CommonUtil {
     final static String KEY_SINGLE_MESSAGE_CONTENT = "message";
     final static String KEY_SINGLE_MESSAGE_USERID = "userID";
     final static String KEY_SINGLE_MESSAGE_SENDER = "sender";
+    //group chat
+    final static String KEY_GROUP_MESSAGE_GROUPID = "groupID";
     // find message
     final static String KEY_FIND_MESSAGE_IDS = "messageIDList";
     // conversation
@@ -268,4 +305,15 @@ public class CommonUtil {
     final static String KEY_CONVERSATION_SESSION_TYPE = "sessionType";
     // user info
     final static String KEY_USER_IDS = "uidList";
+    // group
+    final static String KEY_GROUP_ID = "gid";
+    final static String KEY_GROUP_IDS = "gidList";
+    final static String KEY_GROUP_OP_REASON = "reason";
+    //    final static String KEY_GROUP_USER_ID = "uid";
+//    final static String KEY_GROUP_USER_IDS = "uidList";
+    final static String KEY_GROUP_LIST_FILTER = "filter";
+    final static String KEY_GROUP_LIST_NEXT = "next";
+    final static String KEY_GROUP_INFO = "gInfo";
+    final static String KEY_GROUP_MEMBER_ROLE_LIST = "memberList";
+    final static String KEY_GROUP_APPLICATION_INFO = "application";
 }

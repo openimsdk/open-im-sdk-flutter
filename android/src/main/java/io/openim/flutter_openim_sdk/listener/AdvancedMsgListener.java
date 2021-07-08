@@ -6,10 +6,10 @@ import java.util.Map;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.OnAdvancedMsgListener;
 
-public class AdvancedMsgListenerImpl implements OnAdvancedMsgListener {
+public class AdvancedMsgListener implements OnAdvancedMsgListener {
     final Map<String, String> values = new HashMap<>();
 
-    public AdvancedMsgListenerImpl(String listenerId) {
+    public AdvancedMsgListener(String listenerId) {
         this.values.put("id", listenerId);
     }
 

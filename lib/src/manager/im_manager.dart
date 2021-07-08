@@ -12,6 +12,7 @@ class IMManager {
   late OfflinePushManager offlinePushManager;
   late SignalingManager signalingManager;
   late InitSDKListener _initSDKListener;
+  late String logUid;
 
   IMManager(this._channel) {
     conversationManager = ConversationManager(_channel);
@@ -55,71 +56,83 @@ class IMManager {
         } else if (call.method == ListenerType.groupListener) {
           var args = call.arguments;
           String type = args['type'];
-          Map<String, dynamic> params = args['data'] == null
-              ? new Map<String, dynamic>()
-              : new Map<String, dynamic>.from(args['data']);
-
-          String groupID = params['groupID'] == null ? '' : params['groupID'];
-          String opReason =
-              params['opReason'] == null ? '' : params['opReason'];
-          bool isAgreeJoin =
-              params['isAgreeJoin'] == null ? false : params['isAgreeJoin'];
-          String customData =
-              params['customData'] == null ? '' : params['customData'];
-
-          Map<String, String> groupAttributeMap =
-              params['groupAttributeMap'] == null
-                  ? new Map<String, String>()
-                  : new Map<String, String>.from(params['groupAttributeMap']);
-
-          List<Map<String, dynamic>> memberListMap =
-              params['memberList'] == null
-                  ? List.empty(growable: true)
-                  : List.from(params['memberList']);
-
-          List<Map<String, dynamic>> groupMemberChangeInfoListMap =
-              params['groupMemberChangeInfoList'] == null
-                  ? List.empty(growable: true)
-                  : List.from(params['groupMemberChangeInfoList']);
-
-          List<Map<String, dynamic>> groupChangeInfoListMap =
-              params['groupChangeInfoList'] == null
-                  ? List.empty(growable: true)
-                  : List.from(params['groupChangeInfoList']);
-
+          Map<dynamic, dynamic> map = args['data'];
           switch (type) {
             case 'onMemberEnter':
+              groupManager.groupListener.onMemberEnter(
+                map['groupId'],
+                (_formatJson(map['memberList']) as List)
+                    .map((e) => GroupMembersInfo.fromJson(e))
+                    .toList(),
+              );
               break;
             case 'onMemberLeave':
+              groupManager.groupListener.onMemberLeave(
+                map['groupId'],
+                GroupMembersInfo.fromJson(_formatJson(map['member'])),
+              );
               break;
             case 'onMemberInvited':
+              groupManager.groupListener.onMemberInvited(
+                map['groupId'],
+                GroupMembersInfo.fromJson(_formatJson(map['opUser'])),
+                (_formatJson(map['memberList']) as List)
+                    .map((e) => GroupMembersInfo.fromJson(e))
+                    .toList(),
+              );
               break;
             case 'onMemberKicked':
-              break;
-            case 'onMemberInfoChanged':
+              groupManager.groupListener.onMemberKicked(
+                map['groupId'],
+                GroupMembersInfo.fromJson(_formatJson(map['opUser'])),
+                (_formatJson(map['memberList']) as List)
+                    .map((e) => GroupMembersInfo.fromJson(e))
+                    .toList(),
+              );
               break;
             case 'onGroupCreated':
-              break;
-            case 'onGroupDismissed':
-              break;
-            case 'onGroupRecycled':
+              groupManager.groupListener.onGroupCreated(
+                map['groupId'],
+              );
               break;
             case 'onGroupInfoChanged':
+              groupManager.groupListener.onGroupInfoChanged(
+                map['groupId'],
+                GroupInfo.fromJson(_formatJson(map['groupInfo'])),
+              );
               break;
             case 'onReceiveJoinApplication':
+              groupManager.groupListener.onReceiveJoinApplication(
+                map['groupId'],
+                GroupMembersInfo.fromJson(_formatJson(map['opUser'])),
+                map['opReason'],
+              );
               break;
             case 'onApplicationProcessed':
+              groupManager.groupListener.onApplicationProcessed(
+                map['groupId'],
+                GroupMembersInfo.fromJson(_formatJson(map['opUser'])),
+                map['agreeOrReject'],
+                map['opReason'],
+              );
               break;
-            case 'onGrantAdministrator':
-              break;
-            case 'onRevokeAdministrator':
-              break;
-            case 'onQuitFromGroup':
-              break;
-            case 'onReceiveRESTCustomData':
-              break;
-            case 'onGroupAttributeChanged':
-              break;
+            // case 'onMemberInfoChanged':
+            //   break;
+            // case 'onGroupDismissed':
+            //   break;
+            // case 'onGroupRecycled':
+            //   break;
+            //
+            // case 'onGrantAdministrator':
+            //   break;
+            // case 'onRevokeAdministrator':
+            //   break;
+            // case 'onQuitFromGroup':
+            //   break;
+            // case 'onReceiveRESTCustomData':
+            //   break;
+            // case 'onGroupAttributeChanged':
+            //   break;
           }
         } else if (call.method == ListenerType.advancedMsgListener) {
           var type = call.arguments['type'];
@@ -266,6 +279,7 @@ class IMManager {
   }
 
   Future<dynamic> login({required String uid, required String token}) {
+    this.logUid = uid;
     return _channel.invokeMethod(
       'login',
       _buildParam({'uid': uid, 'token': token}),

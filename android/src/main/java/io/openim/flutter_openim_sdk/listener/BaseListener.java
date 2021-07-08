@@ -6,11 +6,11 @@ import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Base;
 
-public class BaseImpl implements Base {
+public class BaseListener implements Base {
 
     MethodChannel.Result result;
 
-    public BaseImpl(MethodChannel.Result result) {
+    public BaseListener(MethodChannel.Result result) {
         this.result = result;
     }
 

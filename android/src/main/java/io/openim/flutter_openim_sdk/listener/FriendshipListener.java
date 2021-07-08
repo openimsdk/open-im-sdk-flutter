@@ -3,7 +3,7 @@ package io.openim.flutter_openim_sdk.listener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.OnFriendshipListener;
 
-public class FriendshipListenerImpl implements OnFriendshipListener {
+public class FriendshipListener implements OnFriendshipListener {
 
     @Override
     public void onBlackListAdd(String s) {
