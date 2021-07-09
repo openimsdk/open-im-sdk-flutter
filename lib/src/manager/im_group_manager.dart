@@ -165,10 +165,7 @@ class GroupManager {
         }));
   }
 
-  Future<GroupApplicationList> getGroupApplicationList({
-    required String gid,
-    required String uid,
-  }) {
+  Future<GroupApplicationList> getGroupApplicationList() {
     return _channel
         .invokeMethod('getGroupApplicationList', _buildParam({}))
         .then((value) => GroupApplicationList.fromJson(_formatJson(value)));

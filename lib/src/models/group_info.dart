@@ -144,40 +144,55 @@ class GroupMemberRole {
 }
 
 class GroupApplicationInfo {
+  String? id;
   String? groupID;
   String? fromUserID;
-  String? fromUserNickName;
-  String? fromUserFaceUrl;
   String? toUserID;
-  int? addTime;
-  String? requestMsg;
+  int? flag; //INIT = 0, REFUSE = -1, AGREE = 1
+  String? reqMsg;
   String? handledMsg;
-  int? type;
-  int? handleStatus;
-  int? handleResult;
+  int? createTime;
+  String? fromUserNickName;
+  String? toUserNickName;
+  String? fromUserFaceURL;
+  String? toUserFaceURL;
+  String? handledUser;
+  int? type; //APPLICATION = 0, INVITE = 1
+  int? handleStatus; //UNHANDLED = 0, BY_OTHER = 1, BY_SELF = 2
+  int? handleResult; //REFUSE = 0, AGREE = 1
 
   GroupApplicationInfo(
-      {this.groupID,
+      {this.id,
+      this.groupID,
       this.fromUserID,
-      this.fromUserNickName,
-      this.fromUserFaceUrl,
       this.toUserID,
-      this.addTime,
-      this.requestMsg,
+      this.flag,
+      this.reqMsg,
       this.handledMsg,
+      this.createTime,
+      this.fromUserNickName,
+      this.toUserNickName,
+      this.fromUserFaceURL,
+      this.toUserFaceURL,
+      this.handledUser,
       this.type,
       this.handleStatus,
       this.handleResult});
 
   GroupApplicationInfo.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     groupID = json['groupID'];
     fromUserID = json['fromUserID'];
-    fromUserNickName = json['fromUserNickName'];
-    fromUserFaceUrl = json['fromUserFaceUrl'];
     toUserID = json['toUserID'];
-    addTime = json['addTime'];
-    requestMsg = json['requestMsg'];
+    flag = json['flag'];
+    reqMsg = json['reqMsg'];
     handledMsg = json['handledMsg'];
+    createTime = json['createTime'];
+    fromUserNickName = json['fromUserNickName'];
+    toUserNickName = json['toUserNickName'];
+    fromUserFaceURL = json['fromUserFaceURL'];
+    toUserFaceURL = json['toUserFaceURL'];
+    handledUser = json['handledUser'];
     type = json['type'];
     handleStatus = json['handleStatus'];
     handleResult = json['handleResult'];
@@ -185,14 +200,19 @@ class GroupApplicationInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['groupID'] = this.groupID;
     data['fromUserID'] = this.fromUserID;
-    data['fromUserNickName'] = this.fromUserNickName;
-    data['fromUserFaceUrl'] = this.fromUserFaceUrl;
     data['toUserID'] = this.toUserID;
-    data['addTime'] = this.addTime;
-    data['requestMsg'] = this.requestMsg;
+    data['flag'] = this.flag;
+    data['reqMsg'] = this.reqMsg;
     data['handledMsg'] = this.handledMsg;
+    data['createTime'] = this.createTime;
+    data['fromUserNickName'] = this.fromUserNickName;
+    data['toUserNickName'] = this.toUserNickName;
+    data['fromUserFaceURL'] = this.fromUserFaceURL;
+    data['toUserFaceURL'] = this.toUserFaceURL;
+    data['handledUser'] = this.handledUser;
     data['type'] = this.type;
     data['handleStatus'] = this.handleStatus;
     data['handleResult'] = this.handleResult;
