@@ -126,7 +126,7 @@ class GroupManager {
     return _channel
         .invokeMethod('getGroupsInfo', _buildParam({'gidList': gidList}))
         .then((value) {
-      List list = _formatJson(value) ?? [];
+      List list = _formatJson(value);
       return list.map((e) => GroupInfo.fromJson(e)).toList();
     });
   }
