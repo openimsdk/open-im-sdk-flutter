@@ -126,7 +126,7 @@ class GroupManager {
     return _channel
         .invokeMethod('getGroupsInfo', _buildParam({'gidList': gidList}))
         .then((value) {
-      List list = _formatJson(value) ?? [];
+      List list = _formatJson(value);
       return list.map((e) => GroupInfo.fromJson(e)).toList();
     });
   }
@@ -165,10 +165,7 @@ class GroupManager {
         }));
   }
 
-  Future<GroupApplicationList> getGroupApplicationList({
-    required String gid,
-    required String uid,
-  }) {
+  Future<GroupApplicationList> getGroupApplicationList() {
     return _channel
         .invokeMethod('getGroupApplicationList', _buildParam({}))
         .then((value) => GroupApplicationList.fromJson(_formatJson(value)));
