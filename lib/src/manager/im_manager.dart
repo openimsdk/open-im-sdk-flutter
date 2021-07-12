@@ -216,37 +216,38 @@ class IMManager {
         } else if (call.method == ListenerType.friendListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
+          UserInfo u = UserInfo.fromJson(_formatJson(data));
           switch (type) {
             case 'onBlackListAdd':
-              friendshipManager.friendshipListener.onBlackListAdd(data);
+              friendshipManager.friendshipListener.onBlackListAdd(u);
               break;
             case 'onBlackListDeleted':
-              friendshipManager.friendshipListener.onBlackListDeleted(data);
+              friendshipManager.friendshipListener.onBlackListDeleted(u);
               break;
             case 'onFriendApplicationListAccept':
               friendshipManager.friendshipListener
-                  .onFriendApplicationListAccept(data);
+                  .onFriendApplicationListAccept(u);
               break;
             case 'onFriendApplicationListAdded':
               friendshipManager.friendshipListener
-                  .onFriendApplicationListAdded(data);
+                  .onFriendApplicationListAdded(u);
               break;
             case 'onFriendApplicationListDeleted':
               friendshipManager.friendshipListener
-                  .onFriendApplicationListDeleted(data);
+                  .onFriendApplicationListDeleted(u);
               break;
             case 'onFriendApplicationListReject':
               friendshipManager.friendshipListener
-                  .onFriendApplicationListReject(data);
+                  .onFriendApplicationListReject(u);
               break;
             case 'onFriendInfoChanged':
-              friendshipManager.friendshipListener.onFriendInfoChanged(data);
+              friendshipManager.friendshipListener.onFriendInfoChanged(u);
               break;
             case 'onFriendListAdded':
-              friendshipManager.friendshipListener.onFriendListAdded(data);
+              friendshipManager.friendshipListener.onFriendListAdded(u);
               break;
             case 'onFriendListDeleted':
-              friendshipManager.friendshipListener.onFriendListDeleted(data);
+              friendshipManager.friendshipListener.onFriendListDeleted(u);
               break;
           }
         }
