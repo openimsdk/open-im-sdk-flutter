@@ -1,19 +1,21 @@
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+
 class FriendshipListener {
-  void onBlackListAdd(dynamic u) {}
+  void onBlackListAdd(UserInfo u) {}
 
-  void onBlackListDeleted(dynamic u) {}
+  void onBlackListDeleted(UserInfo u) {}
 
-  void onFriendApplicationListAccept(dynamic u) {}
+  void onFriendApplicationListAccept(UserInfo u) {}
 
-  void onFriendApplicationListAdded(dynamic u) {}
+  void onFriendApplicationListAdded(UserInfo u) {}
 
-  void onFriendApplicationListDeleted(dynamic u) {}
+  void onFriendApplicationListDeleted(UserInfo u) {}
 
-  void onFriendApplicationListReject(dynamic u) {}
+  void onFriendApplicationListReject(UserInfo u) {}
 
-  void onFriendInfoChanged(dynamic u) {}
+  void onFriendInfoChanged(UserInfo u) {}
 
-  void onFriendListAdded(dynamic u) {}
+  void onFriendListAdded(UserInfo u) {}
 
-  void onFriendListDeleted(dynamic u) {}
+  void onFriendListDeleted(UserInfo u) {}
 }
