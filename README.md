@@ -5,7 +5,7 @@ A Flutter im plugin.
 ## Getting Started
 
 #### 1，初始化 
-    ```
+  
     var msgListener = AdvancedMsgListener();
     
     /// 初始化SDK
@@ -32,11 +32,15 @@ A Flutter im plugin.
 
       /// 设置群监听
       ..groupManager.setGroupListener(GroupListener());
-      ```
-#### 2，会话管理：      OpenIM.iMManager.conversationManager
+      
+#### 2，会话管理：      
+       OpenIM.iMManager.conversationManager
 
-#### 3，好友关系管理：   OpenIM.iMManager.friendshipManager
+#### 3，好友关系管理：  
+        OpenIM.iMManager.friendshipManager
 
-#### 4，消息管理：     OpenIM.iMManager.messageManager
-
-#### 5，组管理：       OpenIM.iMManager.groupManager
+#### 4，消息管理：     
+        OpenIM.iMManager.messageManager
+        
+#### 5，组管理：      
+        OpenIM.iMManager.groupManager
