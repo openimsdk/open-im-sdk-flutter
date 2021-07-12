@@ -2,6 +2,10 @@
 
 A Flutter im plugin.
 
+[Android 体验包(密码：123456)](超链接地址 "https://www.pgyer.com/openim")
+[Flutter demo地址](超链接地址 "https://github.com/hrxiang/OpenIMFlutterDemo.git")
+[SDK文档地址](超链接地址 "http://open-im.io:4999")
+
 ## Getting Started
 
 #### 1，初始化 
