@@ -198,6 +198,10 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  Future<dynamic> getTotalUnreadMsgCount() {
+    return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
+  }
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;
