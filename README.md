@@ -2,8 +2,8 @@
 
 A Flutter im plugin.
 
-##### [Android 体验包(密码：123456)](https://www.pgyer.com/openim)
-##### [Flutter demo源码地址](https://github.com/hrxiang/OpenIMFlutterDemo.git)
+##### [Android体验包(密码：123456)](https://www.pgyer.com/openim)
+##### [demo地址](https://github.com/hrxiang/OpenIMFlutterDemo.git)
 ##### [SDK文档地址](xxxx)
 
 ## Getting Started
