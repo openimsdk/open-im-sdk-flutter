@@ -73,7 +73,7 @@ public class MessageManager {
     }
 
     public void markGroupMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.markGroupMessageHasRead(new BaseListener(result), CommonUtil.getGroupMessageGroupid(methodCall));
+        Open_im_sdk.markGroupMessageHasRead(new BaseListener(result), CommonUtil.getGroupMessageGroupid(methodCall));
     }
 
     public void markC2CMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
