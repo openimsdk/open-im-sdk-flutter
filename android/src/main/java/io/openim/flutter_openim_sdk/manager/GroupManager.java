@@ -22,9 +22,6 @@ public class GroupManager {
     }
 
     public void kickGroupMember(MethodCall methodCall, MethodChannel.Result result) {
-        System.out.println("gid:" + CommonUtil.getGid(methodCall));
-        System.out.println("reason:" + CommonUtil.getGroupOpReason(methodCall));
-        System.out.println("uidList:" + CommonUtil.getUidList(methodCall));
         Open_im_sdk.kickGroupMember(
                 CommonUtil.getGid(methodCall),
                 CommonUtil.getGroupOpReason(methodCall),
