@@ -104,7 +104,7 @@ class IMManager {
             case 'onReceiveJoinApplication':
               groupManager.groupListener.onReceiveJoinApplication(
                 map['groupId'],
-                GroupMembersInfo.fromJson(_formatJson(map['opUser'])),
+                GroupMembersInfo.fromJson(_formatJson(map['member'])),
                 map['opReason'],
               );
               break;
