@@ -135,4 +135,8 @@ public class MessageManager {
                 Open_im_sdk.createForwardMessage(
                         CommonUtil.getForwardMessage(methodCall)));
     }
+
+    public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getTotalUnreadMsgCount(new BaseListener(result));
+    }
 }

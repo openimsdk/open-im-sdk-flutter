@@ -5,7 +5,7 @@ class AdvancedMsgListener {
   /// listener uniquely identifies
   final String id;
 
-  AdvancedMsgListener({required this.id});
+  AdvancedMsgListener() : id = "id_${DateTime.now().microsecondsSinceEpoch}";
 
   void onRecvNewMessage(Message msg) {}
 

@@ -47,8 +47,4 @@ public class ConversationManager {
                 CommonUtil.isPinnedConversation(methodCall),
                 new BaseListener(result));
     }
-
-    public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getTotalUnreadMsgCount(new BaseListener(result));
-    }
 }
