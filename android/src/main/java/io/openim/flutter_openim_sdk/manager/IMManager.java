@@ -41,4 +41,8 @@ public class IMManager {
     public void forceSyncLoginUerInfo(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.forceSyncLoginUerInfo();
     }
+
+    public void forceReConn(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.forceReConn();
+    }
 }

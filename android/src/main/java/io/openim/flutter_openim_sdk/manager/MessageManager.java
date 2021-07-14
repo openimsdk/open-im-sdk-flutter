@@ -139,4 +139,8 @@ public class MessageManager {
     public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getTotalUnreadMsgCount(new BaseListener(result));
     }
+
+    public void forceSyncMsg(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.forceSyncMsg();
+    }
 }

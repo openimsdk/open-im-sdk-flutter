@@ -46,7 +46,7 @@ class GroupManager {
               'reason': reason,
               'uidList': uidList,
             }))
-        .then((value) => _formatJson(value)
+        .then((value) => (_formatJson(value) as List)
             .map((e) => GroupInviteResult.fromJson(e))
             .toList());
   }
@@ -71,8 +71,8 @@ class GroupManager {
   ///begin index, pull and fill 0 for the first time
   Future<GroupMembersList> getGroupMemberList({
     required String groupId,
-    required int filter,
-    required int next,
+    int filter = 0,
+    int next = 0,
   }) {
     return _channel
         .invokeMethod(
@@ -193,6 +193,22 @@ class GroupManager {
           'application': info.toJson(),
           'reason': reason,
         }));
+  }
+
+  void forceSyncApplyGroupRequest() {
+    _channel.invokeMethod('forceSyncApplyGroupRequest', _buildParam({}));
+  }
+
+  void forceSyncGroupRequest() {
+    _channel.invokeMethod('forceSyncGroupRequest', _buildParam({}));
+  }
+
+  void forceSyncJoinedGroup() {
+    _channel.invokeMethod('forceSyncJoinedGroup', _buildParam({}));
+  }
+
+  void forceSyncJoinedGroupMember() {
+    _channel.invokeMethod('forceSyncJoinedGroupMember', _buildParam({}));
   }
 
   static Map _buildParam(Map param) {

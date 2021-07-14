@@ -23,32 +23,35 @@ class Message {
   SoundElem? soundElem;
   VideoElem? videoElem;
   FileElem? fileElem;
+  AtElem? atElem;
 
-  Message(
-      {this.clientMsgID,
-      this.serverMsgID,
-      this.createTime,
-      this.sendTime,
-      this.sendID,
-      this.recvID,
-      this.msgFrom,
-      this.contentType,
-      this.platformID,
-      this.forceList,
-      this.senderNickName,
-      this.senderFaceUrl,
-      this.groupID,
-      this.content,
-      this.seq,
-      this.isRead,
-      this.status,
-      this.remark,
-      this.ext,
-      this.sessionType,
-      this.pictureElem,
-      this.soundElem,
-      this.videoElem,
-      this.fileElem});
+  Message({
+    this.clientMsgID,
+    this.serverMsgID,
+    this.createTime,
+    this.sendTime,
+    this.sendID,
+    this.recvID,
+    this.msgFrom,
+    this.contentType,
+    this.platformID,
+    this.forceList,
+    this.senderNickName,
+    this.senderFaceUrl,
+    this.groupID,
+    this.content,
+    this.seq,
+    this.isRead,
+    this.status,
+    this.remark,
+    this.ext,
+    this.sessionType,
+    this.pictureElem,
+    this.soundElem,
+    this.videoElem,
+    this.fileElem,
+    this.atElem,
+  });
 
   Message.fromJson(Map<String, dynamic> json)
   /*  : clientMsgID = json['clientMsgID']*/ {
@@ -61,7 +64,9 @@ class Message {
     msgFrom = json['msgFrom'];
     contentType = json['contentType'];
     platformID = json['platformID'];
-    forceList = json['forceList'];
+    if (json['forceList'] is List) {
+      forceList = (json['forceList'] as List).map((e) => '$e').toList();
+    }
     senderNickName = json['senderNickName'];
     senderFaceUrl = json['senderFaceUrl'];
     groupID = json['groupID'];
@@ -73,17 +78,17 @@ class Message {
     ext = json['ext'];
     sessionType = json['sessionType'];
     pictureElem = json['pictureElem'] != null
-        ? new PictureElem.fromJson(json['pictureElem'])
+        ? PictureElem.fromJson(json['pictureElem'])
         : null;
     soundElem = json['soundElem'] != null
-        ? new SoundElem.fromJson(json['soundElem'])
+        ? SoundElem.fromJson(json['soundElem'])
         : null;
     videoElem = json['videoElem'] != null
-        ? new VideoElem.fromJson(json['videoElem'])
+        ? VideoElem.fromJson(json['videoElem'])
         : null;
-    fileElem = json['fileElem'] != null
-        ? new FileElem.fromJson(json['fileElem'])
-        : null;
+    fileElem =
+        json['fileElem'] != null ? FileElem.fromJson(json['fileElem']) : null;
+    atElem = json['atElem'] != null ? AtElem.fromJson(json['atElem']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -119,6 +124,9 @@ class Message {
     }
     if (this.fileElem != null) {
       data['fileElem'] = this.fileElem!.toJson();
+    }
+    if (this.atElem != null) {
+      data['atElem'] = this.atElem!.toJson();
     }
     return data;
   }
@@ -332,6 +340,71 @@ class FileElem {
     data['sourceUrl'] = this.sourceUrl;
     data['fileName'] = this.fileName;
     data['fileSize'] = this.fileSize;
+    return data;
+  }
+}
+
+class AtElem {
+  String? text;
+  List<String>? atUserList;
+  bool? isAtSelf;
+
+  AtElem({this.text, this.atUserList, this.isAtSelf});
+
+  AtElem.fromJson(Map<String, dynamic> json) {
+    text = json['text'];
+    if (json['atUserList'] is List) {
+      atUserList = (json['atUserList'] as List).map((e) => '$e').toList();
+    }
+    isAtSelf = json['isAtSelf'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['text'] = this.text;
+    data['atUserList'] = this.atUserList;
+    data['isAtSelf'] = this.isAtSelf;
+    return data;
+  }
+}
+
+class RevokeMessage {
+  String? serverMsgID;
+  String? sendID;
+  String? senderNickname;
+  String? recvID;
+  String? groupID;
+  int? contentType;
+  int? sendTime;
+
+  RevokeMessage(
+      {this.serverMsgID,
+      this.sendID,
+      this.senderNickname,
+      this.recvID,
+      this.groupID,
+      this.contentType,
+      this.sendTime});
+
+  RevokeMessage.fromJson(Map<String, dynamic> json) {
+    serverMsgID = json['serverMsgID'];
+    sendID = json['sendID'];
+    senderNickname = json['senderNickname'];
+    recvID = json['recvID'];
+    groupID = json['groupID'];
+    contentType = json['contentType'];
+    sendTime = json['sendTime'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['serverMsgID'] = this.serverMsgID;
+    data['sendID'] = this.sendID;
+    data['senderNickname'] = this.senderNickname;
+    data['recvID'] = this.recvID;
+    data['groupID'] = this.groupID;
+    data['contentType'] = this.contentType;
+    data['sendTime'] = this.sendTime;
     return data;
   }
 }

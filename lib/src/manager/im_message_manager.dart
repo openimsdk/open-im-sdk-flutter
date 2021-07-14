@@ -202,6 +202,10 @@ class MessageManager {
     return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
   }
 
+  void forceSyncMsg() {
+    _channel.invokeMethod('forceSyncMsg', _buildParam({}));
+  }
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;
