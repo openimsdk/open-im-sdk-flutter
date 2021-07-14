@@ -12,7 +12,9 @@ class IMManager {
   late OfflinePushManager offlinePushManager;
   late SignalingManager signalingManager;
   late InitSDKListener _initSDKListener;
-  late String logUid;
+  late String uid;
+
+  // late UserInfo userInfo;
 
   IMManager(this._channel) {
     conversationManager = ConversationManager(_channel);
@@ -32,8 +34,8 @@ class IMManager {
           dynamic data = call.arguments['data'];
           switch (type) {
             case 'onSelfInfoUpdated':
-              var u = UserInfo.fromJson(_formatJson(data));
-              _initSDKListener.onSelfInfoUpdated(u);
+              _initSDKListener
+                  .onSelfInfoUpdated(UserInfo.fromJson(_formatJson(data)));
               break;
             case 'onConnectFailed':
               int? errCode = call.arguments['errCode'];
@@ -279,8 +281,8 @@ class IMManager {
     return _channel.invokeMethod('unInitSDK', _buildParam({}));
   }
 
-  Future<dynamic> login({required String uid, required String token}) {
-    this.logUid = uid;
+  Future<dynamic> login({required String uid, required String token}) async {
+    this.uid = uid;
     return _channel.invokeMethod(
       'login',
       _buildParam({'uid': uid, 'token': token}),
@@ -296,7 +298,12 @@ class IMManager {
   }
 
   Future<String?> getLoginUid() {
-    return _channel.invokeMethod<String>('getLoginUid', _buildParam({}));
+    return Future.value(uid);
+    // return _channel.invokeMethod<String>('getLoginUid', _buildParam({}));
+  }
+
+  Future<UserInfo> getLoginUserInfo() {
+    return getUsersInfo([uid]).then((list) => list[0]);
   }
 
   Future<String?> setSelfInfo(UserInfo info) {
@@ -312,6 +319,10 @@ class IMManager {
 
   Future<dynamic> forceSyncLoginUerInfo(List<String> uidList) {
     return _channel.invokeMethod('forceSyncLoginUerInfo', _buildParam({}));
+  }
+
+  Future<dynamic> forceReConn() {
+    return _channel.invokeMethod('forceReConn', _buildParam({}));
   }
 
   static Map _buildParam(Map param) {

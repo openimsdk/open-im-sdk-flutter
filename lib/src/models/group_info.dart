@@ -75,14 +75,17 @@ class GroupMembersInfo {
   int? joinTime;
   String? nickName;
   String? faceUrl;
+  dynamic ext;
 
-  GroupMembersInfo(
-      {this.groupID,
-      this.userId,
-      this.role,
-      this.joinTime,
-      this.nickName,
-      this.faceUrl});
+  GroupMembersInfo({
+    this.groupID,
+    this.userId,
+    this.role,
+    this.joinTime,
+    this.nickName,
+    this.faceUrl,
+    this.ext,
+  });
 
   GroupMembersInfo.fromJson(Map<String, dynamic> json) {
     groupID = json['groupID'];
@@ -91,6 +94,7 @@ class GroupMembersInfo {
     joinTime = json['joinTime'];
     nickName = json['nickName'];
     faceUrl = json['faceUrl'];
+    ext = json['ext'];
   }
 
   Map<String, dynamic> toJson() {
@@ -101,6 +105,7 @@ class GroupMembersInfo {
     data['joinTime'] = this.joinTime;
     data['nickName'] = this.nickName;
     data['faceUrl'] = this.faceUrl;
+    data['ext'] = this.ext;
     return data;
   }
 }
