@@ -6,19 +6,22 @@ A Flutter im plugin.
 ##### [demo地址](https://github.com/hrxiang/OpenIMFlutterDemo.git)
 ##### [SDK文档地址](xxxx)
 
-
-
-#### 1,
-   flutter_openim_sdk:
-      git:
-        url: https://github.com/OpenIMSDK/Open-IM-SDK-Flutter.git
-        
-#### 2,
-    import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-    
 ## Getting Started
 
-#### 1，初始化 
+
+#### 1，在yaml里添加依赖
+
+      flutter_openim_sdk:
+         git:
+            url: https://github.com/OpenIMSDK/Open-IM-SDK-Flutter.git
+       
+#### 2，导入package
+
+      import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+
+### Usage
+
+#### 初始化
   
     var msgListener = AdvancedMsgListener();
     
@@ -47,14 +50,14 @@ A Flutter im plugin.
       /// 设置群监听
       ..groupManager.setGroupListener(GroupListener());
       
-#### 2，会话管理：      
-       OpenIM.iMManager.conversationManager
+#### 会话管理：
+      OpenIM.iMManager.conversationManager
 
-#### 3，好友关系管理：  
-        OpenIM.iMManager.friendshipManager
+#### 好友关系管理：
+      OpenIM.iMManager.friendshipManager
 
-#### 4，消息管理：     
-        OpenIM.iMManager.messageManager
+#### 消息管理：
+      OpenIM.iMManager.messageManager
         
-#### 5，组管理：      
-        OpenIM.iMManager.groupManager
+#### 组管理：
+      OpenIM.iMManager.groupManager
