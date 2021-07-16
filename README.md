@@ -6,6 +6,16 @@ A Flutter im plugin.
 ##### [demo地址](https://github.com/hrxiang/OpenIMFlutterDemo.git)
 ##### [SDK文档地址](xxxx)
 
+
+
+#### 1,
+   flutter_openim_sdk:
+      git:
+        url: https://github.com/OpenIMSDK/Open-IM-SDK-Flutter.git
+        
+#### 2,
+    import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+    
 ## Getting Started
 
 #### 1，初始化 
