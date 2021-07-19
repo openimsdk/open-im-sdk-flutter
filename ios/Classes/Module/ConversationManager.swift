@@ -16,7 +16,7 @@ public class ConversationManager:NSObject{
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: FlutterResult){
-        Open_im_sdkSetConversationListener(ConversationListenerImpl(channel: channel))
+        Open_im_sdkSetConversationListener(ConversationListener(channel: channel))
     }
     
     func getAllConversationList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -24,7 +24,7 @@ public class ConversationManager:NSObject{
     }
     
     func getOneConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetOneConversation(CommonUtil.getConversationId(methodCall: methodCall), CommonUtil.getSessionType(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkGetOneConversation(CommonUtil.getConversationSourceId(methodCall: methodCall), CommonUtil.getConversationSessionType(methodCall: methodCall), BaseImpl(result: result))
     }
     
     func getMultipleConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -42,15 +42,10 @@ public class ConversationManager:NSObject{
     func pinConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkPinConversation(CommonUtil.getConversationId(methodCall: methodCall), CommonUtil.isPinnedConversation(methodCall: methodCall), BaseImpl(result: result))
     }
-    
-    func getTotalUnreadMsgCount(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetTotalUnreadMsgCount(BaseImpl(result: result))
-    }
-
 }
 
 
-public class ConversationListenerImpl:NSObject,Open_im_sdkOnConversationListenerProtocol {
+public class ConversationListener:NSObject,Open_im_sdkOnConversationListenerProtocol {
     
     private let channel:FlutterMethodChannel
     

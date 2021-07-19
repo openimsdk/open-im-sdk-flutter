@@ -1,9 +1,3 @@
-//
-//  CommonUtil.swift
-//  Runner
-//
-//  Created by z1u24 on 2021/6/28.
-//
 
 import Foundation
 
@@ -47,32 +41,27 @@ public class CommonUtil {
     }
     
     public static func getUid(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_LOGIN_UID) as! String
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_UID) as! String
         return result
+    }
+
+     public static func getJsonUid(methodCall: FlutterMethodCall)->String{
+        let result = getParamValue(methodCall: methodCall, param: KEY_UID) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
     
     public static func getToken(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_LOGIN_TOKEN) as! String
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_TOKEN) as! String
         return result
     }
     
     public static func getUidList(methodCall: FlutterMethodCall)->String{
-        let result = getParamValue(methodCall: methodCall, param: KEY_UID_LIST) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_USER_IDS) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
     
-    public static func getUserUid(methodCall: FlutterMethodCall)->String{
-        let result = getParamValue(methodCall: methodCall, param: KEY_LOGIN_UID) as AnyObject
-        let r = JsonUtil.toString(object: result)
-        return r
-    }
-    
-    public static func getDeleteUid(methodCall: FlutterMethodCall)->String{
-        let result = getParamValue(methodCall: methodCall, param: KEY_DELETE_UID) as AnyObject
-        let r = JsonUtil.toString(object: result)
-        return r
-    }
     
     public static func getMessageText(methodCall: FlutterMethodCall)->String{
         let result: String = getParamValue(methodCall: methodCall, param: KEY_TEXT) as! String
@@ -80,8 +69,9 @@ public class CommonUtil {
     }
     
     public static func getAtUserList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_AT_USER_LIST) as! String
-        return result
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_AT_USER_LIST) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
     
     public static func getImagePath(methodCall: FlutterMethodCall)->String{
@@ -130,8 +120,9 @@ public class CommonUtil {
     }
     
     public static func getMergerMessageList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_MERGER_MESSAGE_LIST) as! String
-        return result
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_MERGER_MESSAGE_LIST) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
     
     public static func getMergerMessageTitle(methodCall: FlutterMethodCall)->String{
@@ -140,13 +131,15 @@ public class CommonUtil {
     }
     
     public static func getSummaryList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_SUMMARY_LIST) as! String
-        return result
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_SUMMARY_LIST) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
     
     public static func getForwardMessage(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_FORWARD_MESSAGE) as! String
-        return result
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_FORWARD_MESSAGE) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
     
     public static func getSendMessageContent(methodCall: FlutterMethodCall)->String{
@@ -194,8 +187,9 @@ public class CommonUtil {
     }
     
     public static func getFindMessageIds(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_FIND_MESSAGE_IDS) as! String
-        return result
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_FIND_MESSAGE_IDS) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
     
     public static func getConversationId(methodCall: FlutterMethodCall)->String{
@@ -204,10 +198,21 @@ public class CommonUtil {
     }
     
     public static func getConversationIds(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_IDS) as! String
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_IDS) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
+    }
+
+     public static func getConversationSourceId(methodCall: FlutterMethodCall)->String {
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_SOURCE_ID);
         return result
     }
-    
+
+    public static func getConversationSessionType(methodCall: FlutterMethodCall)->Int{
+        let result: Int = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_SESSION_TYPE) as! Int
+        return result
+    }
+
     public static func getConversationDraft(methodCall: FlutterMethodCall)->String{
         let result: String = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_DRAFT) as! String
         return result
@@ -218,127 +223,100 @@ public class CommonUtil {
         return (result != 0)
     }
     
-    public static func getSessionType(methodCall: FlutterMethodCall)->Int{
-        let result: Int = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_SESSION) as! Int
-        return result
-    }
-    
-    /**
-     * group
-     */
-    public static func getGroupId(methodCall: FlutterMethodCall)->String{
+    public static func getGid(methodCall: FlutterMethodCall)->String{
         let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_ID) as! String
         return result
     }
-    
-    public static func getGroupReason(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_REASON) as! String
+
+     public static func getGidList(methodCall: FlutterMethodCall)->String{
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_IDS) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
+    }
+
+    public static func getGroupOpReason(methodCall: FlutterMethodCall)->String{
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_OP_REASON) as! String
         return result
     }
     
-    public static func getGroupUserList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_USERLIST) as! String
+    public static func getGroupListFilter(methodCall: FlutterMethodCall)->Int32{
+        let result: Int32 = getParamValue(methodCall: methodCall, param: KEY_GROUP_LIST_FILTER) as! Int32
         return result
     }
     
-    public static func getGroupFilter(methodCall: FlutterMethodCall)->Int32{
-        let result: Int32 = getParamValue(methodCall: methodCall, param: KEY_GROUP_FILTER) as! Int32
-        return result
-    }
-    
-    public static func getGroupNext(methodCall: FlutterMethodCall)->Int32{
-        let result: Int32 = getParamValue(methodCall: methodCall, param: KEY_GROUP_NEXT) as! Int32
+    public static func getGroupListNext(methodCall: FlutterMethodCall)->Int32{
+        let result: Int32 = getParamValue(methodCall: methodCall, param: KEY_GROUP_LIST_NEXT) as! Int32
         return result
     }
     
     public static func getGroupInfo(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_INFO) as! String
-        return result
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_INFO) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
     
-    public static func getGroupMemberList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_MEMBERLIST) as! String
-        return result
+    public static func getGroupMemberRoleList(methodCall: FlutterMethodCall)->String {
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_MEMBER_ROLE_LIST) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
-    
-    public static func getGroupJsonInfo(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_JSONINFO) as! String
-        return result
+
+    public static func getGroupApplicationInfo(methodCall: FlutterMethodCall)->String {
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_APPLICATION_INFO) as AnyObject
+        let r = JsonUtil.toString(object: result)
+        return r
     }
-    
-    public static func getGroupIdList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_IDLIST) as! String
-        return result
-    }
-    
-    public static func getGroupMessage(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_MESSAGE) as! String
-        return result
-    }
-    
-    public static func getGroupUserId(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_USER_ID) as! String
-        return result
-    }
-    
-    public static func getGroupApplication(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_APPLICATION) as! String
-        return result
-    }
-    
-    
+
+
     //login
-    private static let KEY_LOGIN_UID: String = "uid";
-    private static let KEY_LOGIN_TOKEN: String = "token";
-    //userinfo
-    private static let KEY_UID_LIST: String = "uidList";
-    private static let KEY_DELETE_UID: String = "deleteUid";
+    private static let KEY_UID: String = "uid";
+    private static let KEY_TOKEN: String = "token";
     //create message body
-    private static let KEY_TEXT: String = "text";
-    private static let KEY_AT_USER_LIST: String = "atUserList";
-    private static let KEY_IMAGE_PATH: String = "imagePath";
-    private static let KEY_SOUND_PATH: String = "soundPath";
+    private static let  KEY_TEXT: String = "text";
+    private static let  KEY_AT_USER_LIST: String = "atUserList";
+    private static let  KEY_IMAGE_PATH: String = "imagePath";
+    private static let KEY_SOUND_PATH : String= "soundPath";
     private static let KEY_SOUND_DURATION: String = "duration";
-    private static let KEY_VIDEO_PATH: String = "videoPath";
-    private static let KEY_VIDEO_TYPE: String = "videoType";
-    private static let KEY_VIDEO_DURATION: String = "duration";
+    private static let  KEY_VIDEO_PATH: String = "videoPath";
+    private static let  KEY_VIDEO_TYPE: String = "videoType";
+    private static let  KEY_VIDEO_DURATION: String = "duration";
     private static let KEY_VIDEO_SNAPSHOT_PATH: String = "snapshotPath";
-    private static let KEY_FILE_PATH: String = "filePath";
+    private static let  KEY_FILE_PATH: String = "filePath";
     private static let KEY_FILE_NAME: String = "fileName";
-    private static let KEY_MERGER_MESSAGE_LIST: String = "messageList";
-    private static let KEY_MERGER_MESSAGE_TITLE: String = "title";
-    private static let KEY_SUMMARY_LIST: String = "summaryList";
-    private static let KEY_FORWARD_MESSAGE: String = "message";
+    private static let  KEY_MERGER_MESSAGE_LIST: String = "messageList";
+    private static let  KEY_MERGER_MESSAGE_TITLE: String = "title";
+    private static let KEY_SUMMARY_LIST =: String "summaryList";
+    private static let  KEY_FORWARD_MESSAGE: String = "message";
     //send message
     private static let KEY_SEND_MESSAGE_CONTENT: String = "message";
-    private static let KEY_SEND_MESSAGE_CONTENT_CLIENT_ID: String = "clientMsgID";
-    private static let KEY_SEND_MESSAGE_RECEIVER: String = "receiver";
-    private static let KEY_SEND_MESSAGE_GROUP_ID: String = "groupID";
-    private static let KEY_SEND_MESSAGE_ONLINE_ONLY: String = "onlineUserOnly";
+    private static let  KEY_SEND_MESSAGE_CONTENT_CLIENT_ID: String = "clientMsgID";
+    private static let  KEY_SEND_MESSAGE_RECEIVER: String = "receiver";
+    private static let  KEY_SEND_MESSAGE_GROUP_ID: String = "groupID";
+    private static let  KEY_SEND_MESSAGE_ONLINE_ONLY: String = "onlineUserOnly";
     //single chat
-    private static let KEY_SINGLE_MESSAGE_CONTENT: String = "message";
-    private static let KEY_SINGLE_MESSAGE_USERID: String = "userID";
-    private static let KEY_SINGLE_MESSAGE_SENDER: String = "sender";
+    private static let  KEY_SINGLE_MESSAGE_CONTENT: String = "message";
+    private static let  KEY_SINGLE_MESSAGE_USERID: String = "userID";
+    private static let  KEY_SINGLE_MESSAGE_SENDER: String = "sender";
+    //group chat
+    private static let KEY_GROUP_MESSAGE_GROUPID: String = "groupID";
     // find message
     private static let KEY_FIND_MESSAGE_IDS: String = "messageIDList";
     // conversation
     private static let KEY_CONVERSATION_ID: String = "conversationID";
-    private static let KEY_CONVERSATION_IDS: String = "conversationIDList";
-    private static let KEY_CONVERSATION_DRAFT: String = "draftText";
-    private static let KEY_CONVERSATION_PINNED: String = "isPinned";
-    private static let KEY_CONVERSATION_SESSION: String = "sessionType";
-    
-    //group
-    private static let KEY_GROUP_ID: String = "groupid";
-    private static let KEY_GROUP_USERLIST: String = "userList";
-    private static let KEY_GROUP_REASON: String = "reason";
-    private static let KEY_GROUP_FILTER: String = "filter";
-    private static let KEY_GROUP_NEXT: String = "next";
-    private static let KEY_GROUP_INFO: String = "gInfo";
-    private static let KEY_GROUP_MEMBERLIST: String = "memberList";
-    private static let KEY_GROUP_JSONINFO: String = "jsonGroupInfo";
-    private static let KEY_GROUP_IDLIST: String = "groupIdList";
-    private static let KEY_GROUP_MESSAGE: String = "message";
-    private static let KEY_USER_ID: String = "userId";
-    private static let KEY_GROUP_APPLICATION: String = "application";
+    private static let  KEY_CONVERSATION_IDS: String = "conversationIDList";
+    private static let  KEY_CONVERSATION_DRAFT: String = "draftText";
+    private static let  KEY_CONVERSATION_PINNED: String = "isPinned";
+    private static let  KEY_CONVERSATION_SOURCE_ID: String = "sourceID";
+    private static let  KEY_CONVERSATION_SESSION_TYPE: String = "sessionType";
+    // user info
+    private static let  KEY_USER_IDS: String = "uidList";
+    // group
+    private static let  KEY_GROUP_ID: String = "gid";
+    private static let  KEY_GROUP_IDS: String = "gidList";
+    private static let  KEY_GROUP_OP_REASON: String = "reason";
+    private static let  KEY_GROUP_LIST_FILTER: String = "filter";
+    private static let  KEY_GROUP_LIST_NEXT: String = "next";
+    private static let  KEY_GROUP_INFO: String = "gInfo";
+    private static let KEY_GROUP_MEMBER_ROLE_LIST: String = "memberList";
+    private static let KEY_GROUP_APPLICATION_INFO: String = "application";
 }

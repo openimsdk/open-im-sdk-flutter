@@ -16,7 +16,7 @@ public class FriendshipManager:NSObject{
     }
     
     func setFriendListener(methodCall: FlutterMethodCall, result: FlutterResult){
-        Open_im_sdkSetFriendListener(FriendshipListenerImpl(channel: channel))
+        Open_im_sdkSetFriendListener(FriendshipListener(channel: channel))
     }
     
     func getFriendsInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -40,7 +40,7 @@ public class FriendshipManager:NSObject{
     }
     
     func addToBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAddToBlackList(BaseImpl(result: result), CommonUtil.getUserUid(methodCall: methodCall))
+        Open_im_sdkAddToBlackList(BaseImpl(result: result), CommonUtil.getJsonUid(methodCall: methodCall))
     }
     
     func getBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -48,7 +48,7 @@ public class FriendshipManager:NSObject{
     }
     
     func deleteFromBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteFromBlackList(BaseImpl(result: result), CommonUtil.getUserUid(methodCall: methodCall))
+        Open_im_sdkDeleteFromBlackList(BaseImpl(result: result), CommonUtil.getJsonUid(methodCall: methodCall))
     }
     
     func checkFriend(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -56,15 +56,15 @@ public class FriendshipManager:NSObject{
     }
     
     func deleteFromFriendList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteFromFriendList(CommonUtil.getDeleteUid(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkDeleteFromFriendList(CommonUtil.getJsonUid(methodCall: methodCall), BaseImpl(result: result))
     }
     
     func acceptFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAcceptFriendApplication(BaseImpl(result: result), CommonUtil.getUid(methodCall: methodCall))
+        Open_im_sdkAcceptFriendApplication(BaseImpl(result: result), CommonUtil.getJsonUid(methodCall: methodCall))
     }
     
     func refuseFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkRefuseFriendApplication(BaseImpl(result: result), CommonUtil.getUid(methodCall: methodCall))
+        Open_im_sdkRefuseFriendApplication(BaseImpl(result: result), CommonUtil.getJsonUid(methodCall: methodCall))
     }
     
     func forceSyncFriendApplication(methodCall: FlutterMethodCall, result: FlutterResult){
@@ -80,7 +80,7 @@ public class FriendshipManager:NSObject{
     }
 }
 
-public class FriendshipListenerImpl:NSObject,Open_im_sdkOnFriendshipListenerProtocol {
+public class FriendshipListener:NSObject,Open_im_sdkOnFriendshipListenerProtocol {
     private let channel:FlutterMethodChannel
     
     init(channel:FlutterMethodChannel) {
