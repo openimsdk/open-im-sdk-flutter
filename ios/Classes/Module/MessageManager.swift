@@ -12,20 +12,17 @@ public class MessageManager:NSObject{
     private let KEY_ID: String = "id"
     private let channel:FlutterMethodChannel
     private let listeners: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-    private var sendMsgProgressListener: SendMsgProgressListener?
     
     init(channel:FlutterMethodChannel) {
         self.channel = channel
     }
     
     func addAdvancedMsgListener(methodCall: FlutterMethodCall, result: FlutterResult){
-        if sendMsgProgressListener == nil {
-            sendMsgProgressListener = SendMsgProgressListener(channel: channel)
-        }
+    
         let d = methodCall.arguments as! NSDictionary
         let key = d.value(forKey: KEY_ID) as! String
         if !listeners.allKeys.contains(where: {($0 as! String).compare(key) == .orderedSame}) {
-            let lis = AdvancedMsgListenerImpl(channel: channel, id: key)
+            let lis = AdvancedMsgListener(channel: channel, id: key)
             let k = methodCall.arguments as! NSDictionary
             let s = k.value(forKey: KEY_ID) as! String
             listeners.setValue(lis, forKey: s)
@@ -38,17 +35,18 @@ public class MessageManager:NSObject{
         let k = methodCall.arguments as! NSDictionary
         let s = k.value(forKey: KEY_ID) as! String
         if listeners.allKeys.contains(where: {($0 as! String).compare(s) == .orderedSame}) {
-            let lis = listeners.value(forKey: s) as! AdvancedMsgListenerImpl
+            let lis = listeners.value(forKey: s) as! AdvancedMsgListener
             listeners.removeObject(forKey: s)
             Open_im_sdkRemoveAdvancedMsgListener(lis)
         }
     }
     
     func sendMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+       let sendMsgProgressListener: SendMsgProgressListener= SendMsgProgressListener(channel: channel)
         sendMsgProgressListener?.setCall(methodCall: methodCall)
         sendMsgProgressListener?.setResult(result: result)
         print("===============sendMessage===============")
-        Open_im_sdkSendMessage(sendMsgProgressListener, CommonUtil.getSendMessageContent(methodCall: methodCall), CommonUtil.getSendMessageReceiver(methodCall: methodCall), CommonUtil.getSendMessageGroupId(methodCall: methodCall), CommonUtil.getSendMessageOnlineOnly(methodCall: methodCall))
+        Open_im_sdkSendMessage(sendMsgProgressListener, CommonUtil.getSendMessageContent(methodCall: methodCall), CommonUtil.getSendMessageReceiver(methodCall: methodCall), CommonUtil.geSendMessageGroupId(methodCall: methodCall), CommonUtil.getSendMessageOnlineOnly(methodCall: methodCall))
     }
     
     func getHistoryMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -78,7 +76,11 @@ public class MessageManager:NSObject{
     func markSingleMessageHasRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkMarkSingleMessageHasRead(BaseImpl(result: result), CommonUtil.getSingleMessageUserid(methodCall: methodCall))
     }
-    
+
+    func markGroupMessageHasRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkMarkGroupMessageHasRead(BaseImpl(result: result), CommonUtil.getGroupMessageGroupid(methodCall: methodCall))
+    }
+
     func createTextMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let prama = Open_im_sdkCreateTextMessage(CommonUtil.getMessageText(methodCall: methodCall))
         DispatchQueue.main.async { result(prama) }
@@ -118,7 +120,13 @@ public class MessageManager:NSObject{
         let prama = Open_im_sdkCreateForwardMessage(CommonUtil.getForwardMessage(methodCall: methodCall))
         DispatchQueue.main.async { result(prama) }
     }
-    
+
+    func getTotalUnreadMsgCount(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetTotalUnreadMsgCount(BaseImpl(result: result))
+    }
+
+    func forceSyncMsg(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkForceSyncMsg()
 }
 
 public class SendMsgProgressListener:NSObject, Open_im_sdkSendMsgCallBackProtocol {
@@ -149,7 +157,7 @@ public class SendMsgProgressListener:NSObject, Open_im_sdkSendMsgCallBackProtoco
         print("=================onProgress============\nprogress:\(progress)");
         values.setValue(CommonUtil.getSendMessageClientMsgID(methodCall: self.call!), forKey: "clientMsgID")
         values.setValue(progress, forKey: "progress")
-        CommonUtil.emitEvent(channel: channel, method: "messageProgressListener", type: "onProgress", errCode: nil, errMsg: nil, data: values)
+        CommonUtil.emitEvent(channel: channel, method: "msgSendProgressListener", type: "onProgress", errCode: nil, errMsg: nil, data: values)
     }
     
     public func onSuccess(_ data: String?) {
@@ -159,7 +167,7 @@ public class SendMsgProgressListener:NSObject, Open_im_sdkSendMsgCallBackProtoco
     
 }
 
-public class AdvancedMsgListenerImpl: NSObject, Open_im_sdkOnAdvancedMsgListenerProtocol {
+public class AdvancedMsgListener: NSObject, Open_im_sdkOnAdvancedMsgListenerProtocol {
     private let channel: FlutterMethodChannel
     private let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
     

@@ -89,11 +89,15 @@ public class CommonUtil {
     }
 
     public static String getJsonUid(MethodCall methodCall) {
-        return JsonUtil.toString(getParamValue(methodCall, KEY_UID));
+        return getSDKJsonParam(methodCall, KEY_UID);
     }
 
     public static String getToken(MethodCall methodCall) {
         return getParamValue(methodCall, KEY_TOKEN);
+    }
+
+    public static String getUidList(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_USER_IDS);
     }
 
     public static String getMessageText(MethodCall methodCall) {
@@ -101,7 +105,6 @@ public class CommonUtil {
     }
 
     public static String getAtUserList(MethodCall methodCall) {
-//        return methodCall.argument(KEY_AT_USER_LIST);
         return getSDKJsonParam(methodCall, KEY_AT_USER_LIST);
     }
 
@@ -144,7 +147,6 @@ public class CommonUtil {
     }
 
     public static String getMergerMessageList(MethodCall methodCall) {
-//        return methodCall.argument(KEY_MERGER_MESSAGE_LIST);
         return getSDKJsonParam(methodCall, KEY_MERGER_MESSAGE_LIST);
     }
 
@@ -153,12 +155,10 @@ public class CommonUtil {
     }
 
     public static String getSummaryList(MethodCall methodCall) {
-//        return methodCall.argument(KEY_SUMMARY_LIST);
         return getSDKJsonParam(methodCall, KEY_SUMMARY_LIST);
     }
 
     public static String getForwardMessage(MethodCall methodCall) {
-//        return methodCall.argument(KEY_FORWARD_MESSAGE);
         return getSDKJsonParam(methodCall, KEY_FORWARD_MESSAGE);
     }
 
@@ -225,10 +225,6 @@ public class CommonUtil {
 
     public static boolean isPinnedConversation(MethodCall methodCall) {
         return getParamValue(methodCall, KEY_CONVERSATION_PINNED);
-    }
-
-    public static String getUidList(MethodCall methodCall) {
-        return getSDKJsonParam(methodCall, KEY_USER_IDS);
     }
 
     public static String getGid(MethodCall methodCall) {

@@ -17,7 +17,7 @@ public class IMMananger:NSObject{
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: FlutterResult){
-        Open_im_sdkInitSDK(CommonUtil.getSDKJsonParam(methodCall: methodCall), SDKListenerImpl(channel: self.channel))
+        Open_im_sdkInitSDK(CommonUtil.getSDKJsonParam(methodCall: methodCall), SDKListener(channel: self.channel))
     }
     
     func login(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -33,7 +33,7 @@ public class IMMananger:NSObject{
     }
     
     func getLoginUid(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        DispatchQueue.main.async { result(Open_im_sdkGetLoginUser()) }
+        DispatchQueue.main.async { result(Open_im_sdkGetLoginUid()) }
     }
     
     func getUsersInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -47,9 +47,13 @@ public class IMMananger:NSObject{
     func forceSyncLoginUerInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkForceSyncLoginUerInfo()
     }
+
+    func forceReConn(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkForceReConn()
+    }
 }
 
-public class SDKListenerImpl:NSObject,Open_im_sdkIMSDKListenerProtocol {
+public class SDKListener:NSObject,Open_im_sdkIMSDKListenerProtocol {
     private let channel:FlutterMethodChannel
     
     init(channel:FlutterMethodChannel) {
