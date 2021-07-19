@@ -29,7 +29,7 @@ class MessageManager {
   /*Future<Message> */
   Future<dynamic> sendMessage({
     required Message message,
-    String? receiver,
+    String? userID,
     String? groupID,
     required bool onlineUserOnly,
   }) {
@@ -37,7 +37,7 @@ class MessageManager {
             'sendMessage',
             _buildParam({
               'message': message.toJson(),
-              'receiver': receiver ?? '',
+              'receiver': userID ?? '',
               'groupID': groupID ?? '',
               'onlineUserOnly': onlineUserOnly,
             }))
@@ -46,8 +46,8 @@ class MessageManager {
 
   Future<List<Message>> getHistoryMessageList({
     String? userID,
-    Message? startMsg,
     String? groupID,
+    Message? startMsg,
     int? count,
   }) {
     return _channel
@@ -62,8 +62,9 @@ class MessageManager {
         .then((value) => _toList(value));
   }
 
-  void revokeMessage({required Message message}) {
-    _channel.invokeMethod('revokeMessage', _buildParam(message.toJson()));
+  Future revokeMessage({required Message message}) {
+    return _channel.invokeMethod(
+        'revokeMessage', _buildParam(message.toJson()));
   }
 
   Future deleteMessageFromLocalStorage({required Message message}) {
@@ -71,17 +72,17 @@ class MessageManager {
         'deleteMessageFromLocalStorage', _buildParam(message.toJson()));
   }
 
-  void deleteMessages({required List<Message> msgList}) {
-    _channel.invokeMethod('deleteMessages',
+  Future deleteMessages({required List<Message> msgList}) {
+    return _channel.invokeMethod('deleteMessages',
         _buildParam({"msgList": msgList.map((e) => e.toJson()).toList()}));
   }
 
-  void insertSingleMessageToLocalStorage({
+  Future insertSingleMessageToLocalStorage({
     String? userID,
     Message? message,
     String? sender,
   }) {
-    _channel.invokeMethod(
+    return _channel.invokeMethod(
         'insertSingleMessageToLocalStorage',
         _buildParam({
           "userID": userID,
@@ -90,8 +91,8 @@ class MessageManager {
         }));
   }
 
-  void findMessages({required List<String> messageIDList}) {
-    _channel.invokeMethod(
+  Future findMessages({required List<String> messageIDList}) {
+    return _channel.invokeMethod(
         'findMessages',
         _buildParam({
           "messageIDList": messageIDList,

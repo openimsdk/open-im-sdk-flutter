@@ -27,11 +27,16 @@ void main() {
   // print(m1 == m4);
   // print(m2 == m4);
   // print(m3 == m4);
-  var input = "1234 @abc @bbc @hha 开什么玩笑";
-  RegExp exp = new RegExp(r"(@\w+) ");
-  final ms  = exp.allMatches(input);
-  for (Match m in ms) {
-    String match = m.group(0)??'';
-    print('====$match  ${m.start}  ${m.end}');
-  }
+  // var input = "1234 @abc @bbc @hha 开什么玩笑";
+  // RegExp exp = new RegExp(r"(@\w+) ");
+  // final ms  = exp.allMatches(input);
+  // for (Match m in ms) {
+  //   String match = m.group(0)??'';
+  //   print('====$match  ${m.start}  ${m.end}');
+  // }
+
+  DateTime now = DateTime.now();
+  print('${now.millisecond}');
+  print('${now.microsecondsSinceEpoch}');
+  print('${now.millisecondsSinceEpoch}');
 }
