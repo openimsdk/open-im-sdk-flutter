@@ -61,8 +61,8 @@ A Flutter im plugin.
 | login            | 登录                                                    |
 | logout           | 登出                                                    |
 | getLoginStatus   | 登录状态                                                |
-| getLoginUid      | 当前userid                                              |
-| getLoginUserInfo | 当前登录用户信息                                        |
+| getLoginUid      | 当前uid                                              |
+| getLoginUserInfo | 当前用户信息                                        |
 | setSelfInfo      | 修改资料                                                |
 | getUsersInfo     | 根据uid获取用户资料                                     |
 | forceReConn      | 强制重连                                                |
