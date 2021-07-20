@@ -113,10 +113,14 @@ class CustomAdvancedMsgListener extends AdvancedMsgListener {
 
 ```
 // 创建消息监听
+// 在进入聊天界面后需要监听新消息然后渲染UI
+// 每个聊天窗口都有唯一的uid（用户id）或gid（群组id）
+// 根据uid或gid判断收到的消息是否属于当前窗口
 var msgListener = CustomAdvancedMsgListener(onNewMessage: (message) {
+		// 如果发送者id与当前聊天对象的id相等，或群组id与当前所在群id相等，则为当前窗口消息
 	  if (message.sendID == uid || message.groupID == gid) {
         if (!chatMsgList.contains(message)) {
-	  // 当前聊天窗口新增消息
+	  			// 当前聊天窗口新增消息
           chatMsgList.add(event.message);
         }
       }
@@ -126,6 +130,7 @@ var msgListener = CustomAdvancedMsgListener(onNewMessage: (message) {
 OpenIM.iMManager.messageManager.addAdvancedMsgListener(msgListener);
 
 // 移除消息监听
+// 添加消息监听后，如果界面dispose，请移除对应的监听
 // OpenIM.iMManager.messageManager.removeAdvancedMsgListener(msgListener);
 ```
 
@@ -140,8 +145,8 @@ var message = await OpenIM.iMManager.messageManager.createTextMessage(
 OpenIM.iMManager.messageManager.sendMessage(
    message: message,
    onlineUserOnly: false,
-   userID: uid,
-   groupID: gid,
+   userID: uid,// 单聊值不为null
+   groupID: gid,// 群聊值不为null
  ).then((v) {
    // 发送成功
  }).catchError((e){
