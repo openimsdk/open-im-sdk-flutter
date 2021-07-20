@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+
 void main() {
   /* const MethodChannel channel = MethodChannel('flutter_openim_sdk');
 
@@ -35,8 +37,8 @@ void main() {
   //   print('====$match  ${m.start}  ${m.end}');
   // }
 
-  DateTime now = DateTime.now();
-  print('${now.millisecond}');
-  print('${now.microsecondsSinceEpoch}');
-  print('${now.millisecondsSinceEpoch}');
+  // DateTime now = DateTime.now();
+  // print('${now.millisecond}');
+  // print('${now.microsecondsSinceEpoch}');
+  // print('${now.millisecondsSinceEpoch}');
 }

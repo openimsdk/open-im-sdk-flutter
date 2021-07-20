@@ -117,14 +117,14 @@ class MessageManager {
 
   Future<Message> createTextAtMessage({
     required String text,
-    required List<String> atUserList,
+    required List<String> atUidList,
   }) {
     return _channel
         .invokeMethod(
           'createTextAtMessage',
           _buildParam({
             'text': text,
-            'atUserList': atUserList,
+            'atUserList': atUidList,
           }),
         )
         .then((value) => _toObj(value));
