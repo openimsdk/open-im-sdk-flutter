@@ -9,62 +9,78 @@ class ConversationManager {
 
   ConversationManager(this._channel);
 
-  void setConversationListener(ConversationListener listener) {
+  Future setConversationListener(ConversationListener listener) {
     this.conversationListener = listener;
-    _channel.invokeMethod('setConversationListener', _buildParam({}));
+    return _channel.invokeMethod('setConversationListener', _buildParam({}));
   }
 
-  Future<List<ConversationInfo>> getAllConversationList() {
-    return _channel
-        .invokeMethod('getAllConversationList', _buildParam({}))
-        .then((value) => _toList(value));
-  }
+  Future<List<ConversationInfo>> getAllConversationList() => _channel
+      .invokeMethod('getAllConversationList', _buildParam({}))
+      .then((value) => _toList(value));
 
   /// sourceID:     userID(single chat) ,groupID(group chat)
   /// sessionType:  1(single chat) ,2(group chat)
-  Future<ConversationInfo> getSingleConversation(
-      {required String sourceID, required String sessionType}) {
-    return _channel
-        .invokeMethod('getOneConversation',
-            _buildParam({"sourceID": sourceID, "sessionType": sessionType}))
-        .then((value) => _toObj(value));
-  }
+  Future<ConversationInfo> getSingleConversation({
+    required String sourceID,
+    required String sessionType,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getOneConversation',
+              _buildParam({
+                "sourceID": sourceID,
+                "sessionType": sessionType,
+              }))
+          .then((value) => _toObj(value));
 
   /// ["single_1234","group_3434"]
-  Future<List<ConversationInfo>> getMultipleConversation(
-      {required List<String> conversationIDList}) {
-    return _channel
-        .invokeMethod('getMultipleConversation',
-            _buildParam({"conversationIDList": conversationIDList}))
-        .then((value) => _toList(value));
-  }
+  Future<List<ConversationInfo>> getMultipleConversation({
+    required List<String> conversationIDList,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getMultipleConversation',
+              _buildParam({
+                "conversationIDList": conversationIDList,
+              }))
+          .then((value) => _toList(value));
 
-  void deleteConversation({required String conversationID}) {
-    _channel
-        .invokeMethod('deleteConversation',
-            _buildParam({"conversationID": conversationID}))
-        .then((value) => _printValue(value));
-  }
+  Future deleteConversation({
+    required String conversationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'deleteConversation',
+              _buildParam({
+                "conversationID": conversationID,
+              }))
+          .then((value) => _printValue(value));
 
-  void setConversationDraft(
-      {required String conversationID, required String draftText}) {
-    _channel
-        .invokeMethod(
-            'setConversationDraft',
-            _buildParam(
-                {"conversationID": conversationID, "draftText": draftText}))
-        .then((value) => _printValue(value));
-  }
+  Future setConversationDraft({
+    required String conversationID,
+    required String draftText,
+  }) =>
+      _channel
+          .invokeMethod(
+              'setConversationDraft',
+              _buildParam({
+                "conversationID": conversationID,
+                "draftText": draftText,
+              }))
+          .then((value) => _printValue(value));
 
-  void pinConversation(
-      {required String conversationID, required bool isPinned}) {
-    _channel
-        .invokeMethod(
-            'pinConversation',
-            _buildParam(
-                {"conversationID": conversationID, "isPinned": isPinned}))
-        .then((value) => _printValue(value));
-  }
+  Future pinConversation({
+    required String conversationID,
+    required bool isPinned,
+  }) =>
+      _channel
+          .invokeMethod(
+              'pinConversation',
+              _buildParam({
+                "conversationID": conversationID,
+                "isPinned": isPinned,
+              }))
+          .then((value) => _printValue(value));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "conversationManager";

@@ -13,8 +13,7 @@ class IMManager {
   late SignalingManager signalingManager;
   late InitSDKListener _initSDKListener;
   late String uid;
-
-  // late UserInfo userInfo;
+  late UserInfo uInfo;
 
   IMManager(this._channel) {
     conversationManager = ConversationManager(_channel);
@@ -34,8 +33,8 @@ class IMManager {
           dynamic data = call.arguments['data'];
           switch (type) {
             case 'onSelfInfoUpdated':
-              _initSDKListener
-                  .onSelfInfoUpdated(UserInfo.fromJson(_formatJson(data)));
+              uInfo = UserInfo.fromJson(_formatJson(data));
+              _initSDKListener.onSelfInfoUpdated(uInfo);
               break;
             case 'onConnectFailed':
               int? errCode = call.arguments['errCode'];
@@ -303,7 +302,7 @@ class IMManager {
   }
 
   Future<UserInfo> getLoginUserInfo() {
-    return getUsersInfo([uid]).then((list) => list[0]);
+    return getUsersInfo([uid]).then((list) => uInfo = list[0]);
   }
 
   Future<String?> setSelfInfo(UserInfo info) {

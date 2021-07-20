@@ -9,9 +9,9 @@ class FriendshipManager {
 
   FriendshipManager(this._channel);
 
-  void setFriendshipListener(FriendshipListener listener) {
+  Future setFriendshipListener(FriendshipListener listener) {
     this.friendshipListener = listener;
-    _channel.invokeMethod('setFriendListener', _buildParam({}));
+    return _channel.invokeMethod('setFriendListener', _buildParam({}));
   }
 
   Future<List<UserInfo>> getFriendsInfo({required List<String> uidList}) {
