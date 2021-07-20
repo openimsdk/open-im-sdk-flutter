@@ -1,6 +1,6 @@
 # flutter_openim_sdk
 
-A Flutter im plugin.
+A flutter IM plugin for android and ios.
 
 ##### [Android体验包(密码：123456)](https://www.pgyer.com/openim)
 
