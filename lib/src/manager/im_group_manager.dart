@@ -10,9 +10,9 @@ class GroupManager {
 
   GroupManager(this._channel);
 
-  void setGroupListener(GroupListener listener) {
+  Future setGroupListener(GroupListener listener) {
     this.groupListener = listener;
-    _channel.invokeMethod('setGroupListener', _buildParam({}));
+    return _channel.invokeMethod('setGroupListener', _buildParam({}));
   }
 
   Future<List<GroupInviteResult>> inviteUserToGroup({
@@ -195,20 +195,20 @@ class GroupManager {
         }));
   }
 
-  void forceSyncApplyGroupRequest() {
-    _channel.invokeMethod('forceSyncApplyGroupRequest', _buildParam({}));
+  Future forceSyncApplyGroupRequest() {
+    return _channel.invokeMethod('forceSyncApplyGroupRequest', _buildParam({}));
   }
 
-  void forceSyncGroupRequest() {
-    _channel.invokeMethod('forceSyncGroupRequest', _buildParam({}));
+  Future forceSyncGroupRequest() {
+    return _channel.invokeMethod('forceSyncGroupRequest', _buildParam({}));
   }
 
-  void forceSyncJoinedGroup() {
-    _channel.invokeMethod('forceSyncJoinedGroup', _buildParam({}));
+  Future forceSyncJoinedGroup() {
+    return _channel.invokeMethod('forceSyncJoinedGroup', _buildParam({}));
   }
 
-  void forceSyncJoinedGroupMember() {
-    _channel.invokeMethod('forceSyncJoinedGroupMember', _buildParam({}));
+  Future forceSyncJoinedGroupMember() {
+    return _channel.invokeMethod('forceSyncJoinedGroupMember', _buildParam({}));
   }
 
   static Map _buildParam(Map param) {
