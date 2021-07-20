@@ -54,7 +54,7 @@ OpenIM.iMManager
 
 ```
  OpenIM.iMManager.login(uid: uid, token: token).then((value){
- 	///登录成功
+ 	//登录成功
  });
 ```
 
