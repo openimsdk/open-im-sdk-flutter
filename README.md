@@ -24,7 +24,7 @@ A Flutter im plugin.
 #### 3， 初始化配置
 
 ```
-/// 初始化SDK
+// 初始化SDK
 OpenIM.iMManager
   ..initSDK(
     platform: IMPlatform.ios,
@@ -34,19 +34,19 @@ OpenIM.iMManager
     listener: InitSDKListener(),
   )
 
-  /// 添加消息监听(不使用的时候remove)
+  // 添加消息监听(不使用的时候remove)
   ..messageManager.addAdvancedMsgListener(AdvancedMsgListener())
 
-  /// 设置消息发送进度监听
+  // 设置消息发送进度监听
   ..messageManager.setMsgSendProgressListener(MsgSendProgressListener())
 
-  /// 设置好友关系监听
+  // 设置好友关系监听
   ..friendshipManager.setFriendshipListener(FriendshipListener())
 
-  /// 设置会话监听
+  // 设置会话监听
   ..conversationManager.setConversationListener(ConversationListener())
 
-  /// 设置群监听
+  // 设置群监听
   ..groupManager.setGroupListener(GroupListener());
 ```
 
@@ -54,7 +54,7 @@ OpenIM.iMManager
 
 ```
  OpenIM.iMManager.login(uid: uid, token: token).then((value){
- 	 	///登录成功
+ 	///登录成功
  });
 ```
 
@@ -62,7 +62,7 @@ OpenIM.iMManager
 
 ```
  OpenIM.iMManager.conversationManager.getAllConversationList().then((list) {
-     /// 返回会话列表list
+ 	// 返回会话列表list
  });
 ```
 
@@ -70,7 +70,7 @@ OpenIM.iMManager
 
 ```
  OpenIM.iMManager.friendshipManager.getFriendList().then((list) {
-   	/// 返回好友列表list
+   	// 返回好友列表list
  });
 ```
 
@@ -97,8 +97,8 @@ class CustomAdvancedMsgListener extends AdvancedMsgListener {
 -   历史消息
 
 ```
-  /// 如果userID不为null，groupID为null，获取的是单聊消息
-  /// 如果userID为null，groupID不为null，获取的是群聊消息
+  // 如果userID不为null，groupID为null，获取的是单聊消息
+  // 如果userID为null，groupID不为null，获取的是群聊消息
   OpenIM.iMManager.messageManager.getHistoryMessageList(
           userID: uid,//用户id
           startMsg: startMsg,//上一条消息,取chatMsgList[0]
@@ -112,39 +112,40 @@ class CustomAdvancedMsgListener extends AdvancedMsgListener {
 -  新消息
 
 ```
-/// 创建消息监听
+// 创建消息监听
 var msgListener = CustomAdvancedMsgListener(onNewMessage: (message) {
 	  if (message.sendID == uid || message.groupID == gid) {
         if (!chatMsgList.contains(message)) {
+	  // 当前聊天窗口新增消息
           chatMsgList.add(event.message);
         }
       }
 });
 
-/// 添加消息监听
+// 添加消息监听
 OpenIM.iMManager.messageManager.addAdvancedMsgListener(msgListener);
 
-/// 移除消息监听
+// 移除消息监听
 // OpenIM.iMManager.messageManager.removeAdvancedMsgListener(msgListener);
 ```
 
 #### 8，发送消息
 
 ```
-/// 创建消息
+// 创建消息
 var message = await OpenIM.iMManager.messageManager.createTextMessage(
      text: '我是消息内容',
  );
-/// 发送
+// 发送
 OpenIM.iMManager.messageManagersendMessage(
    message: message,
    onlineUserOnly: false,
    userID: uid,
    groupID: gid,
  ).then((v) {
-   /// 发送成功
+   // 发送成功
  }).catchError((e){
-   /// 发送失败
+   // 发送失败
  });
 ```
 
