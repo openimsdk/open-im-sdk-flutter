@@ -137,7 +137,7 @@ var message = await OpenIM.iMManager.messageManager.createTextMessage(
      text: '我是消息内容',
  );
 // 发送
-OpenIM.iMManager.messageManagersendMessage(
+OpenIM.iMManager.messageManager.sendMessage(
    message: message,
    onlineUserOnly: false,
    userID: uid,
