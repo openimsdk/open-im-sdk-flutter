@@ -79,7 +79,7 @@ OpenIM.iMManager
 ```
 List<Message> chatMsgList = List.empty(growable: true);
   
-/// 自定义消息监听
+/// 自定义消息监听，新消息到达会触发onNewMessage方法回调
 class CustomAdvancedMsgListener extends AdvancedMsgListener {
   final ValueChanged<Message>? onNewMessage;
 
@@ -117,13 +117,13 @@ class CustomAdvancedMsgListener extends AdvancedMsgListener {
 // 每个聊天窗口都有唯一的uid（用户id）或gid（群组id）
 // 根据uid或gid判断收到的消息是否属于当前窗口
 var msgListener = CustomAdvancedMsgListener(onNewMessage: (message) {
-		// 如果发送者id与当前聊天对象的id相等，或群组id与当前所在群id相等，则为当前窗口消息
-	  if (message.sendID == uid || message.groupID == gid) {
+     // 如果发送者id与当前聊天对象的id相等，或群组id与当前所在群id相等，则为当前窗口消息
+     if (message.sendID == uid || message.groupID == gid) {
         if (!chatMsgList.contains(message)) {
-	  			// 当前聊天窗口新增消息
+	  // 当前聊天窗口新增消息
           chatMsgList.add(event.message);
         }
-      }
+     }
 });
 
 // 添加消息监听
