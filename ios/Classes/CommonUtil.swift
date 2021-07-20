@@ -45,7 +45,7 @@ public class CommonUtil {
         return result
     }
 
-     public static func getJsonUid(methodCall: FlutterMethodCall)->String{
+    public static func getJsonUid(methodCall: FlutterMethodCall)->String{
         let result = getParamValue(methodCall: methodCall, param: KEY_UID) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
@@ -61,8 +61,7 @@ public class CommonUtil {
         let r = JsonUtil.toString(object: result)
         return r
     }
-    
-    
+
     public static func getMessageText(methodCall: FlutterMethodCall)->String{
         let result: String = getParamValue(methodCall: methodCall, param: KEY_TEXT) as! String
         return result
@@ -267,56 +266,55 @@ public class CommonUtil {
         return r
     }
 
-
     //login
     private static let KEY_UID: String = "uid";
     private static let KEY_TOKEN: String = "token";
     //create message body
-    private static let  KEY_TEXT: String = "text";
-    private static let  KEY_AT_USER_LIST: String = "atUserList";
-    private static let  KEY_IMAGE_PATH: String = "imagePath";
-    private static let KEY_SOUND_PATH : String= "soundPath";
+    private static let KEY_TEXT: String = "text";
+    private static let KEY_AT_USER_LIST: String = "atUserList";
+    private static let KEY_IMAGE_PATH: String = "imagePath";
+    private static let KEY_SOUND_PATH: String= "soundPath";
     private static let KEY_SOUND_DURATION: String = "duration";
-    private static let  KEY_VIDEO_PATH: String = "videoPath";
-    private static let  KEY_VIDEO_TYPE: String = "videoType";
-    private static let  KEY_VIDEO_DURATION: String = "duration";
+    private static let KEY_VIDEO_PATH: String = "videoPath";
+    private static let KEY_VIDEO_TYPE: String = "videoType";
+    private static let KEY_VIDEO_DURATION: String = "duration";
     private static let KEY_VIDEO_SNAPSHOT_PATH: String = "snapshotPath";
-    private static let  KEY_FILE_PATH: String = "filePath";
+    private static let KEY_FILE_PATH: String = "filePath";
     private static let KEY_FILE_NAME: String = "fileName";
-    private static let  KEY_MERGER_MESSAGE_LIST: String = "messageList";
-    private static let  KEY_MERGER_MESSAGE_TITLE: String = "title";
-    private static let KEY_SUMMARY_LIST =: String "summaryList";
-    private static let  KEY_FORWARD_MESSAGE: String = "message";
+    private static let KEY_MERGER_MESSAGE_LIST: String = "messageList";
+    private static let KEY_MERGER_MESSAGE_TITLE: String = "title";
+    private static let KEY_SUMMARY_LIST: String = "summaryList";
+    private static let KEY_FORWARD_MESSAGE: String = "message";
     //send message
     private static let KEY_SEND_MESSAGE_CONTENT: String = "message";
-    private static let  KEY_SEND_MESSAGE_CONTENT_CLIENT_ID: String = "clientMsgID";
-    private static let  KEY_SEND_MESSAGE_RECEIVER: String = "receiver";
-    private static let  KEY_SEND_MESSAGE_GROUP_ID: String = "groupID";
-    private static let  KEY_SEND_MESSAGE_ONLINE_ONLY: String = "onlineUserOnly";
+    private static let KEY_SEND_MESSAGE_CONTENT_CLIENT_ID: String = "clientMsgID";
+    private static let KEY_SEND_MESSAGE_RECEIVER: String = "receiver";
+    private static let KEY_SEND_MESSAGE_GROUP_ID: String = "groupID";
+    private static let KEY_SEND_MESSAGE_ONLINE_ONLY: String = "onlineUserOnly";
     //single chat
-    private static let  KEY_SINGLE_MESSAGE_CONTENT: String = "message";
-    private static let  KEY_SINGLE_MESSAGE_USERID: String = "userID";
-    private static let  KEY_SINGLE_MESSAGE_SENDER: String = "sender";
+    private static let KEY_SINGLE_MESSAGE_CONTENT: String = "message";
+    private static let KEY_SINGLE_MESSAGE_USERID: String = "userID";
+    private static let KEY_SINGLE_MESSAGE_SENDER: String = "sender";
     //group chat
     private static let KEY_GROUP_MESSAGE_GROUPID: String = "groupID";
     // find message
     private static let KEY_FIND_MESSAGE_IDS: String = "messageIDList";
     // conversation
     private static let KEY_CONVERSATION_ID: String = "conversationID";
-    private static let  KEY_CONVERSATION_IDS: String = "conversationIDList";
-    private static let  KEY_CONVERSATION_DRAFT: String = "draftText";
-    private static let  KEY_CONVERSATION_PINNED: String = "isPinned";
-    private static let  KEY_CONVERSATION_SOURCE_ID: String = "sourceID";
-    private static let  KEY_CONVERSATION_SESSION_TYPE: String = "sessionType";
+    private static let KEY_CONVERSATION_IDS: String = "conversationIDList";
+    private static let KEY_CONVERSATION_DRAFT: String = "draftText";
+    private static let KEY_CONVERSATION_PINNED: String = "isPinned";
+    private static let KEY_CONVERSATION_SOURCE_ID: String = "sourceID";
+    private static let KEY_CONVERSATION_SESSION_TYPE: String = "sessionType";
     // user info
-    private static let  KEY_USER_IDS: String = "uidList";
+    private static let KEY_USER_IDS: String = "uidList";
     // group
-    private static let  KEY_GROUP_ID: String = "gid";
-    private static let  KEY_GROUP_IDS: String = "gidList";
-    private static let  KEY_GROUP_OP_REASON: String = "reason";
-    private static let  KEY_GROUP_LIST_FILTER: String = "filter";
-    private static let  KEY_GROUP_LIST_NEXT: String = "next";
-    private static let  KEY_GROUP_INFO: String = "gInfo";
+    private static let KEY_GROUP_ID: String = "gid";
+    private static let KEY_GROUP_IDS: String = "gidList";
+    private static let KEY_GROUP_OP_REASON: String = "reason";
+    private static let KEY_GROUP_LIST_FILTER: String = "filter";
+    private static let KEY_GROUP_LIST_NEXT: String = "next";
+    private static let KEY_GROUP_INFO: String = "gInfo";
     private static let KEY_GROUP_MEMBER_ROLE_LIST: String = "memberList";
     private static let KEY_GROUP_APPLICATION_INFO: String = "application";
 }

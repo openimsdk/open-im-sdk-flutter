@@ -172,7 +172,9 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
     
     private func handleGroupManager(call: FlutterMethodCall, result: @escaping FlutterResult){
         let method: String = call.method
-        if method == "inviteUserToGroup" {
+       if method == "setGroupListener" {
+           groupManager.setGroupListener(methodCall: call, result: result)
+        }else if method == "inviteUserToGroup" {
             groupManager.inviteUserToGroup(methodCall: call, result: result)
         }else if method == "kickGroupMember" {
             groupManager.kickGroupMember(methodCall: call, result: result)

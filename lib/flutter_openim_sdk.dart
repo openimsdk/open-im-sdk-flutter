@@ -2,6 +2,7 @@ library flutter_openim_sdk;
 
 export 'src/enum/conversation_type.dart';
 export 'src/enum/group_role.dart';
+export 'src/enum/im_platform.dart';
 export 'src/enum/listener_type.dart';
 export 'src/enum/message_status.dart';
 export 'src/enum/message_type.dart';
