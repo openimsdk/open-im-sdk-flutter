@@ -68,7 +68,7 @@ public class CommonUtil {
     }
     
     public static func getAtUserList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_AT_USER_LIST) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_AT_USER_LIST) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
@@ -119,7 +119,7 @@ public class CommonUtil {
     }
     
     public static func getMergerMessageList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_MERGER_MESSAGE_LIST) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_MERGER_MESSAGE_LIST) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
@@ -130,13 +130,13 @@ public class CommonUtil {
     }
     
     public static func getSummaryList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_SUMMARY_LIST) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_SUMMARY_LIST) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
     
     public static func getForwardMessage(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_FORWARD_MESSAGE) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_FORWARD_MESSAGE) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
@@ -186,7 +186,7 @@ public class CommonUtil {
     }
     
     public static func getFindMessageIds(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_FIND_MESSAGE_IDS) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_FIND_MESSAGE_IDS) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
@@ -197,7 +197,7 @@ public class CommonUtil {
     }
     
     public static func getConversationIds(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_IDS) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_IDS) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
@@ -228,7 +228,7 @@ public class CommonUtil {
     }
 
      public static func getGidList(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_IDS) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_GROUP_IDS) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
@@ -249,19 +249,19 @@ public class CommonUtil {
     }
     
     public static func getGroupInfo(methodCall: FlutterMethodCall)->String{
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_INFO) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_GROUP_INFO) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
     
     public static func getGroupMemberRoleList(methodCall: FlutterMethodCall)->String {
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_MEMBER_ROLE_LIST) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_GROUP_MEMBER_ROLE_LIST) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
 
     public static func getGroupApplicationInfo(methodCall: FlutterMethodCall)->String {
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_APPLICATION_INFO) as AnyObject
+        let result = getParamValue(methodCall: methodCall, param: KEY_GROUP_APPLICATION_INFO) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
     }
