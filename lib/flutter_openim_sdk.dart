@@ -19,6 +19,7 @@ export 'src/manager/im_manager.dart';
 export 'src/manager/im_message_manager.dart';
 export 'src/manager/im_offline_push_manager.dart';
 export 'src/manager/im_signaling_manager.dart';
+export 'src/manager/v2/im_message_manager_v2.dart';
 export 'src/models/conversation_info.dart';
 export 'src/models/group_info.dart';
 export 'src/models/message.dart';

@@ -11,5 +11,5 @@ class AdvancedMsgListener {
 
   void onRecvC2CReadReceipt(Message msg) {}
 
-  void onRecvMessageRevoked(Message msg) {}
+  void onRecvMessageRevoked(String msgId) {}
 }

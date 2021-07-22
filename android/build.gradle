@@ -7,7 +7,7 @@ buildscript {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
-        maven { url 'http://47.112.160.66:8081/repository/maven-releases'}
+//        maven { url 'http://47.112.160.66:8081/repository/maven-releases'}
         maven { url 'http://127.0.0.1:8081/repository/maven-releases' }
         google()
         mavenCentral()
@@ -24,7 +24,7 @@ rootProject.allprojects {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
-        maven { url 'http://47.112.160.66:8081/repository/maven-releases'}
+//        maven { url 'http://47.112.160.66:8081/repository/maven-releases'}
         maven { url 'http://127.0.0.1:8081/repository/maven-releases' }
         google()
         mavenCentral()
@@ -45,6 +45,6 @@ android {
     }
 }
 dependencies {
-    implementation 'io.openim:client-sdk:0.0.1@aar'
+    implementation 'io.openim:client:0.0.7@aar'
 //    implementation 'io.openim:client-sdk:1.0.0@aar'//graoupId:artifactId:version@aar
 }

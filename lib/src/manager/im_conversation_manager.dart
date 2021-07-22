@@ -3,23 +3,30 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
+///
+///
 class ConversationManager {
   MethodChannel _channel;
   late ConversationListener conversationListener;
 
   ConversationManager(this._channel);
 
+  /// listener[ConversationListener]，Observe conversation changes
+  ///
   Future setConversationListener(ConversationListener listener) {
     this.conversationListener = listener;
     return _channel.invokeMethod('setConversationListener', _buildParam({}));
   }
 
+  /// get all conversations
+  ///
   Future<List<ConversationInfo>> getAllConversationList() => _channel
       .invokeMethod('getAllConversationList', _buildParam({}))
       .then((value) => _toList(value));
 
-  /// sourceID:     userID(single chat) ,groupID(group chat)
-  /// sessionType:  1(single chat) ,2(group chat)
+  /// sourceID: if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
+  /// sessionType: if it is a single chat, it value is 1. if it is a group chat, it value is 2
+  ///
   Future<ConversationInfo> getSingleConversation({
     required String sourceID,
     required String sessionType,
@@ -33,7 +40,8 @@ class ConversationManager {
               }))
           .then((value) => _toObj(value));
 
-  /// ["single_1234","group_3434"]
+  /// get conversation by id
+  ///
   Future<List<ConversationInfo>> getMultipleConversation({
     required List<String> conversationIDList,
   }) =>
@@ -45,6 +53,8 @@ class ConversationManager {
               }))
           .then((value) => _toList(value));
 
+  /// delete conversation by id
+  ///
   Future deleteConversation({
     required String conversationID,
   }) =>
@@ -56,6 +66,8 @@ class ConversationManager {
               }))
           .then((value) => _printValue(value));
 
+  /// set draft
+  ///
   Future setConversationDraft({
     required String conversationID,
     required String draftText,
@@ -69,6 +81,8 @@ class ConversationManager {
               }))
           .then((value) => _printValue(value));
 
+  /// pinned conversation
+  ///
   Future pinConversation({
     required String conversationID,
     required bool isPinned,

@@ -7,6 +7,9 @@ class MessageType {
   static const file = 105;
   static const at_text = 106;
   static const merger = 107;
+  static const revoke = 111;
+  static const has_read_receipt = 112;
+  static const typing = 112;
 
   ///
   static const accept_friend = 201;

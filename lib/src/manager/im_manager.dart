@@ -138,10 +138,11 @@ class IMManager {
         } else if (call.method == ListenerType.advancedMsgListener) {
           var type = call.arguments['type'];
           var id = call.arguments['data']['id'];
-          var msg =
-              Message.fromJson(_formatJson(call.arguments['data']['message']));
+
           switch (type) {
             case 'onRecvNewMessage':
+              var msg = Message.fromJson(
+                  _formatJson(call.arguments['data']['message']));
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
                   listener.onRecvNewMessage(msg);
@@ -149,16 +150,17 @@ class IMManager {
               }
               break;
             case 'onRecvMessageRevoked':
+              var msgId = call.arguments['data']['message'];
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
-                  listener.onRecvMessageRevoked(msg);
+                  listener.onRecvMessageRevoked(msgId);
                 }
               }
               break;
             case 'onRecvC2CReadReceipt':
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
-                  listener.onRecvC2CReadReceipt(msg);
+                  listener.onRecvC2CReadReceipt(Message());
                 }
               }
               break;
@@ -260,6 +262,12 @@ class IMManager {
     });
   }
 
+  /// init sdk
+  ///
+  /// @params platform[IMPlatform]
+  /// @params ipApi: api server ip address
+  /// @params ipWs: websocket ip address
+  /// @params dbPath: data storage directory
   Future<dynamic> initSDK({
     required int platform,
     required String ipApi,
@@ -276,10 +284,13 @@ class IMManager {
     );
   }
 
+  ///
   Future<dynamic> unInitSDK() {
     return _channel.invokeMethod('unInitSDK', _buildParam({}));
   }
 
+  /// login sdk
+  ///
   Future<dynamic> login({required String uid, required String token}) async {
     this.uid = uid;
     return _channel.invokeMethod(
@@ -288,38 +299,46 @@ class IMManager {
     );
   }
 
+  ///
   Future<dynamic> logout() {
     return _channel.invokeMethod('logout', _buildParam({}));
   }
 
+  ///
   Future<int?> getLoginStatus() {
     return _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
   }
 
+  ///
   Future<String?> getLoginUid() {
     return Future.value(uid);
     // return _channel.invokeMethod<String>('getLoginUid', _buildParam({}));
   }
 
+  ///
   Future<UserInfo> getLoginUserInfo() {
     return getUsersInfo([uid]).then((list) => uInfo = list[0]);
   }
 
+  ///
   Future<String?> setSelfInfo(UserInfo info) {
     return _channel.invokeMethod('setSelfInfo', _buildParam(info.toJson()));
     // .then((value) => UserInfo.fromJson(value));
   }
 
+  ///
   Future<List<UserInfo>> getUsersInfo(List<String> uidList) {
     return _channel
         .invokeMethod('getUsersInfo', _buildParam({'uidList': uidList}))
         .then((value) => _toList(value));
   }
 
+  ///
   Future<dynamic> forceSyncLoginUerInfo(List<String> uidList) {
     return _channel.invokeMethod('forceSyncLoginUerInfo', _buildParam({}));
   }
 
+  ///
   Future<dynamic> forceReConn() {
     return _channel.invokeMethod('forceReConn', _buildParam({}));
   }
