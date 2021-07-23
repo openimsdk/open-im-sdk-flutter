@@ -368,43 +368,41 @@ class AtElem {
   }
 }
 
-class RevokeMessage {
-  String? serverMsgID;
-  String? sendID;
-  String? senderNickname;
-  String? recvID;
-  String? groupID;
+class HaveReadInfo {
+  String? uid;
+  List<String>? msgIDList;
+  int? readTime;
+  int? msgFrom;
   int? contentType;
-  int? sendTime;
+  int? sessionType;
 
-  RevokeMessage(
-      {this.serverMsgID,
-      this.sendID,
-      this.senderNickname,
-      this.recvID,
-      this.groupID,
+  HaveReadInfo(
+      {this.uid,
+      this.msgIDList,
+      this.readTime,
+      this.msgFrom,
       this.contentType,
-      this.sendTime});
+      this.sessionType});
 
-  RevokeMessage.fromJson(Map<String, dynamic> json) {
-    serverMsgID = json['serverMsgID'];
-    sendID = json['sendID'];
-    senderNickname = json['senderNickname'];
-    recvID = json['recvID'];
-    groupID = json['groupID'];
+  HaveReadInfo.fromJson(Map<String, dynamic> json) {
+    uid = json['uid'];
+    if (json['msgIDList'] is List) {
+      msgIDList = (json['msgIDList'] as List).map((e) => '$e').toList();
+    }
+    readTime = json['readTime'];
+    msgFrom = json['msgFrom'];
     contentType = json['contentType'];
-    sendTime = json['sendTime'];
+    sessionType = json['sessionType'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['serverMsgID'] = this.serverMsgID;
-    data['sendID'] = this.sendID;
-    data['senderNickname'] = this.senderNickname;
-    data['recvID'] = this.recvID;
-    data['groupID'] = this.groupID;
+    data['uid'] = this.uid;
+    data['msgIDList'] = this.msgIDList;
+    data['readTime'] = this.readTime;
+    data['msgFrom'] = this.msgFrom;
     data['contentType'] = this.contentType;
-    data['sendTime'] = this.sendTime;
+    data['sessionType'] = this.sessionType;
     return data;
   }
 }

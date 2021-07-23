@@ -199,7 +199,11 @@ public class CommonUtil {
         return getParamValue(methodCall, KEY_SINGLE_MESSAGE_SENDER);
     }
 
-    public static String getFindMessageIds(MethodCall methodCall) {
+    public static String getSingleMessageTyping(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_SINGLE_MESSAGE_TYPING);
+    }
+
+    public static String getMessageIdList(MethodCall methodCall) {
         return getSDKJsonParam(methodCall, KEY_FIND_MESSAGE_IDS);
     }
 
@@ -288,6 +292,7 @@ public class CommonUtil {
     final static String KEY_SINGLE_MESSAGE_CONTENT = "message";
     final static String KEY_SINGLE_MESSAGE_USERID = "userID";
     final static String KEY_SINGLE_MESSAGE_SENDER = "sender";
+    final static String KEY_SINGLE_MESSAGE_TYPING = "typing";
     //group chat
     final static String KEY_GROUP_MESSAGE_GROUPID = "groupID";
     // find message

@@ -10,11 +10,14 @@ class GroupManager {
 
   GroupManager(this._channel);
 
+  /// listener[GroupListener]
   Future setGroupListener(GroupListener listener) {
     this.groupListener = listener;
     return _channel.invokeMethod('setGroupListener', _buildParam({}));
   }
 
+  /// invite friends into the group
+  ///
   Future<List<GroupInviteResult>> inviteUserToGroup({
     required String groupId,
     required List<String> uidList,
@@ -33,6 +36,7 @@ class GroupManager {
             .toList());
   }
 
+  /// remove member from group
   Future<List<GroupInviteResult>> kickGroupMember({
     required String groupId,
     required List<String> uidList,
@@ -51,6 +55,7 @@ class GroupManager {
             .toList());
   }
 
+  /// get group member's info
   Future<List<GroupMembersInfo>> getGroupMembersInfo({
     required String groupId,
     required List<String> uidList,
@@ -67,8 +72,8 @@ class GroupManager {
             .toList());
   }
 
-  ///filter 0: all user, 1: group owner, 2: administrator
-  ///begin index, pull and fill 0 for the first time
+  /// filter 0: all user, 1: group owner, 2: administrator
+  /// begin index, pull and fill 0 for the first time
   Future<GroupMembersList> getGroupMemberList({
     required String groupId,
     int filter = 0,
@@ -85,6 +90,7 @@ class GroupManager {
         .then((value) => GroupMembersList.fromJson(_formatJson(value)));
   }
 
+  /// find all groups you have joined
   Future<List<GroupInfo>> getJoinedGroupList() {
     return _channel.invokeMethod('getJoinedGroupList', _buildParam({})).then(
         (value) => (_formatJson(value) as List)
@@ -92,11 +98,15 @@ class GroupManager {
             .toList());
   }
 
+  /// check
   Future<bool> isJoinedGroup({required String gid}) {
     return getJoinedGroupList()
         .then((list) => list.where((e) => e.groupID == gid).length > 0);
   }
 
+  /// create a group
+  /// @params groupInfo: Group information
+  /// @params list[List<GroupMemberRole>]: Group members you invited
   Future<dynamic> createGroup({
     GroupInfo? groupInfo,
     required List<GroupMemberRole> list,
@@ -110,6 +120,7 @@ class GroupManager {
     /*.then((value) => _formatJson(value)['groupID'])*/
   }
 
+  /// Edit group information
   Future<dynamic> setGroupInfo({
     required GroupInfo groupInfo,
   }) {
@@ -120,6 +131,7 @@ class GroupManager {
         }));
   }
 
+  /// find group information by group id
   Future<List<GroupInfo>> getGroupsInfo({
     required List<String> gidList,
   }) {
@@ -131,6 +143,7 @@ class GroupManager {
     });
   }
 
+  /// Apply to join the group
   Future<dynamic> joinGroup({
     required String gid,
     String? reason,
@@ -143,6 +156,7 @@ class GroupManager {
         }));
   }
 
+  ///
   Future<dynamic> quitGroup({
     required String gid,
   }) {
@@ -153,6 +167,7 @@ class GroupManager {
         }));
   }
 
+  /// Give group permissions to others
   Future<dynamic> transferGroupOwner({
     required String gid,
     required String uid,
@@ -165,12 +180,14 @@ class GroupManager {
         }));
   }
 
+  ///
   Future<GroupApplicationList> getGroupApplicationList() {
     return _channel
         .invokeMethod('getGroupApplicationList', _buildParam({}))
         .then((value) => GroupApplicationList.fromJson(_formatJson(value)));
   }
 
+  ///
   Future<dynamic> acceptGroupApplication({
     required GroupApplicationInfo info,
     required String reason,
@@ -183,6 +200,7 @@ class GroupManager {
         }));
   }
 
+  ///
   Future<dynamic> refuseGroupApplication({
     required GroupApplicationInfo info,
     required String reason,
@@ -195,18 +213,22 @@ class GroupManager {
         }));
   }
 
+  ///
   Future forceSyncApplyGroupRequest() {
     return _channel.invokeMethod('forceSyncApplyGroupRequest', _buildParam({}));
   }
 
+  ///
   Future forceSyncGroupRequest() {
     return _channel.invokeMethod('forceSyncGroupRequest', _buildParam({}));
   }
 
+  ///
   Future forceSyncJoinedGroup() {
     return _channel.invokeMethod('forceSyncJoinedGroup', _buildParam({}));
   }
 
+  ///
   Future forceSyncJoinedGroupMember() {
     return _channel.invokeMethod('forceSyncJoinedGroupMember', _buildParam({}));
   }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -11,6 +10,7 @@ class MessageManager {
 
   MessageManager(this._channel);
 
+  ///
   Future addAdvancedMsgListener(AdvancedMsgListener listener) {
     advancedMsgListeners.add(listener);
     return _channel.invokeMethod(
@@ -20,6 +20,7 @@ class MessageManager {
         }));
   }
 
+  ///
   Future removeAdvancedMsgListener(AdvancedMsgListener listener) {
     advancedMsgListeners.remove(listener);
     return _channel.invokeMethod(
@@ -29,11 +30,13 @@ class MessageManager {
         }));
   }
 
+  ///
   void setMsgSendProgressListener(MsgSendProgressListener listener) {
     msgSendProgressListener = listener;
   }
 
-  /*Future<Message> */
+  /// send a message to user or to group
+  /// userID: receiver's user ID
   Future<dynamic> sendMessage({
     required Message message,
     String? userID,
@@ -51,6 +54,8 @@ class MessageManager {
         /*.then((value) => _toObj(value))*/;
   }
 
+  /// find all history message
+  /// userID: the user id of the chat partner
   Future<List<Message>> getHistoryMessageList({
     String? userID,
     String? groupID,
@@ -69,21 +74,28 @@ class MessageManager {
         .then((value) => _toList(value));
   }
 
+  /// revoke the sent information
   Future revokeMessage({required Message message}) {
     return _channel.invokeMethod(
         'revokeMessage', _buildParam(message.toJson()));
   }
 
+  /// delete message
   Future deleteMessageFromLocalStorage({required Message message}) {
     return _channel.invokeMethod(
         'deleteMessageFromLocalStorage', _buildParam(message.toJson()));
   }
 
+  ///
+  @deprecated
   Future deleteMessages({required List<Message> msgList}) {
     return _channel.invokeMethod('deleteMessages',
         _buildParam({"msgList": msgList.map((e) => e.toJson()).toList()}));
   }
 
+  ///
+  /// @params userID: receiver's user ID
+  /// @params sender: current user ID
   Future insertSingleMessageToLocalStorage({
     String? userID,
     Message? message,
@@ -98,6 +110,7 @@ class MessageManager {
         }));
   }
 
+  ///
   Future findMessages({required List<String> messageIDList}) {
     return _channel.invokeMethod(
         'findMessages',
@@ -106,22 +119,56 @@ class MessageManager {
         }));
   }
 
+  ///
+  /// @params userID: receiver's userID
   Future<dynamic> markSingleMessageHasRead({required String userID}) {
     return _channel.invokeMethod(
         'markSingleMessageHasRead', _buildParam({'userID': userID}));
   }
 
+  ///
   Future<dynamic> markGroupMessageHasRead({required String groupID}) {
     return _channel.invokeMethod(
         'markGroupMessageHasRead', _buildParam({'groupID': groupID}));
   }
 
+  ///
+  /// @params userID: receiver's user ID
+  Future markC2CMessageAsRead({
+    required String userID,
+    required List<String> messageIDList,
+  }) {
+    return _channel.invokeMethod(
+        'markC2CMessageAsRead',
+        _buildParam({
+          "messageIDList": messageIDList,
+          "userID": userID,
+        }));
+  }
+
+  ///
+  /// @params userID: receiver's user ID
+  /// @params status: default no
+  Future typingStatusUpdate({
+    required String userID,
+    bool typing = false,
+  }) {
+    return _channel.invokeMethod(
+        'typingStatusUpdate',
+        _buildParam({
+          "typing": typing ? 'yes' : 'no',
+          "userID": userID,
+        }));
+  }
+
+  ///
   Future<Message> createTextMessage({required String text}) {
     return _channel
         .invokeMethod('createTextMessage', _buildParam({'text': text}))
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createTextAtMessage({
     required String text,
     required List<String> atUidList,
@@ -137,6 +184,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createImageMessage({required String imagePath}) {
     return _channel
         .invokeMethod(
@@ -146,6 +194,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createSoundMessage({
     required String soundPath,
     required int duration,
@@ -158,6 +207,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createVideoMessage({
     required String videoPath,
     required String videoType,
@@ -176,6 +226,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createFileMessage({
     required String filePath,
     required String fileName,
@@ -190,6 +241,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createMergerMessage({
     required List<Message> messageList,
     required String title,
@@ -206,6 +258,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createForwardMessage({required List<Message> messageList}) {
     return _channel
         .invokeMethod(
@@ -216,129 +269,14 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<dynamic> getTotalUnreadMsgCount() {
     return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
   }
 
+  ///
   void forceSyncMsg() {
     _channel.invokeMethod('forceSyncMsg', _buildParam({}));
-  }
-
-  Message createTextMessageV2({required String text}) {
-    return _createMessage(contentType: MessageType.text)..content = text;
-  }
-
-  Message createTextAtMessageV2({
-    required String text,
-    required List<String> atUidList,
-  }) {
-    var atElem = AtElem(
-      text: text,
-      atUserList: atUidList,
-      isAtSelf: false,
-    );
-    return _createMessage(contentType: MessageType.at_text)
-      ..forceList = atUidList
-      ..atElem = atElem
-      ..content = jsonEncode(atElem);
-  }
-
-  Message createImageMessageV2({
-    required String imagePath,
-    required String mineType,
-    required int size,
-    required int width,
-    required int height,
-  }) {
-    return _createMessage(contentType: MessageType.picture)
-      ..pictureElem = PictureElem(
-        sourcePath: imagePath,
-        sourcePicture: PictureInfo(
-          type: mineType,
-          size: size,
-          width: width,
-          height: height,
-        ),
-      );
-  }
-
-  Message createSoundMessageV2({
-    required String soundPath,
-    required int duration,
-    required int dataSize,
-  }) {
-    return _createMessage(contentType: MessageType.voice)
-      ..soundElem = SoundElem(
-        soundPath: soundPath,
-        dataSize: dataSize,
-        duration: duration,
-      );
-  }
-
-  Message createVideoMessageV2({
-    required String videoPath,
-    required String videoType,
-    required int videoSize,
-    required int duration,
-    required String snapshotPath,
-    required int snapshotSize,
-    required int snapshotWidth,
-    required int snapshotHeight,
-  }) {
-    return _createMessage(contentType: MessageType.video)
-      ..videoElem = VideoElem(
-        videoPath: videoPath,
-        videoSize: videoSize,
-        videoType: videoType,
-        duration: duration,
-        snapshotPath: snapshotPath,
-        snapshotSize: snapshotSize,
-        snapshotHeight: snapshotHeight,
-        snapshotWidth: snapshotWidth,
-      );
-  }
-
-  Message createFileMessageV2({
-    required String filePath,
-    required String fileName,
-    required int fileSize,
-  }) {
-    return _createMessage(contentType: MessageType.file)
-      ..fileElem = FileElem(
-        fileName: fileName,
-        filePath: filePath,
-        fileSize: fileSize,
-      );
-  }
-
-/*  Message createMergerMessageV2({
-    required List<Message> messageList,
-    required String title,
-    required List<String> summaryList,
-  }) {
-    var message = _createMessage(contentType: MessageType.merger);
-    return message;
-  }
-
-  Message createForwardMessageV2({required List<Message> messageList}) {
-    var message = _createMessage();
-    return message;
-  }*/
-
-  static Message _createMessage({required contentType}) {
-    var now = DateTime.now();
-    return Message(
-      clientMsgID: 'client_msg_id_v2_${now.microsecondsSinceEpoch}',
-      createTime: now.millisecond ~/ 1000,
-      sendTime: now.millisecond ~/ 1000,
-      // sessionType: 0,//请求为单人会话1，请求为群聊会话2
-      msgFrom: 100,
-      contentType: contentType,
-      status: MessageStatus.sending,
-      platformID: Platform.isAndroid ? IMPlatform.android : IMPlatform.ios,
-      sendID: OpenIM.iMManager.uid,
-      senderNickName: OpenIM.iMManager.uInfo.name,
-    );
   }
 
   static Map _buildParam(Map param) {
