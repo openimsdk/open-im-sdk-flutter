@@ -215,28 +215,30 @@ OpenIM.iMManager.logout();
 
 #### 消息管理：OpenIM.iMManager.messageManager
 
-| 方法                              | 描述               | 参数说明                                                     |
-| --------------------------------- | ------------------ | ------------------------------------------------------------ |
-| addAdvancedMsgListener            | 添加消息监听       |                                                              |
-| removeAdvancedMsgListener         | 移除消息监听       |                                                              |
-| setMsgSendProgressListener        | 消息发送进度监听   |                                                              |
-| sendMessage                       | 发送消息           | message：消息对象<br />userID：单聊的用户id<br />groupID：群聊的组id<br />onlineUserOnly：仅在线用户 |
-| getHistoryMessageList             | 获取历史消息       | startMsg：列表里的第一条消息<br />userID：单聊的用户id<br />groupID：群聊的组id<br />count：每页size |
-| revokeMessage                     | 消息撤回           |                                                              |
-| deleteMessageFromLocalStorage     | 删除消息           |                                                              |
-| insertSingleMessageToLocalStorage | 插入消息           |                                                              |
-| findMessages                      | 根据消息id查询消息 | messageIDList：消息id集合                                    |
-| markSingleMessageHasRead          | 标记消息为已读     |                                                              |
-| markGroupMessageHasRead           | 标记消息为已读     |                                                              |
-| createTextMessage                 | 创建文本消息       | text：输入的内容                                             |
-| createTextAtMessage               | 创建at消息         | atUidList：被@的用户id集合                                   |
-| createImageMessage                | 创建图片消息       | imagePath：路径                                              |
-| createSoundMessage                | 创建语音消息       | soundPath：路径<br />duration：时长                          |
-| createVideoMessage                | 创建视频消息       | videoPath：路径<br />videoType：视频类型<br />duration：时长<br />snapshotPath：缩略图 |
-| createFileMessage                 | 创建文件消息       | filePath：路径<br />fileName：文件名                         |
-| createMergerMessage               | 创建合并消息       |                                                              |
-| createForwardMessage              | 创建转发消息       |                                                              |
-| getTotalUnreadMsgCount            | 获取消息未读数     |                                                              |
+| 方法                                        | 描述               | 参数说明                                                     |
+| ------------------------------------------- | ------------------ | ------------------------------------------------------------ |
+| addAdvancedMsgListener                      | 添加消息监听       |                                                              |
+| removeAdvancedMsgListener                   | 移除消息监听       |                                                              |
+| setMsgSendProgressListener                  | 消息发送进度监听   |                                                              |
+| sendMessage                                 | 发送消息           | message：消息对象<br />userID：单聊的用户id<br />groupID：群聊的组id<br />onlineUserOnly：仅在线用户 |
+| getHistoryMessageList                       | 获取历史消息       | startMsg：列表里的第一条消息<br />userID：单聊的用户id<br />groupID：群聊的组id<br />count：每页size |
+| revokeMessage                               | 消息撤回           |                                                              |
+| deleteMessageFromLocalStorage               | 删除消息           |                                                              |
+| insertSingleMessageToLocalStorage           | 插入消息           |                                                              |
+| findMessages                                | 根据消息id查询消息 | messageIDList：消息id集合                                    |
+| markSingleMessageHasRead                    | 标记单聊消息为已读 |                                                              |
+| markGroupMessageHasRead                     | 标记群聊消息为已读 |                                                              |
+| <font color=red>markC2CMessageAsRead</font> | 标记c2c消息已读    |                                                              |
+| <font color=red>typingStatusUpdate</font>   | 正在输入提示       |                                                              |
+| createTextMessage                           | 创建文本消息       | text：输入的内容                                             |
+| createTextAtMessage                         | 创建at消息         | atUidList：被@的用户id集合                                   |
+| createImageMessage                          | 创建图片消息       | imagePath：路径                                              |
+| createSoundMessage                          | 创建语音消息       | soundPath：路径<br />duration：时长                          |
+| createVideoMessage                          | 创建视频消息       | videoPath：路径<br />videoType：视频类型<br />duration：时长<br />snapshotPath：缩略图 |
+| createFileMessage                           | 创建文件消息       | filePath：路径<br />fileName：文件名                         |
+| createMergerMessage                         | 创建合并消息       |                                                              |
+| createForwardMessage                        | 创建转发消息       |                                                              |
+| getTotalUnreadMsgCount                      | 获取消息未读数     |                                                              |
 
 
 
