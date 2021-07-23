@@ -36,7 +36,7 @@ class MessageManager {
   }
 
   /// send a message to user or to group
-  ///
+  /// userID: receiver's user ID
   Future<dynamic> sendMessage({
     required Message message,
     String? userID,
@@ -55,6 +55,7 @@ class MessageManager {
   }
 
   /// find all history message
+  /// userID: the user id of the chat partner
   Future<List<Message>> getHistoryMessageList({
     String? userID,
     String? groupID,
@@ -93,6 +94,8 @@ class MessageManager {
   }
 
   ///
+  /// @params userID: receiver's user ID
+  /// @params sender: current user ID
   Future insertSingleMessageToLocalStorage({
     String? userID,
     Message? message,
@@ -117,6 +120,7 @@ class MessageManager {
   }
 
   ///
+  /// @params userID: receiver's userID
   Future<dynamic> markSingleMessageHasRead({required String userID}) {
     return _channel.invokeMethod(
         'markSingleMessageHasRead', _buildParam({'userID': userID}));
@@ -126,6 +130,35 @@ class MessageManager {
   Future<dynamic> markGroupMessageHasRead({required String groupID}) {
     return _channel.invokeMethod(
         'markGroupMessageHasRead', _buildParam({'groupID': groupID}));
+  }
+
+  ///
+  /// @params userID: receiver's user ID
+  Future markC2CMessageAsRead({
+    required String userID,
+    required List<String> messageIDList,
+  }) {
+    return _channel.invokeMethod(
+        'markC2CMessageAsRead',
+        _buildParam({
+          "messageIDList": messageIDList,
+          "userID": userID,
+        }));
+  }
+
+  ///
+  /// @params userID: receiver's user ID
+  /// @params status: default no
+  Future typingStatusUpdate({
+    required String userID,
+    bool typing = false,
+  }) {
+    return _channel.invokeMethod(
+        'typingStatusUpdate',
+        _buildParam({
+          "typing": typing ? 'yes' : 'no',
+          "userID": userID,
+        }));
   }
 
   ///

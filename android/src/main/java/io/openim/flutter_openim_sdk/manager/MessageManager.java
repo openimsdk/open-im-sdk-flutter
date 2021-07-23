@@ -54,7 +54,7 @@ public class MessageManager {
     }
 
     public void deleteMessages(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.deleteMessages(new BaseImpl(result), CommonUtil.getSDKJsonParam(methodCall));
+//        Open_im_sdk.deleteMessages(new BaseListener(result), CommonUtil.getSDKJsonParam(methodCall));
     }
 
     public void insertSingleMessageToLocalStorage(MethodCall methodCall, MethodChannel.Result result) {
@@ -65,7 +65,7 @@ public class MessageManager {
     }
 
     public void findMessages(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.findMessages(new BaseListener(result), CommonUtil.getFindMessageIds(methodCall));
+        Open_im_sdk.findMessages(new BaseListener(result), CommonUtil.getMessageIdList(methodCall));
     }
 
     public void markSingleMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
@@ -77,7 +77,14 @@ public class MessageManager {
     }
 
     public void markC2CMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.markC2CMessageAsRead(new BaseImpl(result), CommonUtil.getSingleMessageUserid(methodCall));
+        Open_im_sdk.markC2CMessageAsRead(new BaseListener(result),
+                CommonUtil.getSingleMessageUserid(methodCall),
+                CommonUtil.getMessageIdList(methodCall));
+    }
+
+    public void typingStatusUpdate(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.typingStatusUpdate(CommonUtil.getSingleMessageUserid(methodCall),
+                CommonUtil.getSingleMessageTyping(methodCall));
     }
 
     public void createTextMessage(MethodCall methodCall, MethodChannel.Result result) {

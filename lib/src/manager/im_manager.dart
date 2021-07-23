@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -138,11 +139,11 @@ class IMManager {
         } else if (call.method == ListenerType.advancedMsgListener) {
           var type = call.arguments['type'];
           var id = call.arguments['data']['id'];
-
+          var value = call.arguments['data']['message'];
+          log('====================type:$type    $value');
           switch (type) {
             case 'onRecvNewMessage':
-              var msg = Message.fromJson(
-                  _formatJson(call.arguments['data']['message']));
+              var msg = Message.fromJson(_formatJson(value));
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
                   listener.onRecvNewMessage(msg);
@@ -150,17 +151,17 @@ class IMManager {
               }
               break;
             case 'onRecvMessageRevoked':
-              var msgId = call.arguments['data']['message'];
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
-                  listener.onRecvMessageRevoked(msgId);
+                  listener.onRecvMessageRevoked(value);
                 }
               }
               break;
             case 'onRecvC2CReadReceipt':
+              var info = HaveReadInfo.fromJson(_formatJson(value));
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
-                  listener.onRecvC2CReadReceipt(Message());
+                  listener.onRecvC2CReadReceipt(info);
                 }
               }
               break;

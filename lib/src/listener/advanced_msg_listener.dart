@@ -9,7 +9,7 @@ class AdvancedMsgListener {
 
   void onRecvNewMessage(Message msg) {}
 
-  void onRecvC2CReadReceipt(Message msg) {}
+  void onRecvC2CReadReceipt(HaveReadInfo info) {}
 
   void onRecvMessageRevoked(String msgId) {}
 }
