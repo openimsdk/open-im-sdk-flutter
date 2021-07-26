@@ -140,7 +140,6 @@ class IMManager {
           var type = call.arguments['type'];
           var id = call.arguments['data']['id'];
           var value = call.arguments['data']['message'];
-          log('====================type:$type    $value');
           switch (type) {
             case 'onRecvNewMessage':
               var msg = Message.fromJson(_formatJson(value));
@@ -158,10 +157,11 @@ class IMManager {
               }
               break;
             case 'onRecvC2CReadReceipt':
-              var info = HaveReadInfo.fromJson(_formatJson(value));
+              var l = _formatJson(value) as List;
+              var list = l.map((e) => HaveReadInfo.fromJson(e)).toList();
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
-                  listener.onRecvC2CReadReceipt(info);
+                  listener.onRecvC2CReadReceipt(list);
                 }
               }
               break;
