@@ -1,10 +1,12 @@
 # flutter_openim_sdk
 
-A flutter IM plugin for android and ios.
+![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/add_friend.gif)
 ![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-104641-HD.gif) 
 ![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-105242-HD.gif) 
 ![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-105444-HD.gif) 
-![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/add_friend.gif) 
+
+
+A flutter IM plugin for android and ios.
 
 ## Getting Started
 
