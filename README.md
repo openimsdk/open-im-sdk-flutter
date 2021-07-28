@@ -208,7 +208,7 @@ OpenIM.iMManager.logout();
 
 
 
-#### 消息管理：OpenIM.iMManager.messageManager
+#### OpenIM.iMManager.messageManager
 
 | method                                      | description                       |
 | ------------------------------------------- | --------------------------------- |
