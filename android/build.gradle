@@ -3,12 +3,15 @@ version '1.0'
 
 buildscript {
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
-        maven { url 'http://47.112.160.66:8081/repository/maven-releases'}
-//        maven { url 'http://127.0.0.1:8081/repository/maven-releases' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        maven {
+            allowInsecureProtocol = true
+            url 'http://47.112.160.66:8081/repository/maven-releases'
+        }
+//        maven { url 'https://127.0.0.1:8081/repository/maven-releases' }
         google()
         mavenCentral()
     }
@@ -20,11 +23,14 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
-        maven { url 'http://47.112.160.66:8081/repository/maven-releases'}
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        maven {
+            allowInsecureProtocol = true
+            url 'http://47.112.160.66:8081/repository/maven-releases'
+        }
 //        maven { url 'http://127.0.0.1:8081/repository/maven-releases' }
         google()
         mavenCentral()
@@ -45,6 +51,6 @@ android {
     }
 }
 dependencies {
-//    implementation 'io.openim:client:0.0.7@aar'
-    implementation 'io.openim:client-sdk:0.0.2@aar'//graoupId:artifactId:version@aar
+//    implementation 'io.openim:client:0.0.13@aar'
+    implementation 'io.openim:client-sdk:0.0.4@aar'
 }
