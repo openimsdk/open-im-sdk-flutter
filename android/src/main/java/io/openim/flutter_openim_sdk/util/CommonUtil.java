@@ -263,6 +263,27 @@ public class CommonUtil {
         return getSDKJsonParam(methodCall, KEY_GROUP_APPLICATION_INFO);
     }
 
+
+    public static double getLocationLatitude(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_LOCATION_MESSAGE_LA);
+    }
+
+    public static double getLocationLongitude(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_LOCATION_MESSAGE_LO);
+    }
+
+    public static String getMessageDes(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_MESSAGE_DES);
+    }
+
+    public static byte[] getCustomMessageData(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_CUSTOM_MESSAGE_DATA);
+    }
+
+    public static byte[] getCustomMessageExt(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_CUSTOM_MESSAGE_EXT);
+    }
+
     //login
     final static String KEY_UID = "uid";
     final static String KEY_TOKEN = "token";
@@ -282,6 +303,11 @@ public class CommonUtil {
     final static String KEY_MERGER_MESSAGE_TITLE = "title";
     final static String KEY_SUMMARY_LIST = "summaryList";
     final static String KEY_FORWARD_MESSAGE = "message";
+    final static String KEY_LOCATION_MESSAGE_LO = "longitude";
+    final static String KEY_LOCATION_MESSAGE_LA = "latitude";
+    final static String KEY_MESSAGE_DES = "description";
+    final static String KEY_CUSTOM_MESSAGE_DATA = "data";
+    final static String KEY_CUSTOM_MESSAGE_EXT = "extension";
     //send message
     final static String KEY_SEND_MESSAGE_CONTENT = "message";
     final static String KEY_SEND_MESSAGE_CONTENT_CLIENT_ID = "clientMsgID";

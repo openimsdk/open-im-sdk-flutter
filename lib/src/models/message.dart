@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class Message {
   String? clientMsgID;
   String? serverMsgID;
@@ -24,6 +26,8 @@ class Message {
   VideoElem? videoElem;
   FileElem? fileElem;
   AtElem? atElem;
+  LocationElem? locationElem;
+  CustomElem? customElem;
 
   Message({
     this.clientMsgID,
@@ -51,6 +55,8 @@ class Message {
     this.videoElem,
     this.fileElem,
     this.atElem,
+    this.locationElem,
+    this.customElem,
   });
 
   Message.fromJson(Map<String, dynamic> json)
@@ -89,6 +95,13 @@ class Message {
     fileElem =
         json['fileElem'] != null ? FileElem.fromJson(json['fileElem']) : null;
     atElem = json['atElem'] != null ? AtElem.fromJson(json['atElem']) : null;
+    locationElem = json['locationElem'] != null
+        ? LocationElem.fromJson(json['locationElem'])
+        : null;
+
+    customElem = json['customElem'] != null
+        ? CustomElem.fromJson(json['customElem'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -113,21 +126,13 @@ class Message {
     data['remark'] = this.remark;
     data['ext'] = this.ext;
     data['sessionType'] = this.sessionType;
-    if (this.pictureElem != null) {
-      data['pictureElem'] = this.pictureElem!.toJson();
-    }
-    if (this.soundElem != null) {
-      data['soundElem'] = this.soundElem!.toJson();
-    }
-    if (this.videoElem != null) {
-      data['videoElem'] = this.videoElem!.toJson();
-    }
-    if (this.fileElem != null) {
-      data['fileElem'] = this.fileElem!.toJson();
-    }
-    if (this.atElem != null) {
-      data['atElem'] = this.atElem!.toJson();
-    }
+    data['pictureElem'] = this.pictureElem?.toJson();
+    data['soundElem'] = this.soundElem?.toJson();
+    data['videoElem'] = this.videoElem?.toJson();
+    data['fileElem'] = this.fileElem?.toJson();
+    data['atElem'] = this.atElem?.toJson();
+    data['locationElem'] = this.locationElem?.toJson();
+    data['customElem'] = this.customElem?.toJson();
     return data;
   }
 
@@ -368,6 +373,59 @@ class AtElem {
   }
 }
 
+class LocationElem {
+  String? description;
+  double? longitude;
+  double? latitude;
+
+  LocationElem({this.description, this.longitude, this.latitude});
+
+  LocationElem.fromJson(Map<String, dynamic> json) {
+    description = json['description'];
+    if (json['longitude'] is int) {
+      longitude = (json['longitude'] as int).toDouble();
+    } else {
+      longitude = json['longitude'];
+    }
+
+    if (json['latitude'] is int) {
+      latitude = (json['latitude'] as int).toDouble();
+    } else {
+      latitude = json['latitude'];
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['description'] = this.description;
+    data['longitude'] = this.longitude;
+    data['latitude'] = this.latitude;
+    return data;
+  }
+}
+
+class CustomElem {
+  Uint8List? data;
+  Uint8List? extension;
+  String? description;
+
+  CustomElem({this.data, this.extension, this.description});
+
+  CustomElem.fromJson(Map<String, dynamic> json) {
+    data = json['data'];
+    extension = json['extension'];
+    description = json['description'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['data'] = this.data;
+    data['extension'] = this.extension;
+    data['description'] = this.description;
+    return data;
+  }
+}
+
 class HaveReadInfo {
   String? uid;
   List<String>? msgIDList;
@@ -376,13 +434,12 @@ class HaveReadInfo {
   int? contentType;
   int? sessionType;
 
-  HaveReadInfo(
-      {this.uid,
-      this.msgIDList,
-      this.readTime,
-      this.msgFrom,
-      this.contentType,
-      this.sessionType});
+  HaveReadInfo({this.uid,
+    this.msgIDList,
+    this.readTime,
+    this.msgFrom,
+    this.contentType,
+    this.sessionType});
 
   HaveReadInfo.fromJson(Map<String, dynamic> json) {
     uid = json['uid'];

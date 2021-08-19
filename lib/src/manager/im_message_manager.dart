@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -194,6 +195,15 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  Future<Message> createImageMessageFromFullPath({required String imagePath}) {
+    return _channel
+        .invokeMethod(
+          'createImageMessageFromFullPath',
+          _buildParam({'imagePath': imagePath}),
+        )
+        .then((value) => _toObj(value));
+  }
+
   ///
   Future<Message> createSoundMessage({
     required String soundPath,
@@ -202,6 +212,18 @@ class MessageManager {
     return _channel
         .invokeMethod(
           'createSoundMessage',
+          _buildParam({'soundPath': soundPath, "duration": duration}),
+        )
+        .then((value) => _toObj(value));
+  }
+
+  Future<Message> createSoundMessageFromFullPath({
+    required String soundPath,
+    required int duration,
+  }) {
+    return _channel
+        .invokeMethod(
+          'createSoundMessageFromFullPath',
           _buildParam({'soundPath': soundPath, "duration": duration}),
         )
         .then((value) => _toObj(value));
@@ -217,6 +239,24 @@ class MessageManager {
     return _channel
         .invokeMethod(
             'createVideoMessage',
+            _buildParam({
+              'videoPath': videoPath,
+              'videoType': videoType,
+              'duration': duration,
+              'snapshotPath': snapshotPath,
+            }))
+        .then((value) => _toObj(value));
+  }
+
+  Future<Message> createVideoMessageFromFullPath({
+    required String videoPath,
+    required String videoType,
+    required int duration,
+    required String snapshotPath,
+  }) {
+    return _channel
+        .invokeMethod(
+            'createVideoMessageFromFullPath',
             _buildParam({
               'videoPath': videoPath,
               'videoType': videoType,
@@ -265,6 +305,38 @@ class MessageManager {
             'createForwardMessage',
             _buildParam({
               'message': messageList.map((e) => e.toJson()).toList(),
+            }))
+        .then((value) => _toObj(value));
+  }
+
+  Future<Message> createLocationMessage({
+    required double latitude,
+    required double longitude,
+    required String description,
+  }) {
+    return _channel
+        .invokeMethod(
+            'createLocationMessage',
+            _buildParam({
+              'latitude': latitude,
+              'longitude': longitude,
+              'description': description,
+            }))
+        .then((value) => _toObj(value));
+  }
+
+  Future<Message> createCustomMessage({
+    required Uint8List data,
+    required Uint8List extension,
+    required String description,
+  }) {
+    return _channel
+        .invokeMethod(
+            'createCustomMessage',
+            _buildParam({
+              'data': data,
+              'extension': extension,
+              'description': description,
             }))
         .then((value) => _toObj(value));
   }
