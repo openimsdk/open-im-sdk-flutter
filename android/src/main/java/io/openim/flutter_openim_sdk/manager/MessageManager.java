@@ -106,6 +106,12 @@ public class MessageManager {
                         CommonUtil.getImagePath(methodCall)));
     }
 
+    public void createImageMessageFromFullPath(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createImageMessageFromFullPath(
+                        CommonUtil.getImagePath(methodCall)));
+    }
+
     public void createSoundMessage(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result,
                 Open_im_sdk.createSoundMessage(
@@ -113,9 +119,25 @@ public class MessageManager {
                         CommonUtil.getSoundDuration(methodCall)));
     }
 
+    public void createSoundMessageFromFullPath(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createSoundMessageFromFullPath(
+                        CommonUtil.getSoundPath(methodCall),
+                        CommonUtil.getSoundDuration(methodCall)));
+    }
+
     public void createVideoMessage(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result,
                 Open_im_sdk.createVideoMessage(
+                        CommonUtil.getVideoPath(methodCall),
+                        CommonUtil.getVideoType(methodCall),
+                        CommonUtil.getVideoDuration(methodCall),
+                        CommonUtil.getVideoSnapshotPath(methodCall)));
+    }
+
+    public void createVideoMessageFromFullPath(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createVideoMessageFromFullPath(
                         CommonUtil.getVideoPath(methodCall),
                         CommonUtil.getVideoType(methodCall),
                         CommonUtil.getVideoDuration(methodCall),
@@ -137,10 +159,27 @@ public class MessageManager {
                         CommonUtil.getSummaryList(methodCall)));
     }
 
+
     public void createForwardMessage(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result,
                 Open_im_sdk.createForwardMessage(
                         CommonUtil.getForwardMessage(methodCall)));
+    }
+
+    public void createLocationMessage(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.createLocationMessage(
+                CommonUtil.getMessageDes(methodCall),
+                CommonUtil.getLocationLongitude(methodCall),
+                CommonUtil.getLocationLatitude(methodCall)
+        ));
+    }
+
+    public void createCustomMessage(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.createCustomMessage(
+                CommonUtil.getCustomMessageData(methodCall),
+                CommonUtil.getCustomMessageExt(methodCall),
+                CommonUtil.getMessageDes(methodCall)
+        ));
     }
 
     public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {

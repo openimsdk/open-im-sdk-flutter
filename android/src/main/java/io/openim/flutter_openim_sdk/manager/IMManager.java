@@ -11,7 +11,7 @@ public class IMManager {
 
     public void initSDK(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.initSDK(CommonUtil.getSDKJsonParam(methodCall), new SDKListener());
-        CommonUtil.runMainThreadReturn(result, null);
+//        CommonUtil.runMainThreadReturn(result, null);
     }
 
     public void login(MethodCall methodCall, MethodChannel.Result result) {

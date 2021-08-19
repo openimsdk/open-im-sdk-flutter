@@ -8,7 +8,7 @@ class InitSDKListener {
   void onConnectSuccess() {}
 
   /// SDK 连接服务器失败
-  void onConnectFailed(int? int, String? errorMsg) {}
+  void onConnectFailed(int? code, String? errorMsg) {}
 
   /// 当前用户被踢下线，此时可以 UI 提示用户，并再次调用 IMManager 的 login() 函数重新登录。
   void onKickedOffline() {}

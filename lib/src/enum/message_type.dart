@@ -7,6 +7,9 @@ class MessageType {
   static const file = 105;
   static const at_text = 106;
   static const merger = 107;
+  static const forward = 108;
+  static const location = 109;
+  static const custom = 110;
   static const revoke = 111;
   static const has_read_receipt = 112;
   static const typing = 113;
@@ -18,12 +21,12 @@ class MessageType {
   static const set_self_info = 204;
   static const revoke_message = 205;
   static const c2c_message_as_read = 206;
+
   static const kick_online = 303;
 
   ///
   static const transfer_group_owner = 501;
   static const create_group = 502;
-
   // static const create_group = 503;
   static const join_group = 504;
   static const quit_group = 505;
