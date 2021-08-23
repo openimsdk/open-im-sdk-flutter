@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -15,6 +14,7 @@ class IMManager {
   late InitSDKListener _initSDKListener;
   late String uid;
   late UserInfo uInfo;
+  bool isInitialized = false;
 
   IMManager(this._channel) {
     conversationManager = ConversationManager(_channel);
@@ -277,17 +277,29 @@ class IMManager {
     required InitSDKListener listener,
   }) {
     _initSDKListener = listener;
-    return _channel.invokeMethod(
-      'initSDK',
-      _buildParam(
-        {"platform": platform, "ipApi": ipApi, "ipWs": ipWs, "dbDir": dbPath},
-      ),
-    );
+    return _channel
+        .invokeMethod(
+            'initSDK',
+            _buildParam(
+              {
+                "platform": platform,
+                "ipApi": ipApi,
+                "ipWs": ipWs,
+                "dbDir": dbPath
+              },
+            ))
+        .then((value) {
+      isInitialized = true;
+      return value;
+    });
   }
 
   ///
   Future<dynamic> unInitSDK() {
-    return _channel.invokeMethod('unInitSDK', _buildParam({}));
+    return _channel.invokeMethod('unInitSDK', _buildParam({})).then((value) {
+      isInitialized = false;
+      return value;
+    });
   }
 
   /// login sdk
