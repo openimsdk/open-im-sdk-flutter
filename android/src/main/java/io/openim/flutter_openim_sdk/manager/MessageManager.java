@@ -1,7 +1,9 @@
 package io.openim.flutter_openim_sdk.manager;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -15,7 +17,51 @@ import open_im_sdk.Open_im_sdk;
 
 public class MessageManager {
     private final static String KEY_ID = "id";
-    private final static Map<String, OnAdvancedMsgListener> listeners = new HashMap<>();
+    //    private final static Map<String, OnAdvancedMsgListener> listeners = new HashMap<>();
+    private static boolean initializedListener = false;
+    private final static Map<String, AdvancedMsgListener> listeners = new ConcurrentHashMap<>();
+
+    private final static OnAdvancedMsgListener sdkMsgListener = new OnAdvancedMsgListener() {
+        @Override
+        public void onRecvC2CReadReceipt(String s) {
+            for (AdvancedMsgListener l : listeners.values()) {
+                l.onRecvC2CReadReceipt(s);
+            }
+        }
+
+        @Override
+        public void onRecvMessageRevoked(String s) {
+            for (AdvancedMsgListener l : listeners.values()) {
+                l.onRecvMessageRevoked(s);
+            }
+        }
+
+        @Override
+        public void onRecvNewMessage(String s) {
+            for (AdvancedMsgListener l : listeners.values()) {
+                l.onRecvNewMessage(s);
+            }
+        }
+    };
+
+    public void addAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
+        String key = methodCall.argument(KEY_ID);
+        listeners.put(key, new AdvancedMsgListener(key));
+        if (!initializedListener) {
+            initializedListener = true;
+            Open_im_sdk.addAdvancedMsgListener(sdkMsgListener);
+        }
+    }
+
+    public void removeAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
+        String key = methodCall.argument(KEY_ID);
+        listeners.remove(key);
+        if (listeners.isEmpty()) {
+            initializedListener = false;
+            Open_im_sdk.removeAdvancedMsgListener(sdkMsgListener);
+        }
+    }
+/*
 
     public void addAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
         String key = methodCall.argument(KEY_ID);
@@ -31,6 +77,8 @@ public class MessageManager {
         OnAdvancedMsgListener listener = listeners.remove(key);
         Open_im_sdk.removeAdvancedMsgListener(listener);
     }
+
+*/
 
     public void sendMessage(MethodCall methodCall, MethodChannel.Result result) {
         MsgSendProgressListener listener = new MsgSendProgressListener(result, methodCall);

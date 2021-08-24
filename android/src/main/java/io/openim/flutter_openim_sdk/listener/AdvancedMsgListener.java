@@ -15,7 +15,6 @@ public class AdvancedMsgListener implements OnAdvancedMsgListener {
 
     @Override
     public void onRecvC2CReadReceipt(String s) {
-        System.out.println("native onRecvC2CReadReceipt:"+ s);
         values.put("message", s);
         CommonUtil.emitEvent("advancedMsgListener", "onRecvC2CReadReceipt", values);
     }
