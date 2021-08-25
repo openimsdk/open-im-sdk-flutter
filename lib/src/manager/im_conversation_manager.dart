@@ -40,7 +40,7 @@ class ConversationManager {
               }))
           .then((value) => _toObj(value));
 
-  /// get conversation by id
+  /// get conversation list by id list
   ///
   Future<List<ConversationInfo>> getMultipleConversation({
     required List<String> conversationIDList,

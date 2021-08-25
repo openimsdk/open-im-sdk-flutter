@@ -195,6 +195,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createImageMessageFromFullPath({required String imagePath}) {
     return _channel
         .invokeMethod(
@@ -217,6 +218,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createSoundMessageFromFullPath({
     required String soundPath,
     required int duration,
@@ -248,6 +250,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createVideoMessageFromFullPath({
     required String videoPath,
     required String videoType,
@@ -309,6 +312,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createLocationMessage({
     required double latitude,
     required double longitude,
@@ -325,6 +329,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  ///
   Future<Message> createCustomMessage({
     required Uint8List data,
     required Uint8List extension,
