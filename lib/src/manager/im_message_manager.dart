@@ -347,6 +347,21 @@ class MessageManager {
   }
 
   ///
+  Future<Message> createQuoteMessage({
+    required String text,
+    required Message quoteMsg,
+  }) {
+    return _channel
+        .invokeMethod(
+            'createQuoteMessage',
+            _buildParam({
+              'quoteText': text,
+              'quoteMessage': quoteMsg.toJson(),
+            }))
+        .then((value) => _toObj(value));
+  }
+
+  ///
   Future<dynamic> getTotalUnreadMsgCount() {
     return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
   }
