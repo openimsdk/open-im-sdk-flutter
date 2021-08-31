@@ -1,7 +1,5 @@
 package io.openim.flutter_openim_sdk.manager;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -227,6 +225,13 @@ public class MessageManager {
                 CommonUtil.getCustomMessageData(methodCall),
                 CommonUtil.getCustomMessageExt(methodCall),
                 CommonUtil.getMessageDes(methodCall)
+        ));
+    }
+
+    public void createQuoteMessage(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.createQuoteMessage(
+                CommonUtil.getQuoteMessageText(methodCall),
+                CommonUtil.getQuoteMessageBody(methodCall)
         ));
     }
 
