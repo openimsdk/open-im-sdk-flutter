@@ -42,7 +42,7 @@ class MessageManager {
     required Message message,
     String? userID,
     String? groupID,
-    required bool onlineUserOnly,
+    bool onlineUserOnly = false,
   }) {
     return _channel.invokeMethod(
             'sendMessage',

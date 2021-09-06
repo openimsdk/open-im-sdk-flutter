@@ -28,6 +28,7 @@ class Message {
   AtElem? atElem;
   LocationElem? locationElem;
   CustomElem? customElem;
+  QuoteElem? quoteElem;
 
   Message({
     this.clientMsgID,
@@ -57,6 +58,7 @@ class Message {
     this.atElem,
     this.locationElem,
     this.customElem,
+    this.quoteElem,
   });
 
   Message.fromJson(Map<String, dynamic> json)
@@ -102,6 +104,9 @@ class Message {
     customElem = json['customElem'] != null
         ? CustomElem.fromJson(json['customElem'])
         : null;
+    quoteElem = json['quoteElem'] != null
+        ? QuoteElem.fromJson(json['quoteElem'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -133,24 +138,22 @@ class Message {
     data['atElem'] = this.atElem?.toJson();
     data['locationElem'] = this.locationElem?.toJson();
     data['customElem'] = this.customElem?.toJson();
+    data['quoteElem'] = this.quoteElem?.toJson();
     return data;
   }
 
   @override
   bool operator ==(Object other) {
-    // TODO: implement ==
     if (other is Message) {
       return other._id == _id;
     }
-    return super == other;
+    return false;
   }
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
-  String? get _id =>
-      clientMsgID == null || clientMsgID!.isEmpty ? serverMsgID : clientMsgID;
+  String? get _id => clientMsgID;
 }
 
 class PictureElem {
@@ -422,6 +425,27 @@ class CustomElem {
     data['data'] = this.data;
     data['extension'] = this.extension;
     data['description'] = this.description;
+    return data;
+  }
+}
+
+class QuoteElem {
+  String? text;
+  Message? quoteMessage;
+
+  QuoteElem({this.text, this.quoteMessage});
+
+  QuoteElem.fromJson(Map<String, dynamic> json) {
+    text = json['text'];
+    if (json['quoteMessage'] is Map) {
+      quoteMessage = Message.fromJson(json['quoteMessage']);
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['text'] = this.text;
+    data['quoteMessage'] = this.quoteMessage?.toJson();
     return data;
   }
 }
