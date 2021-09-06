@@ -13,6 +13,7 @@ class MessageType {
   static const revoke = 111;
   static const has_read_receipt = 112;
   static const typing = 113;
+  static const quote = 114;
 
   ///
   static const accept_friend = 201;
