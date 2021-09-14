@@ -1,15 +1,16 @@
 # flutter_openim_sdk
 
-![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/add_friend.gif)
-![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-104641-HD.gif) 
-![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-105242-HD.gif) 
-![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-105444-HD.gif) 
-
 ### [Download demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git)
 
 ### [OpenIM-Flutter-Widget](https://github.com/hrxiang/OpenIM-Flutter-Widget.git)
 
 [![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet?style=for-the-badge)](README.zh-cn.md)
+
+![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/add_friend.gif)
+![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-104641-HD.gif) 
+![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-105242-HD.gif) 
+![img](https://github.com/hrxiang/OpenIMFlutterDemo/blob/main/gif/QQ20210728-105444-HD.gif) 
+
 
 A flutter IM plugin for android and ios.
 
