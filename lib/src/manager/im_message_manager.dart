@@ -302,12 +302,12 @@ class MessageManager {
   }
 
   ///
-  Future<Message> createForwardMessage({required List<Message> messageList}) {
+  Future<Message> createForwardMessage({required Message message}) {
     return _channel
         .invokeMethod(
             'createForwardMessage',
             _buildParam({
-              'message': messageList.map((e) => e.toJson()).toList(),
+              'message': message.toJson(),
             }))
         .then((value) => _toObj(value));
   }
@@ -357,6 +357,18 @@ class MessageManager {
             _buildParam({
               'quoteText': text,
               'quoteMessage': quoteMsg.toJson(),
+            }))
+        .then((value) => _toObj(value));
+  }
+
+  Future<Message> createCardMessage({
+    required Map<String, dynamic> data,
+  }) {
+    return _channel
+        .invokeMethod(
+            'createCardMessage',
+            _buildParam({
+              'cardMessage': data,
             }))
         .then((value) => _toObj(value));
   }

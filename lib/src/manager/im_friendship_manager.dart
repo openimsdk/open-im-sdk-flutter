@@ -47,6 +47,12 @@ class FriendshipManager {
         .then((value) => _toList(value));
   }
 
+  Future<List<dynamic>> getFriendListMap() {
+    return _channel
+        .invokeMethod('getFriendList', _buildParam({}))
+        .then((value) => _toListMap(value));
+  }
+
   /// modify friend information, only [comment] can be modified
   ///
   Future<dynamic> setFriendInfo({required UserInfo info}) {
@@ -129,6 +135,11 @@ class FriendshipManager {
     var list = _formatJson(value);
     if (null == list) return <UserInfo>[];
     return (list as List).map((e) => UserInfo.fromJson(e)).toList();
+  }
+
+  static List<dynamic> _toListMap(String? value) {
+    var list = _formatJson(value);
+    return list;
   }
 
   static UserInfo _toObj(String value) => UserInfo.fromJson(_formatJson(value));

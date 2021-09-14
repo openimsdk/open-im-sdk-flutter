@@ -7,7 +7,8 @@ class MessageType {
   static const file = 105;
   static const at_text = 106;
   static const merger = 107;
-  static const forward = 108;
+  // static const forward = 108;
+  static const card = 108;
   static const location = 109;
   static const custom = 110;
   static const revoke = 111;

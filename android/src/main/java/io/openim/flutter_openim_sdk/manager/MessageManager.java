@@ -235,6 +235,12 @@ public class MessageManager {
         ));
     }
 
+    public void createCardMessage(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.createCardMessage(
+                CommonUtil.getCardMessage(methodCall)
+        ));
+    }
+
     public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getTotalUnreadMsgCount(new BaseListener(result));
     }

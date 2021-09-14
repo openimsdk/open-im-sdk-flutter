@@ -90,12 +90,37 @@ class GroupManager {
         .then((value) => GroupMembersList.fromJson(_formatJson(value)));
   }
 
+// filter 0: all user, 1: group owner, 2: administrator
+  /// begin index, pull and fill 0 for the first time
+  Future<dynamic> getGroupMemberListMap({
+    required String groupId,
+    int filter = 0,
+    int next = 0,
+  }) {
+    return _channel
+        .invokeMethod(
+            'getGroupMemberList',
+            _buildParam({
+              'gid': groupId,
+              'filter': filter,
+              'next': next,
+            }))
+        .then((value) => _formatJson(value));
+  }
+
   /// find all groups you have joined
   Future<List<GroupInfo>> getJoinedGroupList() {
     return _channel.invokeMethod('getJoinedGroupList', _buildParam({})).then(
         (value) => (_formatJson(value) as List)
             .map((e) => GroupInfo.fromJson(e))
             .toList());
+  }
+
+  /// find all groups you have joined
+  Future<List<dynamic>> getJoinedGroupListMap() {
+    return _channel
+        .invokeMethod('getJoinedGroupList', _buildParam({}))
+        .then((value) => _formatJson(value));
   }
 
   /// check

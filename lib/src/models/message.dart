@@ -8,6 +8,8 @@ class Message {
   String? sendID;
   String? recvID;
   int? msgFrom;
+
+  /// [MessageType]
   int? contentType;
   int? platformID;
   List<String>? forceList;
@@ -17,9 +19,13 @@ class Message {
   String? content;
   int? seq;
   bool? isRead;
+
+  /// [MessageStatus]
   int? status;
   String? remark;
   dynamic ext;
+
+  /// [ConversationType]
   int? sessionType;
   PictureElem? pictureElem;
   SoundElem? soundElem;
@@ -29,6 +35,7 @@ class Message {
   LocationElem? locationElem;
   CustomElem? customElem;
   QuoteElem? quoteElem;
+  MergeElem? mergeElem;
 
   Message({
     this.clientMsgID,
@@ -59,6 +66,7 @@ class Message {
     this.locationElem,
     this.customElem,
     this.quoteElem,
+    this.mergeElem,
   });
 
   Message.fromJson(Map<String, dynamic> json)
@@ -107,6 +115,9 @@ class Message {
     quoteElem = json['quoteElem'] != null
         ? QuoteElem.fromJson(json['quoteElem'])
         : null;
+    mergeElem = json['mergeElem'] != null
+        ? MergeElem.fromJson(json['mergeElem'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -139,6 +150,7 @@ class Message {
     data['locationElem'] = this.locationElem?.toJson();
     data['customElem'] = this.customElem?.toJson();
     data['quoteElem'] = this.quoteElem?.toJson();
+    data['mergeElem'] = this.mergeElem?.toJson();
     return data;
   }
 
@@ -450,6 +462,34 @@ class QuoteElem {
   }
 }
 
+class MergeElem {
+  String? title;
+  List<String>? abstractList;
+  List<Message>? multiMessage;
+
+  MergeElem({this.title, this.abstractList, this.multiMessage});
+
+  MergeElem.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+    if (json['abstractList'] is List) {
+      abstractList = json['abstractList'].cast<String>();
+    }
+    if (json['multiMessage'] is List) {
+      multiMessage = (json['abstractList'] as List)
+          .map((e) => Message.fromJson(e))
+          .toList();
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['abstractList'] = this.abstractList;
+    data['multiMessage'] = this.multiMessage?.map((e) => e.toJson()).toList();
+    return data;
+  }
+}
+
 class HaveReadInfo {
   String? uid;
   List<String>? msgIDList;
@@ -458,12 +498,13 @@ class HaveReadInfo {
   int? contentType;
   int? sessionType;
 
-  HaveReadInfo({this.uid,
-    this.msgIDList,
-    this.readTime,
-    this.msgFrom,
-    this.contentType,
-    this.sessionType});
+  HaveReadInfo(
+      {this.uid,
+      this.msgIDList,
+      this.readTime,
+      this.msgFrom,
+      this.contentType,
+      this.sessionType});
 
   HaveReadInfo.fromJson(Map<String, dynamic> json) {
     uid = json['uid'];
