@@ -4,6 +4,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationInfo {
   String conversationID;
+  /// [ConversationType]
   int? conversationType;
   String? userID;
   String? groupID;
@@ -15,6 +16,8 @@ class ConversationInfo {
   int? latestMsgSendTime;
   String? draftText;
   int? draftTimestamp;
+
+  ///  pinned value is 1
   dynamic isPinned;
 
   ConversationInfo(
@@ -78,4 +81,6 @@ class ConversationInfo {
   bool get isSingleChat => conversationType == ConversationType.single_chat;
 
   bool get isGroupChat => conversationType == ConversationType.group_chat;
+
+  bool get isTop => isPinned == 1;
 }

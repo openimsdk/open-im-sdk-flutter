@@ -292,6 +292,10 @@ public class CommonUtil {
         return getSDKJsonParam(methodCall, KEY_QUOTE_MESSAGE_BODY);
     }
 
+    public static String getCardMessage(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_CARD_MESSAGE);
+    }
+
     //login
     final static String KEY_UID = "uid";
     final static String KEY_TOKEN = "token";
@@ -318,6 +322,7 @@ public class CommonUtil {
     final static String KEY_CUSTOM_MESSAGE_EXT = "extension";
     final static String KEY_QUOTE_MESSAGE_TEXT = "quoteText";
     final static String KEY_QUOTE_MESSAGE_BODY = "quoteMessage";
+    final static String KEY_CARD_MESSAGE = "cardMessage";
     //send message
     final static String KEY_SEND_MESSAGE_CONTENT = "message";
     final static String KEY_SEND_MESSAGE_CONTENT_CLIENT_ID = "clientMsgID";

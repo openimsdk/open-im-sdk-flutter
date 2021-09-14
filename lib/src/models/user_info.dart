@@ -77,9 +77,12 @@ class UserInfo {
   ///  blacklist
   bool get isBlocked => isInBlackList == 1;
 
-  /// friend application
+  /// friend application waiting handle
+  bool get isWaitingHandle => flag == 0;
+
+  /// friend application agreed
   bool get isAgreed => flag == 1;
 
-  /// friend application
+  /// friend application rejected
   bool get isRejected => flag == -1;
 }
