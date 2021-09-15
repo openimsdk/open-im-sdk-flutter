@@ -96,6 +96,24 @@ class ConversationManager {
               }))
           .then((value) => _printValue(value));
 
+  ///
+  /// @params userID: receiver's userID
+  Future<dynamic> markSingleMessageHasRead({required String userID}) {
+    return _channel.invokeMethod(
+        'markSingleMessageHasRead', _buildParam({'userID': userID}));
+  }
+
+  ///
+  Future<dynamic> markGroupMessageHasRead({required String groupID}) {
+    return _channel.invokeMethod(
+        'markGroupMessageHasRead', _buildParam({'groupID': groupID}));
+  }
+
+  ///
+  Future<dynamic> getTotalUnreadMsgCount() {
+    return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
+  }
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "conversationManager";
     return param;

@@ -1,6 +1,7 @@
-import 'dart:convert';
+
 
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+import 'package:flutter_openim_sdk/src/openim.dart';
 
 void main() {
   /* const MethodChannel channel = MethodChannel('flutter_openim_sdk');
@@ -41,4 +42,7 @@ void main() {
   // print('${now.millisecond}');
   // print('${now.microsecondsSinceEpoch}');
   // print('${now.millisecondsSinceEpoch}');
+
+
+
 }

@@ -98,14 +98,14 @@ class MessageManager {
   /// @params userID: receiver's user ID
   /// @params sender: current user ID
   Future insertSingleMessageToLocalStorage({
-    String? userID,
-    Message? message,
+    String? receiver,
     String? sender,
+    Message? message,
   }) {
     return _channel.invokeMethod(
         'insertSingleMessageToLocalStorage',
         _buildParam({
-          "userID": userID,
+          "userID": receiver,
           "message": message?.toJson(),
           "sender": sender,
         }));
@@ -118,19 +118,6 @@ class MessageManager {
         _buildParam({
           "messageIDList": messageIDList,
         }));
-  }
-
-  ///
-  /// @params userID: receiver's userID
-  Future<dynamic> markSingleMessageHasRead({required String userID}) {
-    return _channel.invokeMethod(
-        'markSingleMessageHasRead', _buildParam({'userID': userID}));
-  }
-
-  ///
-  Future<dynamic> markGroupMessageHasRead({required String groupID}) {
-    return _channel.invokeMethod(
-        'markGroupMessageHasRead', _buildParam({'groupID': groupID}));
   }
 
   ///
@@ -371,11 +358,6 @@ class MessageManager {
               'cardMessage': data,
             }))
         .then((value) => _toObj(value));
-  }
-
-  ///
-  Future<dynamic> getTotalUnreadMsgCount() {
-    return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
   }
 
   ///

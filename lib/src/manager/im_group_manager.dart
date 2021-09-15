@@ -130,16 +130,23 @@ class GroupManager {
   }
 
   /// create a group
-  /// @params groupInfo: Group information
   /// @params list[List<GroupMemberRole>]: Group members you invited
   Future<dynamic> createGroup({
-    GroupInfo? groupInfo,
+    String? groupName,
+    String? notification,
+    String? introduction,
+    String? faceUrl,
     required List<GroupMemberRole> list,
   }) {
     return _channel.invokeMethod(
         'createGroup',
         _buildParam({
-          'gInfo': groupInfo?.toJson(),
+          'gInfo': {
+            "groupName": groupName,
+            "notification": notification,
+            "introduction": introduction,
+            "faceUrl": faceUrl,
+          },
           'memberList': list.map((e) => e.toJson()).toList()
         }));
     /*.then((value) => _formatJson(value)['groupID'])*/
@@ -147,12 +154,20 @@ class GroupManager {
 
   /// Edit group information
   Future<dynamic> setGroupInfo({
-    required GroupInfo groupInfo,
+    String? groupName,
+    String? notification,
+    String? introduction,
+    String? faceUrl,
   }) {
     return _channel.invokeMethod(
         'setGroupInfo',
         _buildParam({
-          'gInfo': groupInfo.toJson(),
+          'gInfo': {
+            "groupName": groupName,
+            "notification": notification,
+            "introduction": introduction,
+            "faceUrl": faceUrl,
+          },
         }));
   }
 
