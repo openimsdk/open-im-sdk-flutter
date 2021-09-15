@@ -180,6 +180,11 @@ public class CommonUtil {
         return result
     }
     
+    public static func getGroupMessageGroupid(methodCall: FlutterMethodCall)->String{
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_MESSAGE_GROUPID) as! String
+        return result
+    }
+    
     public static func getSingleMessageSender(methodCall: FlutterMethodCall)->String{
         let result: String = getParamValue(methodCall: methodCall, param: KEY_SINGLE_MESSAGE_SENDER) as! String
         return result
@@ -203,7 +208,7 @@ public class CommonUtil {
     }
 
      public static func getConversationSourceId(methodCall: FlutterMethodCall)->String {
-        let result: String = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_SOURCE_ID);
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_CONVERSATION_SOURCE_ID) as! String;
         return result
     }
 
@@ -273,7 +278,7 @@ public class CommonUtil {
     private static let KEY_TEXT: String = "text";
     private static let KEY_AT_USER_LIST: String = "atUserList";
     private static let KEY_IMAGE_PATH: String = "imagePath";
-    private static let KEY_SOUND_PATH: String= "soundPath";
+    private static let KEY_SOUND_PATH: String = "soundPath";
     private static let KEY_SOUND_DURATION: String = "duration";
     private static let KEY_VIDEO_PATH: String = "videoPath";
     private static let KEY_VIDEO_TYPE: String = "videoType";

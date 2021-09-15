@@ -33,7 +33,7 @@ public class IMMananger:NSObject{
     }
     
     func getLoginUid(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        DispatchQueue.main.async { result(Open_im_sdkGetLoginUid()) }
+        DispatchQueue.main.async { result(Open_im_sdkGetLoginUser()) }
     }
     
     func getUsersInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {

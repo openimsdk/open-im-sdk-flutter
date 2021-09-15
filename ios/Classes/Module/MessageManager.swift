@@ -42,11 +42,11 @@ public class MessageManager:NSObject{
     }
     
     func sendMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-       let sendMsgProgressListener: SendMsgProgressListener= SendMsgProgressListener(channel: channel)
-        sendMsgProgressListener?.setCall(methodCall: methodCall)
-        sendMsgProgressListener?.setResult(result: result)
+        let sendMsgProgressListener: SendMsgProgressListener = SendMsgProgressListener(channel: channel)
+        sendMsgProgressListener.setCall(methodCall: methodCall)
+        sendMsgProgressListener.setResult(result: result)
         print("===============sendMessage===============")
-        Open_im_sdkSendMessage(sendMsgProgressListener, CommonUtil.getSendMessageContent(methodCall: methodCall), CommonUtil.getSendMessageReceiver(methodCall: methodCall), CommonUtil.geSendMessageGroupId(methodCall: methodCall), CommonUtil.getSendMessageOnlineOnly(methodCall: methodCall))
+        Open_im_sdkSendMessage(sendMsgProgressListener, CommonUtil.getSendMessageContent(methodCall: methodCall), CommonUtil.getSendMessageReceiver(methodCall: methodCall), CommonUtil.getSendMessageGroupId(methodCall: methodCall), CommonUtil.getSendMessageOnlineOnly(methodCall: methodCall))
     }
     
     func getHistoryMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -192,4 +192,5 @@ public class AdvancedMsgListener: NSObject, Open_im_sdkOnAdvancedMsgListenerProt
     }
     
     
+}
 }
