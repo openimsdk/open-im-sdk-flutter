@@ -55,8 +55,14 @@ class FriendshipManager {
 
   /// modify friend information, only [comment] can be modified
   ///
-  Future<dynamic> setFriendInfo({required UserInfo info}) {
-    return _channel.invokeMethod('setFriendInfo', _buildParam(info.toJson()));
+  Future<dynamic> setFriendInfo(
+      {required String uid, required String comment}) {
+    return _channel.invokeMethod(
+        'setFriendInfo',
+        _buildParam({
+          'uid': uid,
+          'comment': comment,
+        }));
   }
 
   /// add to blacklist
