@@ -58,7 +58,7 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
             imManager.setSelfInfo(methodCall: call, result: result)
         }else if method == "forceSyncLoginUerInfo" {
             imManager.forceSyncLoginUerInfo(methodCall: call, result: result)
-        }}else if method == "forceReConn" {
+        }else if method == "forceReConn" {
             imManager.forceReConn(methodCall: call, result: result)
         }else{
             print("Handle MethodName Error: IMManager method: \(method)  not found")
@@ -164,7 +164,7 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
         }else if method == "createForwardMessage" {
             messageManager.createForwardMessage(methodCall: call, result: result)
         }else if method == "getTotalUnreadMsgCount" {
-            conversationManager.getTotalUnreadMsgCount(methodCall: call, result: result)
+            messageManager.getTotalUnreadMsgCount(methodCall: call, result: result)
         }else{
             print("Handle MethodName Error: MessageManager method: \(method)  not found")
         }
@@ -202,14 +202,14 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
             groupManager.acceptGroupApplication(methodCall: call, result: result)
         }else if method == "refuseGroupApplication" {
             groupManager.refuseGroupApplication(methodCall: call, result: result)
-        }else if method == "forceSyncApplyGroupRequest" {
-            groupManager.forceSyncApplyGroupRequest(methodCall: call, result: result)
-        }else if method == "forceSyncGroupRequest" {
-            groupManager.forceSyncGroupRequest(methodCall: call, result: result)
-        }else if method == "forceSyncJoinedGroup" {
-            groupManager.forceSyncJoinedGroup(methodCall: call, result: result)
-        }else if method == "forceSyncJoinedGroupMember" {
-            groupManager.forceSyncJoinedGroupMember(methodCall: call, result: result)
+//        }else if method == "forceSyncApplyGroupRequest" {
+//            groupManager.forceSyncApplyGroupRequest(methodCall: call, result: result)
+//        }else if method == "forceSyncGroupRequest" {
+//            groupManager.forceSyncGroupRequest(methodCall: call, result: result)
+//        }else if method == "forceSyncJoinedGroup" {
+//            groupManager.forceSyncJoinedGroup(methodCall: call, result: result)
+//        }else if method == "forceSyncJoinedGroupMember" {
+//            groupManager.forceSyncJoinedGroupMember(methodCall: call, result: result)
         }else{
             print("Handle MethodName Error: MessageManager method: \(method)  not found")
         }

@@ -85,4 +85,7 @@ class UserInfo {
 
   /// friend application rejected
   bool get isRejected => flag == -1;
+
+  /// exist friendship
+  bool get isFriendship => isAgreed;
 }

@@ -75,38 +75,48 @@ public class GroupManager:NSObject{
         Open_im_sdkRefuseGroupApplication(CommonUtil.getGroupApplicationInfo(methodCall: methodCall), CommonUtil.getGroupOpReason(methodCall: methodCall), BaseImpl(result: result))
     }
     
-    func forceSyncApplyGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceSyncApplyGroupRequest()
-    }
-
-    func forceSyncGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceSyncGroupRequest()
-    }
-
-    func forceSyncJoinedGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceSyncJoinedGroup()
-    }
-
-    func forceSyncJoinedGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceSyncJoinedGroupMember()
-    }
+//    func forceSyncApplyGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//        Open_im_sdkForceSyncApplyGroupRequest()
+//    }
+//
+//    func forceSyncGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//        Open_im_sdkForceSyncGroupRequest()
+//    }
+//
+//    func forceSyncJoinedGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//        Open_im_sdkForceSyncJoinedGroup()
+//    }
+//
+//    func forceSyncJoinedGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//        Open_im_sdkForceSyncJoinedGroupMember()
+//    }
 
 }
 public class GroupListener:NSObject,Open_im_sdkOnGroupListenerProtocol {
+    
     private let channel:FlutterMethodChannel
     
     init(channel:FlutterMethodChannel) {
         self.channel = channel
     }
     
-    public func onApplicationProcessed(_ s: String?,s1: String?,i: Int?,s2: String?) {
+    public func onApplicationProcessed(_ groupId: String?, opUser: String?, agreeOrReject AgreeOrReject: Int32, opReason: String?) {
         let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(s, forKey: "groupId")
-        values.setValue(s1, forKey: "opUser")
-        values.setValue(i, forKey: "agreeOrReject")
-        values.setValue(s2, forKey: "opReason")
+        values.setValue(groupId, forKey: "groupId")
+        values.setValue(opUser, forKey: "opUser")
+        values.setValue(AgreeOrReject, forKey: "agreeOrReject")
+        values.setValue(opReason, forKey: "opReason")
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onApplicationProcessed", errCode: nil, errMsg: nil, data: values)
     }
+    
+//    public func onApplicationProcessed(_ s: String?,s1: String?,i: Int?,s2: String?) {
+//        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
+//        values.setValue(s, forKey: "groupId")
+//        values.setValue(s1, forKey: "opUser")
+//        values.setValue(i, forKey: "agreeOrReject")
+//        values.setValue(s2, forKey: "opReason")
+//        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onApplicationProcessed", errCode: nil, errMsg: nil, data: values)
+//    }
     
     public func onGroupCreated(_ s: String?) {
         let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
@@ -114,21 +124,21 @@ public class GroupListener:NSObject,Open_im_sdkOnGroupListenerProtocol {
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupCreated", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onGroupInfoChanged(_ s: String?,s1: String?) {
+    public func onGroupInfoChanged(_ s: String?,groupInfo s1: String?) {
         let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
         values.setValue(s, forKey: "groupId")
         values.setValue(s1, forKey: "groupInfo")
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupInfoChanged", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onMemberEnter(_ s: String?,s1: String?) {
+    public func onMemberEnter(_ s: String?,memberList s1: String?) {
         let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
         values.setValue(s, forKey: "groupId")
         values.setValue(s1, forKey: "memberList")
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberEnter", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onMemberInvited(_ s: String?,s1: String?,s2: String?) {
+    public func onMemberInvited(_ s: String?,opUser s1: String?,memberList s2: String?) {
         let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
         values.setValue(s, forKey: "groupId")
         values.setValue(s1, forKey: "opUser")
@@ -136,7 +146,7 @@ public class GroupListener:NSObject,Open_im_sdkOnGroupListenerProtocol {
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberInvited", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onMemberKicked(_ s: String?,s1: String?,s2: String?) {
+    public func onMemberKicked(_ s: String?,opUser s1: String?,memberList s2: String?) {
         let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
         values.setValue(s, forKey: "groupId")
         values.setValue(s1, forKey: "opUser")
@@ -144,14 +154,14 @@ public class GroupListener:NSObject,Open_im_sdkOnGroupListenerProtocol {
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberKicked", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onMemberLeave(_ s: String?,s1: String?) {
+    public func onMemberLeave(_ s: String?,member s1: String?) {
         let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
         values.setValue(s, forKey: "groupId")
         values.setValue(s1, forKey: "member")
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberLeave", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onReceiveJoinApplication(_ s: String?,s1: String?,s2: String?) {
+    public func onReceiveJoinApplication(_ s: String?,member s1: String?,opReason s2: String?) {
         let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
         values.setValue(s, forKey: "groupId")
         values.setValue(s1, forKey: "member")
