@@ -1,49 +1,49 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-class OnInitSDKListener implements InitSDKListener {
-  Function(int? code, String? errorMsg)? connectFailed;
-  Function()? connectSuccess;
-  Function()? connecting;
-  Function()? kickedOffline;
-  Function(UserInfo info)? selfInfoUpdated;
-  Function()? userSigExpired;
+class OnInitSDKListener extends InitSDKListener {
+  Function(int? code, String? errorMsg)? onConnectFailed;
+  Function()? onConnectSuccess;
+  Function()? onConnecting;
+  Function()? onKickedOffline;
+  Function(UserInfo info)? onSelfInfoUpdated;
+  Function()? onUserSigExpired;
 
   OnInitSDKListener({
-    this.connectFailed,
-    this.connectSuccess,
-    this.connecting,
-    this.kickedOffline,
-    this.selfInfoUpdated,
-    this.userSigExpired,
+    this.onConnectFailed,
+    this.onConnectSuccess,
+    this.onConnecting,
+    this.onKickedOffline,
+    this.onSelfInfoUpdated,
+    this.onUserSigExpired,
   });
 
   @override
-  void onConnectFailed(int? code, String? errorMsg) {
-    if (null != connectFailed) connectFailed!(code, errorMsg);
+  void connectFailed(int? code, String? errorMsg) {
+    if (null != onConnectFailed) onConnectFailed!(code, errorMsg);
   }
 
   @override
-  void onConnectSuccess() {
-    if (null != connectSuccess) connectSuccess!();
+  void connectSuccess() {
+    if (null != onConnectSuccess) onConnectSuccess!();
   }
 
   @override
-  void onConnecting() {
-    if (null != connecting) connecting!.call();
+  void connecting() {
+    if (null != onConnecting) onConnecting!.call();
   }
 
   @override
-  void onKickedOffline() {
-    if (null != kickedOffline) kickedOffline!();
+  void kickedOffline() {
+    if (null != onKickedOffline) onKickedOffline!();
   }
 
   @override
-  void onSelfInfoUpdated(UserInfo info) {
-    if (null != selfInfoUpdated) selfInfoUpdated!(info);
+  void selfInfoUpdated(UserInfo info) {
+    if (null != onSelfInfoUpdated) onSelfInfoUpdated!(info);
   }
 
   @override
-  void onUserSigExpired() {
-    if (null != userSigExpired) userSigExpired!();
+  void userSigExpired() {
+    if (null != onUserSigExpired) onUserSigExpired!();
   }
 }

@@ -1,3 +1,3 @@
-class MsgSendProgressListener {
-  void onProgress(String msgID, int progress) {}
+abstract class MsgSendProgressListener {
+  void progress(String msgID, int progress);
 }

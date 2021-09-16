@@ -1,11 +1,12 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-class OnMsgSendProgressListener implements MsgSendProgressListener {
-  Function(String msgID, int progress)? progressCallback;
 
-  OnMsgSendProgressListener({this.progressCallback});
+class OnMsgSendProgressListener extends MsgSendProgressListener {
+  Function(String msgID, int progress)? onProgress;
 
-  void onProgress(String msgID, int progress) {
-    if (null != progressCallback) progressCallback!(msgID, progress);
+  OnMsgSendProgressListener({this.onProgress});
+
+  void progress(String msgID, int progress) {
+    if (null != onProgress) onProgress!(msgID, progress);
   }
 }
