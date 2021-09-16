@@ -1,49 +1,50 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-class OnConversationListener implements ConversationListener {
-  Function(List<ConversationInfo> list)? conversationChanged;
-  Function(List<ConversationInfo> list)? newConversation;
-  Function(int count)? totalUnreadMsgCountChanged;
-  Function()? syncServerFailed;
-  Function()? syncServerFinish;
-  Function()? syncServerStart;
+class OnConversationListener extends ConversationListener {
+  Function(List<ConversationInfo> list)? onConversationChanged;
+  Function(List<ConversationInfo> list)? onNewConversation;
+  Function(int count)? onTotalUnreadMessageCountChanged;
+  Function()? onSyncServerFailed;
+  Function()? onSyncServerFinish;
+  Function()? onSyncServerStart;
 
   OnConversationListener({
-    this.conversationChanged,
-    this.newConversation,
-    this.totalUnreadMsgCountChanged,
-    this.syncServerFailed,
-    this.syncServerFinish,
-    this.syncServerStart,
+    this.onConversationChanged,
+    this.onNewConversation,
+    this.onTotalUnreadMessageCountChanged,
+    this.onSyncServerFailed,
+    this.onSyncServerFinish,
+    this.onSyncServerStart,
   });
 
   @override
-  void onConversationChanged(List<ConversationInfo> list) {
-    if (conversationChanged != null) conversationChanged!(list);
+  void conversationChanged(List<ConversationInfo> list) {
+    if (onConversationChanged != null) onConversationChanged!(list);
   }
 
   @override
-  void onNewConversation(List<ConversationInfo> list) {
-    if (newConversation != null) newConversation!(list);
+  void newConversation(List<ConversationInfo> list) {
+    if (onNewConversation != null) onNewConversation!(list);
   }
 
   @override
-  void onSyncServerFailed() {
-    if (syncServerFailed != null) syncServerFailed!();
+  void syncServerFailed() {
+    if (onSyncServerFailed != null) onSyncServerFailed!();
   }
 
   @override
-  void onSyncServerFinish() {
-    if (syncServerFinish != null) syncServerFinish!();
+  void syncServerFinish() {
+    if (onSyncServerFinish != null) onSyncServerFinish!();
   }
 
   @override
-  void onSyncServerStart() {
-    if (syncServerStart != null) syncServerStart!();
+  void syncServerStart() {
+    if (onSyncServerStart != null) onSyncServerStart!();
   }
 
   @override
-  void onTotalUnreadMessageCountChanged(int i) {
-    if (totalUnreadMsgCountChanged != null) totalUnreadMsgCountChanged!(i);
+  void totalUnreadMessageCountChanged(int i) {
+    if (onTotalUnreadMessageCountChanged != null)
+      onTotalUnreadMessageCountChanged!(i);
   }
 }

@@ -35,24 +35,24 @@ class IMManager {
           switch (type) {
             case 'onSelfInfoUpdated':
               uInfo = UserInfo.fromJson(_formatJson(data));
-              _initSDKListener.onSelfInfoUpdated(uInfo);
+              _initSDKListener.selfInfoUpdated(uInfo);
               break;
             case 'onConnectFailed':
               int? errCode = call.arguments['errCode'];
               String? errMsg = call.arguments['errMsg'];
-              _initSDKListener.onConnectFailed(errCode, errMsg);
+              _initSDKListener.connectFailed(errCode, errMsg);
               break;
             case 'onConnecting':
-              _initSDKListener.onConnecting();
+              _initSDKListener.connecting();
               break;
             case 'onConnectSuccess':
-              _initSDKListener.onConnectSuccess();
+              _initSDKListener.connectSuccess();
               break;
             case 'onKickedOffline':
-              _initSDKListener.onKickedOffline();
+              _initSDKListener.kickedOffline();
               break;
             case 'onUserSigExpired':
-              _initSDKListener.onUserSigExpired();
+              _initSDKListener.userSigExpired();
               break;
           }
         } else if (call.method == ListenerType.groupListener) {
@@ -61,7 +61,7 @@ class IMManager {
           Map<dynamic, dynamic> map = args['data'];
           switch (type) {
             case 'onMemberEnter':
-              groupManager.groupListener.onMemberEnter(
+              groupManager.groupListener.memberEnter(
                 map['groupId'],
                 (_formatJson(map['memberList']) as List)
                     .map((e) => GroupMembersInfo.fromJson(e))
@@ -69,13 +69,13 @@ class IMManager {
               );
               break;
             case 'onMemberLeave':
-              groupManager.groupListener.onMemberLeave(
+              groupManager.groupListener.memberLeave(
                 map['groupId'],
                 GroupMembersInfo.fromJson(_formatJson(map['member'])),
               );
               break;
             case 'onMemberInvited':
-              groupManager.groupListener.onMemberInvited(
+              groupManager.groupListener.memberInvited(
                 map['groupId'],
                 GroupMembersInfo.fromJson(_formatJson(map['opUser'])),
                 (_formatJson(map['memberList']) as List)
@@ -84,7 +84,7 @@ class IMManager {
               );
               break;
             case 'onMemberKicked':
-              groupManager.groupListener.onMemberKicked(
+              groupManager.groupListener.memberKicked(
                 map['groupId'],
                 GroupMembersInfo.fromJson(_formatJson(map['opUser'])),
                 (_formatJson(map['memberList']) as List)
@@ -93,25 +93,25 @@ class IMManager {
               );
               break;
             case 'onGroupCreated':
-              groupManager.groupListener.onGroupCreated(
+              groupManager.groupListener.groupCreated(
                 map['groupId'],
               );
               break;
             case 'onGroupInfoChanged':
-              groupManager.groupListener.onGroupInfoChanged(
+              groupManager.groupListener.groupInfoChanged(
                 map['groupId'],
                 GroupInfo.fromJson(_formatJson(map['groupInfo'])),
               );
               break;
             case 'onReceiveJoinApplication':
-              groupManager.groupListener.onReceiveJoinApplication(
+              groupManager.groupListener.receiveJoinApplication(
                 map['groupId'],
                 GroupMembersInfo.fromJson(_formatJson(map['member'])),
                 map['opReason'],
               );
               break;
             case 'onApplicationProcessed':
-              groupManager.groupListener.onApplicationProcessed(
+              groupManager.groupListener.applicationProcessed(
                 map['groupId'],
                 GroupMembersInfo.fromJson(_formatJson(map['opUser'])),
                 map['agreeOrReject'],
@@ -145,14 +145,14 @@ class IMManager {
               var msg = Message.fromJson(_formatJson(value));
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
-                  listener.onRecvNewMessage(msg);
+                  listener.recvNewMessage(msg);
                 }
               }
               break;
             case 'onRecvMessageRevoked':
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
-                  listener.onRecvMessageRevoked(value);
+                  listener.recvMessageRevoked(value);
                 }
               }
               break;
@@ -161,7 +161,7 @@ class IMManager {
               var list = l.map((e) => HaveReadInfo.fromJson(e)).toList();
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
-                  listener.onRecvC2CReadReceipt(list);
+                  listener.recvC2CReadReceipt(list);
                 }
               }
               break;
@@ -173,7 +173,7 @@ class IMManager {
           int progress = data['progress'] ?? 100;
           switch (type) {
             case 'onProgress':
-              messageManager.msgSendProgressListener?.onProgress(
+              messageManager.msgSendProgressListener?.progress(
                 msgID,
                 progress,
               );
@@ -184,14 +184,14 @@ class IMManager {
           dynamic data = call.arguments['data'];
           switch (type) {
             case 'onSyncServerStart':
-              conversationManager.conversationListener.onSyncServerStart();
+              conversationManager.conversationListener.syncServerStart();
               break;
             case 'onSyncServerFinish':
-              conversationManager.conversationListener.onSyncServerFinish();
+              conversationManager.conversationListener.syncServerFinish();
               break;
 
             case 'onSyncServerFailed':
-              conversationManager.conversationListener.onSyncServerFailed();
+              conversationManager.conversationListener.syncServerFailed();
               break;
             case 'onNewConversation':
               List<ConversationInfo> list = List.empty(growable: true);
@@ -200,7 +200,7 @@ class IMManager {
                     .map((e) => ConversationInfo.fromJson(e))
                     .toList();
               }
-              conversationManager.conversationListener.onNewConversation(list);
+              conversationManager.conversationListener.newConversation(list);
               break;
             case 'onConversationChanged':
               List<ConversationInfo> list = List.empty(growable: true);
@@ -210,11 +210,11 @@ class IMManager {
                     .toList();
               }
               conversationManager.conversationListener
-                  .onConversationChanged(list);
+                  .conversationChanged(list);
               break;
             case 'onTotalUnreadMessageCountChanged':
               conversationManager.conversationListener
-                  .onTotalUnreadMessageCountChanged(data ?? 0);
+                  .totalUnreadMessageCountChanged(data ?? 0);
               break;
           }
         } else if (call.method == ListenerType.friendListener) {
@@ -223,35 +223,35 @@ class IMManager {
           UserInfo u = UserInfo.fromJson(_formatJson(data));
           switch (type) {
             case 'onBlackListAdd':
-              friendshipManager.friendshipListener.onBlackListAdd(u);
+              friendshipManager.friendshipListener.blackListAdd(u);
               break;
             case 'onBlackListDeleted':
-              friendshipManager.friendshipListener.onBlackListDeleted(u);
+              friendshipManager.friendshipListener.blackListDeleted(u);
               break;
             case 'onFriendApplicationListAccept':
               friendshipManager.friendshipListener
-                  .onFriendApplicationListAccept(u);
+                  .friendApplicationListAccept(u);
               break;
             case 'onFriendApplicationListAdded':
               friendshipManager.friendshipListener
-                  .onFriendApplicationListAdded(u);
+                  .friendApplicationListAdded(u);
               break;
             case 'onFriendApplicationListDeleted':
               friendshipManager.friendshipListener
-                  .onFriendApplicationListDeleted(u);
+                  .friendApplicationListDeleted(u);
               break;
             case 'onFriendApplicationListReject':
               friendshipManager.friendshipListener
-                  .onFriendApplicationListReject(u);
+                  .friendApplicationListReject(u);
               break;
             case 'onFriendInfoChanged':
-              friendshipManager.friendshipListener.onFriendInfoChanged(u);
+              friendshipManager.friendshipListener.friendInfoChanged(u);
               break;
             case 'onFriendListAdded':
-              friendshipManager.friendshipListener.onFriendListAdded(u);
+              friendshipManager.friendshipListener.friendListAdded(u);
               break;
             case 'onFriendListDeleted':
-              friendshipManager.friendshipListener.onFriendListDeleted(u);
+              friendshipManager.friendshipListener.friendListDeleted(u);
               break;
           }
         }
@@ -334,8 +334,25 @@ class IMManager {
   }
 
   ///
-  Future<String?> setSelfInfo(UserInfo info) {
-    return _channel.invokeMethod('setSelfInfo', _buildParam(info.toJson()));
+  Future<String?> setSelfInfo(
+      {String? name,
+      String? icon,
+      int? gender,
+      String? mobile,
+      String? birth,
+      String? email,
+      String? ex}) {
+    return _channel.invokeMethod(
+        'setSelfInfo',
+        _buildParam({
+          'name': name,
+          'icon': icon,
+          'gender': gender,
+          'mobile': mobile,
+          'birth': birth,
+          'email': email,
+          'ex': ex,
+        }));
     // .then((value) => UserInfo.fromJson(value));
   }
 

@@ -1,15 +1,15 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-class ConversationListener {
-  void onConversationChanged(List<ConversationInfo> list) {}
+abstract class ConversationListener {
+  void conversationChanged(List<ConversationInfo> list);
 
-  void onNewConversation(List<ConversationInfo> list) {}
+  void newConversation(List<ConversationInfo> list);
 
-  void onSyncServerFailed() {}
+  void syncServerFailed();
 
-  void onSyncServerFinish() {}
+  void syncServerFinish();
 
-  void onSyncServerStart() {}
+  void syncServerStart();
 
-  void onTotalUnreadMessageCountChanged(int i) {}
+  void totalUnreadMessageCountChanged(int i);
 }

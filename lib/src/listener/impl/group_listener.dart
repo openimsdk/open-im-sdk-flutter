@@ -1,75 +1,75 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-class OnGroupListener implements GroupListener {
+class OnGroupListener extends GroupListener {
   Function(String groupId, GroupMembersInfo opUser, int agreeOrReject,
-      String opReason)? applicationProcessed;
-  Function(String groupId)? groupCreated;
-  Function(String groupId, GroupInfo info)? groupInfoChanged;
-  Function(String groupId, List<GroupMembersInfo> list)? memberEnter;
+      String opReason)? onApplicationProcessed;
+  Function(String groupId)? onGroupCreated;
+  Function(String groupId, GroupInfo info)? onGroupInfoChanged;
+  Function(String groupId, List<GroupMembersInfo> list)? onMemberEnter;
   Function(
           String groupId, GroupMembersInfo opUser, List<GroupMembersInfo> list)?
-      memberInvited;
+      onMemberInvited;
   Function(
           String groupId, GroupMembersInfo opUser, List<GroupMembersInfo> list)?
-      memberKicked;
-  Function(String groupId, GroupMembersInfo info)? memberLeave;
+      onMemberKicked;
+  Function(String groupId, GroupMembersInfo info)? onMemberLeave;
   Function(String groupId, GroupMembersInfo info, String opReason)?
-      receiveJoinApplication;
+      onReceiveJoinApplication;
 
   OnGroupListener({
-    this.applicationProcessed,
-    this.groupCreated,
-    this.groupInfoChanged,
-    this.memberEnter,
-    this.memberInvited,
-    this.memberKicked,
-    this.memberLeave,
-    this.receiveJoinApplication,
+    this.onApplicationProcessed,
+    this.onGroupCreated,
+    this.onGroupInfoChanged,
+    this.onMemberEnter,
+    this.onMemberInvited,
+    this.onMemberKicked,
+    this.onMemberLeave,
+    this.onReceiveJoinApplication,
   });
 
   @override
-  void onApplicationProcessed(String groupId, GroupMembersInfo opUser,
+  void applicationProcessed(String groupId, GroupMembersInfo opUser,
       int agreeOrReject, String opReason) {
-    if (null != applicationProcessed)
-      applicationProcessed!(groupId, opUser, agreeOrReject, opReason);
+    if (null != onApplicationProcessed)
+      onApplicationProcessed!(groupId, opUser, agreeOrReject, opReason);
   }
 
   @override
-  void onGroupCreated(String groupId) {
-    if (null != groupCreated) groupCreated!(groupId);
+  void groupCreated(String groupId) {
+    if (null != onGroupCreated) onGroupCreated!(groupId);
   }
 
   @override
-  void onGroupInfoChanged(String groupId, GroupInfo info) {
-    if (null != groupInfoChanged) groupInfoChanged!(groupId, info);
+  void groupInfoChanged(String groupId, GroupInfo info) {
+    if (null != onGroupInfoChanged) onGroupInfoChanged!(groupId, info);
   }
 
   @override
-  void onMemberEnter(String groupId, List<GroupMembersInfo> list) {
-    if (null != memberEnter) memberEnter!(groupId, list);
+  void memberEnter(String groupId, List<GroupMembersInfo> list) {
+    if (null != onMemberEnter) onMemberEnter!(groupId, list);
   }
 
   @override
-  void onMemberInvited(
+  void memberInvited(
       String groupId, GroupMembersInfo opUser, List<GroupMembersInfo> list) {
-    if (null != memberInvited) memberInvited!(groupId, opUser, list);
+    if (null != onMemberInvited) onMemberInvited!(groupId, opUser, list);
   }
 
   @override
-  void onMemberKicked(
+  void memberKicked(
       String groupId, GroupMembersInfo opUser, List<GroupMembersInfo> list) {
-    if (null != memberKicked) memberKicked!(groupId, opUser, list);
+    if (null != onMemberKicked) onMemberKicked!(groupId, opUser, list);
   }
 
   @override
-  void onMemberLeave(String groupId, GroupMembersInfo info) {
-    if (null != memberLeave) memberLeave!(groupId, info);
+  void memberLeave(String groupId, GroupMembersInfo info) {
+    if (null != onMemberLeave) onMemberLeave!(groupId, info);
   }
 
   @override
-  void onReceiveJoinApplication(
+  void receiveJoinApplication(
       String groupId, GroupMembersInfo info, String opReason) {
-    if (null != receiveJoinApplication)
-      receiveJoinApplication!(groupId, info, opReason);
+    if (null != onReceiveJoinApplication)
+      onReceiveJoinApplication!(groupId, info, opReason);
   }
 }

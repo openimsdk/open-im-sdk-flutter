@@ -1,15 +1,15 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 
-class AdvancedMsgListener {
+abstract class AdvancedMsgListener {
   /// listener uniquely identifies
   final String id;
 
   AdvancedMsgListener() : id = "id_${DateTime.now().microsecondsSinceEpoch}";
 
-  void onRecvNewMessage(Message msg) {}
+  void recvNewMessage(Message msg);
 
-  void onRecvC2CReadReceipt(List<HaveReadInfo> list) {}
+  void recvC2CReadReceipt(List<HaveReadInfo> list);
 
-  void onRecvMessageRevoked(String msgId) {}
+  void recvMessageRevoked(String msgId);
 }
