@@ -47,4 +47,16 @@ public class ConversationManager {
                 CommonUtil.isPinnedConversation(methodCall),
                 new BaseListener(result));
     }
+
+    public void markSingleMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.markSingleMessageHasRead(new BaseListener(result), CommonUtil.getSingleMessageUserid(methodCall));
+    }
+
+    public void markGroupMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.markGroupMessageHasRead(new BaseListener(result), CommonUtil.getGroupMessageGroupid(methodCall));
+    }
+
+    public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getTotalUnreadMsgCount(new BaseListener(result));
+    }
 }

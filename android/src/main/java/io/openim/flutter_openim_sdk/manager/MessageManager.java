@@ -114,14 +114,6 @@ public class MessageManager {
         Open_im_sdk.findMessages(new BaseListener(result), CommonUtil.getMessageIdList(methodCall));
     }
 
-    public void markSingleMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.markSingleMessageHasRead(new BaseListener(result), CommonUtil.getSingleMessageUserid(methodCall));
-    }
-
-    public void markGroupMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.markGroupMessageHasRead(new BaseListener(result), CommonUtil.getGroupMessageGroupid(methodCall));
-    }
-
     public void markC2CMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.markC2CMessageAsRead(new BaseListener(result),
                 CommonUtil.getSingleMessageUserid(methodCall),
@@ -239,10 +231,6 @@ public class MessageManager {
         CommonUtil.runMainThreadReturn(result, Open_im_sdk.createCardMessage(
                 CommonUtil.getCardMessage(methodCall)
         ));
-    }
-
-    public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getTotalUnreadMsgCount(new BaseListener(result));
     }
 
     public void forceSyncMsg(MethodCall methodCall, MethodChannel.Result result) {
