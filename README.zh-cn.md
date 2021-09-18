@@ -1053,7 +1053,7 @@ OpenIM.iMManager.friendshipManager.setFriendshipListener(OnFriendshipListener(  
 | blackListAdd                 | 好友被加入黑名             | 刷新好友列表或黑名单列表           |
 | blackListDeleted             | 好友从黑名单移除           | 刷新好友列表或黑名单列表           |
 | friendApplicationListAccept  | 发起的好友请求被接受       | 刷新好友请求列表                   |
-| friendApplicationListAdded   | 我接受被人的发起的好友请求 | 刷新好友请求列表                   |
+| friendApplicationListAdded   | 别人向我发起了好友请求      | 刷新好友请求列表                   |
 | friendApplicationListDeleted | 删除好友请求               | 刷新好友请求列表                   |
 | friendApplicationListReject  | 请求被拒绝                 | 刷新好友请求列表                   |
 | friendInfoChanged            | 好友资料发生变化           | 刷新好友列表，好友信息或黑名单列表 |
