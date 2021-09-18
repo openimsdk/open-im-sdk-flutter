@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -318,8 +317,8 @@ class MessageManager {
 
   ///
   Future<Message> createCustomMessage({
-    required Uint8List data,
-    required Uint8List extension,
+    required Map<String, dynamic> data,
+    required Map<String, dynamic> extension,
     required String description,
   }) {
     return _channel

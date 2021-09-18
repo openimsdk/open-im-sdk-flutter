@@ -276,12 +276,12 @@ public class CommonUtil {
         return getParamValue(methodCall, KEY_MESSAGE_DES);
     }
 
-    public static byte[] getCustomMessageData(MethodCall methodCall) {
-        return getParamValue(methodCall, KEY_CUSTOM_MESSAGE_DATA);
+    public static String getCustomMessageData(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_CUSTOM_MESSAGE_DATA);
     }
 
-    public static byte[] getCustomMessageExt(MethodCall methodCall) {
-        return getParamValue(methodCall, KEY_CUSTOM_MESSAGE_EXT);
+    public static String getCustomMessageExt(MethodCall methodCall) {
+        return getSDKJsonParam(methodCall, KEY_CUSTOM_MESSAGE_EXT);
     }
 
     public static String getQuoteMessageText(MethodCall methodCall) {
