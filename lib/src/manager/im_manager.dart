@@ -335,7 +335,8 @@ class IMManager {
 
   ///
   Future<String?> setSelfInfo(
-      {String? name,
+      {required String uid,
+      String? name,
       String? icon,
       int? gender,
       String? mobile,
@@ -345,6 +346,7 @@ class IMManager {
     return _channel.invokeMethod(
         'setSelfInfo',
         _buildParam({
+          'uid': uid,
           'name': name,
           'icon': icon,
           'gender': gender,

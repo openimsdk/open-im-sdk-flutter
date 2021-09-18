@@ -317,8 +317,8 @@ class MessageManager {
 
   ///
   Future<Message> createCustomMessage({
-    required Map<String, dynamic> data,
-    required Map<String, dynamic> extension,
+    required String data,
+    required String extension,
     required String description,
   }) {
     return _channel

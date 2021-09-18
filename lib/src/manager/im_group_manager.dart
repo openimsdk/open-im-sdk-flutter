@@ -154,6 +154,7 @@ class GroupManager {
 
   /// Edit group information
   Future<dynamic> setGroupInfo({
+    required String groupID,
     String? groupName,
     String? notification,
     String? introduction,
@@ -163,6 +164,7 @@ class GroupManager {
         'setGroupInfo',
         _buildParam({
           'gInfo': {
+            "groupID": groupID,
             "groupName": groupName,
             "notification": notification,
             "introduction": introduction,

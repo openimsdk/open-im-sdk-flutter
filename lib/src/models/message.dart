@@ -420,8 +420,8 @@ class LocationElem {
 }
 
 class CustomElem {
-  Uint8List? data;
-  Uint8List? extension;
+  String? data;
+  String? extension;
   String? description;
 
   CustomElem({this.data, this.extension, this.description});

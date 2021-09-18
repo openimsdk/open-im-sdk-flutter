@@ -277,11 +277,11 @@ public class CommonUtil {
     }
 
     public static String getCustomMessageData(MethodCall methodCall) {
-        return getSDKJsonParam(methodCall, KEY_CUSTOM_MESSAGE_DATA);
+        return getParamValue(methodCall, KEY_CUSTOM_MESSAGE_DATA);
     }
 
     public static String getCustomMessageExt(MethodCall methodCall) {
-        return getSDKJsonParam(methodCall, KEY_CUSTOM_MESSAGE_EXT);
+        return getParamValue(methodCall, KEY_CUSTOM_MESSAGE_EXT);
     }
 
     public static String getQuoteMessageText(MethodCall methodCall) {
