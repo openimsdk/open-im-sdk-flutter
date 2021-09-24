@@ -1,5 +1,6 @@
 ## 0.0.5
-升级sdk
+升级sdk </br>
+fix message error bug 
 
 ## 0.0.4
 

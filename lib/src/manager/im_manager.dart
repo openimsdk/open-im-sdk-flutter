@@ -139,9 +139,9 @@ class IMManager {
         } else if (call.method == ListenerType.advancedMsgListener) {
           var type = call.arguments['type'];
           var id = call.arguments['data']['id'];
-          var value = call.arguments['data']['message'];
           switch (type) {
             case 'onRecvNewMessage':
+              var value = call.arguments['data']['newMessage'];
               var msg = Message.fromJson(_formatJson(value));
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
@@ -150,6 +150,7 @@ class IMManager {
               }
               break;
             case 'onRecvMessageRevoked':
+              var value = call.arguments['data']['revokedMessage'];
               for (var listener in messageManager.advancedMsgListeners) {
                 if (listener.id == id) {
                   listener.recvMessageRevoked(value);
@@ -157,6 +158,7 @@ class IMManager {
               }
               break;
             case 'onRecvC2CReadReceipt':
+              var value = call.arguments['data']['haveReadMessage'];
               var l = _formatJson(value) as List;
               var list = l.map((e) => HaveReadInfo.fromJson(e)).toList();
               for (var listener in messageManager.advancedMsgListeners) {
