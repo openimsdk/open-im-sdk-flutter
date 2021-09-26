@@ -28,12 +28,7 @@ public class CommonUtil {
     }
 
     public static void runMainThreadReturn(final MethodChannel.Result result, final Object param) {
-        MAIN_HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                result.success(param);
-            }
-        });
+        MAIN_HANDLER.post(() -> result.success(param));
     }
 
     public static void runMainThread(Runnable runnable) {
@@ -42,12 +37,7 @@ public class CommonUtil {
 
 
     public static void runMainThreadReturnError(final MethodChannel.Result result, final String errorCode, final String errorMessage, final Object errorDetails) {
-        MAIN_HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                result.error(errorCode, errorMessage, errorDetails);
-            }
-        });
+        MAIN_HANDLER.post(() -> result.error(errorCode, errorMessage, errorDetails));
     }
 
     public static void runMainThreadReturnError(final MethodChannel.Result result, final long errorCode, final String errorMessage, final Object errorDetails) {
@@ -55,25 +45,22 @@ public class CommonUtil {
     }
 
     public synchronized static <T> void emitEvent(String method, String type, Long errCode, String errMsg, T data) {
-        runMainThread(new Runnable() {
-            @Override
-            public void run() {
-                HashMap<String, Object> res = new HashMap<String, Object>();
-//                if (null != type) {
+        runMainThread(() -> {
+            HashMap<String, Object> res = new HashMap<>();
+            if (null != type) {
                 res.put("type", type);
-//                }
-                if (null != data) {
-                    res.put("data", data);
-                }
-                if (null != errCode) {
-                    res.put("errCode", errCode);
-                }
-                if (null != errMsg) {
-                    res.put("errMsg", errMsg);
-                }
-                Log.i("F-OpenIMSDK(native call flutter)", "{ method:" + method + ",  type:" + type + " }");
-                FlutterOpenimSdkPlugin.channel.invokeMethod(method, res);
             }
+            if (null != data) {
+                res.put("data", data);
+            }
+            if (null != errCode) {
+                res.put("errCode", errCode);
+            }
+            if (null != errMsg) {
+                res.put("errMsg", errMsg);
+            }
+            Log.i("F-OpenIMSDK(native call flutter)", "{ method:" + method + ",  type:" + type + " }");
+            FlutterOpenimSdkPlugin.channel.invokeMethod(method, res);
         });
     }
 
