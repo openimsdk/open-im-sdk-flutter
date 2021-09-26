@@ -1,3 +1,6 @@
+## 0.0.6
+fix bug
+
 ## 0.0.5
 升级sdk </br>
 fix message error bug 
