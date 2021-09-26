@@ -54,7 +54,7 @@ public class CommonUtil {
         runMainThreadReturnError(result, String.valueOf(errorCode), errorMessage, errorDetails);
     }
 
-    public static <T> void emitEvent(String method, String type, Long errCode, String errMsg, T data) {
+    public synchronized static <T> void emitEvent(String method, String type, Long errCode, String errMsg, T data) {
         runMainThread(new Runnable() {
             @Override
             public void run() {

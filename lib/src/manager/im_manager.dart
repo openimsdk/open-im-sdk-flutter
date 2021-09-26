@@ -23,10 +23,10 @@ class IMManager {
     groupManager = GroupManager(_channel);
     offlinePushManager = OfflinePushManager(_channel);
     signalingManager = SignalingManager(_channel);
-    addNativeCallback(_channel);
+    _addNativeCallback(_channel);
   }
 
-  void addNativeCallback(MethodChannel _channel) {
+  void _addNativeCallback(MethodChannel _channel) {
     _channel.setMethodCallHandler((call) {
       try {
         if (call.method == ListenerType.initSDKListener) {
@@ -306,12 +306,14 @@ class IMManager {
 
   /// login sdk
   ///
-  Future<dynamic> login({required String uid, required String token}) async {
+  Future<UserInfo> login({required String uid, required String token}) async {
     this.uid = uid;
-    return _channel.invokeMethod(
+    await _channel.invokeMethod(
       'login',
       _buildParam({'uid': uid, 'token': token}),
     );
+    this.uInfo = (await getUsersInfo([uid])).first;
+    return uInfo;
   }
 
   ///
@@ -332,7 +334,7 @@ class IMManager {
 
   ///
   Future<UserInfo> getLoginUserInfo() {
-    return getUsersInfo([uid]).then((list) => uInfo = list[0]);
+    return Future.value(uInfo);
   }
 
   ///
