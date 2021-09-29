@@ -59,4 +59,11 @@ public class ConversationManager {
     public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getTotalUnreadMsgCount(new BaseListener(result));
     }
+
+    public void getConversationIDBySessionType(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.getConversationIDBySessionType(CommonUtil.getConversationSourceId(methodCall),
+                CommonUtil.getConversationSessionType(methodCall)));
+    }
+
 }

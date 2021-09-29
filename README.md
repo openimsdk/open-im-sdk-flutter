@@ -19,7 +19,7 @@ A flutter IM plugin for android and ios.
 
 #### 1，Add dependency in yaml
 
-       flutter_openim_sdk: ^0.0.6
+       flutter_openim_sdk: ^0.0.7
 
 #### 2，Import package
 

@@ -29,7 +29,7 @@ class ConversationManager {
   ///
   Future<ConversationInfo> getSingleConversation({
     required String sourceID,
-    required String sessionType,
+    required int sessionType,
   }) =>
       _channel
           .invokeMethod(
@@ -112,6 +112,21 @@ class ConversationManager {
   ///
   Future<dynamic> getTotalUnreadMsgCount() {
     return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
+  }
+
+  /// sourceID: if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
+  /// sessionType: if it is a single chat, it value is 1. if it is a group chat, it value is 2
+  ///
+  Future<dynamic> getConversationID({
+    required String sourceID,
+    required int sessionType,
+  }) {
+    return _channel.invokeMethod(
+        'getConversationIDBySessionType',
+        _buildParam({
+          "sourceID": sourceID,
+          "sessionType": sessionType,
+        }));
   }
 
   static Map _buildParam(Map param) {
