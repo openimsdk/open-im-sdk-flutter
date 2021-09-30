@@ -148,7 +148,7 @@ class FriendshipManager {
     return list;
   }
 
-  static UserInfo _toObj(String value) => UserInfo.fromJson(_formatJson(value));
+  // static UserInfo _toObj(String value) => UserInfo.fromJson(_formatJson(value));
 
   static dynamic _formatJson(value) {
     return jsonDecode(_printValue(value));

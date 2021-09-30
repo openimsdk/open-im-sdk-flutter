@@ -1,29 +1,30 @@
 ## 0.0.8
-升级sdk到0.0.14，发送消息增加了重试了机制
+Upgrade sdk to 0.0.14 </br>
+Sending a message adds a retry mechanism
 
 ## 0.0.7
-1，新增根据用户id或群组id获取会话id的方法 </br>
-2，修改会话管理器入参sessionType的类型为int
+1. Add a new method to obtain conversation id based on user id or group id </br>
+2. Modify the type of conversation manager input parameter sessionType to int
 
 ## 0.0.6
 fix bug
 
 ## 0.0.5
-升级sdk </br>
-fix message error bug 
+Upgrade sdk </br>
+fix message error bug
 
 ## 0.0.4
 
-将createCustomMessage方法入参从Uint8List替换为Map
+Replace the input parameters of the createCustomMessage method from Uint8List to Map
 
 ## 0.0.3
 upgrade sdk </br>
 fix bug </br>
 
 ## 0.0.2
-1，将 markSingleMessageHasRead、markGroupMessageHasRead和getTotalUnreadMsgCount方法从类MessageManager移动到类ConversationManager。</br>
-2，修改setFriendInfo方法的参数。</br>
-3，修改createGroup和setGroupInfo方法的参数。
+1. Move the markSingleMessageHasRead, markGroupMessageHasRead and getTotalUnreadMsgCount methods from the MessageManager class to the ConversationManager class. </br>
+2. Modify the parameters of the setFriendInfo method. </br>
+3. Modify the parameters of the createGroup and setGroupInfo methods.
 
 ## 0.0.1
 

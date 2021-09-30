@@ -9,8 +9,8 @@ class IMManager {
   late FriendshipManager friendshipManager;
   late MessageManager messageManager;
   late GroupManager groupManager;
-  late OfflinePushManager offlinePushManager;
-  late SignalingManager signalingManager;
+  // late OfflinePushManager offlinePushManager;
+  // late SignalingManager signalingManager;
   late InitSDKListener _initSDKListener;
   late String uid;
   late UserInfo uInfo;
@@ -21,8 +21,8 @@ class IMManager {
     friendshipManager = FriendshipManager(_channel);
     messageManager = MessageManager(_channel);
     groupManager = GroupManager(_channel);
-    offlinePushManager = OfflinePushManager(_channel);
-    signalingManager = SignalingManager(_channel);
+    // offlinePushManager = OfflinePushManager(_channel);
+    // signalingManager = SignalingManager(_channel);
     _addNativeCallback(_channel);
   }
 

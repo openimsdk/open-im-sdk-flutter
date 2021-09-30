@@ -1,33 +1,17 @@
-
 class ListenerType {
-  ///
-  ///
-  static const String simpleMsgListener = 'simpleMsgListener';
+  static const simpleMsgListener = 'simpleMsgListener';
 
-  ///
-  ///
-  static const String initSDKListener = 'initSDKListener';
+  static const initSDKListener = 'initSDKListener';
 
-  ///
-  ///
-  static const String groupListener = 'groupListener';
+  static const groupListener = 'groupListener';
 
-  ///
-  ///
-  static const String advancedMsgListener = 'advancedMsgListener';
+  static const advancedMsgListener = 'advancedMsgListener';
 
-  ///
-  ///
-  static const String conversationListener = 'conversationListener';
+  static const conversationListener = 'conversationListener';
 
-  ///
-  ///
-  static const String friendListener = 'friendListener';
+  static const friendListener = 'friendListener';
 
-  ///
-  ///
-  static const String signalingListener = 'signalingListener';
+  static const signalingListener = 'signalingListener';
 
-  ///
-  static const String msgSendProgressListener = "msgSendProgressListener";
+  static const msgSendProgressListener = "msgSendProgressListener";
 }
