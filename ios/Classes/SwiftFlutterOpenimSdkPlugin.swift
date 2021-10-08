@@ -81,6 +81,14 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
             conversationManager.setConversationDraft(methodCall: call, result: result)
         }else if method == "pinConversation" {
             conversationManager.pinConversation(methodCall: call, result: result)
+        }else if method == "markSingleMessageHasRead" {
+            conversationManager.markSingleMessageHasRead(methodCall: call, result: result)
+        }else if method == "markGroupMessageHasRead" {
+            conversationManager.markGroupMessageHasRead(methodCall: call, result: result)
+        }else if method == "getTotalUnreadMsgCount" {
+            conversationManager.getTotalUnreadMsgCount(methodCall: call, result: result)
+        }else if method == "getConversationIDBySessionType" {
+            conversationManager.getConversationIDBySessionType(methodCall: call, result: result)
         }else{
             print("Handle MethodName Error: ConversationManager method: \(method)  not found")
         }
@@ -145,26 +153,42 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
             messageManager.insertSingleMessageToLocalStorage(methodCall: call, result: result)
         }else if method == "findMessages" {
             messageManager.findMessages(methodCall: call, result: result)
-        }else if method == "markSingleMessageHasRead" {
-            messageManager.markSingleMessageHasRead(methodCall: call, result: result)
+        }else if method == "markC2CMessageAsRead" {
+            messageManager.markC2CMessageAsRead(methodCall: call, result: result)
+        }else if method == "typingStatusUpdate" {
+            messageManager.typingStatusUpdate(methodCall: call, result: result)
         }else if method == "createTextMessage" {
             messageManager.createTextMessage(methodCall: call, result: result)
         }else if method == "createTextAtMessage" {
             messageManager.createTextAtMessage(methodCall: call, result: result)
         }else if method == "createImageMessage" {
             messageManager.createImageMessage(methodCall: call, result: result)
+        }else if method == "createImageMessageFromFullPath" {
+            // TODO:
         }else if method == "createSoundMessage" {
             messageManager.createSoundMessage(methodCall: call, result: result)
+        }else if method == "createSoundMessageFromFullPath" {
+            // TODO:
         }else if method == "createVideoMessage" {
             messageManager.createVideoMessage(methodCall: call, result: result)
+        }else if method == "createVideoMessageFromFullPath" {
+            // TODO:
         }else if method == "createFileMessage" {
             messageManager.createFileMessage(methodCall: call, result: result)
         }else if method == "createMergerMessage" {
             messageManager.createMergerMessage(methodCall: call, result: result)
         }else if method == "createForwardMessage" {
             messageManager.createForwardMessage(methodCall: call, result: result)
-        }else if method == "getTotalUnreadMsgCount" {
-            messageManager.getTotalUnreadMsgCount(methodCall: call, result: result)
+        }else if method == "createLocationMessage" {
+            // TODO:
+        }else if method == "createCustomMessage" {
+            // TODO:
+        }else if method == "createQuoteMessage" {
+            // TODO:
+        }else if method == "createCardMessage" {
+            // TODO:
+        }else if method == "forceSyncMsg" {
+            // TODO:
         }else{
             print("Handle MethodName Error: MessageManager method: \(method)  not found")
         }

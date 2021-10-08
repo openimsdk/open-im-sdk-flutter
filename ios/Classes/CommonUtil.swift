@@ -179,6 +179,11 @@ public class CommonUtil {
         let result: String = getParamValue(methodCall: methodCall, param: KEY_SINGLE_MESSAGE_USERID) as! String
         return result
     }
+
+    public static func getUserid(methodCall: FlutterMethodCall)->String{
+        let result: String = getParamValue(methodCall: methodCall, param: KEY_SINGLE_MESSAGE_USERID) as! String
+        return result
+    }
     
     public static func getGroupMessageGroupid(methodCall: FlutterMethodCall)->String{
         let result: String = getParamValue(methodCall: methodCall, param: KEY_GROUP_MESSAGE_GROUPID) as! String
@@ -190,10 +195,15 @@ public class CommonUtil {
         return result
     }
     
-    public static func getFindMessageIds(methodCall: FlutterMethodCall)->String{
-        let result = getParamValue(methodCall: methodCall, param: KEY_FIND_MESSAGE_IDS) as AnyObject
+    public static func getMessageIds(methodCall: FlutterMethodCall)->String{
+        let result = getParamValue(methodCall: methodCall, param: KEY_MESSAGE_IDS) as AnyObject
         let r = JsonUtil.toString(object: result)
         return r
+    }
+
+    public static func getTyping(methodCall: FlutterMethodCall)->String {
+        let result: String = getParamValue(methodCall: methodCall, param: "typing") as! String
+        return result
     }
     
     public static func getConversationId(methodCall: FlutterMethodCall)->String{
@@ -303,7 +313,7 @@ public class CommonUtil {
     //group chat
     private static let KEY_GROUP_MESSAGE_GROUPID: String = "groupID";
     // find message
-    private static let KEY_FIND_MESSAGE_IDS: String = "messageIDList";
+    private static let KEY_MESSAGE_IDS: String = "messageIDList";
     // conversation
     private static let KEY_CONVERSATION_ID: String = "conversationID";
     private static let KEY_CONVERSATION_IDS: String = "conversationIDList";

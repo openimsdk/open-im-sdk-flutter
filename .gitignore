@@ -1,0 +1,4 @@
+.DS_Store
+/.packages
+/.dart_tool
+/example/ios/Podfile.lock

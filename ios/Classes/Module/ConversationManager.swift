@@ -42,6 +42,23 @@ public class ConversationManager:NSObject{
     func pinConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkPinConversation(CommonUtil.getConversationId(methodCall: methodCall), CommonUtil.isPinnedConversation(methodCall: methodCall), BaseImpl(result: result))
     }
+
+    func markSingleMessageHasRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkMarkSingleMessageHasRead(BaseImpl(result: result), CommonUtil.getSingleMessageUserid(methodCall: methodCall))
+    }
+
+    func markGroupMessageHasRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkMarkGroupMessageHasRead(BaseImpl(result: result), CommonUtil.getGroupMessageGroupid(methodCall: methodCall))
+    }
+
+    func getTotalUnreadMsgCount(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetTotalUnreadMsgCount(BaseImpl(result: result))
+    }
+
+    func getConversationIDBySessionType(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        let conversationID = Open_im_sdkGetConversationIDBySessionType(CommonUtil.getConversationSourceId(methodCall: methodCall), CommonUtil.getConversationSessionType(methodCall: methodCall))
+        DispatchQueue.main.async { result(conversationID) }
+    }
 }
 
 
