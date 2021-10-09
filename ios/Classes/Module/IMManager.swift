@@ -8,52 +8,63 @@
 import Foundation
 import OpenIMCore
 
-public class IMMananger:NSObject{
+public class IMMananger: BaseServiceManager {
     
-    private let channel:FlutterMethodChannel
-    
-    init(channel:FlutterMethodChannel) {
-        self.channel = channel
+    public override func registerHandlers() {
+        super.registerHandlers()
+        
+        self["initSDK"] = initSDK
+        self["login"] = login
+        self["logout"] = logout
+        self["getLoginStatus"] = getLoginStatus
+        self["getLoginUid"] = getLoginUid
+        self["getUsersInfo"] = getUsersInfo
+        self["setSelfInfo"] = setSelfInfo
+        self["forceSyncLoginUerInfo"] = forceSyncLoginUerInfo
+        self["forceReConn"] = forceReConn
     }
     
-    func initSDK(methodCall: FlutterMethodCall, result: FlutterResult){
-        Open_im_sdkInitSDK(CommonUtil.getSDKJsonParam(methodCall: methodCall), SDKListener(channel: self.channel))
+    func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkInitSDK(methodCall.toJsonString(), SDKListener(channel: self.channel))
+        callBack(result)
     }
     
     func login(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkLogin(CommonUtil.getUid(methodCall: methodCall), CommonUtil.getToken(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkLogin(methodCall[string: "uid"], methodCall[string: "token"], BaseCallback(result: result))
     }
     
     func logout(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkLogout(BaseImpl(result: result))
+        Open_im_sdkLogout(BaseCallback(result: result))
     }
     
     func getLoginStatus(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        DispatchQueue.main.async { result(Open_im_sdkGetLoginStatus()) }
+        callBack(result, Open_im_sdkGetLoginStatus())
     }
     
     func getLoginUid(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        DispatchQueue.main.async { result(Open_im_sdkGetLoginUser()) }
+        callBack(result, Open_im_sdkGetLoginUser())
     }
     
     func getUsersInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkGetUsersInfo(CommonUtil.getUidList(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkGetUsersInfo(methodCall[jsonString: "uidList"], BaseCallback(result: result))
     }
     
     func setSelfInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkSetSelfInfo(CommonUtil.getSDKJsonParam(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkSetSelfInfo(methodCall.toJsonString(), BaseCallback(result: result))
     }
     
     func forceSyncLoginUerInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkForceSyncLoginUerInfo()
+        callBack(result)
     }
-
+    
     func forceReConn(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkForceReConn()
+        callBack(result)
     }
 }
 
-public class SDKListener:NSObject,Open_im_sdkIMSDKListenerProtocol {
+public class SDKListener: NSObject, Open_im_sdkIMSDKListenerProtocol {
     private let channel:FlutterMethodChannel
     
     init(channel:FlutterMethodChannel) {
@@ -83,23 +94,4 @@ public class SDKListener:NSObject,Open_im_sdkIMSDKListenerProtocol {
     public func onUserTokenExpired() {
         CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onUserTokenExpired", errCode: nil, errMsg: nil, data: nil);
     }
-}
-
-public class BaseImpl:NSObject,Open_im_sdkBaseProtocol {
-    
-    private let result:FlutterResult
-    
-    init(result:@escaping FlutterResult) {
-        self.result = result
-    }
-    
-    public func onError(_ errCode: Int, errMsg: String?) {
-        print("BaseImpl: " + errMsg!)
-        DispatchQueue.main.async { self.result(FlutterError(code: "\(errCode)", message: errMsg, details: nil)) }
-    }
-    
-    public func onSuccess(_ data: String?) {
-        DispatchQueue.main.async { self.result(data) }
-    }
-    
 }
