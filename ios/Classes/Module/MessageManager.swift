@@ -10,7 +10,7 @@ import OpenIMCore
 
 public class MessageManager: BaseServiceManager {
     private let KEY_ID: String = "id"
-    private let listeners: NSMutableDictionary = NSMutableDictionary(capacity: 0)
+    private var listeners: [String: AdvancedMsgListener] = [:]
     
     public override func registerHandlers() {
         super.registerHandlers()
@@ -45,13 +45,10 @@ public class MessageManager: BaseServiceManager {
     }
     
     func addAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let d = methodCall.arguments as! NSDictionary
-        let key = d.value(forKey: KEY_ID) as! String
-        if !listeners.allKeys.contains(where: {($0 as! String).compare(key) == .orderedSame}) {
+        let key = methodCall[string: KEY_ID]
+        if listeners[key] == nil {
             let lis = AdvancedMsgListener(channel: channel, id: key)
-            let k = methodCall.arguments as! NSDictionary
-            let s = k.value(forKey: KEY_ID) as! String
-            listeners.setValue(lis, forKey: s)
+            listeners[key] = lis
             Open_im_sdkAddAdvancedMsgListener(lis)
             print("=================add msg listener======\n\(lis)");
         }
@@ -59,11 +56,9 @@ public class MessageManager: BaseServiceManager {
     }
     
     func removeAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let k = methodCall.arguments as! NSDictionary
-        let s = k.value(forKey: KEY_ID) as! String
-        if listeners.allKeys.contains(where: {($0 as! String).compare(s) == .orderedSame}) {
-            let lis = listeners.value(forKey: s) as! AdvancedMsgListener
-            listeners.removeObject(forKey: s)
+        let key = methodCall[string: KEY_ID]
+        if let lis = listeners[key] {
+            listeners[key] = nil
             Open_im_sdkRemoveAdvancedMsgListener(lis)
         }
         callBack(result)
@@ -188,12 +183,12 @@ public class MessageManager: BaseServiceManager {
         callBack(result)
     }
 
-    public class SendMsgProgressListener:NSObject, Open_im_sdkSendMsgCallBackProtocol {
+    public class SendMsgProgressListener: NSObject, Open_im_sdkSendMsgCallBackProtocol {
 
         private let channel: FlutterMethodChannel
         private var result: FlutterResult?
         private var call: FlutterMethodCall?
-        private let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
+        private var values: [String: Any] = [:]
 
         init(channel: FlutterMethodChannel) {
             self.channel = channel
@@ -217,8 +212,8 @@ public class MessageManager: BaseServiceManager {
                 return
             }
             print("=================onProgress============\nprogress:\(progress)");
-            values.setValue(call[string: "clientMsgID"], forKey: "clientMsgID")
-            values.setValue(progress, forKey: "progress")
+            values["clientMsgID"] = call[string: "clientMsgID"]
+            values["progress"] = progress
             CommonUtil.emitEvent(channel: channel, method: "msgSendProgressListener", type: "onProgress", errCode: nil, errMsg: nil, data: values)
         }
 
@@ -231,25 +226,25 @@ public class MessageManager: BaseServiceManager {
 
     public class AdvancedMsgListener: NSObject, Open_im_sdkOnAdvancedMsgListenerProtocol {
         private let channel: FlutterMethodChannel
-        private let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
+        private var values: [String: Any] = [:]
 
         init(channel: FlutterMethodChannel, id: String) {
             self.channel = channel
-            values.setValue(id, forKey: "id")
+            values["id"] = id
         }
 
         public func onRecvC2CReadReceipt(_ msgReceiptList: String?) {
-            values.setValue(msgReceiptList, forKey: "message")
+            values["haveReadMessage"] = msgReceiptList
             CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvC2CReadReceipt", errCode: nil, errMsg: nil, data: values)
         }
 
         public func onRecvMessageRevoked(_ msgId: String?) {
-            values.setValue(msgId, forKey: "message")
+            values["revokedMessage"] = msgId
             CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
         }
 
         public func onRecvNewMessage(_ message: String?) {
-            values.setValue(message, forKey: "message")
+            values["newMessage"] = message
             CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvNewMessage", errCode: nil, errMsg: nil, data: values)
         }
     }
