@@ -9,7 +9,7 @@ import Foundation
 
 public class JsonUtil {
     
-    public static func toString(object: AnyObject?)->String{
+    public static func toString(object: AnyObject?)->String {
         if object == nil {
             return "";
         }
@@ -23,5 +23,4 @@ public class JsonUtil {
         let jsonStr = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
         return jsonStr! as String
     }
-    
 }

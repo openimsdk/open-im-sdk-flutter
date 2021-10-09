@@ -8,79 +8,98 @@
 import Foundation
 import OpenIMCore
 
-public class FriendshipManager:NSObject{
-    private let channel:FlutterMethodChannel
+public class FriendshipManager: BaseServiceManager {
     
-    init(channel:FlutterMethodChannel) {
-        self.channel = channel
+    public override func registerHandlers() {
+        super.registerHandlers()
+        self["setFriendListener"] = setFriendListener
+        self["getFriendsInfo"] = getFriendsInfo
+        self["addFriend"] = addFriend
+        self["getFriendApplicationList"] = getFriendApplicationList
+        self["getFriendList"] = getFriendList
+        self["setFriendInfo"] = setFriendInfo
+        self["addToBlackList"] = addToBlackList
+        self["getBlackList"] = getBlackList
+        self["deleteFromBlackList"] = deleteFromBlackList
+        self["checkFriend"] = checkFriend
+        self["deleteFromFriendList"] = deleteFromFriendList
+        self["acceptFriendApplication"] = acceptFriendApplication
+        self["refuseFriendApplication"] = refuseFriendApplication
+        self["forceSyncFriendApplication"] = forceSyncFriendApplication
+        self["forceSyncFriend"] = forceSyncFriend
+        self["forceSyncBlackList"] = forceSyncBlackList
     }
     
-    func setFriendListener(methodCall: FlutterMethodCall, result: FlutterResult){
+    func setFriendListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSetFriendListener(FriendshipListener(channel: channel))
+        callBack(result)
     }
     
     func getFriendsInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetFriendsInfo(BaseImpl(result: result), CommonUtil.getUidList(methodCall: methodCall))
+        Open_im_sdkGetFriendsInfo(BaseCallback(result: result), methodCall[jsonString: "uidList"])
     }
     
     func addFriend(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAddFriend(BaseImpl(result: result), CommonUtil.getSDKJsonParam(methodCall: methodCall))
+        Open_im_sdkAddFriend(BaseCallback(result: result), methodCall.toJsonString())
     }
     
     func getFriendApplicationList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetFriendApplicationList(BaseImpl(result: result))
+        Open_im_sdkGetFriendApplicationList(BaseCallback(result: result))
     }
     
     func getFriendList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetFriendList(BaseImpl(result: result))
+        Open_im_sdkGetFriendList(BaseCallback(result: result))
     }
     
     func setFriendInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetFriendInfo(CommonUtil.getSDKJsonParam(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkSetFriendInfo(methodCall.toJsonString(), BaseCallback(result: result))
     }
     
     func addToBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAddToBlackList(BaseImpl(result: result), CommonUtil.getJsonUid(methodCall: methodCall))
+        Open_im_sdkAddToBlackList(BaseCallback(result: result), methodCall[string: "uid"])
     }
     
     func getBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetBlackList(BaseImpl(result: result))
+        Open_im_sdkGetBlackList(BaseCallback(result: result))
     }
     
     func deleteFromBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteFromBlackList(BaseImpl(result: result), CommonUtil.getJsonUid(methodCall: methodCall))
+        Open_im_sdkDeleteFromBlackList(BaseCallback(result: result), methodCall[string: "uid"])
     }
     
     func checkFriend(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkCheckFriend(BaseImpl(result: result), CommonUtil.getUidList(methodCall: methodCall))
+        Open_im_sdkCheckFriend(BaseCallback(result: result), methodCall[jsonString: "uidList"])
     }
     
     func deleteFromFriendList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteFromFriendList(CommonUtil.getJsonUid(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkDeleteFromFriendList(methodCall[string: "uid"], BaseCallback(result: result))
     }
     
     func acceptFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAcceptFriendApplication(BaseImpl(result: result), CommonUtil.getJsonUid(methodCall: methodCall))
+        Open_im_sdkAcceptFriendApplication(BaseCallback(result: result), methodCall[string: "uid"])
     }
     
     func refuseFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkRefuseFriendApplication(BaseImpl(result: result), CommonUtil.getJsonUid(methodCall: methodCall))
+        Open_im_sdkRefuseFriendApplication(BaseCallback(result: result), methodCall[string: "uid"])
     }
     
-    func forceSyncFriendApplication(methodCall: FlutterMethodCall, result: FlutterResult){
+    func forceSyncFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkForceSyncFriendApplication();
+        callBack(result)
     }
     
-    func forceSyncFriend(methodCall: FlutterMethodCall, result: FlutterResult){
+    func forceSyncFriend(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkForceSyncFriend()
+        callBack(result)
     }
     
-    func forceSyncBlackList(methodCall: FlutterMethodCall, result: FlutterResult){
+    func forceSyncBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkForceSyncBlackList()
+        callBack(result)
     }
 }
 
-public class FriendshipListener:NSObject,Open_im_sdkOnFriendshipListenerProtocol {
+public class FriendshipListener: NSObject, Open_im_sdkOnFriendshipListenerProtocol {
     private let channel:FlutterMethodChannel
     
     init(channel:FlutterMethodChannel) {
@@ -124,3 +143,4 @@ public class FriendshipListener:NSObject,Open_im_sdkOnFriendshipListenerProtocol
     }
     
 }
+

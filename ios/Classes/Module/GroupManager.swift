@@ -8,88 +8,114 @@
 import Foundation
 import OpenIMCore
 
-public class GroupManager:NSObject{
-    private let channel:FlutterMethodChannel
+public class GroupManager: BaseServiceManager {
     
-    init(channel:FlutterMethodChannel) {
-        self.channel = channel
+    public override func registerHandlers() {
+        super.registerHandlers()
+        self["setGroupListener"] = setGroupListener
+        self["inviteUserToGroup"] = inviteUserToGroup
+        self["kickGroupMember"] = kickGroupMember
+        self["getGroupMembersInfo"] = getGroupMembersInfo
+        self["getGroupMemberList"] = getGroupMemberList
+        self["getJoinedGroupList"] = getJoinedGroupList
+        self["createGroup"] = createGroup
+        self["setGroupInfo"] = setGroupInfo
+        self["getGroupsInfo"] = getGroupsInfo
+        self["joinGroup"] = joinGroup
+        self["quitGroup"] = quitGroup
+        self["transferGroupOwner"] = transferGroupOwner
+        self["getGroupApplicationList"] = getGroupApplicationList
+        self["acceptGroupApplication"] = acceptGroupApplication
+        self["refuseGroupApplication"] = refuseGroupApplication
+        self["forceSyncApplyGroupRequest"] = forceSyncApplyGroupRequest
+        self["forceSyncGroupRequest"] = forceSyncGroupRequest
+        self["forceSyncJoinedGroup"] = forceSyncJoinedGroup
+        self["forceSyncJoinedGroupMember"] = forceSyncJoinedGroupMember
     }
 
-    func setGroupListener(methodCall: FlutterMethodCall, result: FlutterResult){
+    func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSetGroupListener(GroupListener(channel: channel))
+        callBack(result)
     }
 
     func inviteUserToGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkInviteUserToGroup(CommonUtil.getGid(methodCall: methodCall), CommonUtil.getGroupOpReason(methodCall: methodCall), CommonUtil.getUidList(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkInviteUserToGroup(methodCall[string: "gid"], methodCall[string: "reason"],
+                                     methodCall[jsonString: "uidList"], BaseCallback(result: result))
     }
     
     func kickGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkKickGroupMember(CommonUtil.getGid(methodCall: methodCall), CommonUtil.getGroupOpReason(methodCall: methodCall), CommonUtil.getUidList(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkKickGroupMember(methodCall[string: "gid"], methodCall[string: "reason"],
+                                   methodCall[jsonString: "uidList"], BaseCallback(result: result))
     }
     
     func getGroupMembersInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetGroupMembersInfo(CommonUtil.getGid(methodCall: methodCall), CommonUtil.getUidList(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkGetGroupMembersInfo(methodCall[string: "gid"], methodCall[jsonString: "uidList"], BaseCallback(result: result))
     }
     
     func getGroupMemberList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetGroupMemberList(CommonUtil.getGid(methodCall: methodCall), CommonUtil.getGroupListFilter(methodCall: methodCall), CommonUtil.getGroupListNext(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkGetGroupMemberList(methodCall[string: "gid"], methodCall[int32: "filter"],
+                                      methodCall[int32: "next"], BaseCallback(result: result))
     }
     
     func getJoinedGroupList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetJoinedGroupList(BaseImpl(result: result))
+        Open_im_sdkGetJoinedGroupList(BaseCallback(result: result))
     }
     
     func createGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkCreateGroup(CommonUtil.getGroupInfo(methodCall: methodCall), CommonUtil.getGroupMemberRoleList(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkCreateGroup(methodCall[jsonString: "gInfo"], methodCall[jsonString: "memberList"], BaseCallback(result: result))
     }
     
     func setGroupInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetGroupInfo(CommonUtil.getGroupInfo(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkSetGroupInfo(methodCall[jsonString: "gInfo"], BaseCallback(result: result))
     }
     
     func getGroupsInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetGroupsInfo(CommonUtil.getGidList(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkGetGroupsInfo(methodCall[jsonString: "gidList"], BaseCallback(result: result))
     }
     
     func joinGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkJoinGroup(CommonUtil.getGid(methodCall: methodCall), CommonUtil.getGroupOpReason(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkJoinGroup(methodCall[string: "gid"], methodCall[string: "reason"], BaseCallback(result: result))
     }
     
     func quitGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkQuitGroup(CommonUtil.getGid(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkQuitGroup(methodCall[string: "gid"], BaseCallback(result: result))
     }
     
     func transferGroupOwner(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkTransferGroupOwner(CommonUtil.getGid(methodCall: methodCall), CommonUtil.getUid(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkTransferGroupOwner(methodCall[string: "gid"], methodCall[string: "uid"], BaseCallback(result: result))
     }
     
     func getGroupApplicationList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetGroupApplicationList(BaseImpl(result: result))
+        Open_im_sdkGetGroupApplicationList(BaseCallback(result: result))
     }
     
     func acceptGroupApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAcceptGroupApplication(CommonUtil.getGroupApplicationInfo(methodCall: methodCall), CommonUtil.getGroupOpReason(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkAcceptGroupApplication(methodCall[jsonString: "application"], methodCall[string: "reason"], BaseCallback(result: result))
     }
     
     func refuseGroupApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkRefuseGroupApplication(CommonUtil.getGroupApplicationInfo(methodCall: methodCall), CommonUtil.getGroupOpReason(methodCall: methodCall), BaseImpl(result: result))
+        Open_im_sdkRefuseGroupApplication(methodCall[jsonString: "application"], methodCall[string: "reason"], BaseCallback(result: result))
     }
     
-//    func forceSyncApplyGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//        Open_im_sdkForceSyncApplyGroupRequest()
-//    }
-//
-//    func forceSyncGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//        Open_im_sdkForceSyncGroupRequest()
-//    }
-//
-//    func forceSyncJoinedGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//        Open_im_sdkForceSyncJoinedGroup()
-//    }
-//
-//    func forceSyncJoinedGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//        Open_im_sdkForceSyncJoinedGroupMember()
-//    }
+    func forceSyncApplyGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkForceSyncApplyGroupRequest()
+        callBack(result)
+    }
+
+    func forceSyncGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkForceSyncGroupRequest()
+        callBack(result)
+    }
+
+    func forceSyncJoinedGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkForceSyncJoinedGroup()
+        callBack(result)
+    }
+
+    func forceSyncJoinedGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkForceSyncJoinedGroupMember()
+        callBack(result)
+    }
 
 }
 public class GroupListener:NSObject,Open_im_sdkOnGroupListenerProtocol {
