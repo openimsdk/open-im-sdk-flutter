@@ -1,21 +1,23 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 abstract class InitSDKListener {
-  /// SDK 正在连接到服务器
+  /// SDK is connecting to the server
   void connecting();
 
-  /// SDK 已经成功连接到服务器
+  /// SDK has successfully connected to the server
   void connectSuccess();
 
-  /// SDK 连接服务器失败
+  /// SDK failed to connect to the server
   void connectFailed(int? code, String? errorMsg);
 
-  /// 当前用户被踢下线，此时可以 UI 提示用户，并再次调用 IMManager 的 login() 函数重新登录。
+  /// The current user is kicked offline.
+  /// At this time, the UI can prompt the user and call IMManager's login() function to log in again.
   void kickedOffline();
 
-  ///  在线时票据过期：此时您需要生成新的 userSig 并再次调用 IMManager 的 login() 函数重新登录
+  ///  Ticket expired when online.
+  ///  At this time, you need to generate a new userSig and call IMManager's login() function to log in again
   void userSigExpired();
 
-  /// 登录用户的资料发生了更新
+  /// The information of the logged-in user has been updated
   void selfInfoUpdated(UserInfo info);
 }

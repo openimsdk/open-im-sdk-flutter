@@ -1,3 +1,5 @@
+## 0.0.8+1
+
 ## 0.0.8
 Upgrade sdk to 0.0.14 </br>
 Sending a message adds a retry mechanism
@@ -7,7 +9,7 @@ Sending a message adds a retry mechanism
 2. Modify the type of conversation manager input parameter sessionType to int
 
 ## 0.0.6
-fix bug
+Fix bug
 
 ## 0.0.5
 Upgrade sdk </br>
@@ -18,8 +20,8 @@ fix message error bug
 Replace the input parameters of the createCustomMessage method from Uint8List to Map
 
 ## 0.0.3
-upgrade sdk </br>
-fix bug </br>
+Upgrade sdk </br>
+Fix bug </br>
 
 ## 0.0.2
 1. Move the markSingleMessageHasRead, markGroupMessageHasRead and getTotalUnreadMsgCount methods from the MessageManager class to the ConversationManager class. </br>
@@ -28,4 +30,4 @@ fix bug </br>
 
 ## 0.0.1
 
-initial release.
+Initial release.

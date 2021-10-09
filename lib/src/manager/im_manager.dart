@@ -265,12 +265,12 @@ class IMManager {
     });
   }
 
-  /// init sdk
+  /// Initialize SDK
   ///
-  /// @params platform[IMPlatform]
-  /// @params ipApi: api server ip address
-  /// @params ipWs: websocket ip address
-  /// @params dbPath: data storage directory
+  /// [platform] Refer to [IMPlatform]
+  /// [ipApi] Api server ip address
+  /// [ipWs] WebSocket ip address
+  /// [dbPath] Data storage directory
   Future<dynamic> initSDK({
     required int platform,
     required String ipApi,
@@ -290,13 +290,10 @@ class IMManager {
                 "dbDir": dbPath
               },
             ))
-        .then((value) {
-      isInitialized = true;
-      return value;
-    });
+        .then((value) => isInitialized = true);
   }
 
-  ///
+  @deprecated
   Future<dynamic> unInitSDK() {
     return _channel.invokeMethod('unInitSDK', _buildParam({})).then((value) {
       isInitialized = false;
@@ -304,8 +301,7 @@ class IMManager {
     });
   }
 
-  /// login sdk
-  ///
+  /// Login sdk
   Future<UserInfo> login({required String uid, required String token}) async {
     this.uid = uid;
     await _channel.invokeMethod(
@@ -316,7 +312,7 @@ class IMManager {
     return uInfo;
   }
 
-  ///
+  /// Logout sdk
   Future<dynamic> logout() {
     return _channel.invokeMethod('logout', _buildParam({}));
   }
@@ -326,18 +322,18 @@ class IMManager {
     return _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
   }
 
-  ///
+  /// Current user id
   Future<String?> getLoginUid() {
     return Future.value(uid);
     // return _channel.invokeMethod<String>('getLoginUid', _buildParam({}));
   }
 
-  ///
+  /// Current user info
   Future<UserInfo> getLoginUserInfo() {
     return Future.value(uInfo);
   }
 
-  ///
+  /// Modify current user info
   Future<String?> setSelfInfo(
       {required String uid,
       String? name,
@@ -362,7 +358,7 @@ class IMManager {
     // .then((value) => UserInfo.fromJson(value));
   }
 
-  ///
+  /// Query user information
   Future<List<UserInfo>> getUsersInfo(List<String> uidList) {
     return _channel
         .invokeMethod('getUsersInfo', _buildParam({'uidList': uidList}))

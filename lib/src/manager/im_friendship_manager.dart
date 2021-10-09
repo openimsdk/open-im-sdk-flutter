@@ -9,52 +9,47 @@ class FriendshipManager {
 
   FriendshipManager(this._channel);
 
-  /// listener[FriendshipListener]
-  ///
+  /// Set up a friend relationship listener
   Future setFriendshipListener(FriendshipListener listener) {
     this.friendshipListener = listener;
     return _channel.invokeMethod('setFriendListener', _buildParam({}));
   }
 
-  /// get friend info by userid
-  ///
+  /// Get friend info by user id
   Future<List<UserInfo>> getFriendsInfo({required List<String> uidList}) {
     return _channel
         .invokeMethod('getFriendsInfo', _buildParam({"uidList": uidList}))
         .then((value) => _toList(value));
   }
 
-  /// send an friend application
-  ///
+  /// Send an friend application
   Future<dynamic> addFriend({required String uid, required String reason}) {
     return _channel.invokeMethod(
         'addFriend', _buildParam({"uid": uid, "reqMessage": reason}));
   }
 
-  /// get all friend application
-  /// including those initiated by you and sent to you by others
+  /// Get all friend application, sent to you by others
   Future<List<UserInfo>> getFriendApplicationList() {
     return _channel
         .invokeMethod('getFriendApplicationList', _buildParam({}))
         .then((value) => _toList(value));
   }
 
-  /// find all friends
-  ///
+  /// Find all friends including those who have been added to the blacklist
   Future<List<UserInfo>> getFriendList() {
     return _channel
         .invokeMethod('getFriendList', _buildParam({}))
         .then((value) => _toList(value));
   }
 
+  /// Find all friends including those who have been added to the blacklist
   Future<List<dynamic>> getFriendListMap() {
     return _channel
         .invokeMethod('getFriendList', _buildParam({}))
         .then((value) => _toListMap(value));
   }
 
-  /// modify friend information, only [comment] can be modified
-  ///
+  /// Modify friend information, only [comment] can be modified
   Future<dynamic> setFriendInfo(
       {required String uid, required String comment}) {
     return _channel.invokeMethod(
@@ -65,63 +60,54 @@ class FriendshipManager {
         }));
   }
 
-  /// add to blacklist
-  ///
+  /// Add friends to blacklist
   Future<dynamic> addToBlackList({required String uid}) {
     return _channel.invokeMethod('addToBlackList', _buildParam({"uid": uid}));
   }
 
-  /// find all blacklist
-  ///
+  /// Find all blacklist
   Future<List<UserInfo>> getBlackList() {
     return _channel
         .invokeMethod('getBlackList', _buildParam({}))
         .then((value) => _toList(value));
   }
 
-  /// remove from blacklist
-  ///
+  /// Remove from blacklist
   Future<dynamic> deleteFromBlackList({required String uid}) {
     return _channel.invokeMethod(
         'deleteFromBlackList', _buildParam({"uid": uid}));
   }
 
-  /// determine if there is a friendship by userId
-  ///
+  /// Determine if there is a friendship by userId
   Future<List<UserInfo>> checkFriend(List<String> uidList) {
     return _channel
         .invokeMethod('checkFriend', _buildParam({'uidList': uidList}))
         .then((value) => _toList(value));
   }
 
-  /// dissolve friendship from friend list
-  ///
+  /// Dissolve friendship from friend list
   Future<dynamic> deleteFromFriendList({required String uid}) {
     return _channel.invokeMethod(
         'deleteFromFriendList', _buildParam({"uid": uid}));
   }
 
-  /// accept application of be friend
-  ///
+  /// Accept application of be friend
   Future<dynamic> acceptFriendApplication({required String uid}) {
     return _channel.invokeMethod(
         'acceptFriendApplication', _buildParam({"uid": uid}));
   }
 
-  /// refuse application of be friend
-  ///
+  /// Refuse application of be friend
   Future<dynamic> refuseFriendApplication({required String uid}) {
     return _channel.invokeMethod(
         'refuseFriendApplication', _buildParam({"uid": uid}));
   }
 
   ///
-  ///
   Future<dynamic> forceSyncFriendApplication() {
     return _channel.invokeMethod('forceSyncFriendApplication', _buildParam({}));
   }
 
-  ///
   ///
   Future<dynamic> forceSyncFriend() {
     return _channel.invokeMethod('forceSyncFriend', _buildParam({}));

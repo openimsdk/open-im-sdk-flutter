@@ -11,22 +11,20 @@ class ConversationManager {
 
   ConversationManager(this._channel);
 
-  /// listener[ConversationListener]，Observe conversation changes
-  ///
+  /// Observe conversation changes
   Future setConversationListener(ConversationListener listener) {
     this.conversationListener = listener;
     return _channel.invokeMethod('setConversationListener', _buildParam({}));
   }
 
-  /// get all conversations
-  ///
+  /// Get all conversations
   Future<List<ConversationInfo>> getAllConversationList() => _channel
       .invokeMethod('getAllConversationList', _buildParam({}))
       .then((value) => _toList(value));
 
-  /// sourceID: if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
-  /// sessionType: if it is a single chat, it value is 1. if it is a group chat, it value is 2
-  ///
+  /// Get a single conversation info
+  /// [sourceID]  if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
+  /// [sessionType]  if it is a single chat, it value is 1. if it is a group chat, it value is 2
   Future<ConversationInfo> getSingleConversation({
     required String sourceID,
     required int sessionType,
@@ -40,8 +38,7 @@ class ConversationManager {
               }))
           .then((value) => _toObj(value));
 
-  /// get conversation list by id list
-  ///
+  /// Get conversation list by id list
   Future<List<ConversationInfo>> getMultipleConversation({
     required List<String> conversationIDList,
   }) =>
@@ -53,8 +50,7 @@ class ConversationManager {
               }))
           .then((value) => _toList(value));
 
-  /// delete conversation by id
-  ///
+  /// Delete conversation by id
   Future deleteConversation({
     required String conversationID,
   }) =>
@@ -66,8 +62,7 @@ class ConversationManager {
               }))
           .then((value) => _printValue(value));
 
-  /// set draft
-  ///
+  /// Set draft
   Future setConversationDraft({
     required String conversationID,
     required String draftText,
@@ -81,8 +76,7 @@ class ConversationManager {
               }))
           .then((value) => _printValue(value));
 
-  /// pinned conversation
-  ///
+  /// Pinned conversation
   Future pinConversation({
     required String conversationID,
     required bool isPinned,
@@ -96,27 +90,26 @@ class ConversationManager {
               }))
           .then((value) => _printValue(value));
 
-  ///
-  /// @params userID: receiver's userID
+  /// Mark single chat messages as read
   Future<dynamic> markSingleMessageHasRead({required String userID}) {
     return _channel.invokeMethod(
         'markSingleMessageHasRead', _buildParam({'userID': userID}));
   }
 
-  ///
+  /// Mark group chat messages as read
   Future<dynamic> markGroupMessageHasRead({required String groupID}) {
     return _channel.invokeMethod(
         'markGroupMessageHasRead', _buildParam({'groupID': groupID}));
   }
 
-  ///
+  /// Get the total number of unread messages
   Future<dynamic> getTotalUnreadMsgCount() {
     return _channel.invokeMethod('getTotalUnreadMsgCount', _buildParam({}));
   }
 
-  /// sourceID: if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
-  /// sessionType: if it is a single chat, it value is 1. if it is a group chat, it value is 2
-  ///
+  /// Query conversation id
+  /// [sourceID] : if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
+  /// [sessionType] : if it is a single chat, it value is 1. if it is a group chat, it value is 2
   Future<dynamic> getConversationID({
     required String sourceID,
     required int sessionType,

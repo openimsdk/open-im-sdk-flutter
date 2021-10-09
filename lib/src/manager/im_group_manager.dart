@@ -10,14 +10,13 @@ class GroupManager {
 
   GroupManager(this._channel);
 
-  /// listener[GroupListener]
+  /// Set up group relationship monitoring
   Future setGroupListener(GroupListener listener) {
     this.groupListener = listener;
     return _channel.invokeMethod('setGroupListener', _buildParam({}));
   }
 
-  /// invite friends into the group
-  ///
+  /// Invite friends into the group
   Future<List<GroupInviteResult>> inviteUserToGroup({
     required String groupId,
     required List<String> uidList,
@@ -36,7 +35,7 @@ class GroupManager {
             .toList());
   }
 
-  /// remove member from group
+  /// Remove member from group
   Future<List<GroupInviteResult>> kickGroupMember({
     required String groupId,
     required List<String> uidList,
@@ -55,7 +54,7 @@ class GroupManager {
             .toList());
   }
 
-  /// get group member's info
+  /// Get group member's info
   Future<List<GroupMembersInfo>> getGroupMembersInfo({
     required String groupId,
     required List<String> uidList,
@@ -72,8 +71,9 @@ class GroupManager {
             .toList());
   }
 
-  /// filter 0: all user, 1: group owner, 2: administrator
-  /// begin index, pull and fill 0 for the first time
+  /// Get the list of group members
+  /// [filter] 0: all user, 1: group owner, 2: administrator
+  /// [next] begin index, pull and fill 0 for the first time
   Future<GroupMembersList> getGroupMemberList({
     required String groupId,
     int filter = 0,
@@ -90,8 +90,7 @@ class GroupManager {
         .then((value) => GroupMembersList.fromJson(_formatJson(value)));
   }
 
-// filter 0: all user, 1: group owner, 2: administrator
-  /// begin index, pull and fill 0 for the first time
+  /// Get the list of group members
   Future<dynamic> getGroupMemberListMap({
     required String groupId,
     int filter = 0,
@@ -108,7 +107,7 @@ class GroupManager {
         .then((value) => _formatJson(value));
   }
 
-  /// find all groups you have joined
+  /// Find all groups you have joined
   Future<List<GroupInfo>> getJoinedGroupList() {
     return _channel.invokeMethod('getJoinedGroupList', _buildParam({})).then(
         (value) => (_formatJson(value) as List)
@@ -116,21 +115,20 @@ class GroupManager {
             .toList());
   }
 
-  /// find all groups you have joined
+  /// Find all groups you have joined
   Future<List<dynamic>> getJoinedGroupListMap() {
     return _channel
         .invokeMethod('getJoinedGroupList', _buildParam({}))
         .then((value) => _formatJson(value));
   }
 
-  /// check
+  /// Check if you are a member of the group
   Future<bool> isJoinedGroup({required String gid}) {
     return getJoinedGroupList()
         .then((list) => list.where((e) => e.groupID == gid).length > 0);
   }
 
-  /// create a group
-  /// @params list[List<GroupMemberRole>]: Group members you invited
+  /// Create a group
   Future<dynamic> createGroup({
     String? groupName,
     String? notification,
@@ -173,7 +171,7 @@ class GroupManager {
         }));
   }
 
-  /// find group information by group id
+  /// Find group information by group id
   Future<List<GroupInfo>> getGroupsInfo({
     required List<String> gidList,
   }) {
@@ -198,7 +196,7 @@ class GroupManager {
         }));
   }
 
-  ///
+  /// Leave group
   Future<dynamic> quitGroup({
     required String gid,
   }) {
@@ -222,14 +220,14 @@ class GroupManager {
         }));
   }
 
-  ///
+  /// Get the list of applications
   Future<GroupApplicationList> getGroupApplicationList() {
     return _channel
         .invokeMethod('getGroupApplicationList', _buildParam({}))
         .then((value) => GroupApplicationList.fromJson(_formatJson(value)));
   }
 
-  ///
+  /// Accept group application
   Future<dynamic> acceptGroupApplication({
     required GroupApplicationInfo info,
     required String reason,
@@ -242,7 +240,7 @@ class GroupManager {
         }));
   }
 
-  ///
+  /// Refuse group application
   Future<dynamic> refuseGroupApplication({
     required GroupApplicationInfo info,
     required String reason,

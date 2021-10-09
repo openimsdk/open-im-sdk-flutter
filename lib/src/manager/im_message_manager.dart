@@ -10,7 +10,7 @@ class MessageManager {
 
   MessageManager(this._channel);
 
-  ///
+  /// Add a message listener
   Future addAdvancedMsgListener(AdvancedMsgListener listener) {
     advancedMsgListeners.add(listener);
     return _channel.invokeMethod(
@@ -20,7 +20,7 @@ class MessageManager {
         }));
   }
 
-  ///
+  /// Remove a message listener
   Future removeAdvancedMsgListener(AdvancedMsgListener listener) {
     advancedMsgListeners.remove(listener);
     return _channel.invokeMethod(
@@ -30,13 +30,13 @@ class MessageManager {
         }));
   }
 
-  ///
+  /// Set up message sending progress monitoring
   void setMsgSendProgressListener(MsgSendProgressListener listener) {
     msgSendProgressListener = listener;
   }
 
-  /// send a message to user or to group
-  /// userID: receiver's user ID
+  /// Send a message to user or to group
+  /// [userID] receiver's user ID
   Future<dynamic> sendMessage({
     required Message message,
     String? userID,
@@ -54,8 +54,7 @@ class MessageManager {
         /*.then((value) => _toObj(value))*/;
   }
 
-  /// find all history message
-  /// userID: the user id of the chat partner
+  /// Find all history message
   Future<List<Message>> getHistoryMessageList({
     String? userID,
     String? groupID,
@@ -74,13 +73,13 @@ class MessageManager {
         .then((value) => _toList(value));
   }
 
-  /// revoke the sent information
+  /// Revoke the sent information
   Future revokeMessage({required Message message}) {
     return _channel.invokeMethod(
         'revokeMessage', _buildParam(message.toJson()));
   }
 
-  /// delete message
+  /// Delete message
   Future deleteMessageFromLocalStorage({required Message message}) {
     return _channel.invokeMethod(
         'deleteMessageFromLocalStorage', _buildParam(message.toJson()));
@@ -94,8 +93,6 @@ class MessageManager {
   }
 
   ///
-  /// @params userID: receiver's user ID
-  /// @params sender: current user ID
   Future insertSingleMessageToLocalStorage({
     String? receiver,
     String? sender,
@@ -110,7 +107,7 @@ class MessageManager {
         }));
   }
 
-  ///
+  /// Query the message according to the message id
   Future findMessages({required List<String> messageIDList}) {
     return _channel.invokeMethod(
         'findMessages',
@@ -119,8 +116,7 @@ class MessageManager {
         }));
   }
 
-  ///
-  /// @params userID: receiver's user ID
+  /// Mark c2c message as read
   Future markC2CMessageAsRead({
     required String userID,
     required List<String> messageIDList,
@@ -133,9 +129,7 @@ class MessageManager {
         }));
   }
 
-  ///
-  /// @params userID: receiver's user ID
-  /// @params status: default no
+  /// Typing
   Future typingStatusUpdate({
     required String userID,
     bool typing = false,
@@ -148,14 +142,14 @@ class MessageManager {
         }));
   }
 
-  ///
+  /// Create text message
   Future<Message> createTextMessage({required String text}) {
     return _channel
         .invokeMethod('createTextMessage', _buildParam({'text': text}))
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create @ message
   Future<Message> createTextAtMessage({
     required String text,
     required List<String> atUidList,
@@ -171,7 +165,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create picture message
   Future<Message> createImageMessage({required String imagePath}) {
     return _channel
         .invokeMethod(
@@ -181,7 +175,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create picture message
   Future<Message> createImageMessageFromFullPath({required String imagePath}) {
     return _channel
         .invokeMethod(
@@ -191,7 +185,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create sound message
   Future<Message> createSoundMessage({
     required String soundPath,
     required int duration,
@@ -204,7 +198,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create sound message
   Future<Message> createSoundMessageFromFullPath({
     required String soundPath,
     required int duration,
@@ -217,7 +211,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create video message
   Future<Message> createVideoMessage({
     required String videoPath,
     required String videoType,
@@ -236,7 +230,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create video message
   Future<Message> createVideoMessageFromFullPath({
     required String videoPath,
     required String videoType,
@@ -255,7 +249,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create file message
   Future<Message> createFileMessage({
     required String filePath,
     required String fileName,
@@ -270,7 +264,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create merger message
   Future<Message> createMergerMessage({
     required List<Message> messageList,
     required String title,
@@ -287,7 +281,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create forward message
   Future<Message> createForwardMessage({required Message message}) {
     return _channel
         .invokeMethod(
@@ -298,7 +292,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create location message
   Future<Message> createLocationMessage({
     required double latitude,
     required double longitude,
@@ -315,7 +309,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create custom message
   Future<Message> createCustomMessage({
     required String data,
     required String extension,
@@ -332,7 +326,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
-  ///
+  /// Create quote message
   Future<Message> createQuoteMessage({
     required String text,
     required Message quoteMsg,
@@ -347,6 +341,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+  /// Create card message
   Future<Message> createCardMessage({
     required Map<String, dynamic> data,
   }) {
