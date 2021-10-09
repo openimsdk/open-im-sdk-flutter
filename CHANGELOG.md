@@ -1,4 +1,5 @@
 ## 0.0.8+1
+Add ios support
 
 ## 0.0.8
 Upgrade sdk to 0.0.14 </br>
