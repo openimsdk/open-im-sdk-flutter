@@ -118,7 +118,7 @@ public class GroupManager: BaseServiceManager {
     }
 
 }
-public class GroupListener:NSObject,Open_im_sdkOnGroupListenerProtocol {
+public class GroupListener: NSObject, Open_im_sdkOnGroupListenerProtocol {
     
     private let channel:FlutterMethodChannel
     
@@ -127,11 +127,11 @@ public class GroupListener:NSObject,Open_im_sdkOnGroupListenerProtocol {
     }
     
     public func onApplicationProcessed(_ groupId: String?, opUser: String?, agreeOrReject AgreeOrReject: Int32, opReason: String?) {
-        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(groupId, forKey: "groupId")
-        values.setValue(opUser, forKey: "opUser")
-        values.setValue(AgreeOrReject, forKey: "agreeOrReject")
-        values.setValue(opReason, forKey: "opReason")
+        var values: [String: Any] = [:]
+        values["groupId"] = groupId
+        values["opUser"] = opUser
+        values["agreeOrReject"] = AgreeOrReject
+        values["opReason"] = opReason
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onApplicationProcessed", errCode: nil, errMsg: nil, data: values)
     }
     
@@ -145,53 +145,53 @@ public class GroupListener:NSObject,Open_im_sdkOnGroupListenerProtocol {
 //    }
     
     public func onGroupCreated(_ s: String?) {
-        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(s, forKey: "groupId")
+        var values: [String: Any] = [:]
+        values["groupId"] = s
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupCreated", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onGroupInfoChanged(_ s: String?,groupInfo s1: String?) {
-        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(s, forKey: "groupId")
-        values.setValue(s1, forKey: "groupInfo")
+    public func onGroupInfoChanged(_ s: String?, groupInfo s1: String?) {
+        var values: [String: Any] = [:]
+        values["groupId"] = s
+        values["groupInfo"] = s1
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupInfoChanged", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onMemberEnter(_ s: String?,memberList s1: String?) {
-        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(s, forKey: "groupId")
-        values.setValue(s1, forKey: "memberList")
+    public func onMemberEnter(_ s: String?, memberList s1: String?) {
+        var values: [String: Any] = [:]
+        values["groupId"] = s
+        values["memberList"] = s1
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberEnter", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onMemberInvited(_ s: String?,opUser s1: String?,memberList s2: String?) {
-        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(s, forKey: "groupId")
-        values.setValue(s1, forKey: "opUser")
-        values.setValue(s2, forKey: "memberList")
+    public func onMemberInvited(_ s: String?,opUser s1: String?, memberList s2: String?) {
+        var values: [String: Any] = [:]
+        values["groupId"] = s
+        values["opUser"] = s1
+        values["memberList"] = s2
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberInvited", errCode: nil, errMsg: nil, data: values)
     }
     
     public func onMemberKicked(_ s: String?,opUser s1: String?,memberList s2: String?) {
-        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(s, forKey: "groupId")
-        values.setValue(s1, forKey: "opUser")
-        values.setValue(s2, forKey: "memberList")
+        var values: [String: Any] = [:]
+        values["groupId"] = s
+        values["opUser"] = s1
+        values["memberList"] = s2
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberKicked", errCode: nil, errMsg: nil, data: values)
     }
     
     public func onMemberLeave(_ s: String?,member s1: String?) {
-        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(s, forKey: "groupId")
-        values.setValue(s1, forKey: "member")
+        var values: [String: Any] = [:]
+        values["groupId"] = s
+        values["member"] = s1
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberLeave", errCode: nil, errMsg: nil, data: values)
     }
     
     public func onReceiveJoinApplication(_ s: String?,member s1: String?,opReason s2: String?) {
-        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-        values.setValue(s, forKey: "groupId")
-        values.setValue(s1, forKey: "member")
-        values.setValue(s2, forKey: "opReason")
+        var values: [String: Any] = [:]
+        values["groupId"] = s
+        values["member"] = s1
+        values["opReason"] = s2
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onReceiveJoinApplication", errCode: nil, errMsg: nil, data: values)
     }
     
