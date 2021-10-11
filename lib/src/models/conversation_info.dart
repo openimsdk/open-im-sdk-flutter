@@ -4,6 +4,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationInfo {
   String conversationID;
+
   /// [ConversationType]
   int? conversationType;
   String? userID;

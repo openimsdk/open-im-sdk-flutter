@@ -18,7 +18,7 @@ class GroupInfo {
       this.createTime,
       this.memberCount});
 
-  GroupInfo.fromJson(Map<String, dynamic> json): groupID = json['groupID'] {
+  GroupInfo.fromJson(Map<String, dynamic> json) : groupID = json['groupID'] {
     /*groupID = json['groupID'];*/
     groupName = json['groupName'];
     notification = json['notification'];

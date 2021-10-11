@@ -1,5 +1,3 @@
-
-
 class Message {
   String? clientMsgID;
   String? serverMsgID;
@@ -69,8 +67,8 @@ class Message {
     this.mergeElem,
   });
 
-  Message.fromJson(Map<String, dynamic> json)
-  /*  : clientMsgID = json['clientMsgID']*/ {
+  Message.fromJson(
+      Map<String, dynamic> json) /*  : clientMsgID = json['clientMsgID']*/ {
     clientMsgID = json['clientMsgID'];
     serverMsgID = json['serverMsgID'];
     createTime = json['createTime'];

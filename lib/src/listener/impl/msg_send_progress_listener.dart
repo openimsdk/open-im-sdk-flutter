@@ -1,6 +1,5 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-
 class OnMsgSendProgressListener extends MsgSendProgressListener {
   Function(String msgID, int progress)? onProgress;
 

@@ -44,14 +44,13 @@ class MessageManager {
     bool onlineUserOnly = false,
   }) {
     return _channel.invokeMethod(
-            'sendMessage',
-            _buildParam({
-              'message': message.toJson(),
-              'receiver': userID ?? '',
-              'groupID': groupID ?? '',
-              'onlineUserOnly': onlineUserOnly,
-            }))
-        /*.then((value) => _toObj(value))*/;
+        'sendMessage',
+        _buildParam({
+          'message': message.toJson(),
+          'receiver': userID ?? '',
+          'groupID': groupID ?? '',
+          'onlineUserOnly': onlineUserOnly,
+        })) /*.then((value) => _toObj(value))*/;
   }
 
   /// Find all history message

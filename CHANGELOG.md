@@ -1,3 +1,6 @@
+## 0.0.9+1
+Fix bug
+
 ## 0.0.9
 Add ios support
 
@@ -14,7 +17,7 @@ Fix bug
 
 ## 0.0.5
 Upgrade sdk </br>
-fix message error bug
+Fix message error bug
 
 ## 0.0.4
 

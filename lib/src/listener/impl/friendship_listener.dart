@@ -35,7 +35,8 @@ class OnFriendshipListener extends FriendshipListener {
 
   @override
   void friendApplicationListAccept(UserInfo u) {
-    if (null != onFriendApplicationListAccept) onFriendApplicationListAccept!(u);
+    if (null != onFriendApplicationListAccept)
+      onFriendApplicationListAccept!(u);
   }
 
   @override
@@ -45,12 +46,14 @@ class OnFriendshipListener extends FriendshipListener {
 
   @override
   void friendApplicationListDeleted(UserInfo u) {
-    if (null != onFriendApplicationListDeleted) onFriendApplicationListDeleted!(u);
+    if (null != onFriendApplicationListDeleted)
+      onFriendApplicationListDeleted!(u);
   }
 
   @override
   void friendApplicationListReject(UserInfo u) {
-    if (null != onFriendApplicationListReject) onFriendApplicationListReject!(u);
+    if (null != onFriendApplicationListReject)
+      onFriendApplicationListReject!(u);
   }
 
   @override

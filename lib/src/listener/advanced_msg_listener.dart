@@ -1,6 +1,5 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-
 abstract class AdvancedMsgListener {
   /// Uniquely identifies
   final String id;
