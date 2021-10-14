@@ -473,7 +473,7 @@ class MergeElem {
       abstractList = json['abstractList'].cast<String>();
     }
     if (json['multiMessage'] is List) {
-      multiMessage = (json['abstractList'] as List)
+      multiMessage = (json['multiMessage'] as List)
           .map((e) => Message.fromJson(e))
           .toList();
     }

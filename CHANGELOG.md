@@ -1,3 +1,7 @@
+## 0.0.9+2
+1. Fix bug
+2. Upgrade sdk
+
 ## 0.0.9+1
 Fix bug
 
