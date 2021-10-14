@@ -50,7 +50,7 @@ public class MessageManager: BaseServiceManager {
             let lis = AdvancedMsgListener(channel: channel, id: key)
             listeners[key] = lis
             Open_im_sdkAddAdvancedMsgListener(lis)
-            print("=================add msg listener======\n\(lis)");
+            print("=================add msg listener======\n\(lis)")
         }
         callBack(result)
     }
@@ -203,7 +203,7 @@ public class MessageManager: BaseServiceManager {
         }
 
         public func onError(_ errCode: Int, errMsg: String?) {
-            print("=================onError============\nerrcode:\(errCode),errMsg:\(errMsg!)");
+            print("=================onError============\nerrcode:\(errCode),errMsg:\(errMsg!)")
             DispatchQueue.main.async { self.result!(FlutterError(code: "\(errCode)", message: errMsg, details: nil)) }
         }
 
@@ -211,14 +211,14 @@ public class MessageManager: BaseServiceManager {
             guard let call = call else {
                 return
             }
-            print("=================onProgress============\nprogress:\(progress)");
+            print("=================onProgress============\nprogress:\(progress)")
             values["clientMsgID"] = call[string: "clientMsgID"]
             values["progress"] = progress
             CommonUtil.emitEvent(channel: channel, method: "msgSendProgressListener", type: "onProgress", errCode: nil, errMsg: nil, data: values)
         }
 
         public func onSuccess(_ data: String?) {
-            print("=================onSuccess============\nsuccess:\(data!)");
+            print("=================onSuccess============\nsuccess:\(data!)")
             DispatchQueue.main.async { self.result!(data) }
         }
 
