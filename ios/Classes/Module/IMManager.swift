@@ -76,22 +76,22 @@ public class SDKListener: NSObject, Open_im_sdkIMSDKListenerProtocol {
     }
     
     public func onConnectSuccess() {
-        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onConnectSuccess", errCode: nil, errMsg: nil, data: nil);
+        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onConnectSuccess", errCode: nil, errMsg: nil, data: nil)
     }
     
     public func onConnecting() {
-        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onConnecting", errCode: nil, errMsg: nil, data: nil);
+        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onConnecting", errCode: nil, errMsg: nil, data: nil)
     }
     
     public func onKickedOffline() {
-        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onKickedOffline", errCode: nil, errMsg: nil, data: nil);
+        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onKickedOffline", errCode: nil, errMsg: nil, data: nil)
     }
     
     public func onSelfInfoUpdated(_ userInfo: String?) {
-        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onSelfInfoUpdated", errCode: nil, errMsg: nil, data: userInfo);
+        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onSelfInfoUpdated", errCode: nil, errMsg: nil, data: userInfo)
     }
     
     public func onUserTokenExpired() {
-        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onUserTokenExpired", errCode: nil, errMsg: nil, data: nil);
+        CommonUtil.emitEvent(channel: self.channel, method: "initSDKListener", type: "onUserTokenExpired", errCode: nil, errMsg: nil, data: nil)
     }
 }

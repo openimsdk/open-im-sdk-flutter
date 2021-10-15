@@ -84,7 +84,7 @@ public class FriendshipManager: BaseServiceManager {
     }
     
     func forceSyncFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkForceSyncFriendApplication();
+        Open_im_sdkForceSyncFriendApplication()
         callBack(result)
     }
     
