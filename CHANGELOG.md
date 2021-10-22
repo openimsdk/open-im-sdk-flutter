@@ -1,3 +1,6 @@
+## 0.0.9+3
+Ios native remove method 'removeAdvancedMsgListener' 
+
 ## 0.0.9+2
 1. Fix bug
 2. Upgrade sdk

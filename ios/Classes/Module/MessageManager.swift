@@ -59,7 +59,7 @@ public class MessageManager: BaseServiceManager {
         let key = methodCall[string: KEY_ID]
         if let lis = listeners[key] {
             listeners[key] = nil
-            Open_im_sdkRemoveAdvancedMsgListener(lis)
+//             Open_im_sdkRemoveAdvancedMsgListener(lis)
         }
         callBack(result)
     }
