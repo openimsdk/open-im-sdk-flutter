@@ -1,3 +1,6 @@
+## 0.0.9+4
+Fix ios friendship params error
+
 ## 0.0.9+3
 Ios native remove method 'removeAdvancedMsgListener' 
 
