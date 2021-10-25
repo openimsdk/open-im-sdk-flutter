@@ -56,7 +56,7 @@ public class FriendshipManager: BaseServiceManager {
     }
     
     func addToBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAddToBlackList(BaseCallback(result: result), methodCall[string: "uid"])
+        Open_im_sdkAddToBlackList(BaseCallback(result: result), methodCall[jsonString: "uid"])
     }
     
     func getBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -64,7 +64,7 @@ public class FriendshipManager: BaseServiceManager {
     }
     
     func deleteFromBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteFromBlackList(BaseCallback(result: result), methodCall[string: "uid"])
+        Open_im_sdkDeleteFromBlackList(BaseCallback(result: result), methodCall[jsonString: "uid"])
     }
     
     func checkFriend(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -72,15 +72,15 @@ public class FriendshipManager: BaseServiceManager {
     }
     
     func deleteFromFriendList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteFromFriendList(methodCall[string: "uid"], BaseCallback(result: result))
+        Open_im_sdkDeleteFromFriendList(methodCall[jsonString: "uid"], BaseCallback(result: result))
     }
     
     func acceptFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAcceptFriendApplication(BaseCallback(result: result), methodCall[string: "uid"])
+        Open_im_sdkAcceptFriendApplication(BaseCallback(result: result), methodCall[jsonString: "uid"])
     }
     
     func refuseFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkRefuseFriendApplication(BaseCallback(result: result), methodCall[string: "uid"])
+        Open_im_sdkRefuseFriendApplication(BaseCallback(result: result), methodCall[jsonString: "uid"])
     }
     
     func forceSyncFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
