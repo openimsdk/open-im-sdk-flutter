@@ -1,3 +1,7 @@
+## 0.0.9+5
+1. Android upgrade sdk to 0.0.17 </br>
+2. New add createFileMessageFromFullPath method
+
 ## 0.0.9+4
 Fix ios friendship params error
 

@@ -56,7 +56,7 @@ public class MessageManager {
         listeners.remove(key);
         if (listeners.isEmpty()) {
             initializedListener = false;
-            Open_im_sdk.removeAdvancedMsgListener(sdkMsgListener);
+//            Open_im_sdk.removeAdvancedMsgListener(sdkMsgListener);
         }
     }
 /*
@@ -149,7 +149,6 @@ public class MessageManager {
                 Open_im_sdk.createImageMessageFromFullPath(
                         CommonUtil.getImagePath(methodCall)));
     }
-
     public void createSoundMessage(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result,
                 Open_im_sdk.createSoundMessage(
@@ -185,6 +184,13 @@ public class MessageManager {
     public void createFileMessage(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result,
                 Open_im_sdk.createFileMessage(
+                        CommonUtil.getFilePath(methodCall),
+                        CommonUtil.getFileName(methodCall)));
+    }
+
+    public void createFileMessageFromFullPath(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createFileMessageFromFullPath(
                         CommonUtil.getFilePath(methodCall),
                         CommonUtil.getFileName(methodCall)));
     }

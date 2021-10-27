@@ -184,6 +184,7 @@ class MessageManager {
         .then((value) => _toObj(value));
   }
 
+
   /// Create sound message
   Future<Message> createSoundMessage({
     required String soundPath,
@@ -256,6 +257,21 @@ class MessageManager {
     return _channel
         .invokeMethod(
             'createFileMessage',
+            _buildParam({
+              'filePath': filePath,
+              'fileName': fileName,
+            }))
+        .then((value) => _toObj(value));
+  }
+
+  /// Create file message
+  Future<Message> createFileMessageFromFullPath({
+    required String filePath,
+    required String fileName,
+  }) {
+    return _channel
+        .invokeMethod(
+            'createFileMessageFromFullPath',
             _buildParam({
               'filePath': filePath,
               'fileName': fileName,
