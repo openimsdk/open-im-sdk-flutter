@@ -25,9 +25,9 @@ public class FriendshipManager: BaseServiceManager {
         self["deleteFromFriendList"] = deleteFromFriendList
         self["acceptFriendApplication"] = acceptFriendApplication
         self["refuseFriendApplication"] = refuseFriendApplication
-        self["forceSyncFriendApplication"] = forceSyncFriendApplication
-        self["forceSyncFriend"] = forceSyncFriend
-        self["forceSyncBlackList"] = forceSyncBlackList
+//        self["forceSyncFriendApplication"] = forceSyncFriendApplication
+//        self["forceSyncFriend"] = forceSyncFriend
+//        self["forceSyncBlackList"] = forceSyncBlackList
     }
     
     func setFriendListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -83,20 +83,20 @@ public class FriendshipManager: BaseServiceManager {
         Open_im_sdkRefuseFriendApplication(BaseCallback(result: result), methodCall[jsonString: "uid"])
     }
     
-    func forceSyncFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkForceSyncFriendApplication()
-        callBack(result)
-    }
-    
-    func forceSyncFriend(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkForceSyncFriend()
-        callBack(result)
-    }
-    
-    func forceSyncBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkForceSyncBlackList()
-        callBack(result)
-    }
+//     func forceSyncFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+//         Open_im_sdkForceSyncFriendApplication()
+//         callBack(result)
+//     }
+//
+//     func forceSyncFriend(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+//         Open_im_sdkForceSyncFriend()
+//         callBack(result)
+//     }
+//
+//     func forceSyncBlackList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+//         Open_im_sdkForceSyncBlackList()
+//         callBack(result)
+//     }
 }
 
 public class FriendshipListener: NSObject, Open_im_sdkOnFriendshipListenerProtocol {

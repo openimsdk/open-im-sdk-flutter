@@ -26,9 +26,9 @@ public class IMManager {
         CommonUtil.runMainThreadReturn(result, Open_im_sdk.getLoginStatus());
     }
 
-    public void getLoginUid(MethodCall methodCall, MethodChannel.Result result) {
-        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getLoginUid());
-    }
+//    public void getLoginUid(MethodCall methodCall, MethodChannel.Result result) {
+//        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getLoginUid());
+//    }
 
     public void getUsersInfo(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getUsersInfo(CommonUtil.getUidList(methodCall), new BaseListener(result));
@@ -42,7 +42,7 @@ public class IMManager {
         Open_im_sdk.forceSyncLoginUerInfo();
     }
 
-    public void forceReConn(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.forceReConn();
-    }
+//    public void forceReConn(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.forceReConn();
+//    }
 }

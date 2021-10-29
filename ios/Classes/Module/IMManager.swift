@@ -17,11 +17,11 @@ public class IMMananger: BaseServiceManager {
         self["login"] = login
         self["logout"] = logout
         self["getLoginStatus"] = getLoginStatus
-        self["getLoginUid"] = getLoginUid
+//        self["getLoginUid"] = getLoginUid
         self["getUsersInfo"] = getUsersInfo
         self["setSelfInfo"] = setSelfInfo
         self["forceSyncLoginUerInfo"] = forceSyncLoginUerInfo
-        self["forceReConn"] = forceReConn
+//        self["forceReConn"] = forceReConn
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -41,9 +41,9 @@ public class IMMananger: BaseServiceManager {
         callBack(result, Open_im_sdkGetLoginStatus())
     }
     
-    func getLoginUid(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        callBack(result, Open_im_sdkGetLoginUser())
-    }
+//     func getLoginUid(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//         callBack(result, Open_im_sdkGetLoginUser())
+//     }
     
     func getUsersInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkGetUsersInfo(methodCall[jsonString: "uidList"], BaseCallback(result: result))
@@ -58,10 +58,10 @@ public class IMMananger: BaseServiceManager {
         callBack(result)
     }
     
-    func forceReConn(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceReConn()
-        callBack(result)
-    }
+//     func forceReConn(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//         Open_im_sdkForceReConn()
+//         callBack(result)
+//     }
 }
 
 public class SDKListener: NSObject, Open_im_sdkIMSDKListenerProtocol {

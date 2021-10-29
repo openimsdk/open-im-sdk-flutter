@@ -146,7 +146,11 @@ public class MessageManager: BaseServiceManager {
     func createFileMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         callBack(result, Open_im_sdkCreateFileMessage(methodCall[string: "filePath"], methodCall[string: "fileName"]))
     }
-    
+
+     func createFileMessageFromFullPath(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+         callBack(result, Open_im_sdkCreateFileMessageFromFullPath(methodCall[string: "filePath"], methodCall[string: "fileName"]))
+     }
+
     func createMergerMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let prama = Open_im_sdkCreateMergerMessage(methodCall[jsonString: "messageList"], methodCall[string: "title"],
                                                    methodCall[jsonString: "summaryList"])

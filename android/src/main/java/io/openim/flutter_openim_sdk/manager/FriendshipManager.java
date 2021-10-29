@@ -62,15 +62,15 @@ public class FriendshipManager {
         Open_im_sdk.refuseFriendApplication(new BaseListener(result), CommonUtil.getJsonUid(methodCall));
     }
 
-    public void forceSyncFriendApplication(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.forceSyncFriendApplication();
-    }
-
-    public void forceSyncFriend(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.forceSyncFriend();
-    }
-
-    public void forceSyncBlackList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.forceSyncBlackList();
-    }
+//    public void forceSyncFriendApplication(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.forceSyncFriendApplication();
+//    }
+//
+//    public void forceSyncFriend(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.forceSyncFriend();
+//    }
+//
+//    public void forceSyncBlackList(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.forceSyncBlackList();
+//    }
 }

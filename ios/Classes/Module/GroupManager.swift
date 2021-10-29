@@ -27,10 +27,10 @@ public class GroupManager: BaseServiceManager {
         self["getGroupApplicationList"] = getGroupApplicationList
         self["acceptGroupApplication"] = acceptGroupApplication
         self["refuseGroupApplication"] = refuseGroupApplication
-        self["forceSyncApplyGroupRequest"] = forceSyncApplyGroupRequest
-        self["forceSyncGroupRequest"] = forceSyncGroupRequest
-        self["forceSyncJoinedGroup"] = forceSyncJoinedGroup
-        self["forceSyncJoinedGroupMember"] = forceSyncJoinedGroupMember
+//        self["forceSyncApplyGroupRequest"] = forceSyncApplyGroupRequest
+//        self["forceSyncGroupRequest"] = forceSyncGroupRequest
+//        self["forceSyncJoinedGroup"] = forceSyncJoinedGroup
+//        self["forceSyncJoinedGroupMember"] = forceSyncJoinedGroupMember
     }
 
     func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -97,25 +97,25 @@ public class GroupManager: BaseServiceManager {
         Open_im_sdkRefuseGroupApplication(methodCall[jsonString: "application"], methodCall[string: "reason"], BaseCallback(result: result))
     }
     
-    func forceSyncApplyGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceSyncApplyGroupRequest()
-        callBack(result)
-    }
-
-    func forceSyncGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceSyncGroupRequest()
-        callBack(result)
-    }
-
-    func forceSyncJoinedGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceSyncJoinedGroup()
-        callBack(result)
-    }
-
-    func forceSyncJoinedGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkForceSyncJoinedGroupMember()
-        callBack(result)
-    }
+//     func forceSyncApplyGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//         Open_im_sdkForceSyncApplyGroupRequest()
+//         callBack(result)
+//     }
+//
+//     func forceSyncGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//         Open_im_sdkForceSyncGroupRequest()
+//         callBack(result)
+//     }
+//
+//     func forceSyncJoinedGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//         Open_im_sdkForceSyncJoinedGroup()
+//         callBack(result)
+//     }
+//
+//     func forceSyncJoinedGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+//         Open_im_sdkForceSyncJoinedGroupMember()
+//         callBack(result)
+//     }
 
 }
 public class GroupListener: NSObject, Open_im_sdkOnGroupListenerProtocol {

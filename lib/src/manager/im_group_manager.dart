@@ -254,24 +254,24 @@ class GroupManager {
   }
 
   ///
-  Future forceSyncApplyGroupRequest() {
-    return _channel.invokeMethod('forceSyncApplyGroupRequest', _buildParam({}));
-  }
+  // Future forceSyncApplyGroupRequest() {
+  //   return _channel.invokeMethod('forceSyncApplyGroupRequest', _buildParam({}));
+  // }
 
   ///
-  Future forceSyncGroupRequest() {
-    return _channel.invokeMethod('forceSyncGroupRequest', _buildParam({}));
-  }
+  // Future forceSyncGroupRequest() {
+  //   return _channel.invokeMethod('forceSyncGroupRequest', _buildParam({}));
+  // }
 
   ///
-  Future forceSyncJoinedGroup() {
-    return _channel.invokeMethod('forceSyncJoinedGroup', _buildParam({}));
-  }
+  // Future forceSyncJoinedGroup() {
+  //   return _channel.invokeMethod('forceSyncJoinedGroup', _buildParam({}));
+  // }
 
   ///
-  Future forceSyncJoinedGroupMember() {
-    return _channel.invokeMethod('forceSyncJoinedGroupMember', _buildParam({}));
-  }
+  // Future forceSyncJoinedGroupMember() {
+  //   return _channel.invokeMethod('forceSyncJoinedGroupMember', _buildParam({}));
+  // }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";

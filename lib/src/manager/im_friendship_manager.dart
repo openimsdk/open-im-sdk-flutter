@@ -104,19 +104,19 @@ class FriendshipManager {
   }
 
   ///
-  Future<dynamic> forceSyncFriendApplication() {
-    return _channel.invokeMethod('forceSyncFriendApplication', _buildParam({}));
-  }
+  // Future<dynamic> forceSyncFriendApplication() {
+  //   return _channel.invokeMethod('forceSyncFriendApplication', _buildParam({}));
+  // }
 
   ///
-  Future<dynamic> forceSyncFriend() {
-    return _channel.invokeMethod('forceSyncFriend', _buildParam({}));
-  }
+  // Future<dynamic> forceSyncFriend() {
+  //   return _channel.invokeMethod('forceSyncFriend', _buildParam({}));
+  // }
 
   ///
-  Future<dynamic> forceSyncBlackList() {
-    return _channel.invokeMethod('forceSyncBlackList', _buildParam({}));
-  }
+  // Future<dynamic> forceSyncBlackList() {
+  //   return _channel.invokeMethod('forceSyncBlackList', _buildParam({}));
+  // }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "friendshipManager";

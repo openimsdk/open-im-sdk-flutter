@@ -9,12 +9,14 @@ class IMManager {
   late FriendshipManager friendshipManager;
   late MessageManager messageManager;
   late GroupManager groupManager;
+
   // late OfflinePushManager offlinePushManager;
   // late SignalingManager signalingManager;
   late InitSDKListener _initSDKListener;
   late String uid;
   late UserInfo uInfo;
   bool isInitialized = false;
+  bool isLogined = false;
 
   IMManager(this._channel) {
     conversationManager = ConversationManager(_channel);
@@ -308,13 +310,16 @@ class IMManager {
       'login',
       _buildParam({'uid': uid, 'token': token}),
     );
+    this.isLogined = true;
     this.uInfo = (await getUsersInfo([uid])).first;
     return uInfo;
   }
 
   /// Logout sdk
-  Future<dynamic> logout() {
-    return _channel.invokeMethod('logout', _buildParam({}));
+  Future<dynamic> logout() async {
+    var value = await _channel.invokeMethod('logout', _buildParam({}));
+    this.isLogined = false;
+    return value;
   }
 
   ///
@@ -371,9 +376,9 @@ class IMManager {
   }
 
   ///
-  Future<dynamic> forceReConn() {
-    return _channel.invokeMethod('forceReConn', _buildParam({}));
-  }
+  // Future<dynamic> forceReConn() {
+  //   return _channel.invokeMethod('forceReConn', _buildParam({}));
+  // }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "imManager";
