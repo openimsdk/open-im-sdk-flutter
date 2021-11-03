@@ -283,6 +283,10 @@ public class CommonUtil {
         return getSDKJsonParam(methodCall, KEY_CARD_MESSAGE);
     }
 
+    public static int getSDKLog(MethodCall methodCall) {
+        return getParamValue(methodCall, KEY_SDK_LOG);
+    }
+
     //login
     final static String KEY_UID = "uid";
     final static String KEY_TOKEN = "token";
@@ -345,4 +349,6 @@ public class CommonUtil {
     final static String KEY_GROUP_INFO = "gInfo";
     final static String KEY_GROUP_MEMBER_ROLE_LIST = "memberList";
     final static String KEY_GROUP_APPLICATION_INFO = "application";
+    //
+    final static String KEY_SDK_LOG = "sdkLog";
 }

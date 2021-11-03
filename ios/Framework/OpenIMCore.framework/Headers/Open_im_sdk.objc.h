@@ -869,6 +869,10 @@
 // skipped method UserRelated.OnMemberKicked with unsupported parameter or return types
 
 - (void)pinConversation:(NSString* _Nullable)conversationID isPinned:(BOOL)isPinned callback:(id<Open_im_sdkBase> _Nullable)callback;
+// skipped method UserRelated.Prepare with unsupported parameter or return types
+
+// skipped method UserRelated.Query with unsupported parameter or return types
+
 - (void)quitGroup:(NSString* _Nullable)groupId callback:(id<Open_im_sdkBase> _Nullable)callback;
 - (void)refuseFriendApplication:(id<Open_im_sdkBase> _Nullable)callback uid:(NSString* _Nullable)uid;
 - (void)refuseGroupApplication:(NSString* _Nullable)application reason:(NSString* _Nullable)reason callback:(id<Open_im_sdkBase> _Nullable)callback;

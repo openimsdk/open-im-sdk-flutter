@@ -371,6 +371,11 @@ class IMManager {
   }
 
   ///
+  void setSdkLog({required bool enable}) {
+    _channel.invokeMethod('setSdkLog', _buildParam({'sdkLog': enable ? 0 : 1}));
+  }
+
+  ///
   Future<dynamic> forceSyncLoginUerInfo(List<String> uidList) {
     return _channel.invokeMethod('forceSyncLoginUerInfo', _buildParam({}));
   }

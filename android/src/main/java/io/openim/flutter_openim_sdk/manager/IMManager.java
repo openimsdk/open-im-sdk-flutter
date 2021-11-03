@@ -45,4 +45,8 @@ public class IMManager {
 //    public void forceReConn(MethodCall methodCall, MethodChannel.Result result) {
 //        Open_im_sdk.forceReConn();
 //    }
+
+    public void setSdkLog(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setSdkLog(CommonUtil.getSDKLog(methodCall));
+    }
 }
