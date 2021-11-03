@@ -2,7 +2,7 @@
 
 ### [Download demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git)
 
-### [OpenIM-Flutter-Widget](https://github.com/hrxiang/OpenIM-Flutter-Widget.git)
+### [flutter_openim_widget](https://github.com/hrxiang/flutter_openim_widget.git)
 
 [![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet?style=for-the-badge)](README.zh-cn.md)
 
