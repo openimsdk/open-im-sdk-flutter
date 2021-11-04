@@ -855,6 +855,7 @@
 // skipped method UserRelated.GroupApplicationProcessedCallback with unsupported parameter or return types
 
 - (BOOL)initSDK:(NSString* _Nullable)config cb:(id<Open_im_sdkIMSDKListener> _Nullable)cb;
+- (NSString* _Nonnull)insertGroupMessageToLocalStorage:(id<Open_im_sdkBase> _Nullable)callback message:(NSString* _Nullable)message groupID:(NSString* _Nullable)groupID sender:(NSString* _Nullable)sender;
 - (NSString* _Nonnull)insertSingleMessageToLocalStorage:(id<Open_im_sdkBase> _Nullable)callback message:(NSString* _Nullable)message userID:(NSString* _Nullable)userID sender:(NSString* _Nullable)sender;
 - (void)inviteUserToGroup:(NSString* _Nullable)groupId reason:(NSString* _Nullable)reason userList:(NSString* _Nullable)userList callback:(id<Open_im_sdkBase> _Nullable)callback;
 - (void)joinGroup:(NSString* _Nullable)groupId message:(NSString* _Nullable)message callback:(id<Open_im_sdkBase> _Nullable)callback;
