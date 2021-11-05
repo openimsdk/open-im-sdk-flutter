@@ -22,6 +22,7 @@ public class IMMananger: BaseServiceManager {
         self["setSelfInfo"] = setSelfInfo
         self["forceSyncLoginUerInfo"] = forceSyncLoginUerInfo
 //        self["forceReConn"] = forceReConn
+        self["setSdkLog"] = setSdkLog
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -57,7 +58,10 @@ public class IMMananger: BaseServiceManager {
         Open_im_sdkForceSyncLoginUerInfo()
         callBack(result)
     }
-    
+
+    func setSdkLog(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+         Open_im_sdkSetSdkLog(methodCall[int32: "sdkLog"])
+    }
 //     func forceReConn(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
 //         Open_im_sdkForceReConn()
 //         callBack(result)
