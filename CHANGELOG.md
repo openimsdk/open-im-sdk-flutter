@@ -1,3 +1,6 @@
+### 1.0.2
+Fix the bug that cannot run on the ios simulator due to lack of cup architecture
+
 ## 1.0.1
 Fix bug
 
