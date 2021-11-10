@@ -1,10 +1,20 @@
+## 1.0.2
+
+Upgrade sdk </br>
+
+1. Android to 1.1.3 </br>
+2. Ios replace framework </br>
+
 ## 1.0.1
+
 Fix bug
 
 ## 1.0.0
+
 Fix bug
 
 ## 0.0.9+5
+
 1. Android upgrade sdk to 0.0.17 </br>
 2. New add createFileMessageFromFullPath method
 
@@ -12,7 +22,7 @@ Fix bug
 Fix ios friendship params error
 
 ## 0.0.9+3
-Ios native remove method 'removeAdvancedMsgListener' 
+Ios native remove method 'removeAdvancedMsgListener'
 
 ## 0.0.9+2
 1. Fix bug
