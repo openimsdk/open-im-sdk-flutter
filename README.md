@@ -6,6 +6,7 @@
 
 [![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet?style=for-the-badge)](README.zh-cn.md)
 
+
 A flutter IM plugin for android and ios.
 
 ## Getting Started
@@ -13,7 +14,7 @@ A flutter IM plugin for android and ios.
 
 #### 1，Add dependency in yaml
 
-       flutter_openim_sdk: ^1.0.2
+       flutter_openim_sdk: ^1.0.3
 
 #### 2，Import package
 
