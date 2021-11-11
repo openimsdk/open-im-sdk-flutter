@@ -230,24 +230,33 @@ public class MessageManager: BaseServiceManager {
 
     public class AdvancedMsgListener: NSObject, Open_im_sdkOnAdvancedMsgListenerProtocol {
         private let channel: FlutterMethodChannel
-        private var values: [String: Any] = [:]
+        private let id: String
+
+//         private var values: [String: Any] = [:]
 
         init(channel: FlutterMethodChannel, id: String) {
             self.channel = channel
-            values["id"] = id
+            self.id = id
+//             values["id"] = id
         }
 
         public func onRecvC2CReadReceipt(_ msgReceiptList: String?) {
+            var values: [String: Any] = [:]
+            values["id"] = id
             values["haveReadMessage"] = msgReceiptList
             CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvC2CReadReceipt", errCode: nil, errMsg: nil, data: values)
         }
 
         public func onRecvMessageRevoked(_ msgId: String?) {
+            var values: [String: Any] = [:]
+            values["id"] = id
             values["revokedMessage"] = msgId
             CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
         }
 
         public func onRecvNewMessage(_ message: String?) {
+            var values: [String: Any] = [:]
+            values["id"] = id
             values["newMessage"] = message
             CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvNewMessage", errCode: nil, errMsg: nil, data: values)
         }
