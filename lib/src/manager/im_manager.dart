@@ -371,8 +371,9 @@ class IMManager {
   }
 
   ///
-  void setSdkLog({required bool enable}) {
-    _channel.invokeMethod('setSdkLog', _buildParam({'sdkLog': enable ? 0 : 1}));
+  void enabledSDKLog({required bool enabled}) {
+    _channel.invokeMethod(
+        'setSdkLog', _buildParam({'sdkLog': enabled ? 0 : 1}));
   }
 
   ///
