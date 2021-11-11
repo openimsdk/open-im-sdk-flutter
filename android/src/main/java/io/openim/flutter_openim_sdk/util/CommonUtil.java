@@ -3,7 +3,8 @@ package io.openim.flutter_openim_sdk.util;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.util.HashMap;
+import androidx.collection.ArrayMap;
+
 import java.util.Map;
 
 import io.flutter.Log;
@@ -46,7 +47,7 @@ public class CommonUtil {
 
     public synchronized static <T> void emitEvent(String method, String type, Long errCode, String errMsg, T data) {
         runMainThread(() -> {
-            HashMap<String, Object> res = new HashMap<>();
+            Map<String, Object> res = new ArrayMap<>();
             if (null != type) {
                 res.put("type", type);
             }
