@@ -370,6 +370,18 @@ class MessageManager {
   }
 
   ///
+  Future<dynamic> clearC2CHistoryMessage({required String uid}) {
+    return _channel.invokeMethod(
+        'clearC2CHistoryMessage', _buildParam({"userID": uid}));
+  }
+
+  ///
+  Future<dynamic> clearGroupHistoryMessage({required String gid}) {
+    return _channel.invokeMethod(
+        'clearGroupHistoryMessage', _buildParam({"groupID": gid}));
+  }
+
+  ///
   void forceSyncMsg() {
     _channel.invokeMethod('forceSyncMsg', _buildParam({}));
   }

@@ -7,15 +7,18 @@ import io.openim.flutter_openim_sdk.listener.SDKListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
 
-public class IMManager {
+public class IMManager extends BaseManager {
 
     public void initSDK(MethodCall methodCall, MethodChannel.Result result) {
-        CommonUtil.runMainThreadReturn(result, Open_im_sdk.initSDK(CommonUtil.getSDKJsonParam(methodCall), new SDKListener()));
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.initSDK(
+                jsonValue(methodCall), new SDKListener()));
 //        CommonUtil.runMainThreadReturn(result, null);
     }
 
     public void login(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.login(CommonUtil.getUid(methodCall), CommonUtil.getToken(methodCall), new BaseListener(result));
+        Open_im_sdk.login(
+                value(methodCall, "uid"),
+                value(methodCall, "token"), new BaseListener(result));
     }
 
     public void logout(MethodCall methodCall, MethodChannel.Result result) {
@@ -31,11 +34,13 @@ public class IMManager {
 //    }
 
     public void getUsersInfo(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getUsersInfo(CommonUtil.getUidList(methodCall), new BaseListener(result));
+        Open_im_sdk.getUsersInfo(
+                jsonValue(methodCall, "uidList"), new BaseListener(result));
     }
 
     public void setSelfInfo(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setSelfInfo(CommonUtil.getSDKJsonParam(methodCall), new BaseListener(result));
+        Open_im_sdk.setSelfInfo(
+                jsonValue(methodCall), new BaseListener(result));
     }
 
     public void forceSyncLoginUerInfo(MethodCall methodCall, MethodChannel.Result result) {
@@ -47,6 +52,6 @@ public class IMManager {
 //    }
 
     public void setSdkLog(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setSdkLog(CommonUtil.getSDKLog(methodCall));
+        Open_im_sdk.setSdkLog(value(methodCall, "sdkLog"));
     }
 }

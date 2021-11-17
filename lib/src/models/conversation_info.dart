@@ -48,11 +48,14 @@ class ConversationInfo {
     unreadCount = json['unreadCount'];
     // latestMsg = json['latestMsg'];
     // if (null != json['latestMsg']) {
-    if (json['latestMsg'] is String) {
-      latestMsg = Message.fromJson(jsonDecode(json['latestMsg']));
-    } else if (json['latestMsg'] is Map) {
-      latestMsg = Message.fromJson(json['latestMsg']);
-    }
+    try {
+      if (json['latestMsg'] is String) {
+        latestMsg = Message.fromJson(jsonDecode(json['latestMsg']));
+      } else if (json['latestMsg'] is Map) {
+        latestMsg = Message.fromJson(json['latestMsg']);
+      }
+    } catch (e) {}
+
     // }
 
     latestMsgSendTime = json['latestMsgSendTime'];

@@ -7,7 +7,7 @@ import io.openim.flutter_openim_sdk.listener.ConversationListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
 
-public class ConversationManager {
+public class ConversationManager extends BaseManager {
 
     public void setConversationListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setConversationListener(new ConversationListener());
@@ -19,41 +19,47 @@ public class ConversationManager {
 
     public void getOneConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getOneConversation(
-                CommonUtil.getConversationSourceId(methodCall),
-                CommonUtil.getConversationSessionType(methodCall),
+                value(methodCall, "sourceID"),
+                int2long(methodCall, "sessionType"),
                 new BaseListener(result));
     }
 
     public void getMultipleConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getMultipleConversation(
-                CommonUtil.getConversationIds(methodCall),
+                jsonValue(methodCall, "conversationIDList"),
                 new BaseListener(result));
     }
 
     public void deleteConversation(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteConversation(CommonUtil.getConversationId(methodCall), new BaseListener(result));
+        Open_im_sdk.deleteConversation(
+                value(methodCall, "conversationID"),
+                new BaseListener(result));
     }
 
     public void setConversationDraft(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setConversationDraft(
-                CommonUtil.getConversationId(methodCall),
-                CommonUtil.getConversationDraft(methodCall),
+                value(methodCall, "conversationID"),
+                value(methodCall, "draftText"),
                 new BaseListener(result));
     }
 
     public void pinConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.pinConversation(
-                CommonUtil.getConversationId(methodCall),
-                CommonUtil.isPinnedConversation(methodCall),
+                value(methodCall, "conversationID"),
+                value(methodCall, "isPinned"),
                 new BaseListener(result));
     }
 
     public void markSingleMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.markSingleMessageHasRead(new BaseListener(result), CommonUtil.getSingleMessageUserid(methodCall));
+        Open_im_sdk.markSingleMessageHasRead(
+                new BaseListener(result),
+                value(methodCall, "userID"));
     }
 
     public void markGroupMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.markGroupMessageHasRead(new BaseListener(result), CommonUtil.getGroupMessageGroupid(methodCall));
+        Open_im_sdk.markGroupMessageHasRead(
+                new BaseListener(result),
+                value(methodCall, "groupID"));
     }
 
     public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
@@ -61,9 +67,8 @@ public class ConversationManager {
     }
 
     public void getConversationIDBySessionType(MethodCall methodCall, MethodChannel.Result result) {
-        CommonUtil.runMainThreadReturn(result,
-                Open_im_sdk.getConversationIDBySessionType(CommonUtil.getConversationSourceId(methodCall),
-                CommonUtil.getConversationSessionType(methodCall)));
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getConversationIDBySessionType(
+                value(methodCall, "sourceID"),
+                int2long(methodCall, "sessionType")));
     }
-
 }

@@ -42,6 +42,8 @@ public class MessageManager: BaseServiceManager {
         self["createQuoteMessage"] = createQuoteMessage
         self["createCardMessage"] = createCardMessage
         self["forceSyncMsg"] = forceSyncMsg
+        self["clearC2CHistoryMessage"] = clearC2CHistoryMessage
+        self["clearGroupHistoryMessage"] = clearGroupHistoryMessage
     }
     
     func addAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -185,6 +187,14 @@ public class MessageManager: BaseServiceManager {
     func forceSyncMsg(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkForceSyncMsg()
         callBack(result)
+    }
+
+    func clearC2CHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkClearC2CHistoryMessage(BaseCallback(result: result), methodCall[string: "userID"])
+    }
+
+    func clearGroupHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkClearGroupHistoryMessage(BaseCallback(result: result), methodCall[string: "groupID"])
     }
 
     public class SendMsgProgressListener: NSObject, Open_im_sdkSendMsgCallBackProtocol {

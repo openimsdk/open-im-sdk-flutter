@@ -31,6 +31,7 @@ class IMManager {
   void _addNativeCallback(MethodChannel _channel) {
     _channel.setMethodCallHandler((call) {
       try {
+        print('call:$call');
         if (call.method == ListenerType.initSDKListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
@@ -186,6 +187,7 @@ class IMManager {
         } else if (call.method == ListenerType.conversationListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
+          print('type:$type    data:$data');
           switch (type) {
             case 'onSyncServerStart':
               conversationManager.conversationListener.syncServerStart();

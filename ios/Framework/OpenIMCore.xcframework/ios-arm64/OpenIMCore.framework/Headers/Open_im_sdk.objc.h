@@ -794,6 +794,8 @@
 - (void)addFriend:(id<Open_im_sdkBase> _Nullable)callback paramsReq:(NSString* _Nullable)paramsReq;
 - (void)addToBlackList:(id<Open_im_sdkBase> _Nullable)callback blackUid:(NSString* _Nullable)blackUid;
 - (void)checkFriend:(id<Open_im_sdkBase> _Nullable)callback uidList:(NSString* _Nullable)uidList;
+- (void)clearC2CHistoryMessage:(id<Open_im_sdkBase> _Nullable)callback userID:(NSString* _Nullable)userID;
+- (void)clearGroupHistoryMessage:(id<Open_im_sdkBase> _Nullable)callback groupID:(NSString* _Nullable)groupID;
 - (NSString* _Nonnull)createCardMessage:(NSString* _Nullable)cardInfo;
 - (NSString* _Nonnull)createCustomMessage:(NSString* _Nullable)data extension:(NSString* _Nullable)extension description:(NSString* _Nullable)description;
 - (NSString* _Nonnull)createFileMessage:(NSString* _Nullable)filePath fileName:(NSString* _Nullable)fileName;
@@ -1117,7 +1119,6 @@ FOUNDATION_EXPORT const int64_t Open_im_sdkSingleChatType;
  */
 FOUNDATION_EXPORT const int64_t Open_im_sdkSingleTipBegin;
 FOUNDATION_EXPORT const int64_t Open_im_sdkSingleTipEnd;
-FOUNDATION_EXPORT const int64_t Open_im_sdkSound;
 FOUNDATION_EXPORT const int64_t Open_im_sdkSysMsgType;
 /**
  * ContentType
@@ -1136,6 +1137,7 @@ MsgFrom
  */
 FOUNDATION_EXPORT const int64_t Open_im_sdkUserMsgType;
 FOUNDATION_EXPORT const int64_t Open_im_sdkVideo;
+FOUNDATION_EXPORT const int64_t Open_im_sdkVoice;
 FOUNDATION_EXPORT const int64_t Open_im_sdkWSDataError;
 FOUNDATION_EXPORT const int64_t Open_im_sdkWSGetNewestSeq;
 FOUNDATION_EXPORT const int64_t Open_im_sdkWSPullMsg;
@@ -1167,6 +1169,10 @@ FOUNDATION_EXPORT void Open_im_sdkAddFriend(id<Open_im_sdkBase> _Nullable callba
 FOUNDATION_EXPORT void Open_im_sdkAddToBlackList(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable blackUid);
 
 FOUNDATION_EXPORT void Open_im_sdkCheckFriend(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable uidList);
+
+FOUNDATION_EXPORT void Open_im_sdkClearC2CHistoryMessage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable userID);
+
+FOUNDATION_EXPORT void Open_im_sdkClearGroupHistoryMessage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable groupID);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateCardMessage(NSString* _Nullable cardInfo);
 
