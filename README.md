@@ -1,20 +1,23 @@
+[![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet?style=for-the-badge)](README.zh-cn.md)
+
 # flutter_openim_sdk
 
-### [Download demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git)
+A flutter IM plugin for android and ios.
+
+### [demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git)
 
 ### [flutter_openim_widget](https://github.com/hrxiang/flutter_openim_widget.git)
 
-[![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet?style=for-the-badge)](README.zh-cn.md)
+![Android](https://www.pgyer.com/app/qrcode/OpenIM)
 
 
-A flutter IM plugin for android and ios.
 
 ## Getting Started
 
 
 #### 1，Add dependency in yaml
 
-       flutter_openim_sdk: ^1.0.3
+       flutter_openim_sdk: ^1.0.4
 
 #### 2，Import package
 
