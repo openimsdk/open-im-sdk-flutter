@@ -866,6 +866,9 @@
 - (void)logout:(id<Open_im_sdkBase> _Nullable)callback;
 - (void)markC2CMessageAsRead:(id<Open_im_sdkBase> _Nullable)callback receiver:(NSString* _Nullable)receiver msgIDList:(NSString* _Nullable)msgIDList;
 - (void)markGroupMessageHasRead:(id<Open_im_sdkBase> _Nullable)callback groupID:(NSString* _Nullable)groupID;
+/**
+ * Deprecated
+ */
 - (void)markSingleMessageHasRead:(id<Open_im_sdkBase> _Nullable)callback userID:(NSString* _Nullable)userID;
 // skipped method UserRelated.OnMemberInvited with unsupported parameter or return types
 
@@ -1131,6 +1134,7 @@ FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkTransferGroupTip;
 FOUNDATION_EXPORT const int64_t Open_im_sdkTyping;
 FOUNDATION_EXPORT const int64_t Open_im_sdkUnreadCountSetZero;
 FOUNDATION_EXPORT const int64_t Open_im_sdkUpdateFaceUrlAndNickName;
+FOUNDATION_EXPORT const int64_t Open_im_sdkUpdateLatestMessageChange;
 /**
  * //////////////////////////////////////
 MsgFrom
@@ -1308,6 +1312,9 @@ FOUNDATION_EXPORT void Open_im_sdkMarkC2CMessageAsRead(id<Open_im_sdkBase> _Null
 
 FOUNDATION_EXPORT void Open_im_sdkMarkGroupMessageHasRead(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable groupID);
 
+/**
+ * Deprecated
+ */
 FOUNDATION_EXPORT void Open_im_sdkMarkSingleMessageHasRead(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable userID);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkMd5(NSString* _Nullable s);
