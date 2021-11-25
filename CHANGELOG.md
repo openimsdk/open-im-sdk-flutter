@@ -1,3 +1,7 @@
+## 1.0.5
+
+Upgrade sdk to 1.2.0
+
 ## 1.0.4
 
 New add clear c2c message and group message </bar>
