@@ -19,6 +19,11 @@ public class MessageManager extends BaseManager {
     private static boolean initializedListener = false;
     private final static Map<String, AdvancedMsgListener> listeners = new ConcurrentHashMap<>();
 
+//    protected void clearListeners() {
+//        initializedListener = false;
+//        listeners.clear();
+//    }
+
     private final static OnAdvancedMsgListener sdkMsgListener = new OnAdvancedMsgListener() {
         @Override
         public void onRecvC2CReadReceipt(String s) {
@@ -44,20 +49,21 @@ public class MessageManager extends BaseManager {
 
     public void addAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
         String key = methodCall.argument(KEY_ID);
-        listeners.put(key, new AdvancedMsgListener(key));
-        if (!initializedListener) {
-            initializedListener = true;
-            Open_im_sdk.addAdvancedMsgListener(sdkMsgListener);
-        }
+        Open_im_sdk.addAdvancedMsgListener(new AdvancedMsgListener(key));
+//        listeners.put(key, new AdvancedMsgListener(key));
+//        if (!initializedListener) {
+//            initializedListener = true;
+//            Open_im_sdk.addAdvancedMsgListener(sdkMsgListener);
+//        }
     }
 
     public void removeAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
-        String key = methodCall.argument(KEY_ID);
-        listeners.remove(key);
-        if (listeners.isEmpty()) {
-            initializedListener = false;
+//        String key = methodCall.argument(KEY_ID);
+//        listeners.remove(key);
+//        if (listeners.isEmpty()) {
+//            initializedListener = false;
 //            Open_im_sdk.removeAdvancedMsgListener(sdkMsgListener);
-        }
+//        }
     }
 /*
 

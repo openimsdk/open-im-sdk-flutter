@@ -1087,7 +1087,6 @@ FOUNDATION_EXPORT const int64_t Open_im_sdkJoinGroupTip;
 FOUNDATION_EXPORT const int64_t Open_im_sdkKickGroupMemberTip;
 FOUNDATION_EXPORT const int64_t Open_im_sdkLocation;
 FOUNDATION_EXPORT const int64_t Open_im_sdkLoginFailed;
-FOUNDATION_EXPORT const int64_t Open_im_sdkLoginInit;
 FOUNDATION_EXPORT const int64_t Open_im_sdkLoginSuccess;
 FOUNDATION_EXPORT const int64_t Open_im_sdkLogining;
 FOUNDATION_EXPORT const int64_t Open_im_sdkLogoutCmd;
@@ -1110,6 +1109,7 @@ FOUNDATION_EXPORT const int64_t Open_im_sdkQuote;
 FOUNDATION_EXPORT const int64_t Open_im_sdkRefuseFriendApplicationTip;
 FOUNDATION_EXPORT const int64_t Open_im_sdkRefuseGroupApplicationTip;
 FOUNDATION_EXPORT const int64_t Open_im_sdkRevoke;
+FOUNDATION_EXPORT const int64_t Open_im_sdkSdkInit;
 FOUNDATION_EXPORT const int64_t Open_im_sdkSetGroupInfoTip;
 FOUNDATION_EXPORT const int64_t Open_im_sdkSetSelfInfoTip;
 /**
