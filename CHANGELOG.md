@@ -1,3 +1,12 @@
+## 1.0.5
+
+Upgrade sdk to 1.2.8
+
+## 1.0.4
+
+New add clear c2c message and group message </bar>
+Update sdk to 1.1.9
+
 ## 1.0.3
 
 Fix android message error bug </br>
