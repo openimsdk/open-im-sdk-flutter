@@ -29,6 +29,7 @@
 @class Open_im_sdkIMConfig;
 @class Open_im_sdkIMManager;
 @class Open_im_sdkLogInfo;
+@class Open_im_sdkLogger;
 @class Open_im_sdkMessageReceipt;
 @class Open_im_sdkMsgData;
 @class Open_im_sdkMsgFormat;
@@ -425,6 +426,108 @@
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
 @property (nonatomic) NSString* _Nonnull info;
+@end
+
+@interface Open_im_sdkLogger : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+// skipped field Logger.Logger with unsupported type: *github.com/sirupsen/logrus.Logger
+
+@property (nonatomic) long pid;
+// skipped method Logger.AddHook with unsupported parameter or return types
+
+// skipped method Logger.Debug with unsupported parameter or return types
+
+// skipped method Logger.Debugf with unsupported parameter or return types
+
+// skipped method Logger.Debugln with unsupported parameter or return types
+
+// skipped method Logger.Error with unsupported parameter or return types
+
+// skipped method Logger.Errorf with unsupported parameter or return types
+
+// skipped method Logger.Errorln with unsupported parameter or return types
+
+- (void)exit:(long)code;
+// skipped method Logger.Fatal with unsupported parameter or return types
+
+// skipped method Logger.Fatalf with unsupported parameter or return types
+
+// skipped method Logger.Fatalln with unsupported parameter or return types
+
+// skipped method Logger.GetLevel with unsupported parameter or return types
+
+// skipped method Logger.Info with unsupported parameter or return types
+
+// skipped method Logger.Infof with unsupported parameter or return types
+
+// skipped method Logger.Infoln with unsupported parameter or return types
+
+// skipped method Logger.IsLevelEnabled with unsupported parameter or return types
+
+// skipped method Logger.Log with unsupported parameter or return types
+
+// skipped method Logger.Logf with unsupported parameter or return types
+
+// skipped method Logger.Logln with unsupported parameter or return types
+
+// skipped method Logger.Panic with unsupported parameter or return types
+
+// skipped method Logger.Panicf with unsupported parameter or return types
+
+// skipped method Logger.Panicln with unsupported parameter or return types
+
+// skipped method Logger.Print with unsupported parameter or return types
+
+// skipped method Logger.Printf with unsupported parameter or return types
+
+// skipped method Logger.Println with unsupported parameter or return types
+
+// skipped method Logger.ReplaceHooks with unsupported parameter or return types
+
+// skipped method Logger.SetFormatter with unsupported parameter or return types
+
+// skipped method Logger.SetLevel with unsupported parameter or return types
+
+- (void)setNoLock;
+// skipped method Logger.SetOutput with unsupported parameter or return types
+
+- (void)setReportCaller:(BOOL)reportCaller;
+// skipped method Logger.Trace with unsupported parameter or return types
+
+// skipped method Logger.Tracef with unsupported parameter or return types
+
+// skipped method Logger.Traceln with unsupported parameter or return types
+
+// skipped method Logger.Warn with unsupported parameter or return types
+
+// skipped method Logger.Warnf with unsupported parameter or return types
+
+// skipped method Logger.Warning with unsupported parameter or return types
+
+// skipped method Logger.Warningf with unsupported parameter or return types
+
+// skipped method Logger.Warningln with unsupported parameter or return types
+
+// skipped method Logger.Warnln with unsupported parameter or return types
+
+// skipped method Logger.WithContext with unsupported parameter or return types
+
+// skipped method Logger.WithError with unsupported parameter or return types
+
+// skipped method Logger.WithField with unsupported parameter or return types
+
+// skipped method Logger.WithFields with unsupported parameter or return types
+
+// skipped method Logger.WithTime with unsupported parameter or return types
+
+// skipped method Logger.Writer with unsupported parameter or return types
+
+// skipped method Logger.WriterLevel with unsupported parameter or return types
+
 @end
 
 @interface Open_im_sdkMessageReceipt : NSObject <goSeqRefInterface> {
@@ -1390,6 +1493,12 @@ FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessageByURL(NSString
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessageFromFullPath(NSString* _Nullable videoFullPath, NSString* _Nullable videoType, int64_t duration, NSString* _Nullable snapshotFullPath);
 
+// skipped function Debug with unsupported parameter or return types
+
+
+// skipped function DebugByKv with unsupported parameter or return types
+
+
 FOUNDATION_EXPORT void Open_im_sdkDeleteConversation(NSString* _Nullable conversationID, id<Open_im_sdkBase> _Nullable callback);
 
 FOUNDATION_EXPORT void Open_im_sdkDeleteFromBlackList(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable deleteUid);
@@ -1397,6 +1506,15 @@ FOUNDATION_EXPORT void Open_im_sdkDeleteFromBlackList(id<Open_im_sdkBase> _Nulla
 FOUNDATION_EXPORT void Open_im_sdkDeleteFromFriendList(NSString* _Nullable deleteUid, id<Open_im_sdkBase> _Nullable callback);
 
 FOUNDATION_EXPORT void Open_im_sdkDeleteMessageFromLocalStorage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable message);
+
+// skipped function Error with unsupported parameter or return types
+
+
+// skipped function ErrorByArgs with unsupported parameter or return types
+
+
+// skipped function ErrorByKv with unsupported parameter or return types
+
 
 FOUNDATION_EXPORT void Open_im_sdkFindMessages(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable messageIDList);
 
@@ -1447,6 +1565,15 @@ FOUNDATION_EXPORT Open_im_sdkUserRelated* _Nullable Open_im_sdkGetUserWorker(NSS
 
 FOUNDATION_EXPORT void Open_im_sdkGetUsersInfo(NSString* _Nullable uIDList, id<Open_im_sdkBase> _Nullable cb);
 
+// skipped function Info with unsupported parameter or return types
+
+
+// skipped function InfoByArgs with unsupported parameter or return types
+
+
+// skipped function InfoByKv with unsupported parameter or return types
+
+
 FOUNDATION_EXPORT BOOL Open_im_sdkInitOnce(Open_im_sdkIMConfig* _Nullable config);
 
 FOUNDATION_EXPORT BOOL Open_im_sdkInitSDK(NSString* _Nullable config, id<Open_im_sdkIMSDKListener> _Nullable cb);
@@ -1454,6 +1581,8 @@ FOUNDATION_EXPORT BOOL Open_im_sdkInitSDK(NSString* _Nullable config, id<Open_im
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkInsertSingleMessageToLocalStorage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable message, NSString* _Nullable userID, NSString* _Nullable sender);
 
 FOUNDATION_EXPORT void Open_im_sdkInviteUserToGroup(NSString* _Nullable groupId, NSString* _Nullable reason, NSString* _Nullable userList, id<Open_im_sdkBase> _Nullable callback);
+
+FOUNDATION_EXPORT BOOL Open_im_sdkIsNil(void);
 
 FOUNDATION_EXPORT void Open_im_sdkJoinGroup(NSString* _Nullable groupId, NSString* _Nullable message, id<Open_im_sdkBase> _Nullable callback);
 
@@ -1488,6 +1617,29 @@ FOUNDATION_EXPORT void Open_im_sdkMarkGroupMessageHasRead(id<Open_im_sdkBase> _N
 FOUNDATION_EXPORT void Open_im_sdkMarkSingleMessageHasRead(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable userID);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkMd5(NSString* _Nullable s);
+
+// skipped function NewDebug with unsupported parameter or return types
+
+
+// skipped function NewError with unsupported parameter or return types
+
+
+// skipped function NewInfo with unsupported parameter or return types
+
+
+// skipped function NewLfsHook with unsupported parameter or return types
+
+
+/**
+ * func init() {
+	logger = loggerInit("")
+
+}
+ */
+FOUNDATION_EXPORT void Open_im_sdkNewPrivateLog(NSString* _Nullable moduleName);
+
+// skipped function NewWarn with unsupported parameter or return types
+
 
 FOUNDATION_EXPORT void Open_im_sdkPinConversation(NSString* _Nullable conversationID, BOOL isPinned, id<Open_im_sdkBase> _Nullable callback);
 
@@ -1538,6 +1690,12 @@ FOUNDATION_EXPORT void Open_im_sdkTypingStatusUpdate(NSString* _Nullable receive
 FOUNDATION_EXPORT void Open_im_sdkUnInitSDK(void);
 
 // skipped function UnixSecondToTime with unsupported parameter or return types
+
+
+// skipped function WarnByKv with unsupported parameter or return types
+
+
+// skipped function Warning with unsupported parameter or return types
 
 
 @class Open_im_sdkBase;
