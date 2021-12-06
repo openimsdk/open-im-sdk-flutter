@@ -1,3 +1,7 @@
+## 1.0.6
+
+Upgrade sdk to 1.2.9
+
 ## 1.0.5
 
 Upgrade sdk to 1.2.8
