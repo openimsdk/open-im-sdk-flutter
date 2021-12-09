@@ -71,4 +71,19 @@ public class ConversationManager extends BaseManager {
                 value(methodCall, "sourceID"),
                 int2long(methodCall, "sessionType")));
     }
+
+    public void setConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setConversationRecvMessageOpt(
+                new BaseListener(result),
+                jsonValue(methodCall, "conversationIDList"),
+                int2long(methodCall, "status")
+        );
+    }
+
+    public void getConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getConversationRecvMessageOpt(
+                new BaseListener(result),
+                jsonValue(methodCall, "conversationIDList")
+        );
+    }
 }

@@ -24,6 +24,8 @@ public class ConversationManager: BaseServiceManager {
         self["markGroupMessageHasRead"] = markGroupMessageHasRead
         self["getTotalUnreadMsgCount"] = getTotalUnreadMsgCount
         self["getConversationIDBySessionType"] = getConversationIDBySessionType
+        self["setConversationRecvMessageOpt"] = setConversationRecvMessageOpt
+        self["getConversationRecvMessageOpt"] = getConversationRecvMessageOpt
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -70,6 +72,14 @@ public class ConversationManager: BaseServiceManager {
     func getConversationIDBySessionType(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let conversationID = Open_im_sdkGetConversationIDBySessionType(methodCall[string: "sourceID"], methodCall[int: "sessionType"])
         callBack(result, conversationID)
+    }
+
+    func setConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[jsonString: "conversationIDList"], Int(methodCall[int64: "status"]))
+    }
+
+    func getConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[jsonString: "conversationIDList"])
     }
 }
 

@@ -1,3 +1,8 @@
+## 1.0.7
+
+Upgrade sdk to 1.3.4 </br>
+New add method setConversationRecvMessageOpt and getConversationRecvMessageOpt
+
 ## 1.0.6
 
 Upgrade sdk to 1.2.9
@@ -8,7 +13,7 @@ Upgrade sdk to 1.2.8
 
 ## 1.0.4
 
-New add clear c2c message and group message </bar>
+New add clear c2c message and group message </br>
 Update sdk to 1.1.9
 
 ## 1.0.3

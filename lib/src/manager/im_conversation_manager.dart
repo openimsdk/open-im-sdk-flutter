@@ -122,6 +122,34 @@ class ConversationManager {
         }));
   }
 
+  /// Message Do Not Disturb
+  /// [ status ] 1: Do not receive messages, 2: Do not notify when messages are received; 0: Normal
+  Future<dynamic> setConversationRecvMessageOpt({
+    required List<String> conversationIDList,
+    required int status,
+  }) {
+    return _channel.invokeMethod(
+        'setConversationRecvMessageOpt',
+        _buildParam({
+          "conversationIDList": conversationIDList,
+          "status": status,
+        }));
+  }
+
+  /// Message Do Not Disturb
+  /// [{"conversationId":"single_13922222222","result":0}]
+  Future<List<dynamic>> getConversationRecvMessageOpt({
+    required List<String> conversationIDList,
+  }) {
+    return _channel
+        .invokeMethod(
+            'getConversationRecvMessageOpt',
+            _buildParam({
+              "conversationIDList": conversationIDList,
+            }))
+        .then((value) => _formatJson(value));
+  }
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "conversationManager";
     return param;
