@@ -74,7 +74,7 @@ class Message {
     createTime = json['createTime'];
     sendTime = json['sendTime'];
     sendID = json['sendID'];
-    recvID = json['RecvID'];
+    recvID = json['recvID'];
     msgFrom = json['msgFrom'];
     contentType = json['contentType'];
     platformID = json['platformID'];
@@ -125,7 +125,7 @@ class Message {
     data['createTime'] = this.createTime;
     data['sendTime'] = this.sendTime;
     data['sendID'] = this.sendID;
-    data['RecvID'] = this.recvID;
+    data['recvID'] = this.recvID;
     data['msgFrom'] = this.msgFrom;
     data['contentType'] = this.contentType;
     data['platformID'] = this.platformID;
