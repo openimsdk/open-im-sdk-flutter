@@ -1,8 +1,9 @@
-[![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet?style=for-the-badge)](README.zh-cn.md)
-
 # flutter_openim_sdk
+[![pub package](https://img.shields.io/pub/v/flutter_openim_sdk.svg)](https://pub.flutter-io.cn/packages/flutter_openim_sdk)
+[![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet)](README.zh-cn.md)
+[![GitHub license](https://img.shields.io/github/license/OpenIMSDK/Open-IM-SDK-Flutter)](https://github.com/OpenIMSDK/Open-IM-SDK-Flutter/blob/main/LICENSE)
 
-A flutter IM plugin for android and ios.
+A flutter im plugin for android and ios.
 
 ### [demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git)
 
