@@ -21,6 +21,7 @@ class MessageManager {
   }
 
   /// Remove a message listener
+  @deprecated
   Future removeAdvancedMsgListener(AdvancedMsgListener listener) {
     advancedMsgListeners.remove(listener);
     return _channel.invokeMethod(
