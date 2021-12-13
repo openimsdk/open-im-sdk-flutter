@@ -311,7 +311,7 @@ Message type
   static const invited_user_to_group = 510;
 ```
 
-IM platform
+Platform
 
 ```
   static const ios = 1;
@@ -323,7 +323,7 @@ IM platform
   static const linux = 7;
 ```
 
-Group role
+Group member role
 
 ```
   static const member = 0;
@@ -338,7 +338,7 @@ Conversation type
  static const group_chat = 2;
 ```
 
-Message send status
+Message status
 
 ```
  static const sending = 1;
