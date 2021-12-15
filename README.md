@@ -1,5 +1,6 @@
 # flutter_openim_sdk
 [![pub package](https://img.shields.io/pub/v/flutter_openim_sdk.svg)](https://pub.flutter-io.cn/packages/flutter_openim_sdk)
+[![Generic badge](https://img.shields.io/badge/platform-android%20|%20ios%20-blue.svg)](https://pub.dev/packages/flutter_openim_sdk)
 [![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet)](README.zh-cn.md)
 [![GitHub license](https://img.shields.io/github/license/OpenIMSDK/Open-IM-SDK-Flutter)](https://github.com/OpenIMSDK/Open-IM-SDK-Flutter/blob/main/LICENSE)
 
