@@ -15,6 +15,7 @@ public class ConversationManager: BaseServiceManager {
         
         self["setConversationListener"] = setConversationListener
         self["getAllConversationList"] = getAllConversationList
+        self["getConversationListSplit"] = getConversationListSplit
         self["getOneConversation"] = getOneConversation
         self["getMultipleConversation"] = getMultipleConversation
         self["deleteConversation"] = deleteConversation
@@ -36,7 +37,11 @@ public class ConversationManager: BaseServiceManager {
     func getAllConversationList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetAllConversationList(BaseCallback(result: result))
     }
-    
+
+    func getConversationListSplit(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetConversationListSplit(BaseCallback(result: result), methodCall[int: "offset"], methodCall[int: "count"])
+    }
+
     func getOneConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetOneConversation(methodCall[string: "sourceID"], methodCall[int: "sessionType"], BaseCallback(result: result))
     }
@@ -75,7 +80,7 @@ public class ConversationManager: BaseServiceManager {
     }
 
     func setConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[jsonString: "conversationIDList"], Int(methodCall[int64: "status"]))
+        Open_im_sdkSetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[jsonString: "conversationIDList"], methodCall[int: "status"])
     }
 
     func getConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

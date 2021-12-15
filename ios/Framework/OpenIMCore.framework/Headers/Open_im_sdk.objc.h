@@ -941,6 +941,7 @@
 - (void)getBlackList:(id<Open_im_sdkBase> _Nullable)callback;
 // skipped method UserRelated.GetCh with unsupported parameter or return types
 
+- (void)getConversationListSplit:(id<Open_im_sdkBase> _Nullable)callback offset:(long)offset count:(long)count;
 - (void)getConversationRecvMessageOpt:(id<Open_im_sdkBase> _Nullable)callback conversationIDList:(NSString* _Nullable)conversationIDList;
 - (void)getFriendApplicationList:(id<Open_im_sdkBase> _Nullable)callback;
 - (void)getFriendList:(id<Open_im_sdkBase> _Nullable)callback;
@@ -1157,8 +1158,6 @@ FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdReLogin;
 FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdRefuseFriend;
 FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdUnInit;
 FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdUpdateConversation;
-FOUNDATION_EXPORT const int64_t Open_im_sdkConAndUnreadChange;
-FOUNDATION_EXPORT const int64_t Open_im_sdkConChange;
 FOUNDATION_EXPORT const int64_t Open_im_sdkCreateGroupTip;
 FOUNDATION_EXPORT const int64_t Open_im_sdkCustom;
 FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkDeFaultSuccessMsg;
@@ -1207,9 +1206,13 @@ FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusSendSuccess;
  * MsgStatus
  */
 FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusSending;
+FOUNDATION_EXPORT const int64_t Open_im_sdkNewCon;
+FOUNDATION_EXPORT const int64_t Open_im_sdkNewConChange;
+FOUNDATION_EXPORT const int64_t Open_im_sdkNotPinned;
 FOUNDATION_EXPORT const int64_t Open_im_sdkNotRead;
 FOUNDATION_EXPORT const int64_t Open_im_sdkNotReceiveMessage;
 FOUNDATION_EXPORT const int64_t Open_im_sdkPicture;
+FOUNDATION_EXPORT const int64_t Open_im_sdkPinned;
 FOUNDATION_EXPORT const int64_t Open_im_sdkQuitGroupTip;
 FOUNDATION_EXPORT const int64_t Open_im_sdkQuote;
 /**
@@ -1536,6 +1539,8 @@ FOUNDATION_EXPORT void Open_im_sdkGetBlackList(id<Open_im_sdkBase> _Nullable cal
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkGetConversationIDBySessionType(NSString* _Nullable sourceID, long sessionType);
 
+FOUNDATION_EXPORT void Open_im_sdkGetConversationListSplit(id<Open_im_sdkBase> _Nullable callback, long offset, long count);
+
 FOUNDATION_EXPORT void Open_im_sdkGetConversationRecvMessageOpt(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable conversationIDList);
 
 /**
@@ -1685,6 +1690,8 @@ FOUNDATION_EXPORT BOOL Open_im_sdkSetFriendListener(id<Open_im_sdkOnFriendshipLi
 FOUNDATION_EXPORT void Open_im_sdkSetGroupInfo(NSString* _Nullable jsonGroupInfo, id<Open_im_sdkBase> _Nullable callback);
 
 FOUNDATION_EXPORT void Open_im_sdkSetGroupListener(id<Open_im_sdkOnGroupListener> _Nullable callback);
+
+FOUNDATION_EXPORT void Open_im_sdkSetHearbeatInterval(int32_t interval);
 
 /**
  * 1 no print

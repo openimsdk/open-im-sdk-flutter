@@ -17,6 +17,12 @@ public class ConversationManager extends BaseManager {
         Open_im_sdk.getAllConversationList(new BaseListener(result));
     }
 
+    public void getConversationListSplit(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getConversationListSplit(new BaseListener(result),
+                int2long(methodCall, "offset"),
+                int2long(methodCall, "count"));
+    }
+
     public void getOneConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getOneConversation(
                 value(methodCall, "sourceID"),

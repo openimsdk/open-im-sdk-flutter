@@ -153,17 +153,14 @@ class Message {
   }
 
   @override
-  bool operator ==(Object other) {
-    if (other is Message) {
-      return other._id == _id;
-    }
-    return false;
-  }
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Message &&
+          runtimeType == other.runtimeType &&
+          clientMsgID == other.clientMsgID;
 
   @override
-  int get hashCode => super.hashCode;
-
-  String? get _id => clientMsgID;
+  int get hashCode => clientMsgID.hashCode;
 }
 
 class PictureElem {

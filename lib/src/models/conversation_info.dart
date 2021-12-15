@@ -87,4 +87,14 @@ class ConversationInfo {
   bool get isGroupChat => conversationType == ConversationType.group_chat;
 
   bool get isTop => isPinned == 1;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ConversationInfo &&
+          runtimeType == other.runtimeType &&
+          conversationID == other.conversationID;
+
+  @override
+  int get hashCode => conversationID.hashCode;
 }

@@ -1,3 +1,9 @@
+## 1.0.8
+
+1.Upgrade sdk to 1.4.4. </br>
+2.New and changed conversation return changed data and no longer return all data. </br>
+3.New conversation paging method.
+
 ## 1.0.7
 
 Upgrade sdk to 1.3.4 </br>

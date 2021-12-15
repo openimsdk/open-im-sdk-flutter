@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -31,7 +32,7 @@ class IMManager {
   void _addNativeCallback(MethodChannel _channel) {
     _channel.setMethodCallHandler((call) {
       try {
-        print('call:$call');
+        log('Flutter : $call');
         if (call.method == ListenerType.initSDKListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
@@ -187,7 +188,6 @@ class IMManager {
         } else if (call.method == ListenerType.conversationListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
-          print('type:$type    data:$data');
           switch (type) {
             case 'onSyncServerStart':
               conversationManager.conversationListener.syncServerStart();
@@ -325,63 +325,50 @@ class IMManager {
   }
 
   ///
-  Future<int?> getLoginStatus() {
-    return _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
-  }
+  Future<int?> getLoginStatus() =>
+      _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
 
   /// Current user id
-  Future<String?> getLoginUid() {
-    return Future.value(uid);
-    // return _channel.invokeMethod<String>('getLoginUid', _buildParam({}));
-  }
+  Future<String?> getLoginUid() => Future.value(uid);
 
   /// Current user info
-  Future<UserInfo> getLoginUserInfo() {
-    return Future.value(uInfo);
-  }
+  Future<UserInfo> getLoginUserInfo() => Future.value(uInfo);
 
   /// Modify current user info
   Future<String?> setSelfInfo(
-      {required String uid,
-      String? name,
-      String? icon,
-      int? gender,
-      String? mobile,
-      String? birth,
-      String? email,
-      String? ex}) {
-    return _channel.invokeMethod(
-        'setSelfInfo',
-        _buildParam({
-          'uid': uid,
-          'name': name,
-          'icon': icon,
-          'gender': gender,
-          'mobile': mobile,
-          'birth': birth,
-          'email': email,
-          'ex': ex,
-        }));
-    // .then((value) => UserInfo.fromJson(value));
-  }
+          {required String uid,
+          String? name,
+          String? icon,
+          int? gender,
+          String? mobile,
+          String? birth,
+          String? email,
+          String? ex}) =>
+      _channel.invokeMethod(
+          'setSelfInfo',
+          _buildParam({
+            'uid': uid,
+            'name': name,
+            'icon': icon,
+            'gender': gender,
+            'mobile': mobile,
+            'birth': birth,
+            'email': email,
+            'ex': ex,
+          }));
 
   /// Query user information
-  Future<List<UserInfo>> getUsersInfo(List<String> uidList) {
-    return _channel
-        .invokeMethod('getUsersInfo', _buildParam({'uidList': uidList}))
-        .then((value) => _toList(value));
-  }
+  Future<List<UserInfo>> getUsersInfo(List<String> uidList) => _channel
+      .invokeMethod('getUsersInfo', _buildParam({'uidList': uidList}))
+      .then((value) => _toList(value));
 
   ///
-  void enabledSDKLog({required bool enabled}) {
-    _channel.invokeMethod(
-        'setSdkLog', _buildParam({'sdkLog': enabled ? 0 : 1}));
-  }
+  Future enabledSDKLog({required bool enabled}) => _channel.invokeMethod(
+      'setSdkLog', _buildParam({'sdkLog': enabled ? 0 : 1}));
 
   ///
-  Future<dynamic> forceSyncLoginUerInfo(List<String> uidList) {
-    return _channel.invokeMethod('forceSyncLoginUerInfo', _buildParam({}));
-  }
+  Future<dynamic> forceSyncLoginUerInfo(List<String> uidList) =>
+      _channel.invokeMethod('forceSyncLoginUerInfo', _buildParam({}));
 
   ///
   // Future<dynamic> forceReConn() {
@@ -396,9 +383,7 @@ class IMManager {
   static List<UserInfo> _toList(String value) =>
       (_formatJson(value) as List).map((e) => UserInfo.fromJson(e)).toList();
 
-  static dynamic _formatJson(value) {
-    return jsonDecode(_printValue(value));
-  }
+  static dynamic _formatJson(value) => jsonDecode(_printValue(value));
 
   static String _printValue(value) {
     return value;

@@ -43,16 +43,15 @@ class MessageManager {
     String? userID,
     String? groupID,
     bool onlineUserOnly = false,
-  }) {
-    return _channel.invokeMethod(
-        'sendMessage',
-        _buildParam({
-          'message': message.toJson(),
-          'receiver': userID ?? '',
-          'groupID': groupID ?? '',
-          'onlineUserOnly': onlineUserOnly,
-        })) /*.then((value) => _toObj(value))*/;
-  }
+  }) =>
+      _channel.invokeMethod(
+          'sendMessage',
+          _buildParam({
+            'message': message.toJson(),
+            'receiver': userID ?? '',
+            'groupID': groupID ?? '',
+            'onlineUserOnly': onlineUserOnly,
+          })) /*.then((value) => _toObj(value))*/;
 
   /// Find all history message
   Future<List<Message>> getHistoryMessageList({
@@ -60,157 +59,139 @@ class MessageManager {
     String? groupID,
     Message? startMsg,
     int? count,
-  }) {
-    return _channel
-        .invokeMethod(
-            'getHistoryMessageList',
-            _buildParam({
-              'userID': userID ?? '',
-              'startMsg': startMsg?.toJson() /*?? {}*/,
-              'groupID': groupID ?? '',
-              'count': count ?? 10,
-            }))
-        .then((value) => _toList(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'getHistoryMessageList',
+              _buildParam({
+                'userID': userID ?? '',
+                'startMsg': startMsg?.toJson() /*?? {}*/,
+                'groupID': groupID ?? '',
+                'count': count ?? 10,
+              }))
+          .then((value) => _toList(value));
 
   /// Revoke the sent information
-  Future revokeMessage({required Message message}) {
-    return _channel.invokeMethod(
-        'revokeMessage', _buildParam(message.toJson()));
-  }
+  Future revokeMessage({required Message message}) =>
+      _channel.invokeMethod('revokeMessage', _buildParam(message.toJson()));
 
   /// Delete message
-  Future deleteMessageFromLocalStorage({required Message message}) {
-    return _channel.invokeMethod(
-        'deleteMessageFromLocalStorage', _buildParam(message.toJson()));
-  }
+  Future deleteMessageFromLocalStorage({required Message message}) =>
+      _channel.invokeMethod(
+          'deleteMessageFromLocalStorage', _buildParam(message.toJson()));
 
   ///
   @deprecated
-  Future deleteMessages({required List<Message> msgList}) {
-    return _channel.invokeMethod('deleteMessages',
-        _buildParam({"msgList": msgList.map((e) => e.toJson()).toList()}));
-  }
+  Future deleteMessages({required List<Message> msgList}) =>
+      _channel.invokeMethod('deleteMessages',
+          _buildParam({"msgList": msgList.map((e) => e.toJson()).toList()}));
 
   ///
   Future insertSingleMessageToLocalStorage({
     String? receiver,
     String? sender,
     Message? message,
-  }) {
-    return _channel.invokeMethod(
-        'insertSingleMessageToLocalStorage',
-        _buildParam({
-          "userID": receiver,
-          "message": message?.toJson(),
-          "sender": sender,
-        }));
-  }
+  }) =>
+      _channel.invokeMethod(
+          'insertSingleMessageToLocalStorage',
+          _buildParam({
+            "userID": receiver,
+            "message": message?.toJson(),
+            "sender": sender,
+          }));
 
   /// Query the message according to the message id
-  Future findMessages({required List<String> messageIDList}) {
-    return _channel.invokeMethod(
-        'findMessages',
-        _buildParam({
-          "messageIDList": messageIDList,
-        }));
-  }
+  Future findMessages({required List<String> messageIDList}) =>
+      _channel.invokeMethod(
+          'findMessages',
+          _buildParam({
+            "messageIDList": messageIDList,
+          }));
 
   /// Mark c2c message as read
   Future markC2CMessageAsRead({
     required String userID,
     required List<String> messageIDList,
-  }) {
-    return _channel.invokeMethod(
-        'markC2CMessageAsRead',
-        _buildParam({
-          "messageIDList": messageIDList,
-          "userID": userID,
-        }));
-  }
+  }) =>
+      _channel.invokeMethod(
+          'markC2CMessageAsRead',
+          _buildParam({
+            "messageIDList": messageIDList,
+            "userID": userID,
+          }));
 
   /// Typing
   Future typingStatusUpdate({
     required String userID,
     bool typing = false,
-  }) {
-    return _channel.invokeMethod(
-        'typingStatusUpdate',
-        _buildParam({
-          "typing": typing ? 'yes' : 'no',
-          "userID": userID,
-        }));
-  }
+  }) =>
+      _channel.invokeMethod(
+          'typingStatusUpdate',
+          _buildParam({
+            "typing": typing ? 'yes' : 'no',
+            "userID": userID,
+          }));
 
   /// Create text message
-  Future<Message> createTextMessage({required String text}) {
-    return _channel
-        .invokeMethod('createTextMessage', _buildParam({'text': text}))
-        .then((value) => _toObj(value));
-  }
+  Future<Message> createTextMessage({required String text}) => _channel
+      .invokeMethod('createTextMessage', _buildParam({'text': text}))
+      .then((value) => _toObj(value));
 
   /// Create @ message
   Future<Message> createTextAtMessage({
     required String text,
     required List<String> atUidList,
-  }) {
-    return _channel
-        .invokeMethod(
-          'createTextAtMessage',
-          _buildParam({
-            'text': text,
-            'atUserList': atUidList,
-          }),
-        )
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+            'createTextAtMessage',
+            _buildParam({
+              'text': text,
+              'atUserList': atUidList,
+            }),
+          )
+          .then((value) => _toObj(value));
 
   /// Create picture message
-  Future<Message> createImageMessage({required String imagePath}) {
-    return _channel
-        .invokeMethod(
-          'createImageMessage',
-          _buildParam({'imagePath': imagePath}),
-        )
-        .then((value) => _toObj(value));
-  }
+  Future<Message> createImageMessage({required String imagePath}) => _channel
+      .invokeMethod(
+        'createImageMessage',
+        _buildParam({'imagePath': imagePath}),
+      )
+      .then((value) => _toObj(value));
 
   /// Create picture message
-  Future<Message> createImageMessageFromFullPath({required String imagePath}) {
-    return _channel
-        .invokeMethod(
-          'createImageMessageFromFullPath',
-          _buildParam({'imagePath': imagePath}),
-        )
-        .then((value) => _toObj(value));
-  }
-
+  Future<Message> createImageMessageFromFullPath({required String imagePath}) =>
+      _channel
+          .invokeMethod(
+            'createImageMessageFromFullPath',
+            _buildParam({'imagePath': imagePath}),
+          )
+          .then((value) => _toObj(value));
 
   /// Create sound message
   Future<Message> createSoundMessage({
     required String soundPath,
     required int duration,
-  }) {
-    return _channel
-        .invokeMethod(
-          'createSoundMessage',
-          _buildParam({'soundPath': soundPath, "duration": duration}),
-        )
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+            'createSoundMessage',
+            _buildParam({'soundPath': soundPath, "duration": duration}),
+          )
+          .then((value) => _toObj(value));
 
   /// Create sound message
   Future<Message> createSoundMessageFromFullPath({
     required String soundPath,
     required int duration,
-  }) {
-    return _channel
-        .invokeMethod(
-          'createSoundMessageFromFullPath',
-          _buildParam({'soundPath': soundPath, "duration": duration}),
-        )
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+            'createSoundMessageFromFullPath',
+            _buildParam({'soundPath': soundPath, "duration": duration}),
+          )
+          .then((value) => _toObj(value));
 
   /// Create video message
   Future<Message> createVideoMessage({
@@ -218,18 +199,17 @@ class MessageManager {
     required String videoType,
     required int duration,
     required String snapshotPath,
-  }) {
-    return _channel
-        .invokeMethod(
-            'createVideoMessage',
-            _buildParam({
-              'videoPath': videoPath,
-              'videoType': videoType,
-              'duration': duration,
-              'snapshotPath': snapshotPath,
-            }))
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'createVideoMessage',
+              _buildParam({
+                'videoPath': videoPath,
+                'videoType': videoType,
+                'duration': duration,
+                'snapshotPath': snapshotPath,
+              }))
+          .then((value) => _toObj(value));
 
   /// Create video message
   Future<Message> createVideoMessageFromFullPath({
@@ -237,18 +217,17 @@ class MessageManager {
     required String videoType,
     required int duration,
     required String snapshotPath,
-  }) {
-    return _channel
-        .invokeMethod(
-            'createVideoMessageFromFullPath',
-            _buildParam({
-              'videoPath': videoPath,
-              'videoType': videoType,
-              'duration': duration,
-              'snapshotPath': snapshotPath,
-            }))
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'createVideoMessageFromFullPath',
+              _buildParam({
+                'videoPath': videoPath,
+                'videoType': videoType,
+                'duration': duration,
+                'snapshotPath': snapshotPath,
+              }))
+          .then((value) => _toObj(value));
 
   /// Create file message
   Future<Message> createFileMessage({
@@ -269,33 +248,31 @@ class MessageManager {
   Future<Message> createFileMessageFromFullPath({
     required String filePath,
     required String fileName,
-  }) {
-    return _channel
-        .invokeMethod(
-            'createFileMessageFromFullPath',
-            _buildParam({
-              'filePath': filePath,
-              'fileName': fileName,
-            }))
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'createFileMessageFromFullPath',
+              _buildParam({
+                'filePath': filePath,
+                'fileName': fileName,
+              }))
+          .then((value) => _toObj(value));
 
   /// Create merger message
   Future<Message> createMergerMessage({
     required List<Message> messageList,
     required String title,
     required List<String> summaryList,
-  }) {
-    return _channel
-        .invokeMethod(
-            'createMergerMessage',
-            _buildParam({
-              'messageList': messageList.map((e) => e.toJson()).toList(),
-              'title': title,
-              'summaryList': summaryList,
-            }))
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'createMergerMessage',
+              _buildParam({
+                'messageList': messageList.map((e) => e.toJson()).toList(),
+                'title': title,
+                'summaryList': summaryList,
+              }))
+          .then((value) => _toObj(value));
 
   /// Create forward message
   Future<Message> createForwardMessage({required Message message}) {
@@ -313,79 +290,71 @@ class MessageManager {
     required double latitude,
     required double longitude,
     required String description,
-  }) {
-    return _channel
-        .invokeMethod(
-            'createLocationMessage',
-            _buildParam({
-              'latitude': latitude,
-              'longitude': longitude,
-              'description': description,
-            }))
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'createLocationMessage',
+              _buildParam({
+                'latitude': latitude,
+                'longitude': longitude,
+                'description': description,
+              }))
+          .then((value) => _toObj(value));
 
   /// Create custom message
   Future<Message> createCustomMessage({
     required String data,
     required String extension,
     required String description,
-  }) {
-    return _channel
-        .invokeMethod(
-            'createCustomMessage',
-            _buildParam({
-              'data': data,
-              'extension': extension,
-              'description': description,
-            }))
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'createCustomMessage',
+              _buildParam({
+                'data': data,
+                'extension': extension,
+                'description': description,
+              }))
+          .then((value) => _toObj(value));
 
   /// Create quote message
   Future<Message> createQuoteMessage({
     required String text,
     required Message quoteMsg,
-  }) {
-    return _channel
-        .invokeMethod(
-            'createQuoteMessage',
-            _buildParam({
-              'quoteText': text,
-              'quoteMessage': quoteMsg.toJson(),
-            }))
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'createQuoteMessage',
+              _buildParam({
+                'quoteText': text,
+                'quoteMessage': quoteMsg.toJson(),
+              }))
+          .then((value) => _toObj(value));
 
   /// Create card message
   Future<Message> createCardMessage({
     required Map<String, dynamic> data,
-  }) {
-    return _channel
-        .invokeMethod(
-            'createCardMessage',
-            _buildParam({
-              'cardMessage': data,
-            }))
-        .then((value) => _toObj(value));
-  }
+  }) =>
+      _channel
+          .invokeMethod(
+              'createCardMessage',
+              _buildParam({
+                'cardMessage': data,
+              }))
+          .then((value) => _toObj(value));
 
   ///
-  Future<dynamic> clearC2CHistoryMessage({required String uid}) {
-    return _channel.invokeMethod(
-        'clearC2CHistoryMessage', _buildParam({"userID": uid}));
-  }
+  Future<dynamic> clearC2CHistoryMessage({required String uid}) => _channel
+      .invokeMethod('clearC2CHistoryMessage', _buildParam({"userID": uid}));
 
   ///
-  Future<dynamic> clearGroupHistoryMessage({required String gid}) {
-    return _channel.invokeMethod(
-        'clearGroupHistoryMessage', _buildParam({"groupID": gid}));
-  }
+  Future<dynamic> clearGroupHistoryMessage({required String gid}) => _channel
+      .invokeMethod('clearGroupHistoryMessage', _buildParam({"groupID": gid}));
 
   ///
-  void forceSyncMsg() {
-    _channel.invokeMethod('forceSyncMsg', _buildParam({}));
-  }
+  // void forceSyncMsg() {
+  //   _channel.invokeMethod('forceSyncMsg', _buildParam({}));
+  // }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
@@ -397,9 +366,7 @@ class MessageManager {
 
   static Message _toObj(String value) => Message.fromJson(_formatJson(value));
 
-  static dynamic _formatJson(value) {
-    return jsonDecode(_printValue(value));
-  }
+  static dynamic _formatJson(value) => jsonDecode(_printValue(value));
 
   static String _printValue(value) {
     return value;

@@ -16,13 +16,13 @@ public class BaseListener implements Base {
 
     @Override
     public void onError(long l, String s) {
-        Log.e("F-OpenIMSD(callback)", s);
+//        Log.e("F-OpenIMSD(callback)", s);
         CommonUtil.runMainThreadReturnError(result, l, s, null);
     }
 
     @Override
     public void onSuccess(String s) {
-        Log.i("F-OpenIMSDK(callback)", s);
+//        Log.i("F-OpenIMSDK(callback)", s);
         CommonUtil.runMainThreadReturn(result, s);
     }
 }
