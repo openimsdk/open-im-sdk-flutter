@@ -16,92 +16,70 @@ class FriendshipManager {
   }
 
   /// Get friend info by user id
-  Future<List<UserInfo>> getFriendsInfo({required List<String> uidList}) {
-    return _channel
-        .invokeMethod('getFriendsInfo', _buildParam({"uidList": uidList}))
-        .then((value) => _toList(value));
-  }
+  Future<List<UserInfo>> getFriendsInfo({required List<String> uidList}) =>
+      _channel
+          .invokeMethod('getFriendsInfo', _buildParam({"uidList": uidList}))
+          .then((value) => _toList(value));
 
   /// Send an friend application
-  Future<dynamic> addFriend({required String uid, required String reason}) {
-    return _channel.invokeMethod(
-        'addFriend', _buildParam({"uid": uid, "reqMessage": reason}));
-  }
+  Future<dynamic> addFriend({required String uid, required String reason}) =>
+      _channel.invokeMethod(
+          'addFriend', _buildParam({"uid": uid, "reqMessage": reason}));
 
   /// Get all friend application, sent to you by others
-  Future<List<UserInfo>> getFriendApplicationList() {
-    return _channel
-        .invokeMethod('getFriendApplicationList', _buildParam({}))
-        .then((value) => _toList(value));
-  }
+  Future<List<UserInfo>> getFriendApplicationList() => _channel
+      .invokeMethod('getFriendApplicationList', _buildParam({}))
+      .then((value) => _toList(value));
 
   /// Find all friends including those who have been added to the blacklist
-  Future<List<UserInfo>> getFriendList() {
-    return _channel
-        .invokeMethod('getFriendList', _buildParam({}))
-        .then((value) => _toList(value));
-  }
+  Future<List<UserInfo>> getFriendList() => _channel
+      .invokeMethod('getFriendList', _buildParam({}))
+      .then((value) => _toList(value));
 
   /// Find all friends including those who have been added to the blacklist
-  Future<List<dynamic>> getFriendListMap() {
-    return _channel
-        .invokeMethod('getFriendList', _buildParam({}))
-        .then((value) => _toListMap(value));
-  }
+  Future<List<dynamic>> getFriendListMap() => _channel
+      .invokeMethod('getFriendList', _buildParam({}))
+      .then((value) => _toListMap(value));
 
   /// Modify friend information, only [comment] can be modified
   Future<dynamic> setFriendInfo(
-      {required String uid, required String comment}) {
-    return _channel.invokeMethod(
-        'setFriendInfo',
-        _buildParam({
-          'uid': uid,
-          'comment': comment,
-        }));
-  }
+          {required String uid, required String comment}) =>
+      _channel.invokeMethod(
+          'setFriendInfo',
+          _buildParam({
+            'uid': uid,
+            'comment': comment,
+          }));
 
   /// Add friends to blacklist
-  Future<dynamic> addToBlackList({required String uid}) {
-    return _channel.invokeMethod('addToBlackList', _buildParam({"uid": uid}));
-  }
+  Future<dynamic> addToBlackList({required String uid}) =>
+      _channel.invokeMethod('addToBlackList', _buildParam({"uid": uid}));
 
   /// Find all blacklist
-  Future<List<UserInfo>> getBlackList() {
-    return _channel
-        .invokeMethod('getBlackList', _buildParam({}))
-        .then((value) => _toList(value));
-  }
+  Future<List<UserInfo>> getBlackList() => _channel
+      .invokeMethod('getBlackList', _buildParam({}))
+      .then((value) => _toList(value));
 
   /// Remove from blacklist
-  Future<dynamic> deleteFromBlackList({required String uid}) {
-    return _channel.invokeMethod(
-        'deleteFromBlackList', _buildParam({"uid": uid}));
-  }
+  Future<dynamic> deleteFromBlackList({required String uid}) =>
+      _channel.invokeMethod('deleteFromBlackList', _buildParam({"uid": uid}));
 
   /// Determine if there is a friendship by userId
-  Future<List<UserInfo>> checkFriend(List<String> uidList) {
-    return _channel
-        .invokeMethod('checkFriend', _buildParam({'uidList': uidList}))
-        .then((value) => _toList(value));
-  }
+  Future<List<UserInfo>> checkFriend(List<String> uidList) => _channel
+      .invokeMethod('checkFriend', _buildParam({'uidList': uidList}))
+      .then((value) => _toList(value));
 
   /// Dissolve friendship from friend list
-  Future<dynamic> deleteFromFriendList({required String uid}) {
-    return _channel.invokeMethod(
-        'deleteFromFriendList', _buildParam({"uid": uid}));
-  }
+  Future<dynamic> deleteFromFriendList({required String uid}) =>
+      _channel.invokeMethod('deleteFromFriendList', _buildParam({"uid": uid}));
 
   /// Accept application of be friend
-  Future<dynamic> acceptFriendApplication({required String uid}) {
-    return _channel.invokeMethod(
-        'acceptFriendApplication', _buildParam({"uid": uid}));
-  }
+  Future<dynamic> acceptFriendApplication({required String uid}) => _channel
+      .invokeMethod('acceptFriendApplication', _buildParam({"uid": uid}));
 
   /// Refuse application of be friend
-  Future<dynamic> refuseFriendApplication({required String uid}) {
-    return _channel.invokeMethod(
-        'refuseFriendApplication', _buildParam({"uid": uid}));
-  }
+  Future<dynamic> refuseFriendApplication({required String uid}) => _channel
+      .invokeMethod('refuseFriendApplication', _buildParam({"uid": uid}));
 
   ///
   // Future<dynamic> forceSyncFriendApplication() {
@@ -136,9 +114,7 @@ class FriendshipManager {
 
   // static UserInfo _toObj(String value) => UserInfo.fromJson(_formatJson(value));
 
-  static dynamic _formatJson(value) {
-    return jsonDecode(_printValue(value));
-  }
+  static dynamic _formatJson(value) => jsonDecode(_printValue(value));
 
   static String _printValue(value) {
     return value;
