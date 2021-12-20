@@ -336,8 +336,7 @@ class IMManager {
 
   /// Modify current user info
   Future<String?> setSelfInfo(
-          {required String uid,
-          String? name,
+          {String? name,
           String? icon,
           int? gender,
           String? mobile,

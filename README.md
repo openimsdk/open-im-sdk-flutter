@@ -1,13 +1,13 @@
 # flutter_openim_sdk
 [![pub package](https://img.shields.io/pub/v/flutter_openim_sdk.svg)](https://pub.flutter-io.cn/packages/flutter_openim_sdk)
-[![Chinese](https://img.shields.io/badge/Language-Chinese-blueviolet)](README.zh-cn.md)
+[![Generic badge](https://img.shields.io/badge/platform-android%20|%20ios%20-blue.svg)](https://pub.dev/packages/flutter_openim_sdk)
 [![GitHub license](https://img.shields.io/github/license/OpenIMSDK/Open-IM-SDK-Flutter)](https://github.com/OpenIMSDK/Open-IM-SDK-Flutter/blob/main/LICENSE)
 
 A flutter im plugin for android and ios.
 
-### [demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git)
+#### [中文文档](README.zh-cn.md)
 
-### [flutter_openim_widget](https://github.com/hrxiang/flutter_openim_widget.git)
+#### [demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git) | [widget](https://github.com/hrxiang/flutter_openim_widget.git)
 
 ![Android](https://www.pgyer.com/app/qrcode/OpenIM)
 
@@ -28,67 +28,67 @@ A flutter im plugin for android and ios.
 
 ```
 // Initialize SDK
-   OpenIM.iMManager
+    OpenIM.iMManager
       ..initSDK(
-        platform: IMPlatform.ios,
-    	ipApi: 'Api interface address',
-        ipWs: 'WebSocket address',
-        dbPath: 'Database directory',
+        platform: Platform.isAndroid ? IMPlatform.android : IMPlatform.ios,
+        ipApi: '',
+        ipWs: '',
+        dbPath: '',
         listener: OnInitSDKListener(
-          connecting: () {},
-          connectFailed: (code, error) {},
-          connectSuccess: () {},
-          kickedOffline: () {},
-          userSigExpired: () {},
-          selfInfoUpdated: (user) {},
+          onConnecting: () {},
+          onConnectFailed: (code, error) {},
+          onConnectSuccess: () {},
+          onKickedOffline: () {},
+          onUserSigExpired: () {},
+          onSelfInfoUpdated: (user) {},
         ),
       )
 
       // Add message listener (remove when not in use)
       ..messageManager.addAdvancedMsgListener(OnAdvancedMsgListener(
-        recvMessageRevoked: (id) {},
-        recvC2CReadReceipt: (list) {},
-        recvNewMessage: (msg) {},
+        onRecvMessageRevoked: (msgId) {},
+        onRecvC2CReadReceipt: (list) {},
+        onRecvNewMessage: (msg) {},
       ))
 
       // Set up message sending progress listener
       ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener(
-        progressCallback: (id, progress) {},
+        onProgress: (msgId, progress) {},
       ))
 
       // Set up friend relationship listener
       ..friendshipManager.setFriendshipListener(OnFriendshipListener(
-        blackListAdd: (u) {},
-        blackListDeleted: (u) {},
-        friendApplicationListAccept: (u) {},
-        friendApplicationListAdded: (u) {},
-        friendApplicationListDeleted: (u) {},
-        friendApplicationListReject: (u) {},
-        friendInfoChanged: (u) {},
-        friendListAdded: (u) {},
-        friendListDeleted: (u) {},
+        onBlackListAdd: (u) {},
+        onBlackListDeleted: (u) {},
+        onFriendApplicationListAccept: (u) {},
+        onFriendApplicationListAdded: (u) {},
+        onFriendApplicationListDeleted: (u) {},
+        onFriendApplicationListReject: (u) {},
+        onFriendInfoChanged: (u) {},
+        onFriendListAdded: (u) {},
+        onFriendListDeleted: (u) {},
       ))
 
       // Set up conversation listener
       ..conversationManager.setConversationListener(OnConversationListener(
-        conversationChanged: (list) {},
-        newConversation: (list) {},
-        totalUnreadMsgCountChanged: (count) {},
-        syncServerFailed: () {},
-        syncServerFinish: () {},
-        syncServerStart: () {},
+        onConversationChanged: (list) {},
+        onNewConversation: (list) {},
+        onTotalUnreadMessageCountChanged: (count) {},
+        onSyncServerFailed: () {},
+        onSyncServerFinish: () {},
+        onSyncServerStart: () {},
       ))
 
       // Set up group listener
       ..groupManager.setGroupListener(OnGroupListener(
-        applicationProcessed: (groupId, opUser, agreeOrReject, opReason) {},
-        groupCreated: (groupId) {},
-        groupInfoChanged: (groupId, info) {},
-        memberEnter: (groupId, list) {},
-        memberInvited: (groupId, opUser, list) {},
-        memberKicked: (groupId, opUser, list) {},
-        memberLeave: (groupId, info) {},
-        receiveJoinApplication: (groupId, info, opReason) {},
+        onApplicationProcessed: (groupId, opUser, agreeOrReject, opReason) {},
+        onGroupCreated: (groupId) {},
+        onGroupInfoChanged: (groupId, info) {},
+        onMemberEnter: (groupId, list) {},
+        onMemberInvited: (groupId, opUser, list) {},
+        onMemberKicked: (groupId, opUser, list) {},
+        onMemberLeave: (groupId, info) {},
+        onReceiveJoinApplication: (groupId, info, opReason) {},
       ));
 ```
 
