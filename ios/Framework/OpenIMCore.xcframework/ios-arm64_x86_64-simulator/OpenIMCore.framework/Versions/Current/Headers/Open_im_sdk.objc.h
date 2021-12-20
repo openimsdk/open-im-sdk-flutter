@@ -1196,8 +1196,6 @@ FOUNDATION_EXPORT const int64_t Open_im_sdkLogining;
 FOUNDATION_EXPORT const int64_t Open_im_sdkLogoutCmd;
 FOUNDATION_EXPORT const int64_t Open_im_sdkMaxTotalMsgLen;
 FOUNDATION_EXPORT const int64_t Open_im_sdkMerger;
-FOUNDATION_EXPORT const int64_t Open_im_sdkMessageHasNotRead;
-FOUNDATION_EXPORT const int64_t Open_im_sdkMessageHasRead;
 FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusHasDeleted;
 FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusRevoked;
 FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusSendFailed;
