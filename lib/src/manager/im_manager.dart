@@ -329,10 +329,10 @@ class IMManager {
       _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
 
   /// Current user id
-  Future<String?> getLoginUid() => Future.value(uid);
+  Future<String> getLoginUid() async => uid;
 
   /// Current user info
-  Future<UserInfo> getLoginUserInfo() => Future.value(uInfo);
+  Future<UserInfo> getLoginUserInfo() async => uInfo;
 
   /// Modify current user info
   Future<String?> setSelfInfo(

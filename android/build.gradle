@@ -3,35 +3,25 @@ version '1.0'
 
 buildscript {
     repositories {
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         maven {
             allowInsecureProtocol = true
             url 'http://47.112.160.66:8081/repository/maven-releases'
         }
-//        maven { url 'https://127.0.0.1:8081/repository/maven-releases' }
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:3.5.4'
     }
 }
 
 rootProject.allprojects {
     repositories {
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         maven {
             allowInsecureProtocol = true
             url 'http://47.112.160.66:8081/repository/maven-releases'
         }
-//        maven { url 'http://127.0.0.1:8081/repository/maven-releases' }
         google()
         mavenCentral()
     }
