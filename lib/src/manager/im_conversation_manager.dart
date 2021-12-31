@@ -8,7 +8,6 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 class ConversationManager {
   MethodChannel _channel;
   late ConversationListener conversationListener;
-  var count = 0;
 
   ConversationManager(this._channel);
 
