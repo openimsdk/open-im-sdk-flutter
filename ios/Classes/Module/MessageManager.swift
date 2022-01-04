@@ -71,7 +71,7 @@ public class MessageManager: BaseServiceManager {
         sendMsgProgressListener.setCall(methodCall: methodCall)
         sendMsgProgressListener.setResult(result: result)
         print("===============sendMessage===============")
-        Open_im_sdkSendMessage(sendMsgProgressListener, methodCall[jsonString: "message"], methodCall[string: "receiver"],
+        Open_im_sdkSendMessage(sendMsgProgressListener, methodCall[jsonString: "message"], methodCall[string: "userID"],
                                methodCall[string: "groupID"], methodCall[bool: "onlineUserOnly"])
     }
     
@@ -93,7 +93,7 @@ public class MessageManager: BaseServiceManager {
     
     func insertSingleMessageToLocalStorage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkInsertSingleMessageToLocalStorage(BaseCallback(result: result), methodCall[jsonString: "message"],
-                                                     methodCall[string: "userID"], methodCall[string: "sender"])
+                                                     methodCall[string: "receiverID"], methodCall[string: "senderID"])
     }
     
     func findMessages(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

@@ -48,7 +48,7 @@ class MessageManager {
           'sendMessage',
           _buildParam({
             'message': message.toJson(),
-            'receiver': userID ?? '',
+            'userID': userID ?? '',
             'groupID': groupID ?? '',
             'onlineUserOnly': onlineUserOnly,
           })) /*.then((value) => _toObj(value))*/;
@@ -88,16 +88,16 @@ class MessageManager {
 
   ///
   Future insertSingleMessageToLocalStorage({
-    String? receiver,
-    String? sender,
+    String? receiverID,
+    String? senderID,
     Message? message,
   }) =>
       _channel.invokeMethod(
           'insertSingleMessageToLocalStorage',
           _buildParam({
-            "userID": receiver,
             "message": message?.toJson(),
-            "sender": sender,
+            "receiverID": receiverID,
+            "senderID": senderID,
           }));
 
   /// Query the message according to the message id

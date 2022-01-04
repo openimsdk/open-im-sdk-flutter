@@ -88,7 +88,7 @@ public class MessageManager extends BaseManager {
         MsgSendProgressListener listener = new MsgSendProgressListener(result, methodCall);
         Open_im_sdk.sendMessage(listener,
                 jsonValue(methodCall, "message"),
-                value(methodCall, "receiver"),
+                value(methodCall, "userID"),
                 value(methodCall, "groupID"),
                 value(methodCall, "onlineUserOnly"));
     }
@@ -112,8 +112,8 @@ public class MessageManager extends BaseManager {
     public void insertSingleMessageToLocalStorage(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.insertSingleMessageToLocalStorage(new BaseListener(result),
                 jsonValue(methodCall, "message"),
-                value(methodCall, "userID"),
-                value(methodCall, "sender"));
+                value(methodCall, "receiverID"),
+                value(methodCall, "senderID"));
     }
 
     public void findMessages(MethodCall methodCall, MethodChannel.Result result) {
