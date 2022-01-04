@@ -1,3 +1,7 @@
+## 1.1.0
+
+1.Fix the problem of missing id in ios message progress
+
 ## 1.0.9
 
 1.Upgrade sdk to 1.4.5.
