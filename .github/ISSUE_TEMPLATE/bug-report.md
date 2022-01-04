@@ -34,11 +34,10 @@ Steps to reproduce the behavior:
      如有相关截图，请提供它们用于解释问题所在。-->
 
 **Version information**
-
-- Device: [e.g. iPhone X]
-- OS: [e.g. iOS 14.7.1]
-- Package Version: [e.g. 2.4.1]
-- Flutter Version: [e.g. v2.5.0]
+- Device: *e.g. iPhone X*
+- OS: *e.g. iOS 14.7.1*
+- Package Version: *e.g. v1.0.9*
+- Flutter Version: *e.g. v2.8.0*
 
 **Additional context**
 <!-- Add any other context about the problem here.
