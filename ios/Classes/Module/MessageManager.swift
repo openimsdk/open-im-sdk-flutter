@@ -67,9 +67,9 @@ public class MessageManager: BaseServiceManager {
     }
     
     func sendMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let sendMsgProgressListener: SendMsgProgressListener = SendMsgProgressListener(channel: channel)
-        sendMsgProgressListener.setCall(methodCall: methodCall)
-        sendMsgProgressListener.setResult(result: result)
+        let sendMsgProgressListener: SendMsgProgressListener = SendMsgProgressListener(channel: channel,result: result,methodCall: methodCall)
+//         sendMsgProgressListener.setCall(methodCall: methodCall)
+//         sendMsgProgressListener.setResult(result: result)
         print("===============sendMessage===============")
         Open_im_sdkSendMessage(sendMsgProgressListener, methodCall[jsonString: "message"], methodCall[string: "userID"],
                                methodCall[string: "groupID"], methodCall[bool: "onlineUserOnly"])
@@ -198,42 +198,44 @@ public class MessageManager: BaseServiceManager {
     }
 
     public class SendMsgProgressListener: NSObject, Open_im_sdkSendMsgCallBackProtocol {
-
         private let channel: FlutterMethodChannel
-        private var result: FlutterResult?
-        private var call: FlutterMethodCall?
-        private var values: [String: Any] = [:]
+        private let result: FlutterResult
+        private let call: FlutterMethodCall
 
-        init(channel: FlutterMethodChannel) {
+        init(channel: FlutterMethodChannel, result: @escaping FlutterResult, methodCall: FlutterMethodCall) {
             self.channel = channel
-        }
-
-        func setResult(result: @escaping FlutterResult){
             self.result = result
-        }
-
-        func setCall(methodCall: FlutterMethodCall){
             self.call = methodCall
         }
 
+//         func setResult(result: @escaping FlutterResult){
+//             self.result = result
+//         }
+//
+//         func setCall(methodCall: FlutterMethodCall){
+//             self.call = methodCall
+//         }
+
         public func onError(_ errCode: Int, errMsg: String?) {
             print("=================onError============\nerrcode:\(errCode),errMsg:\(errMsg!)")
-            DispatchQueue.main.async { self.result!(FlutterError(code: "\(errCode)", message: errMsg, details: nil)) }
+            DispatchQueue.main.async { self.result(FlutterError(code: "\(errCode)", message: errMsg, details: nil)) }
         }
 
         public func onProgress(_ progress: Int) {
-            guard let call = call else {
-                return
-            }
+//             guard let call = call else {
+//                 return
+//             }
+            var values: [String: Any] = [:]
             print("=================onProgress============\nprogress:\(progress)")
-            values["clientMsgID"] = call[string: "clientMsgID"]
+            let message = call[dict: "message"]
+            values["clientMsgID"] = message["clientMsgID"]
             values["progress"] = progress
             CommonUtil.emitEvent(channel: channel, method: "msgSendProgressListener", type: "onProgress", errCode: nil, errMsg: nil, data: values)
         }
 
         public func onSuccess(_ data: String?) {
             print("=================onSuccess============\nsuccess:\(data!)")
-            DispatchQueue.main.async { self.result!(data) }
+            DispatchQueue.main.async { self.result(data) }
         }
 
     }
