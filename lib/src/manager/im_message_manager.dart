@@ -11,6 +11,7 @@ class MessageManager {
   MessageManager(this._channel);
 
   /// Add a message listener
+  /// 消息监听
   Future addAdvancedMsgListener(AdvancedMsgListener listener) {
     advancedMsgListeners.add(listener);
     return _channel.invokeMethod(
@@ -32,12 +33,16 @@ class MessageManager {
   }
 
   /// Set up message sending progress monitoring
+  /// 消息发送进度监听
   void setMsgSendProgressListener(MsgSendProgressListener listener) {
     msgSendProgressListener = listener;
   }
 
   /// Send a message to user or to group
   /// [userID] receiver's user ID
+  /// 发送消息
+  /// [userID]接收消息的用户id
+  /// [groupID]接收消息的组id
   Future<dynamic> sendMessage({
     required Message message,
     String? userID,
@@ -54,6 +59,9 @@ class MessageManager {
           })) /*.then((value) => _toObj(value))*/;
 
   /// Find all history message
+  /// 获取聊天记录
+  /// [userID]接收消息的用户id
+  /// [groupID]接收消息的组id
   Future<List<Message>> getHistoryMessageList({
     String? userID,
     String? groupID,
@@ -72,10 +80,12 @@ class MessageManager {
           .then((value) => _toList(value));
 
   /// Revoke the sent information
+  /// 撤回消息
   Future revokeMessage({required Message message}) =>
       _channel.invokeMethod('revokeMessage', _buildParam(message.toJson()));
 
   /// Delete message
+  /// 删除消息
   Future deleteMessageFromLocalStorage({required Message message}) =>
       _channel.invokeMethod(
           'deleteMessageFromLocalStorage', _buildParam(message.toJson()));
@@ -109,6 +119,7 @@ class MessageManager {
           }));
 
   /// Mark c2c message as read
+  /// 标记c2c消息已读
   Future markC2CMessageAsRead({
     required String userID,
     required List<String> messageIDList,
@@ -121,6 +132,7 @@ class MessageManager {
           }));
 
   /// Typing
+  /// 正在输入提示
   Future typingStatusUpdate({
     required String userID,
     bool typing = false,
@@ -133,11 +145,13 @@ class MessageManager {
           }));
 
   /// Create text message
+  /// 创建文本消息
   Future<Message> createTextMessage({required String text}) => _channel
       .invokeMethod('createTextMessage', _buildParam({'text': text}))
       .then((value) => _toObj(value));
 
   /// Create @ message
+  /// 创建@消息
   Future<Message> createTextAtMessage({
     required String text,
     required List<String> atUidList,
@@ -153,6 +167,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create picture message
+  /// 创建图片消息
   Future<Message> createImageMessage({required String imagePath}) => _channel
       .invokeMethod(
         'createImageMessage',
@@ -161,6 +176,7 @@ class MessageManager {
       .then((value) => _toObj(value));
 
   /// Create picture message
+  /// 创建图片消息
   Future<Message> createImageMessageFromFullPath({required String imagePath}) =>
       _channel
           .invokeMethod(
@@ -170,6 +186,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create sound message
+  /// 创建语音消息
   Future<Message> createSoundMessage({
     required String soundPath,
     required int duration,
@@ -182,6 +199,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create sound message
+  /// 创建语音消息
   Future<Message> createSoundMessageFromFullPath({
     required String soundPath,
     required int duration,
@@ -194,6 +212,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create video message
+  /// 创建视频消息
   Future<Message> createVideoMessage({
     required String videoPath,
     required String videoType,
@@ -212,6 +231,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create video message
+  /// 创建视频消息
   Future<Message> createVideoMessageFromFullPath({
     required String videoPath,
     required String videoType,
@@ -230,6 +250,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create file message
+  /// 创建文件消息
   Future<Message> createFileMessage({
     required String filePath,
     required String fileName,
@@ -245,6 +266,7 @@ class MessageManager {
   }
 
   /// Create file message
+  /// 创建文件消息
   Future<Message> createFileMessageFromFullPath({
     required String filePath,
     required String fileName,
@@ -259,6 +281,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create merger message
+  /// 创建合并消息
   Future<Message> createMergerMessage({
     required List<Message> messageList,
     required String title,
@@ -275,6 +298,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create forward message
+  /// 创建转发消息
   Future<Message> createForwardMessage({required Message message}) {
     return _channel
         .invokeMethod(
@@ -286,6 +310,7 @@ class MessageManager {
   }
 
   /// Create location message
+  /// 创建位置消息
   Future<Message> createLocationMessage({
     required double latitude,
     required double longitude,
@@ -302,6 +327,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create custom message
+  /// 创建自定义消息
   Future<Message> createCustomMessage({
     required String data,
     required String extension,
@@ -318,6 +344,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create quote message
+  /// 创建引用消息
   Future<Message> createQuoteMessage({
     required String text,
     required Message quoteMsg,
@@ -332,6 +359,7 @@ class MessageManager {
           .then((value) => _toObj(value));
 
   /// Create card message
+  /// 创建卡片消息
   Future<Message> createCardMessage({
     required Map<String, dynamic> data,
   }) =>
@@ -343,11 +371,13 @@ class MessageManager {
               }))
           .then((value) => _toObj(value));
 
-  ///
+  /// Clear all c2c history message
+  /// 清空单聊消息记录
   Future<dynamic> clearC2CHistoryMessage({required String uid}) => _channel
       .invokeMethod('clearC2CHistoryMessage', _buildParam({"userID": uid}));
 
-  ///
+  /// Clear all group history
+  /// 清空组消息记录
   Future<dynamic> clearGroupHistoryMessage({required String gid}) => _channel
       .invokeMethod('clearGroupHistoryMessage', _buildParam({"groupID": gid}));
 

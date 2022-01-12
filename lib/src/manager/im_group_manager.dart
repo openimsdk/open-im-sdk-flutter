@@ -11,12 +11,14 @@ class GroupManager {
   GroupManager(this._channel);
 
   /// Set up group relationship monitoring
+  /// 组关系监听
   Future setGroupListener(GroupListener listener) {
     this.groupListener = listener;
     return _channel.invokeMethod('setGroupListener', _buildParam({}));
   }
 
   /// Invite friends into the group
+  /// 邀请进组，直接进组无需同意。
   Future<List<GroupInviteResult>> inviteUserToGroup({
     required String groupId,
     required List<String> uidList,
@@ -35,6 +37,7 @@ class GroupManager {
               .toList());
 
   /// Remove member from group
+  /// 移除组成员
   Future<List<GroupInviteResult>> kickGroupMember({
     required String groupId,
     required List<String> uidList,
@@ -53,6 +56,7 @@ class GroupManager {
               .toList());
 
   /// Get group member's info
+  /// 查询组成员资料
   Future<List<GroupMembersInfo>> getGroupMembersInfo({
     required String groupId,
     required List<String> uidList,
@@ -71,6 +75,7 @@ class GroupManager {
   /// Get the list of group members
   /// [filter] 0: all user, 1: group owner, 2: administrator
   /// [next] begin index, pull and fill 0 for the first time
+  /// 获取组成员列表
   Future<GroupMembersList> getGroupMemberList({
     required String groupId,
     int filter = 0,
@@ -87,6 +92,7 @@ class GroupManager {
           .then((value) => GroupMembersList.fromJson(_formatJson(value)));
 
   /// Get the list of group members
+  /// 获取组成员列表
   Future<dynamic> getGroupMemberListMap({
     required String groupId,
     int filter = 0,
@@ -103,6 +109,7 @@ class GroupManager {
           .then((value) => _formatJson(value));
 
   /// Find all groups you have joined
+  /// 查询已加入的组列表
   Future<List<GroupInfo>> getJoinedGroupList() => _channel
       .invokeMethod('getJoinedGroupList', _buildParam({}))
       .then((value) => (_formatJson(value) as List)
@@ -110,15 +117,18 @@ class GroupManager {
           .toList());
 
   /// Find all groups you have joined
+  /// 查询已加入的组列表
   Future<List<dynamic>> getJoinedGroupListMap() => _channel
       .invokeMethod('getJoinedGroupList', _buildParam({}))
       .then((value) => _formatJson(value));
 
   /// Check if you are a member of the group
+  /// 检查是否已加入组
   Future<bool> isJoinedGroup({required String gid}) => getJoinedGroupList()
       .then((list) => list.where((e) => e.groupID == gid).length > 0);
 
   /// Create a group
+  /// 创建一个组
   Future<dynamic> createGroup({
     String? groupName,
     String? notification,
@@ -139,6 +149,7 @@ class GroupManager {
           }));
 
   /// Edit group information
+  /// 编辑组资料
   Future<dynamic> setGroupInfo({
     required String groupID,
     String? groupName,
@@ -159,6 +170,7 @@ class GroupManager {
           }));
 
   /// Find group information by group id
+  /// 查询组信息
   Future<List<GroupInfo>> getGroupsInfo({
     required List<String> gidList,
   }) =>
@@ -170,6 +182,7 @@ class GroupManager {
       });
 
   /// Apply to join the group
+  /// 申请加入组，需要通过管理员同意。
   Future<dynamic> joinGroup({
     required String gid,
     String? reason,
@@ -182,6 +195,7 @@ class GroupManager {
           }));
 
   /// Leave group
+  /// 退出组
   Future<dynamic> quitGroup({
     required String gid,
   }) =>
@@ -192,6 +206,7 @@ class GroupManager {
           }));
 
   /// Give group permissions to others
+  /// 转移组拥有者权限
   Future<dynamic> transferGroupOwner({
     required String gid,
     required String uid,
@@ -204,11 +219,13 @@ class GroupManager {
           }));
 
   /// Get the list of applications
+  /// 获取所有进组申请
   Future<GroupApplicationList> getGroupApplicationList() => _channel
       .invokeMethod('getGroupApplicationList', _buildParam({}))
       .then((value) => GroupApplicationList.fromJson(_formatJson(value)));
 
   /// Accept group application
+  /// 同意进组申请
   Future<dynamic> acceptGroupApplication({
     required GroupApplicationInfo info,
     required String reason,
@@ -221,6 +238,7 @@ class GroupManager {
           }));
 
   /// Refuse group application
+  /// 拒绝进组申请
   Future<dynamic> refuseGroupApplication({
     required GroupApplicationInfo info,
     required String reason,
