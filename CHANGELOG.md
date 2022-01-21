@@ -1,3 +1,7 @@
+## 1.1.1
+
+1.Update sdk maven url
+
 ## 1.1.0
 
 1.Fix the problem of missing id in ios message progress
