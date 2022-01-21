@@ -275,6 +275,11 @@ class IMManager {
   /// [ipApi] Api server ip address
   /// [ipWs] WebSocket ip address
   /// [dbPath] Data storage directory
+  /// 初始化SDK
+  /// [platform] 平台编号[IMPlatform]
+  /// [ipApi]    SDK api地址
+  /// [ipWs]     SDK websocket地址
+  /// [dbPath]   SDK数据库存储目录
   Future<dynamic> initSDK({
     required int platform,
     required String ipApi,
@@ -306,6 +311,7 @@ class IMManager {
   }
 
   /// Login sdk
+  /// 登录
   Future<UserInfo> login({required String uid, required String token}) async {
     this.uid = uid;
     await _channel.invokeMethod(
@@ -318,6 +324,7 @@ class IMManager {
   }
 
   /// Logout sdk
+  /// 登出
   Future<dynamic> logout() async {
     var value = await _channel.invokeMethod('logout', _buildParam({}));
     this.isLogined = false;
@@ -329,12 +336,15 @@ class IMManager {
       _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
 
   /// Current user id
+  /// 获取当前登录用户id
   Future<String> getLoginUid() async => uid;
 
   /// Current user info
+  /// 获取当前登录用户信息
   Future<UserInfo> getLoginUserInfo() async => uInfo;
 
   /// Modify current user info
+  /// 修改当前登录用户资料
   Future<String?> setSelfInfo(
           {String? name,
           String? icon,
@@ -357,6 +367,7 @@ class IMManager {
           }));
 
   /// Query user information
+  /// 查询用户信息
   Future<List<UserInfo>> getUsersInfo(List<String> uidList) => _channel
       .invokeMethod('getUsersInfo', _buildParam({'uidList': uidList}))
       .then((value) => _toList(value));
