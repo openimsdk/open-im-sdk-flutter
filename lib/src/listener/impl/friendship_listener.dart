@@ -1,73 +1,93 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
+/// 申请添加好友：
+/// 主动申请者收到 OnFriendApplicationAdded
+/// 被添加者收到 OnFriendApplicationAdded
+///
+/// 同意好友申请：
+/// 操作者收到 OnFriendApplicationAccepted OnFriendAdded
+/// 申请者收到 OnFriendApplicationAccepted OnFriendAdded
+///
+/// 好友拒绝申请：
+/// 操作者收到 OnFriendApplicationRejected
+/// 申请者收到 OnFriendApplicationRejected
+///
+/// 删除好友：
+/// 操作者收到 OnFriendDeleted
+///
+/// 修改备注：
+/// 操作者收到 OnFriendInfoChanged
+///
+/// 添加黑名单：
+/// 操作者收到 OnBlacklistAdded；
+///
+/// 移除黑名单：
+/// 操作者收到 OnBlacklistDeleted
 class OnFriendshipListener extends FriendshipListener {
-  Function(UserInfo u)? onBlackListAdd;
-  Function(UserInfo u)? onBlackListDeleted;
-  Function(UserInfo u)? onFriendApplicationListAccept;
-  Function(UserInfo u)? onFriendApplicationListAdded;
-  Function(UserInfo u)? onFriendApplicationListDeleted;
-  Function(UserInfo u)? onFriendApplicationListReject;
-  Function(UserInfo u)? onFriendInfoChanged;
-  Function(UserInfo u)? onFriendListAdded;
-  Function(UserInfo u)? onFriendListDeleted;
+  Function(FriendApplicationInfo i)? onFriendApplicationAdded;
+  Function(FriendApplicationInfo i)? onFriendApplicationDeleted;
+  Function(FriendApplicationInfo i)? onFriendApplicationAccepted;
+  Function(FriendApplicationInfo i)? onFriendApplicationRejected;
+  Function(FriendInfo i)? onFriendAdded;
+  Function(FriendInfo i)? onFriendDeleted;
+  Function(FriendInfo i)? onFriendInfoChanged;
+  Function(BlacklistInfo i)? onBlacklistAdded;
+  Function(BlacklistInfo i)? onBlacklistDeleted;
 
   OnFriendshipListener({
-    this.onBlackListAdd,
-    this.onBlackListDeleted,
-    this.onFriendApplicationListAccept,
-    this.onFriendApplicationListAdded,
-    this.onFriendApplicationListDeleted,
-    this.onFriendApplicationListReject,
+    this.onBlacklistAdded,
+    this.onBlacklistDeleted,
+    this.onFriendAdded,
+    this.onFriendApplicationAccepted,
+    this.onFriendApplicationAdded,
+    this.onFriendApplicationDeleted,
+    this.onFriendApplicationRejected,
+    this.onFriendDeleted,
     this.onFriendInfoChanged,
-    this.onFriendListAdded,
-    this.onFriendListDeleted,
   });
 
   @override
-  void blackListAdd(UserInfo u) {
-    if (null != onBlackListAdd) onBlackListAdd!(u);
+  void blacklistAdded(BlacklistInfo u) {
+    onBlacklistAdded?.call(u);
   }
 
   @override
-  void blackListDeleted(UserInfo u) {
-    if (null != onBlackListDeleted) onBlackListDeleted!(u);
+  void blacklistDeleted(BlacklistInfo u) {
+    onBlacklistDeleted?.call(u);
   }
 
   @override
-  void friendApplicationListAccept(UserInfo u) {
-    if (null != onFriendApplicationListAccept)
-      onFriendApplicationListAccept!(u);
+  void friendAdded(FriendInfo u) {
+    onFriendAdded?.call(u);
   }
 
   @override
-  void friendApplicationListAdded(UserInfo u) {
-    if (null != onFriendApplicationListAdded) onFriendApplicationListAdded!(u);
+  void friendApplicationAccepted(FriendApplicationInfo u) {
+    onFriendApplicationAccepted?.call(u);
   }
 
   @override
-  void friendApplicationListDeleted(UserInfo u) {
-    if (null != onFriendApplicationListDeleted)
-      onFriendApplicationListDeleted!(u);
+  void friendApplicationAdded(FriendApplicationInfo u) {
+    onFriendApplicationAdded?.call(u);
   }
 
   @override
-  void friendApplicationListReject(UserInfo u) {
-    if (null != onFriendApplicationListReject)
-      onFriendApplicationListReject!(u);
+  void friendApplicationDeleted(FriendApplicationInfo u) {
+    onFriendApplicationDeleted?.call(u);
   }
 
   @override
-  void friendInfoChanged(UserInfo u) {
-    if (null != onFriendInfoChanged) onFriendInfoChanged!(u);
+  void friendApplicationRejected(FriendApplicationInfo u) {
+    onFriendApplicationRejected?.call(u);
   }
 
   @override
-  void friendListAdded(UserInfo u) {
-    if (null != onFriendListAdded) onFriendListAdded!(u);
+  void friendDeleted(FriendInfo u) {
+    onFriendDeleted?.call(u);
   }
 
   @override
-  void friendListDeleted(UserInfo u) {
-    if (null != onFriendListDeleted) onFriendListDeleted!(u);
+  void friendInfoChanged(FriendInfo u) {
+    onFriendInfoChanged?.call(u);
   }
 }

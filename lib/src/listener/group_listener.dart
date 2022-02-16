@@ -1,23 +1,27 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 abstract class GroupListener {
-  void memberEnter(String groupId, List<GroupMembersInfo> list);
+  void joinedGroupAdded(GroupInfo info);
 
-  void memberLeave(String groupId, GroupMembersInfo info);
+  void joinedGroupDeleted(GroupInfo info);
 
-  void memberInvited(
-      String groupId, GroupMembersInfo opUser, List<GroupMembersInfo> list);
+  void groupMemberAdded(GroupMembersInfo info);
 
-  void memberKicked(
-      String groupId, GroupMembersInfo opUser, List<GroupMembersInfo> list);
+  void groupMemberDeleted(GroupMembersInfo info);
 
-  void groupCreated(String groupId);
+  void receiveJoinGroupApplicationAdded(GroupApplicationInfo info);
 
-  void groupInfoChanged(String groupId, GroupInfo info);
+  void receiveJoinGroupApplicationDeleted(GroupApplicationInfo info);
 
-  void receiveJoinApplication(
-      String groupId, GroupMembersInfo info, String opReason);
+  void groupApplicationAdded(GroupApplicationInfo info);
 
-  void applicationProcessed(String groupId, GroupMembersInfo opUser,
-      int agreeOrReject, String opReason);
+  void groupApplicationDeleted(GroupApplicationInfo info);
+
+  void groupInfoChanged(GroupInfo info);
+
+  void groupMemberInfoChanged(GroupMembersInfo info);
+
+  void groupApplicationAccepted(GroupApplicationInfo info);
+
+  void groupApplicationRejected(GroupApplicationInfo info);
 }

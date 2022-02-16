@@ -10,1809 +10,197 @@
 #include "ref.h"
 #include "Universe.objc.h"
 
-
-@class Open_im_sdkAgreeOrRejectGroupMember;
-@class Open_im_sdkArrMsg;
-@class Open_im_sdkChatLog;
-@class Open_im_sdkConversationListener;
-@class Open_im_sdkConversationStruct;
-@class Open_im_sdkFileBaseInfo;
-@class Open_im_sdkFriend;
-@class Open_im_sdkGatherFormat;
-@class Open_im_sdkGeneralWsReq;
-@class Open_im_sdkGeneralWsResp;
-@class Open_im_sdkGetMaxAndMinSeqReq;
-@class Open_im_sdkGetMaxAndMinSeqResp;
-@class Open_im_sdkGroupApplicationInfo;
-@class Open_im_sdkGroupApplicationResponseReq;
-@class Open_im_sdkGroupReqListInfo;
-@class Open_im_sdkIMConfig;
-@class Open_im_sdkIMManager;
-@class Open_im_sdkLogInfo;
-@class Open_im_sdkLogger;
-@class Open_im_sdkMessageReceipt;
-@class Open_im_sdkMsgData;
-@class Open_im_sdkMsgFormat;
-@class Open_im_sdkMsgStruct;
-@class Open_im_sdkNotificationContent;
-@class Open_im_sdkPictureBaseInfo;
-@class Open_im_sdkPullMessageBySeqListReq;
-@class Open_im_sdkPullMessageBySeqListResp;
-@class Open_im_sdkPullMsgReq;
-@class Open_im_sdkPullUserMsgResp;
-@class Open_im_sdkSendMsgRespFromServer;
-@class Open_im_sdkSliceMock;
-@class Open_im_sdkSoundBaseInfo;
-@class Open_im_sdkSoundElem;
-@class Open_im_sdkTransferGroupOwnerReq;
-@class Open_im_sdkUid2Flag;
-@class Open_im_sdkUserRelated;
-@class Open_im_sdkUserSendMsgReq;
-@class Open_im_sdkUserSendMsgResp;
-@class Open_im_sdkVideoBaseInfo;
-@class Open_im_sdkWsMsgData;
-@class Open_im_sdkWsSendMsgResp;
-@class Open_im_sdkWsSubMsg;
-@protocol Open_im_sdkBase;
-@class Open_im_sdkBase;
-@protocol Open_im_sdkIMSDKListener;
-@class Open_im_sdkIMSDKListener;
-@protocol Open_im_sdkOnAdvancedMsgListener;
-@class Open_im_sdkOnAdvancedMsgListener;
-@protocol Open_im_sdkOnConversationListener;
-@class Open_im_sdkOnConversationListener;
-@protocol Open_im_sdkOnFriendshipListener;
-@class Open_im_sdkOnFriendshipListener;
-@protocol Open_im_sdkOnGroupListener;
-@class Open_im_sdkOnGroupListener;
-@protocol Open_im_sdkSendMsgCallBack;
-@class Open_im_sdkSendMsgCallBack;
-
-@protocol Open_im_sdkBase <NSObject>
-- (void)onError:(long)errCode errMsg:(NSString* _Nullable)errMsg;
-- (void)onSuccess:(NSString* _Nullable)data;
-@end
-
-@protocol Open_im_sdkIMSDKListener <NSObject>
-- (void)onConnectFailed:(long)ErrCode ErrMsg:(NSString* _Nullable)ErrMsg;
-- (void)onConnectSuccess;
-- (void)onConnecting;
-- (void)onKickedOffline;
-- (void)onSelfInfoUpdated:(NSString* _Nullable)userInfo;
-- (void)onUserTokenExpired;
-@end
-
-@protocol Open_im_sdkOnAdvancedMsgListener <NSObject>
-- (void)onRecvC2CReadReceipt:(NSString* _Nullable)msgReceiptList;
-- (void)onRecvMessageRevoked:(NSString* _Nullable)msgId;
-- (void)onRecvNewMessage:(NSString* _Nullable)message;
-@end
-
-@protocol Open_im_sdkOnConversationListener <NSObject>
-- (void)onConversationChanged:(NSString* _Nullable)conversationList;
-- (void)onNewConversation:(NSString* _Nullable)conversationList;
-- (void)onSyncServerFailed;
-- (void)onSyncServerFinish;
-- (void)onSyncServerStart;
-- (void)onTotalUnreadMessageCountChanged:(int32_t)totalUnreadCount;
-@end
-
-@protocol Open_im_sdkOnFriendshipListener <NSObject>
-- (void)onBlackListAdd:(NSString* _Nullable)userInfo;
-- (void)onBlackListDeleted:(NSString* _Nullable)userInfo;
-- (void)onFriendApplicationListAccept:(NSString* _Nullable)applyUserInfo;
-- (void)onFriendApplicationListAdded:(NSString* _Nullable)applyUserInfo;
-- (void)onFriendApplicationListDeleted:(NSString* _Nullable)applyUserInfo;
-- (void)onFriendApplicationListReject:(NSString* _Nullable)applyUserInfo;
-- (void)onFriendInfoChanged:(NSString* _Nullable)friendInfo;
-- (void)onFriendListAdded:(NSString* _Nullable)friendInfo;
-- (void)onFriendListDeleted:(NSString* _Nullable)friendInfo;
-@end
-
-@protocol Open_im_sdkOnGroupListener <NSObject>
-- (void)onApplicationProcessed:(NSString* _Nullable)groupId opUser:(NSString* _Nullable)opUser AgreeOrReject:(int32_t)AgreeOrReject opReason:(NSString* _Nullable)opReason;
-- (void)onGroupCreated:(NSString* _Nullable)groupId;
-- (void)onGroupInfoChanged:(NSString* _Nullable)groupId groupInfo:(NSString* _Nullable)groupInfo;
-- (void)onMemberEnter:(NSString* _Nullable)groupId memberList:(NSString* _Nullable)memberList;
-- (void)onMemberInvited:(NSString* _Nullable)groupId opUser:(NSString* _Nullable)opUser memberList:(NSString* _Nullable)memberList;
-- (void)onMemberKicked:(NSString* _Nullable)groupId opUser:(NSString* _Nullable)opUser memberList:(NSString* _Nullable)memberList;
-- (void)onMemberLeave:(NSString* _Nullable)groupId member:(NSString* _Nullable)member;
-- (void)onReceiveJoinApplication:(NSString* _Nullable)groupId member:(NSString* _Nullable)member opReason:(NSString* _Nullable)opReason;
-@end
-
-@protocol Open_im_sdkSendMsgCallBack <NSObject>
-- (void)onError:(long)errCode errMsg:(NSString* _Nullable)errMsg;
-- (void)onProgress:(long)progress;
-- (void)onSuccess:(NSString* _Nullable)data;
-@end
-
-@interface Open_im_sdkAgreeOrRejectGroupMember : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull groupId;
-@property (nonatomic) NSString* _Nonnull userId;
-@property (nonatomic) long role;
-// skipped field AgreeOrRejectGroupMember.JoinTime with unsupported type: uint64
-
-@property (nonatomic) NSString* _Nonnull nickName;
-@property (nonatomic) NSString* _Nonnull faceUrl;
-@property (nonatomic) NSString* _Nonnull reason;
-@end
-
-@interface Open_im_sdkArrMsg : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-// skipped field ArrMsg.SingleData with unsupported type: []open_im_sdk/open_im_sdk.MsgData
-
-// skipped field ArrMsg.GroupData with unsupported type: []open_im_sdk/open_im_sdk.MsgData
-
-@end
-
-@interface Open_im_sdkChatLog : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull msgId;
-@property (nonatomic) NSString* _Nonnull sendID;
-@property (nonatomic) int32_t isRead;
-@property (nonatomic) int64_t seq;
-@property (nonatomic) int32_t status;
-@property (nonatomic) int32_t sessionType;
-@property (nonatomic) NSString* _Nonnull recvID;
-@property (nonatomic) int32_t contentType;
-@property (nonatomic) int32_t msgFrom;
-@property (nonatomic) NSString* _Nonnull content;
-// skipped field ChatLog.Remark with unsupported type: database/sql.NullString
-
-@property (nonatomic) int32_t senderPlatformID;
-@property (nonatomic) int64_t sendTime;
-@property (nonatomic) int64_t createTime;
-@end
-
-@interface Open_im_sdkConversationListener : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) id<Open_im_sdkOnConversationListener> _Nullable conversationListenerx;
-// skipped field ConversationListener.MsgListenerList with unsupported type: []open_im_sdk/open_im_sdk.OnAdvancedMsgListener
-
-@end
-
-@interface Open_im_sdkConversationStruct : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull conversationID;
-@property (nonatomic) long conversationType;
-@property (nonatomic) NSString* _Nonnull userID;
-@property (nonatomic) NSString* _Nonnull groupID;
-@property (nonatomic) NSString* _Nonnull showName;
-@property (nonatomic) NSString* _Nonnull faceURL;
-@property (nonatomic) long recvMsgOpt;
-@property (nonatomic) long unreadCount;
-@property (nonatomic) NSString* _Nonnull latestMsg;
-@property (nonatomic) int64_t latestMsgSendTime;
-@property (nonatomic) NSString* _Nonnull draftText;
-@property (nonatomic) int64_t draftTimestamp;
-@property (nonatomic) long isPinned;
-@end
-
-@interface Open_im_sdkFileBaseInfo : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull filePath;
-@property (nonatomic) NSString* _Nonnull uuid;
-@property (nonatomic) NSString* _Nonnull sourceURL;
-@property (nonatomic) NSString* _Nonnull fileName;
-@property (nonatomic) int64_t fileSize;
-@end
-
-@interface Open_im_sdkFriend : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@end
-
-@interface Open_im_sdkGatherFormat : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-/**
- * @inject_tag: json:"id"
- */
-@property (nonatomic) NSString* _Nonnull id_;
-// skipped field GatherFormat.List with unsupported type: []*open_im_sdk/open_im_sdk.MsgFormat
-
-// skipped field GatherFormat.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method GatherFormat.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method GatherFormat.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkGeneralWsReq : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int32_t reqIdentifier;
-@property (nonatomic) NSString* _Nonnull token;
-@property (nonatomic) NSString* _Nonnull sendID;
-@property (nonatomic) NSString* _Nonnull operationID;
-@property (nonatomic) NSString* _Nonnull msgIncr;
-@property (nonatomic) NSData* _Nullable data;
-@end
-
-@interface Open_im_sdkGeneralWsResp : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) long reqIdentifier;
-@property (nonatomic) long errCode;
-@property (nonatomic) NSString* _Nonnull errMsg;
-@property (nonatomic) NSString* _Nonnull msgIncr;
-@property (nonatomic) NSString* _Nonnull operationID;
-@property (nonatomic) NSData* _Nullable data;
-@end
-
-@interface Open_im_sdkGetMaxAndMinSeqReq : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-// skipped field GetMaxAndMinSeqReq.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method GetMaxAndMinSeqReq.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method GetMaxAndMinSeqReq.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkGetMaxAndMinSeqResp : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int64_t maxSeq;
-@property (nonatomic) int64_t minSeq;
-// skipped field GetMaxAndMinSeqResp.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method GetMaxAndMinSeqResp.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method GetMaxAndMinSeqResp.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkGroupApplicationInfo : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-// skipped field GroupApplicationInfo.Info with unsupported type: open_im_sdk/open_im_sdk.accessOrRefuseGroupApplicationReq
-
-@property (nonatomic) NSString* _Nonnull handUserID;
-@property (nonatomic) NSString* _Nonnull handUserName;
-@property (nonatomic) NSString* _Nonnull handUserIcon;
-@end
-
-@interface Open_im_sdkGroupApplicationResponseReq : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull operationID;
-@property (nonatomic) NSString* _Nonnull ownerID;
-@property (nonatomic) NSString* _Nonnull groupID;
-@property (nonatomic) NSString* _Nonnull fromUserID;
-@property (nonatomic) NSString* _Nonnull fromUserNickName;
-@property (nonatomic) NSString* _Nonnull fromUserFaceUrl;
-@property (nonatomic) NSString* _Nonnull toUserID;
-@property (nonatomic) NSString* _Nonnull toUserNickName;
-@property (nonatomic) NSString* _Nonnull toUserFaceUrl;
-@property (nonatomic) int64_t addTime;
-@property (nonatomic) NSString* _Nonnull requestMsg;
-@property (nonatomic) NSString* _Nonnull handledMsg;
-@property (nonatomic) int32_t type;
-@property (nonatomic) int32_t handleStatus;
-@property (nonatomic) int32_t handleResult;
-@end
-
-@interface Open_im_sdkGroupReqListInfo : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull id_;
-@property (nonatomic) NSString* _Nonnull groupID;
-@property (nonatomic) NSString* _Nonnull fromUserID;
-@property (nonatomic) NSString* _Nonnull toUserID;
-@property (nonatomic) int32_t flag;
-@property (nonatomic) NSString* _Nonnull requestMsg;
-@property (nonatomic) NSString* _Nonnull handledMsg;
-@property (nonatomic) int64_t addTime;
-@property (nonatomic) NSString* _Nonnull fromUserNickname;
-@property (nonatomic) NSString* _Nonnull toUserNickname;
-@property (nonatomic) NSString* _Nonnull fromUserFaceUrl;
-@property (nonatomic) NSString* _Nonnull toUserFaceUrl;
-@property (nonatomic) NSString* _Nonnull handledUser;
-@property (nonatomic) int32_t type;
-@property (nonatomic) int32_t handleStatus;
-@property (nonatomic) int32_t handleResult;
-- (NSString* _Nonnull)key;
-// skipped method GroupReqListInfo.Value with unsupported parameter or return types
-
-@end
-
-@interface Open_im_sdkIMConfig : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int32_t platform;
-@property (nonatomic) NSString* _Nonnull ipApiAddr;
-@property (nonatomic) NSString* _Nonnull ipWsAddr;
-@property (nonatomic) NSString* _Nonnull dbDir;
-@end
-
-@interface Open_im_sdkIMManager : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) long loginState;
-@end
-
-@interface Open_im_sdkLogInfo : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull info;
-@end
-
-@interface Open_im_sdkLogger : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-// skipped field Logger.Logger with unsupported type: *github.com/sirupsen/logrus.Logger
-
-@property (nonatomic) long pid;
-// skipped method Logger.AddHook with unsupported parameter or return types
-
-// skipped method Logger.Debug with unsupported parameter or return types
-
-// skipped method Logger.Debugf with unsupported parameter or return types
-
-// skipped method Logger.Debugln with unsupported parameter or return types
-
-// skipped method Logger.Error with unsupported parameter or return types
-
-// skipped method Logger.Errorf with unsupported parameter or return types
-
-// skipped method Logger.Errorln with unsupported parameter or return types
-
-- (void)exit:(long)code;
-// skipped method Logger.Fatal with unsupported parameter or return types
-
-// skipped method Logger.Fatalf with unsupported parameter or return types
-
-// skipped method Logger.Fatalln with unsupported parameter or return types
-
-// skipped method Logger.GetLevel with unsupported parameter or return types
-
-// skipped method Logger.Info with unsupported parameter or return types
-
-// skipped method Logger.Infof with unsupported parameter or return types
-
-// skipped method Logger.Infoln with unsupported parameter or return types
-
-// skipped method Logger.IsLevelEnabled with unsupported parameter or return types
-
-// skipped method Logger.Log with unsupported parameter or return types
-
-// skipped method Logger.Logf with unsupported parameter or return types
-
-// skipped method Logger.Logln with unsupported parameter or return types
-
-// skipped method Logger.Panic with unsupported parameter or return types
-
-// skipped method Logger.Panicf with unsupported parameter or return types
-
-// skipped method Logger.Panicln with unsupported parameter or return types
-
-// skipped method Logger.Print with unsupported parameter or return types
-
-// skipped method Logger.Printf with unsupported parameter or return types
-
-// skipped method Logger.Println with unsupported parameter or return types
-
-// skipped method Logger.ReplaceHooks with unsupported parameter or return types
-
-// skipped method Logger.SetFormatter with unsupported parameter or return types
-
-// skipped method Logger.SetLevel with unsupported parameter or return types
-
-- (void)setNoLock;
-// skipped method Logger.SetOutput with unsupported parameter or return types
-
-- (void)setReportCaller:(BOOL)reportCaller;
-// skipped method Logger.Trace with unsupported parameter or return types
-
-// skipped method Logger.Tracef with unsupported parameter or return types
-
-// skipped method Logger.Traceln with unsupported parameter or return types
-
-// skipped method Logger.Warn with unsupported parameter or return types
-
-// skipped method Logger.Warnf with unsupported parameter or return types
-
-// skipped method Logger.Warning with unsupported parameter or return types
-
-// skipped method Logger.Warningf with unsupported parameter or return types
-
-// skipped method Logger.Warningln with unsupported parameter or return types
-
-// skipped method Logger.Warnln with unsupported parameter or return types
-
-// skipped method Logger.WithContext with unsupported parameter or return types
-
-// skipped method Logger.WithError with unsupported parameter or return types
-
-// skipped method Logger.WithField with unsupported parameter or return types
-
-// skipped method Logger.WithFields with unsupported parameter or return types
-
-// skipped method Logger.WithTime with unsupported parameter or return types
-
-// skipped method Logger.Writer with unsupported parameter or return types
-
-// skipped method Logger.WriterLevel with unsupported parameter or return types
-
-@end
-
-@interface Open_im_sdkMessageReceipt : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull userID;
-// skipped field MessageReceipt.MsgIdList with unsupported type: []string
-
-@property (nonatomic) int64_t readTime;
-@property (nonatomic) int32_t msgFrom;
-@property (nonatomic) int32_t contentType;
-@property (nonatomic) int32_t sessionType;
-@end
-
-@interface Open_im_sdkMsgData : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull sendID;
-@property (nonatomic) NSString* _Nonnull recvID;
-@property (nonatomic) int32_t sessionType;
-@property (nonatomic) int32_t msgFrom;
-@property (nonatomic) int32_t contentType;
-@property (nonatomic) NSString* _Nonnull serverMsgID;
-@property (nonatomic) NSString* _Nonnull content;
-@property (nonatomic) int64_t sendTime;
-@property (nonatomic) int64_t seq;
-@property (nonatomic) int32_t senderPlatformID;
-@property (nonatomic) NSString* _Nonnull senderNickName;
-@property (nonatomic) NSString* _Nonnull senderFaceURL;
-@property (nonatomic) NSString* _Nonnull clientMsgID;
-// skipped field MsgData.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method MsgData.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method MsgData.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkMsgFormat : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-/**
- * @inject_tag: json:"sendID"
- */
-@property (nonatomic) NSString* _Nonnull sendID;
-/**
- * @inject_tag: json:"recvID"
- */
-@property (nonatomic) NSString* _Nonnull recvID;
-/**
- * @inject_tag: json:"msgFrom"
- */
-@property (nonatomic) int32_t msgFrom;
-/**
- * @inject_tag: json:"contentType"
- */
-@property (nonatomic) int32_t contentType;
-/**
- * @inject_tag: json:"serverMsgID"
- */
-@property (nonatomic) NSString* _Nonnull serverMsgID;
-/**
- * @inject_tag: json:"content"
- */
-@property (nonatomic) NSString* _Nonnull content;
-/**
- * @inject_tag: json:"seq"
- */
-@property (nonatomic) int64_t seq;
-/**
- * @inject_tag: json:"sendTime"
- */
-@property (nonatomic) int64_t sendTime;
-/**
- * @inject_tag: json:"senderPlatformID"
- */
-@property (nonatomic) int32_t senderPlatformID;
-/**
- * @inject_tag: json:"senderNickName"
- */
-@property (nonatomic) NSString* _Nonnull senderNickName;
-/**
- * @inject_tag: json:"senderFaceUrl"
- */
-@property (nonatomic) NSString* _Nonnull senderFaceURL;
-/**
- * @inject_tag: json:"clientMsgID"
- */
-@property (nonatomic) NSString* _Nonnull clientMsgID;
-// skipped field MsgFormat.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method MsgFormat.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method MsgFormat.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkMsgStruct : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull clientMsgID;
-@property (nonatomic) NSString* _Nonnull serverMsgID;
-@property (nonatomic) int64_t createTime;
-@property (nonatomic) int64_t sendTime;
-@property (nonatomic) int32_t sessionType;
-@property (nonatomic) NSString* _Nonnull sendID;
-@property (nonatomic) NSString* _Nonnull recvID;
-@property (nonatomic) int32_t msgFrom;
-@property (nonatomic) int32_t contentType;
-@property (nonatomic) int32_t platformID;
-// skipped field MsgStruct.ForceList with unsupported type: []string
-
-@property (nonatomic) NSString* _Nonnull senderNickName;
-@property (nonatomic) NSString* _Nonnull senderFaceURL;
-@property (nonatomic) NSString* _Nonnull groupID;
-@property (nonatomic) NSString* _Nonnull content;
-@property (nonatomic) int64_t seq;
-@property (nonatomic) BOOL isRead;
-@property (nonatomic) int32_t status;
-@property (nonatomic) NSString* _Nonnull remark;
-// skipped field MsgStruct.PictureElem with unsupported type: struct{SourcePath string "json:\"sourcePath\""; SourcePicture open_im_sdk/open_im_sdk.PictureBaseInfo "json:\"sourcePicture\""; BigPicture open_im_sdk/open_im_sdk.PictureBaseInfo "json:\"bigPicture\""; SnapshotPicture open_im_sdk/open_im_sdk.PictureBaseInfo "json:\"snapshotPicture\""}
-
-// skipped field MsgStruct.SoundElem with unsupported type: struct{UUID string "json:\"uuid\""; SoundPath string "json:\"soundPath\""; SourceURL string "json:\"sourceUrl\""; DataSize int64 "json:\"dataSize\""; Duration int64 "json:\"duration\""}
-
-// skipped field MsgStruct.VideoElem with unsupported type: struct{VideoPath string "json:\"videoPath\""; VideoUUID string "json:\"videoUUID\""; VideoURL string "json:\"videoUrl\""; VideoType string "json:\"videoType\""; VideoSize int64 "json:\"videoSize\""; Duration int64 "json:\"duration\""; SnapshotPath string "json:\"snapshotPath\""; SnapshotUUID string "json:\"snapshotUUID\""; SnapshotSize int64 "json:\"snapshotSize\""; SnapshotURL string "json:\"snapshotUrl\""; SnapshotWidth int32 "json:\"snapshotWidth\""; SnapshotHeight int32 "json:\"snapshotHeight\""}
-
-// skipped field MsgStruct.FileElem with unsupported type: struct{FilePath string "json:\"filePath\""; UUID string "json:\"uuid\""; SourceURL string "json:\"sourceUrl\""; FileName string "json:\"fileName\""; FileSize int64 "json:\"fileSize\""}
-
-// skipped field MsgStruct.MergeElem with unsupported type: struct{Title string "json:\"title\""; AbstractList []string "json:\"abstractList\""; MultiMessage []*open_im_sdk/open_im_sdk.MsgStruct "json:\"multiMessage\""}
-
-// skipped field MsgStruct.AtElem with unsupported type: struct{Text string "json:\"text\""; AtUserList []string "json:\"atUserList\""; IsAtSelf bool "json:\"isAtSelf\""}
-
-// skipped field MsgStruct.LocationElem with unsupported type: struct{Description string "json:\"description\""; Longitude float64 "json:\"longitude\""; Latitude float64 "json:\"latitude\""}
-
-// skipped field MsgStruct.CustomElem with unsupported type: struct{Data string "json:\"data\""; Description string "json:\"description\""; Extension string "json:\"extension\""}
-
-// skipped field MsgStruct.QuoteElem with unsupported type: struct{Text string "json:\"text\""; QuoteMessage *open_im_sdk/open_im_sdk.MsgStruct "json:\"quoteMessage\""}
-
-@end
-
-@interface Open_im_sdkNotificationContent : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int32_t isDisplay;
-@property (nonatomic) NSString* _Nonnull defaultTips;
-@property (nonatomic) NSString* _Nonnull detail;
-@end
-
-@interface Open_im_sdkPictureBaseInfo : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull uuid;
-@property (nonatomic) NSString* _Nonnull type;
-@property (nonatomic) int64_t size;
-@property (nonatomic) int32_t width;
-@property (nonatomic) int32_t height;
-@property (nonatomic) NSString* _Nonnull url;
-@end
-
-@interface Open_im_sdkPullMessageBySeqListReq : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-// skipped field PullMessageBySeqListReq.SeqList with unsupported type: []int64
-
-// skipped field PullMessageBySeqListReq.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method PullMessageBySeqListReq.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method PullMessageBySeqListReq.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkPullMessageBySeqListResp : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int64_t maxSeq;
-@property (nonatomic) int64_t minSeq;
-// skipped field PullMessageBySeqListResp.SingleUserMsg with unsupported type: []*open_im_sdk/open_im_sdk.GatherFormat
-
-// skipped field PullMessageBySeqListResp.GroupUserMsg with unsupported type: []*open_im_sdk/open_im_sdk.GatherFormat
-
-// skipped field PullMessageBySeqListResp.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method PullMessageBySeqListResp.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method PullMessageBySeqListResp.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkPullMsgReq : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull userID;
-@property (nonatomic) NSString* _Nonnull groupID;
-@property (nonatomic) Open_im_sdkMsgStruct* _Nullable startMsg;
-@property (nonatomic) long count;
-@end
-
-@interface Open_im_sdkPullUserMsgResp : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) long errCode;
-@property (nonatomic) NSString* _Nonnull errMsg;
-@property (nonatomic) long reqIdentifier;
-@property (nonatomic) long msgIncr;
-// skipped field PullUserMsgResp.Data with unsupported type: open_im_sdk/open_im_sdk.paramsPullUserMsgDataResp
-
-@end
-
-@interface Open_im_sdkSendMsgRespFromServer : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) long errCode;
-@property (nonatomic) NSString* _Nonnull errMsg;
-@property (nonatomic) long reqIdentifier;
-// skipped field SendMsgRespFromServer.Data with unsupported type: struct{ServerMsgID string "json:\"serverMsgID\""; ClientMsgID string "json:\"clientMsgID\""; SendTime int64 "json:\"sendTime\""}
-
-@end
-
-@interface Open_im_sdkSliceMock : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@end
-
-@interface Open_im_sdkSoundBaseInfo : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull uuid;
-@property (nonatomic) NSString* _Nonnull soundPath;
-@property (nonatomic) NSString* _Nonnull sourceURL;
-@property (nonatomic) int64_t dataSize;
-@property (nonatomic) int64_t duration;
-@end
-
-@interface Open_im_sdkSoundElem : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull uuid;
-@property (nonatomic) NSString* _Nonnull soundPath;
-@property (nonatomic) NSString* _Nonnull sourceURL;
-@property (nonatomic) int64_t dataSize;
-@property (nonatomic) int64_t duration;
-@end
-
-@interface Open_im_sdkTransferGroupOwnerReq : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull groupID;
-@property (nonatomic) NSString* _Nonnull oldOwner;
-@property (nonatomic) NSString* _Nonnull newOwner;
-@property (nonatomic) NSString* _Nonnull operationID;
-@end
-
-@interface Open_im_sdkUid2Flag : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull uid;
-@property (nonatomic) int32_t flag;
-@end
-
-@interface Open_im_sdkUserRelated : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-// skipped field UserRelated.ConversationCh with unsupported type: chan open_im_sdk/open_im_sdk.cmd2Value
-
-// skipped field UserRelated.SvrConf with unsupported type: open_im_sdk/open_im_sdk.IMConfig
-
-@property (nonatomic) NSString* _Nonnull loginUid;
-// skipped field UserRelated.IMManager with unsupported type: open_im_sdk/open_im_sdk.IMManager
-
-// skipped field UserRelated.Friend with unsupported type: open_im_sdk/open_im_sdk.Friend
-
-// skipped field UserRelated.ConversationListener with unsupported type: open_im_sdk/open_im_sdk.ConversationListener
-
-- (void)acceptFriendApplication:(id<Open_im_sdkBase> _Nullable)callback uid:(NSString* _Nullable)uid;
-- (void)acceptGroupApplication:(NSString* _Nullable)application reason:(NSString* _Nullable)reason callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)addAdvancedMsgListener:(id<Open_im_sdkOnAdvancedMsgListener> _Nullable)listener;
-// skipped method UserRelated.AddCh with unsupported parameter or return types
-
-- (void)addFriend:(id<Open_im_sdkBase> _Nullable)callback paramsReq:(NSString* _Nullable)paramsReq;
-- (void)addToBlackList:(id<Open_im_sdkBase> _Nullable)callback blackUid:(NSString* _Nullable)blackUid;
-- (void)checkFriend:(id<Open_im_sdkBase> _Nullable)callback uidList:(NSString* _Nullable)uidList;
-- (void)clearC2CHistoryMessage:(id<Open_im_sdkBase> _Nullable)callback userID:(NSString* _Nullable)userID;
-- (void)clearGroupHistoryMessage:(id<Open_im_sdkBase> _Nullable)callback groupID:(NSString* _Nullable)groupID;
-- (NSString* _Nonnull)createCardMessage:(NSString* _Nullable)cardInfo;
-- (NSString* _Nonnull)createCustomMessage:(NSString* _Nullable)data extension:(NSString* _Nullable)extension description:(NSString* _Nullable)description;
-- (NSString* _Nonnull)createFileMessage:(NSString* _Nullable)filePath fileName:(NSString* _Nullable)fileName;
-- (NSString* _Nonnull)createFileMessageByURL:(NSString* _Nullable)fileBaseInfo;
-- (NSString* _Nonnull)createFileMessageFromFullPath:(NSString* _Nullable)fileFullPath fileName:(NSString* _Nullable)fileName;
-- (NSString* _Nonnull)createForwardMessage:(NSString* _Nullable)m;
-- (void)createGroup:(NSString* _Nullable)gInfo memberList:(NSString* _Nullable)memberList callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (NSString* _Nonnull)createImageMessage:(NSString* _Nullable)imagePath;
-- (NSString* _Nonnull)createImageMessageByURL:(NSString* _Nullable)sourcePicture bigPicture:(NSString* _Nullable)bigPicture snapshotPicture:(NSString* _Nullable)snapshotPicture;
-- (NSString* _Nonnull)createImageMessageFromFullPath:(NSString* _Nullable)imageFullPath;
-- (NSString* _Nonnull)createLocationMessage:(NSString* _Nullable)description longitude:(double)longitude latitude:(double)latitude;
-- (NSString* _Nonnull)createMergerMessage:(NSString* _Nullable)messageList title:(NSString* _Nullable)title summaryList:(NSString* _Nullable)summaryList;
-- (NSString* _Nonnull)createQuoteMessage:(NSString* _Nullable)text message:(NSString* _Nullable)message;
-- (NSString* _Nonnull)createSoundMessage:(NSString* _Nullable)soundPath duration:(int64_t)duration;
-- (NSString* _Nonnull)createSoundMessageByURL:(NSString* _Nullable)soundBaseInfo;
-- (NSString* _Nonnull)createSoundMessageFromFullPath:(NSString* _Nullable)soundPath duration:(int64_t)duration;
-- (NSString* _Nonnull)createTextAtMessage:(NSString* _Nullable)text atUserList:(NSString* _Nullable)atUserList;
-- (NSString* _Nonnull)createTextMessage:(NSString* _Nullable)text;
-- (NSString* _Nonnull)createVideoMessage:(NSString* _Nullable)videoPath videoType:(NSString* _Nullable)videoType duration:(int64_t)duration snapshotPath:(NSString* _Nullable)snapshotPath;
-- (NSString* _Nonnull)createVideoMessageByURL:(NSString* _Nullable)videoBaseInfo;
-- (NSString* _Nonnull)createVideoMessageFromFullPath:(NSString* _Nullable)videoFullPath videoType:(NSString* _Nullable)videoType duration:(int64_t)duration snapshotFullPath:(NSString* _Nullable)snapshotFullPath;
-- (void)delCh:(NSString* _Nullable)msgIncr;
-- (void)deleteConversation:(NSString* _Nullable)conversationID callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)deleteFromBlackList:(id<Open_im_sdkBase> _Nullable)callback deleteUid:(NSString* _Nullable)deleteUid;
-- (void)deleteFromFriendList:(NSString* _Nullable)deleteUid callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)deleteMessageFromLocalStorage:(id<Open_im_sdkBase> _Nullable)callback message:(NSString* _Nullable)message;
-- (void)findMessages:(id<Open_im_sdkBase> _Nullable)callback messageIDList:(NSString* _Nullable)messageIDList;
-- (void)forceReConn;
-- (void)forceSyncApplyGroupRequest;
-- (void)forceSyncBlackList;
-- (void)forceSyncFriend;
-- (void)forceSyncFriendApplication;
-- (void)forceSyncGroupRequest;
-- (void)forceSyncJoinedGroup;
-- (void)forceSyncJoinedGroupMember;
-- (void)forceSyncLoginUserInfo;
-- (BOOL)forceSyncMsg;
-- (NSString* _Nonnull)genMsgIncr;
-- (void)getAllConversationList:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getBlackList:(id<Open_im_sdkBase> _Nullable)callback;
-// skipped method UserRelated.GetCh with unsupported parameter or return types
-
-- (void)getConversationListSplit:(id<Open_im_sdkBase> _Nullable)callback offset:(long)offset count:(long)count;
-- (void)getConversationRecvMessageOpt:(id<Open_im_sdkBase> _Nullable)callback conversationIDList:(NSString* _Nullable)conversationIDList;
-- (void)getFriendApplicationList:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getFriendList:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getFriendsInfo:(id<Open_im_sdkBase> _Nullable)callback uidList:(NSString* _Nullable)uidList;
-- (void)getGroupApplicationList:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getGroupMemberList:(NSString* _Nullable)groupId filter:(int32_t)filter next:(int32_t)next callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getGroupMembersInfo:(NSString* _Nullable)groupId userList:(NSString* _Nullable)userList callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getGroupsInfo:(NSString* _Nullable)groupIdList callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getHistoryMessageList:(id<Open_im_sdkBase> _Nullable)callback getMessageOptions:(NSString* _Nullable)getMessageOptions;
-- (void)getJoinedGroupList:(id<Open_im_sdkBase> _Nullable)callback;
-- (long)getLoginStatus;
-- (NSString* _Nonnull)getLoginUser;
-- (int64_t)getMinSeqSvr;
-- (void)getMultipleConversation:(NSString* _Nullable)conversationIDList callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getOneConversation:(NSString* _Nullable)sourceID sessionType:(long)sessionType callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getTotalUnreadMsgCount:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)getUsersInfo:(NSString* _Nullable)uIDList cb:(id<Open_im_sdkBase> _Nullable)cb;
-// skipped method UserRelated.GroupApplicationProcessedCallback with unsupported parameter or return types
-
-- (BOOL)initSDK:(NSString* _Nullable)config cb:(id<Open_im_sdkIMSDKListener> _Nullable)cb;
-- (NSString* _Nonnull)insertGroupMessageToLocalStorage:(id<Open_im_sdkBase> _Nullable)callback message:(NSString* _Nullable)message groupID:(NSString* _Nullable)groupID sender:(NSString* _Nullable)sender;
-- (NSString* _Nonnull)insertSingleMessageToLocalStorage:(id<Open_im_sdkBase> _Nullable)callback message:(NSString* _Nullable)message userID:(NSString* _Nullable)userID sender:(NSString* _Nullable)sender;
-- (void)inviteUserToGroup:(NSString* _Nullable)groupId reason:(NSString* _Nullable)reason userList:(NSString* _Nullable)userList callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)joinGroup:(NSString* _Nullable)groupId message:(NSString* _Nullable)message callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)kickGroupMember:(NSString* _Nullable)groupId reason:(NSString* _Nullable)reason userList:(NSString* _Nullable)userList callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)login:(NSString* _Nullable)uid tk:(NSString* _Nullable)tk callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)logout:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)markC2CMessageAsRead:(id<Open_im_sdkBase> _Nullable)callback receiver:(NSString* _Nullable)receiver msgIDList:(NSString* _Nullable)msgIDList;
-- (void)markGroupMessageHasRead:(id<Open_im_sdkBase> _Nullable)callback groupID:(NSString* _Nullable)groupID;
-/**
- * Deprecated
- */
-- (void)markSingleMessageHasRead:(id<Open_im_sdkBase> _Nullable)callback userID:(NSString* _Nullable)userID;
-// skipped method UserRelated.OnMemberInvited with unsupported parameter or return types
-
-// skipped method UserRelated.OnMemberKicked with unsupported parameter or return types
-
-- (void)pinConversation:(NSString* _Nullable)conversationID isPinned:(BOOL)isPinned callback:(id<Open_im_sdkBase> _Nullable)callback;
-// skipped method UserRelated.Prepare with unsupported parameter or return types
-
-// skipped method UserRelated.Query with unsupported parameter or return types
-
-- (void)quitGroup:(NSString* _Nullable)groupId callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)refuseFriendApplication:(id<Open_im_sdkBase> _Nullable)callback uid:(NSString* _Nullable)uid;
-- (void)refuseGroupApplication:(NSString* _Nullable)application reason:(NSString* _Nullable)reason callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (BOOL)resetConversation:(NSString* _Nullable)conversationID error:(NSError* _Nullable* _Nullable)error;
-- (void)revokeMessage:(id<Open_im_sdkBase> _Nullable)callback message:(NSString* _Nullable)message;
-- (NSString* _Nonnull)sendMessage:(id<Open_im_sdkSendMsgCallBack> _Nullable)callback message:(NSString* _Nullable)message receiver:(NSString* _Nullable)receiver groupID:(NSString* _Nullable)groupID onlineUserOnly:(BOOL)onlineUserOnly;
-- (NSString* _Nonnull)sendMessageNotOss:(id<Open_im_sdkSendMsgCallBack> _Nullable)callback message:(NSString* _Nullable)message receiver:(NSString* _Nullable)receiver groupID:(NSString* _Nullable)groupID onlineUserOnly:(BOOL)onlineUserOnly;
-- (void)setConversationDraft:(NSString* _Nullable)conversationID draftText:(NSString* _Nullable)draftText callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)setConversationListener:(id<Open_im_sdkOnConversationListener> _Nullable)listener;
-- (void)setConversationRecvMessageOpt:(id<Open_im_sdkBase> _Nullable)callback conversationIDList:(NSString* _Nullable)conversationIDList opt:(long)opt;
-- (void)setFriendInfo:(NSString* _Nullable)comment callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (BOOL)setFriendListener:(id<Open_im_sdkOnFriendshipListener> _Nullable)listener;
-- (void)setGroupInfo:(NSString* _Nullable)jsonGroupInfo callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)setGroupListener:(id<Open_im_sdkOnGroupListener> _Nullable)callback;
-- (void)setMinSeqSvr:(int64_t)minSeqSvr;
-- (void)setSelfInfo:(NSString* _Nullable)info cb:(id<Open_im_sdkBase> _Nullable)cb;
-- (void)transferGroupOwner:(NSString* _Nullable)groupId userId:(NSString* _Nullable)userId callback:(id<Open_im_sdkBase> _Nullable)callback;
-- (void)typingStatusUpdate:(NSString* _Nullable)receiver msgTip:(NSString* _Nullable)msgTip;
-- (void)unInitSDK;
-// skipped method UserRelated.WriteMsg with unsupported parameter or return types
-
-@end
-
-@interface Open_im_sdkUserSendMsgReq : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-// skipped field UserSendMsgReq.Options with unsupported type: map[string]int32
-
-@property (nonatomic) NSString* _Nonnull senderNickName;
-@property (nonatomic) NSString* _Nonnull senderFaceURL;
-@property (nonatomic) int32_t platformID;
-@property (nonatomic) int32_t sessionType;
-@property (nonatomic) int32_t msgFrom;
-@property (nonatomic) int32_t contentType;
-@property (nonatomic) NSString* _Nonnull recvID;
-// skipped field UserSendMsgReq.ForceList with unsupported type: []string
-
-@property (nonatomic) NSString* _Nonnull content;
-@property (nonatomic) NSString* _Nonnull clientMsgID;
-// skipped field UserSendMsgReq.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method UserSendMsgReq.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method UserSendMsgReq.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkUserSendMsgResp : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull serverMsgID;
-@property (nonatomic) NSString* _Nonnull clientMsgID;
-@property (nonatomic) int64_t sendTime;
-// skipped field UserSendMsgResp.XXX_NoUnkeyedLiteral with unsupported type: struct{}
-
-@property (nonatomic) NSData* _Nullable xxX_unrecognized;
-@property (nonatomic) int32_t xxX_sizecache;
-// skipped method UserSendMsgResp.Descriptor with unsupported parameter or return types
-
-- (void)protoMessage;
-- (void)reset;
-- (NSString* _Nonnull)string;
-- (void)xxX_DiscardUnknown;
-- (NSData* _Nullable)xxX_Marshal:(NSData* _Nullable)b deterministic:(BOOL)deterministic error:(NSError* _Nullable* _Nullable)error;
-// skipped method UserSendMsgResp.XXX_Merge with unsupported parameter or return types
-
-- (long)xxX_Size;
-- (BOOL)xxX_Unmarshal:(NSData* _Nullable)b error:(NSError* _Nullable* _Nullable)error;
-@end
-
-@interface Open_im_sdkVideoBaseInfo : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull videoPath;
-@property (nonatomic) NSString* _Nonnull videoUUID;
-@property (nonatomic) NSString* _Nonnull videoURL;
-@property (nonatomic) NSString* _Nonnull videoType;
-@property (nonatomic) int64_t videoSize;
-@property (nonatomic) int64_t duration;
-@property (nonatomic) NSString* _Nonnull snapshotPath;
-@property (nonatomic) NSString* _Nonnull snapshotUUID;
-@property (nonatomic) int64_t snapshotSize;
-@property (nonatomic) NSString* _Nonnull snapshotURL;
-@property (nonatomic) int32_t snapshotWidth;
-@property (nonatomic) int32_t snapshotHeight;
-@end
-
-@interface Open_im_sdkWsMsgData : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int32_t platformID;
-@property (nonatomic) int32_t sessionType;
-@property (nonatomic) int32_t msgFrom;
-@property (nonatomic) int32_t contentType;
-@property (nonatomic) NSString* _Nonnull recvID;
-// skipped field WsMsgData.ForceList with unsupported type: []string
-
-@property (nonatomic) NSString* _Nonnull content;
-// skipped field WsMsgData.Options with unsupported type: map[string]interface{}
-
-@property (nonatomic) NSString* _Nonnull clientMsgID;
-// skipped field WsMsgData.OfflineInfo with unsupported type: map[string]interface{}
-
-// skipped field WsMsgData.Ext with unsupported type: map[string]interface{}
-
-@end
-
-@interface Open_im_sdkWsSendMsgResp : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull serverMsgID;
-@property (nonatomic) NSString* _Nonnull clientMsgID;
-@property (nonatomic) int64_t sendTime;
-@end
-
-@interface Open_im_sdkWsSubMsg : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) int64_t sendTime;
-@property (nonatomic) NSString* _Nonnull serverMsgID;
-@property (nonatomic) NSString* _Nonnull clientMsgID;
-@end
-
-FOUNDATION_EXPORT const int64_t Open_im_sdkAcceptFriendApplicationTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkAcceptGroupApplicationTip;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkAcceptGroupTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkAddConOrUpLatMsg;
-FOUNDATION_EXPORT const int64_t Open_im_sdkAddFriendTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkAtText;
-FOUNDATION_EXPORT const int64_t Open_im_sdkCard;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdAcceptFriend;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdAddFriend;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdBlackList;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdDeleteConversation;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdForceSyncFriend;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdForceSyncFriendApplication;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdForceSyncLoginUerInfo;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdForceSyncMsg;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdFriend;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdFriendApplication;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdFroceSyncBlackList;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdGeyLoginUserInfo;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdNewMsgCome;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdReLogin;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdRefuseFriend;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdUnInit;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkCmdUpdateConversation;
-FOUNDATION_EXPORT const int64_t Open_im_sdkCreateGroupTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkCustom;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkDeFaultSuccessMsg;
-FOUNDATION_EXPORT const int64_t Open_im_sdkErrCodeConversation;
-FOUNDATION_EXPORT const int64_t Open_im_sdkErrCodeFriend;
-FOUNDATION_EXPORT const int64_t Open_im_sdkErrCodeGroup;
-FOUNDATION_EXPORT const int64_t Open_im_sdkErrCodeInitLogin;
-FOUNDATION_EXPORT const int64_t Open_im_sdkErrCodeUserInfo;
-FOUNDATION_EXPORT const int64_t Open_im_sdkFile;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkFriendAcceptTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionAcceptGroupApplication;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionApplyJoinGroup;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionCreateGroup;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionInviteUserToGroup;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionKickGroupMember;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionQuitGroup;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionRefuseGroupApplication;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionSetGroupInfo;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupActionTransferGroupOwner;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupChatType;
-/**
- * ///////////////////////////////////////
- */
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupTipBegin;
-FOUNDATION_EXPORT const int64_t Open_im_sdkGroupTipEnd;
-FOUNDATION_EXPORT const int64_t Open_im_sdkHasRead;
-FOUNDATION_EXPORT const int64_t Open_im_sdkHasReadReceipt;
-FOUNDATION_EXPORT const int64_t Open_im_sdkIncrUnread;
-FOUNDATION_EXPORT const int64_t Open_im_sdkInviteUserToGroupTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkJoinGroupTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkKickGroupMemberTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkLocation;
-FOUNDATION_EXPORT const int64_t Open_im_sdkLoginFailed;
-FOUNDATION_EXPORT const int64_t Open_im_sdkLoginSuccess;
-FOUNDATION_EXPORT const int64_t Open_im_sdkLogining;
-FOUNDATION_EXPORT const int64_t Open_im_sdkLogoutCmd;
-FOUNDATION_EXPORT const int64_t Open_im_sdkMaxTotalMsgLen;
-FOUNDATION_EXPORT const int64_t Open_im_sdkMerger;
-FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusHasDeleted;
-FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusRevoked;
-FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusSendFailed;
-FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusSendSuccess;
-/**
- * MsgStatus
- */
-FOUNDATION_EXPORT const int64_t Open_im_sdkMsgStatusSending;
-FOUNDATION_EXPORT const int64_t Open_im_sdkNewCon;
-FOUNDATION_EXPORT const int64_t Open_im_sdkNewConChange;
-FOUNDATION_EXPORT const int64_t Open_im_sdkNotPinned;
-FOUNDATION_EXPORT const int64_t Open_im_sdkNotRead;
-FOUNDATION_EXPORT const int64_t Open_im_sdkNotReceiveMessage;
-FOUNDATION_EXPORT const int64_t Open_im_sdkPicture;
-FOUNDATION_EXPORT const int64_t Open_im_sdkPinned;
-FOUNDATION_EXPORT const int64_t Open_im_sdkQuitGroupTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkQuote;
-/**
- * MsgReceiveOpt
- */
-FOUNDATION_EXPORT const int64_t Open_im_sdkReceiveMessage;
-FOUNDATION_EXPORT const int64_t Open_im_sdkReceiveNotNotifyMessage;
-FOUNDATION_EXPORT const int64_t Open_im_sdkRefuseFriendApplicationTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkRefuseGroupApplicationTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkRevoke;
-FOUNDATION_EXPORT const int64_t Open_im_sdkSdkInit;
-FOUNDATION_EXPORT const int64_t Open_im_sdkSetGroupInfoTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkSetSelfInfoTip;
-/**
- * ///////////////////////////////////
-SessionType
- */
-FOUNDATION_EXPORT const int64_t Open_im_sdkSingleChatType;
-/**
- * ////////////////////////////////////////
- */
-FOUNDATION_EXPORT const int64_t Open_im_sdkSingleTipBegin;
-FOUNDATION_EXPORT const int64_t Open_im_sdkSingleTipEnd;
-FOUNDATION_EXPORT const int64_t Open_im_sdkSysMsgType;
-/**
- * ContentType
- */
-FOUNDATION_EXPORT const int64_t Open_im_sdkText;
-FOUNDATION_EXPORT const int64_t Open_im_sdkTimeOffset;
-FOUNDATION_EXPORT const int64_t Open_im_sdkTokenFailedExpired;
-FOUNDATION_EXPORT const int64_t Open_im_sdkTokenFailedInvalid;
-FOUNDATION_EXPORT const int64_t Open_im_sdkTokenFailedKickedOffline;
-FOUNDATION_EXPORT const int64_t Open_im_sdkTotalUnreadMessageChanged;
-FOUNDATION_EXPORT const int64_t Open_im_sdkTransferGroupOwnerTip;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkTransferGroupTip;
-FOUNDATION_EXPORT const int64_t Open_im_sdkTyping;
-FOUNDATION_EXPORT const int64_t Open_im_sdkUnreadCountSetZero;
-FOUNDATION_EXPORT const int64_t Open_im_sdkUpdateFaceUrlAndNickName;
-FOUNDATION_EXPORT const int64_t Open_im_sdkUpdateLatestMessageChange;
-/**
- * //////////////////////////////////////
-MsgFrom
- */
-FOUNDATION_EXPORT const int64_t Open_im_sdkUserMsgType;
-FOUNDATION_EXPORT const int64_t Open_im_sdkVideo;
-FOUNDATION_EXPORT const int64_t Open_im_sdkVoice;
-FOUNDATION_EXPORT const int64_t Open_im_sdkWSDataError;
-FOUNDATION_EXPORT const int64_t Open_im_sdkWSGetNewestSeq;
-FOUNDATION_EXPORT const int64_t Open_im_sdkWSKickOnlineMsg;
-FOUNDATION_EXPORT const int64_t Open_im_sdkWSPullMsg;
-FOUNDATION_EXPORT const int64_t Open_im_sdkWSPullMsgBySeqList;
-FOUNDATION_EXPORT const int64_t Open_im_sdkWSPushMsg;
-FOUNDATION_EXPORT const int64_t Open_im_sdkWSSendMsg;
-FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkZoomScale;
+#include "Open_im_sdk_callback.objc.h"
 
 @interface Open_im_sdk : NSObject
-+ (int32_t) sdkLogFlag;
-+ (void) setSdkLogFlag:(int32_t)v;
-
-// skipped variable SvrConf with unsupported type: open_im_sdk/open_im_sdk.IMConfig
-
-// skipped variable UserRouterMap with unsupported type: map[string]*open_im_sdk/open_im_sdk.UserRelated
+// skipped variable UserRouterMap with unsupported type: map[string]*open_im_sdk/internal/login.LoginMgr
 
 // skipped variable UserSDKRwLock with unsupported type: sync.RWMutex
 
 @end
 
-FOUNDATION_EXPORT void Open_im_sdkAcceptFriendApplication(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable uid);
+FOUNDATION_EXPORT void Open_im_sdkAcceptFriendApplication(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDHandleMsg);
 
-FOUNDATION_EXPORT void Open_im_sdkAcceptGroupApplication(NSString* _Nullable application, NSString* _Nullable reason, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkAcceptGroupApplication(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable fromUserID, NSString* _Nullable handleMsg);
 
-FOUNDATION_EXPORT void Open_im_sdkAddAdvancedMsgListener(id<Open_im_sdkOnAdvancedMsgListener> _Nullable listener);
+FOUNDATION_EXPORT void Open_im_sdkAddBlack(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable blackUserID);
 
-FOUNDATION_EXPORT void Open_im_sdkAddFriend(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable paramsReq);
+FOUNDATION_EXPORT void Open_im_sdkAddFriend(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDReqMsg);
 
-FOUNDATION_EXPORT void Open_im_sdkAddToBlackList(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable blackUid);
+FOUNDATION_EXPORT void Open_im_sdkCheckFriend(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDList);
 
-FOUNDATION_EXPORT void Open_im_sdkCheckFriend(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable uidList);
+FOUNDATION_EXPORT BOOL Open_im_sdkCheckToken(NSString* _Nullable userID, NSString* _Nullable token, NSError* _Nullable* _Nullable error);
 
-/**
- * func (u *UserRelated) pullOldMsgAndMergeNewMsgByWs(beginSeq int64, endSeq int64) (err error) {
-	LogBegin(beginSeq, endSeq)
-	if beginSeq > endSeq {
-		LogSReturn(nil)
-		return nil
-	}
-	LogBegin("AddCh")
-	msgIncr, ch := u.AddCh()
+FOUNDATION_EXPORT void Open_im_sdkClearC2CHistoryMessage(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userID);
 
-	var wsReq GeneralWsReq
-	wsReq.ReqIdentifier = WSPullMsgBySeqList
-	wsReq.OperationID = operationIDGenerator()
-	wsReq.SendID = u.LoginUid
-	//wsReq.Token = u.token
-	wsReq.MsgIncr = msgIncr
+FOUNDATION_EXPORT void Open_im_sdkClearGroupHistoryMessage(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID);
 
-	var pullMsgReq PullMessageBySeqListReq
-	LogBegin("getNoInSeq ", beginSeq, endSeq)
-	pullMsgReq.SeqList = u.getNotInSeq(beginSeq, endSeq)
-	LogEnd("getNoInSeq ", pullMsgReq.SeqList)
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateCardMessage(NSString* _Nullable operationID, NSString* _Nullable cardInfo);
 
-	wsReq.Data, err = proto.Marshal(&pullMsgReq)
-	if err != nil {
-		sdkLog("Marshl failed ")
-		LogFReturn(err.Error())
-		u.DelCh(msgIncr)
-		return err
-	}
-	LogBegin("WriteMsg ", wsReq.OperationID)
-	err, _ = u.WriteMsg(wsReq)
-	LogEnd("WriteMsg ", wsReq.OperationID, err)
-	if err != nil {
-		sdkLog("close conn, WriteMsg failed ", err.Error())
-		u.DelCh(msgIncr)
-		return err
-	}
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateCustomMessage(NSString* _Nullable operationID, NSString* _Nullable data, NSString* _Nullable extension, NSString* _Nullable description);
 
-	timeout := 10
-	select {
-	case r := <-ch:
-		sdkLog("ws ch recvMsg success: ", wsReq.OperationID)
-		if r.ErrCode != 0 {
-			sdkLog("pull msg failed ", r.ErrCode, r.ErrMsg, wsReq.OperationID)
-			u.DelCh(msgIncr)
-			return errors.New(r.ErrMsg)
-		} else {
-			sdkLog("pull msg success ", wsReq.OperationID)
-			var pullMsg PullUserMsgResp
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateFileMessage(NSString* _Nullable operationID, NSString* _Nullable filePath, NSString* _Nullable fileName);
 
-			pullMsg.ErrCode = 0
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateFileMessageByURL(NSString* _Nullable operationID, NSString* _Nullable fileBaseInfo);
 
-			var pullMsgResp PullMessageBySeqListResp
-			err := proto.Unmarshal(r.Data, &pullMsgResp)
-			if err != nil {
-				sdkLog("Unmarshal failed ", err.Error())
-				LogFReturn(err.Error())
-				return err
-			}
-			pullMsg.Data.Group = pullMsgResp.GroupUserMsg
-			pullMsg.Data.Single = pullMsgResp.SingleUserMsg
-			pullMsg.Data.MaxSeq = pullMsgResp.MaxSeq
-			pullMsg.Data.MinSeq = pullMsgResp.MinSeq
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateFileMessageFromFullPath(NSString* _Nullable operationID, NSString* _Nullable fileFullPath, NSString* _Nullable fileName);
 
-			u.seqMsgMutex.Lock()
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateForwardMessage(NSString* _Nullable operationID, NSString* _Nullable m);
 
-			arrMsg := ArrMsg{}
-			isInmap := false
-			for i := 0; i < len(pullMsg.Data.Single); i++ {
-				for j := 0; j < len(pullMsg.Data.Single[i].List); j++ {
-					sdkLog("open_im pull one msg: |", pullMsg.Data.Single[i].List[j].ClientMsgID, "|")
-					singleMsg := MsgData{
-						SendID:           pullMsg.Data.Single[i].List[j].SendID,
-						RecvID:           pullMsg.Data.Single[i].List[j].RecvID,
-						SessionType:      SingleChatType,
-						MsgFrom:          pullMsg.Data.Single[i].List[j].MsgFrom,
-						ContentType:      pullMsg.Data.Single[i].List[j].ContentType,
-						ServerMsgID:      pullMsg.Data.Single[i].List[j].ServerMsgID,
-						Content:          pullMsg.Data.Single[i].List[j].Content,
-						SendTime:         pullMsg.Data.Single[i].List[j].SendTime,
-						Seq:              pullMsg.Data.Single[i].List[j].Seq,
-						SenderNickName:   pullMsg.Data.Single[i].List[j].SenderNickName,
-						SenderFaceURL:    pullMsg.Data.Single[i].List[j].SenderFaceURL,
-						ClientMsgID:      pullMsg.Data.Single[i].List[j].ClientMsgID,
-						SenderPlatformID: pullMsg.Data.Single[i].List[j].SenderPlatformID,
-					}
-					//	arrMsg.SingleData = append(arrMsg.SingleData, singleMsg)
-					u.seqMsg[pullMsg.Data.Single[i].List[j].Seq] = singleMsg
-					sdkLog("into map, seq: ", pullMsg.Data.Single[i].List[j].Seq, pullMsg.Data.Single[i].List[j].ClientMsgID, pullMsg.Data.Single[i].List[j].ServerMsgID)
-				}
-			}
+FOUNDATION_EXPORT void Open_im_sdkCreateGroup(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupBaseInfo, NSString* _Nullable memberList);
 
-			for i := 0; i < len(pullMsg.Data.Group); i++ {
-				for j := 0; j < len(pullMsg.Data.Group[i].List); j++ {
-					groupMsg := MsgData{
-						SendID:           pullMsg.Data.Group[i].List[j].SendID,
-						RecvID:           pullMsg.Data.Group[i].List[j].RecvID,
-						SessionType:      GroupChatType,
-						MsgFrom:          pullMsg.Data.Group[i].List[j].MsgFrom,
-						ContentType:      pullMsg.Data.Group[i].List[j].ContentType,
-						ServerMsgID:      pullMsg.Data.Group[i].List[j].ServerMsgID,
-						Content:          pullMsg.Data.Group[i].List[j].Content,
-						SendTime:         pullMsg.Data.Group[i].List[j].SendTime,
-						Seq:              pullMsg.Data.Group[i].List[j].Seq,
-						SenderNickName:   pullMsg.Data.Group[i].List[j].SenderNickName,
-						SenderFaceURL:    pullMsg.Data.Group[i].List[j].SenderFaceURL,
-						ClientMsgID:      pullMsg.Data.Group[i].List[j].ClientMsgID,
-						SenderPlatformID: pullMsg.Data.Group[i].List[j].SenderPlatformID,
-					}
-					//	arrMsg.GroupData = append(arrMsg.GroupData, groupMsg)
-					u.seqMsg[pullMsg.Data.Group[i].List[j].Seq] = groupMsg
-					sdkLog("into map, seq: ", pullMsg.Data.Group[i].List[j].Seq, pullMsg.Data.Group[i].List[j].ClientMsgID, pullMsg.Data.Group[i].List[j].ServerMsgID)
-				}
-			}
-			u.seqMsgMutex.Unlock()
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateImageMessage(NSString* _Nullable operationID, NSString* _Nullable imagePath);
 
-			u.seqMsgMutex.RLock()
-			for i := beginSeq; i <= endSeq; i++ {
-				v, ok := u.seqMsg[i]
-				if ok {
-					if v.SessionType == SingleChatType {
-						arrMsg.SingleData = append(arrMsg.SingleData, v)
-						sdkLog("pull seq: ", v.Seq, v)
-						if v.ContentType > SingleTipBegin && v.ContentType < SingleTipEnd {
-							var msgRecv MsgData
-							msgRecv.ContentType = v.ContentType
-							msgRecv.Content = v.Content
-							msgRecv.SendID = v.SendID
-							msgRecv.RecvID = v.RecvID
-							LogBegin("doFriendMsg ", msgRecv)
-							u.doFriendMsg(msgRecv)
-							LogEnd("doFriendMsg ", msgRecv)
-						}
-					} else if v.SessionType == GroupChatType {
-						sdkLog("pull seq: ", v.Seq, v)
-						arrMsg.GroupData = append(arrMsg.GroupData, v)
-						if v.ContentType > GroupTipBegin && v.ContentType < GroupTipEnd {
-							LogBegin("doGroupMsg ", v)
-							u.doGroupMsg(v)
-							LogEnd("doGroupMsg ", v)
-						}
-					} else {
-						sdkLog("type failed, ", v.SessionType, v)
-					}
-				} else {
-					sdkLog("seq no in map, failed, seq: ", i)
-				}
-			}
-			u.seqMsgMutex.RUnlock()
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateImageMessageByURL(NSString* _Nullable operationID, NSString* _Nullable sourcePicture, NSString* _Nullable bigPicture, NSString* _Nullable snapshotPicture);
 
-			sdkLog("triggerCmdNewMsgCome len: ", len(arrMsg.SingleData), len(arrMsg.GroupData))
-			err = u.triggerCmdNewMsgCome(arrMsg)
-			if err != nil {
-				sdkLog("triggerCmdNewMsgCome failed, ", err.Error())
-			}
-			u.DelCh(msgIncr)
-		}
-	case <-time.After(time.Second * time.Duration(timeout)):
-		sdkLog("ws ch recvMsg timeout,", wsReq.OperationID)
-		u.DelCh(msgIncr)
-	}
-	return nil
-}
- */
-FOUNDATION_EXPORT long Open_im_sdkCheckToken(NSString* _Nullable uId, NSString* _Nullable token);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateImageMessageFromFullPath(NSString* _Nullable operationID, NSString* _Nullable imageFullPath);
 
-FOUNDATION_EXPORT void Open_im_sdkClearC2CHistoryMessage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable userID);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateLocationMessage(NSString* _Nullable operationID, NSString* _Nullable description, double longitude, double latitude);
 
-FOUNDATION_EXPORT void Open_im_sdkClearGroupHistoryMessage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable groupID);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateMergerMessage(NSString* _Nullable operationID, NSString* _Nullable messageList, NSString* _Nullable title, NSString* _Nullable summaryList);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateCardMessage(NSString* _Nullable cardInfo);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateQuoteMessage(NSString* _Nullable operationID, NSString* _Nullable text, NSString* _Nullable message);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateCustomMessage(NSString* _Nullable data, NSString* _Nullable extension, NSString* _Nullable description);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateSoundMessage(NSString* _Nullable operationID, NSString* _Nullable soundPath, int64_t duration);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateFileMessage(NSString* _Nullable filePath, NSString* _Nullable fileName);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateSoundMessageByURL(NSString* _Nullable operationID, NSString* _Nullable soundBaseInfo);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateFileMessageByURL(NSString* _Nullable fileBaseInfo);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateSoundMessageFromFullPath(NSString* _Nullable operationID, NSString* _Nullable soundPath, int64_t duration);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateFileMessageFromFullPath(NSString* _Nullable fileFullPath, NSString* _Nullable fileName);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateTextAtMessage(NSString* _Nullable operationID, NSString* _Nullable text, NSString* _Nullable atUserList);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateForwardMessage(NSString* _Nullable m);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateTextMessage(NSString* _Nullable operationID, NSString* _Nullable text);
 
-FOUNDATION_EXPORT void Open_im_sdkCreateGroup(NSString* _Nullable gInfo, NSString* _Nullable memberList, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessage(NSString* _Nullable operationID, NSString* _Nullable videoPath, NSString* _Nullable videoType, int64_t duration, NSString* _Nullable snapshotPath);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateImageMessage(NSString* _Nullable imagePath);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessageByURL(NSString* _Nullable operationID, NSString* _Nullable videoBaseInfo);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateImageMessageByURL(NSString* _Nullable sourcePicture, NSString* _Nullable bigPicture, NSString* _Nullable snapshotPicture);
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessageFromFullPath(NSString* _Nullable operationID, NSString* _Nullable videoFullPath, NSString* _Nullable videoType, int64_t duration, NSString* _Nullable snapshotFullPath);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateImageMessageFromFullPath(NSString* _Nullable imageFullPath);
+FOUNDATION_EXPORT void Open_im_sdkDeleteConversation(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable conversationID);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateLocationMessage(NSString* _Nullable description, double longitude, double latitude);
+FOUNDATION_EXPORT void Open_im_sdkDeleteFriend(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable friendUserID);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateMergerMessage(NSString* _Nullable messageList, NSString* _Nullable title, NSString* _Nullable summaryList);
+FOUNDATION_EXPORT void Open_im_sdkDeleteMessageFromLocalStorage(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable message);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateQuoteMessage(NSString* _Nullable text, NSString* _Nullable message);
+FOUNDATION_EXPORT void Open_im_sdkGetAllConversationList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateSoundMessage(NSString* _Nullable soundPath, int64_t duration);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateSoundMessageByURL(NSString* _Nullable soundBaseInfo);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateSoundMessageFromFullPath(NSString* _Nullable soundPath, int64_t duration);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateTextAtMessage(NSString* _Nullable text, NSString* _Nullable atUserList);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateTextMessage(NSString* _Nullable text);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessage(NSString* _Nullable videoPath, NSString* _Nullable videoType, int64_t duration, NSString* _Nullable snapshotPath);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessageByURL(NSString* _Nullable videoBaseInfo);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessageFromFullPath(NSString* _Nullable videoFullPath, NSString* _Nullable videoType, int64_t duration, NSString* _Nullable snapshotFullPath);
-
-// skipped function Debug with unsupported parameter or return types
-
-
-// skipped function DebugByKv with unsupported parameter or return types
-
-
-FOUNDATION_EXPORT void Open_im_sdkDeleteConversation(NSString* _Nullable conversationID, id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT void Open_im_sdkDeleteFromBlackList(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable deleteUid);
-
-FOUNDATION_EXPORT void Open_im_sdkDeleteFromFriendList(NSString* _Nullable deleteUid, id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT void Open_im_sdkDeleteMessageFromLocalStorage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable message);
-
-// skipped function Error with unsupported parameter or return types
-
-
-// skipped function ErrorByArgs with unsupported parameter or return types
-
-
-// skipped function ErrorByKv with unsupported parameter or return types
-
-
-FOUNDATION_EXPORT void Open_im_sdkFindMessages(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable messageIDList);
-
-FOUNDATION_EXPORT void Open_im_sdkForceSyncLoginUerInfo(void);
-
-FOUNDATION_EXPORT BOOL Open_im_sdkForceSyncMsg(void);
-
-FOUNDATION_EXPORT void Open_im_sdkGetAllConversationList(id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT void Open_im_sdkGetBlackList(id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetBlackList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkGetConversationIDBySessionType(NSString* _Nullable sourceID, long sessionType);
 
-FOUNDATION_EXPORT void Open_im_sdkGetConversationListSplit(id<Open_im_sdkBase> _Nullable callback, long offset, long count);
+FOUNDATION_EXPORT void Open_im_sdkGetConversationListSplit(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, long offset, long count);
 
-FOUNDATION_EXPORT void Open_im_sdkGetConversationRecvMessageOpt(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable conversationIDList);
+FOUNDATION_EXPORT void Open_im_sdkGetConversationRecvMessageOpt(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable conversationIDList);
 
-/**
- * Get the current timestamp by Mill
- */
-FOUNDATION_EXPORT int64_t Open_im_sdkGetCurrentTimestampByMill(void);
+FOUNDATION_EXPORT void Open_im_sdkGetDesignatedFriendsInfo(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDList);
 
-FOUNDATION_EXPORT void Open_im_sdkGetFriendApplicationList(id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetFriendList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
-FOUNDATION_EXPORT void Open_im_sdkGetFriendList(id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetGroupMemberList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, int32_t filter, int32_t offset, int32_t count);
 
-FOUNDATION_EXPORT void Open_im_sdkGetFriendsInfo(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable uidList);
+FOUNDATION_EXPORT void Open_im_sdkGetGroupMembersInfo(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable userIDList);
 
-FOUNDATION_EXPORT void Open_im_sdkGetGroupApplicationList(id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetGroupsInfo(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupIDList);
 
-FOUNDATION_EXPORT void Open_im_sdkGetGroupMemberList(NSString* _Nullable groupId, int32_t filter, int32_t next, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetHistoryMessageList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable getMessageOptions);
 
-FOUNDATION_EXPORT void Open_im_sdkGetGroupMembersInfo(NSString* _Nullable groupId, NSString* _Nullable userList, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetJoinedGroupList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
-FOUNDATION_EXPORT void Open_im_sdkGetGroupsInfo(NSString* _Nullable groupIdList, id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT void Open_im_sdkGetHistoryMessageList(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable getMessageOptions);
-
-FOUNDATION_EXPORT void Open_im_sdkGetJoinedGroupList(id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT long Open_im_sdkGetLoginStatus(void);
+FOUNDATION_EXPORT int32_t Open_im_sdkGetLoginStatus(void);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkGetLoginUser(void);
 
-FOUNDATION_EXPORT void Open_im_sdkGetMultipleConversation(NSString* _Nullable conversationIDList, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetMultipleConversation(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable conversationIDList);
 
-FOUNDATION_EXPORT void Open_im_sdkGetOneConversation(NSString* _Nullable sourceID, long sessionType, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetOneConversation(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, long sessionType, NSString* _Nullable sourceID);
 
-FOUNDATION_EXPORT void Open_im_sdkGetTotalUnreadMsgCount(id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkGetRecvFriendApplicationList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
-FOUNDATION_EXPORT Open_im_sdkUserRelated* _Nullable Open_im_sdkGetUserWorker(NSString* _Nullable uid);
+FOUNDATION_EXPORT void Open_im_sdkGetRecvGroupApplicationList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
-FOUNDATION_EXPORT void Open_im_sdkGetUsersInfo(NSString* _Nullable uIDList, id<Open_im_sdkBase> _Nullable cb);
+FOUNDATION_EXPORT void Open_im_sdkGetSelfUserInfo(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
-// skipped function Info with unsupported parameter or return types
+FOUNDATION_EXPORT void Open_im_sdkGetSendFriendApplicationList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
+FOUNDATION_EXPORT void Open_im_sdkGetSendGroupApplicationList(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
-// skipped function InfoByArgs with unsupported parameter or return types
+FOUNDATION_EXPORT void Open_im_sdkGetTotalUnreadMsgCount(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
-
-// skipped function InfoByKv with unsupported parameter or return types
-
-
-FOUNDATION_EXPORT BOOL Open_im_sdkInitOnce(Open_im_sdkIMConfig* _Nullable config);
-
-FOUNDATION_EXPORT BOOL Open_im_sdkInitSDK(NSString* _Nullable config, id<Open_im_sdkIMSDKListener> _Nullable cb);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkInsertSingleMessageToLocalStorage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable message, NSString* _Nullable userID, NSString* _Nullable sender);
-
-FOUNDATION_EXPORT void Open_im_sdkInviteUserToGroup(NSString* _Nullable groupId, NSString* _Nullable reason, NSString* _Nullable userList, id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT BOOL Open_im_sdkIsNil(void);
-
-FOUNDATION_EXPORT void Open_im_sdkJoinGroup(NSString* _Nullable groupId, NSString* _Nullable message, id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT void Open_im_sdkKickGroupMember(NSString* _Nullable groupId, NSString* _Nullable reason, NSString* _Nullable userList, id<Open_im_sdkBase> _Nullable callback);
-
-// skipped function LogBegin with unsupported parameter or return types
-
-
-// skipped function LogEnd with unsupported parameter or return types
-
-
-// skipped function LogFReturn with unsupported parameter or return types
-
-
-// skipped function LogSReturn with unsupported parameter or return types
-
-
-// skipped function LogStart with unsupported parameter or return types
-
-
-FOUNDATION_EXPORT void Open_im_sdkLogin(NSString* _Nullable uid, NSString* _Nullable tk, id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT void Open_im_sdkLogout(id<Open_im_sdkBase> _Nullable callback);
-
-FOUNDATION_EXPORT void Open_im_sdkMarkC2CMessageAsRead(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable receiver, NSString* _Nullable msgIDList);
-
-FOUNDATION_EXPORT void Open_im_sdkMarkGroupMessageHasRead(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable groupID);
-
-/**
- * Deprecated
- */
-FOUNDATION_EXPORT void Open_im_sdkMarkSingleMessageHasRead(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable userID);
-
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkMd5(NSString* _Nullable s);
-
-// skipped function NewDebug with unsupported parameter or return types
-
-
-// skipped function NewError with unsupported parameter or return types
-
-
-// skipped function NewInfo with unsupported parameter or return types
-
-
-// skipped function NewLfsHook with unsupported parameter or return types
+// skipped function GetUserWorker with unsupported parameter or return types
 
 
 /**
- * func init() {
-	logger = loggerInit("")
-
-}
+ * /////////////////////user/////////////////////
  */
-FOUNDATION_EXPORT void Open_im_sdkNewPrivateLog(NSString* _Nullable moduleName);
+FOUNDATION_EXPORT void Open_im_sdkGetUsersInfo(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDList);
 
-// skipped function NewWarn with unsupported parameter or return types
-
-
-FOUNDATION_EXPORT void Open_im_sdkPinConversation(NSString* _Nullable conversationID, BOOL isPinned, id<Open_im_sdkBase> _Nullable callback);
-
-// skipped function Post2Api with unsupported parameter or return types
+// skipped function InitOnce with unsupported parameter or return types
 
 
-FOUNDATION_EXPORT void Open_im_sdkQuitGroup(NSString* _Nullable groupId, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT BOOL Open_im_sdkInitSDK(id<Open_im_sdk_callbackOnConnListener> _Nullable listener, NSString* _Nullable operationID, NSString* _Nullable config);
 
-FOUNDATION_EXPORT void Open_im_sdkRefuseFriendApplication(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable uid);
+FOUNDATION_EXPORT void Open_im_sdkInsertSingleMessageToLocalStorage(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable message, NSString* _Nullable recvID, NSString* _Nullable sendID);
 
-FOUNDATION_EXPORT void Open_im_sdkRefuseGroupApplication(NSString* _Nullable application, NSString* _Nullable reason, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkInviteUserToGroup(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable reason, NSString* _Nullable userIDList);
 
-FOUNDATION_EXPORT void Open_im_sdkRevokeMessage(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable message);
+FOUNDATION_EXPORT void Open_im_sdkJoinGroup(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable reqMsg);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkRunFuncName(void);
+FOUNDATION_EXPORT void Open_im_sdkKickGroupMember(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable reason, NSString* _Nullable userIDList);
+
+FOUNDATION_EXPORT void Open_im_sdkLogin(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userID, NSString* _Nullable token);
+
+FOUNDATION_EXPORT void Open_im_sdkLogout(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
+
+FOUNDATION_EXPORT void Open_im_sdkMarkC2CMessageAsRead(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userID, NSString* _Nullable msgIDList);
+
+FOUNDATION_EXPORT void Open_im_sdkMarkGroupMessageHasRead(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID);
+
+FOUNDATION_EXPORT void Open_im_sdkPinConversation(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable conversationID, BOOL isPinned);
+
+FOUNDATION_EXPORT void Open_im_sdkQuitGroup(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID);
+
+FOUNDATION_EXPORT void Open_im_sdkRefuseFriendApplication(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDHandleMsg);
+
+FOUNDATION_EXPORT void Open_im_sdkRefuseGroupApplication(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable fromUserID, NSString* _Nullable handleMsg);
+
+FOUNDATION_EXPORT void Open_im_sdkRemoveBlack(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable removeUserID);
+
+FOUNDATION_EXPORT void Open_im_sdkRevokeMessage(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable message);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkSdkVersion(void);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkSendMessage(id<Open_im_sdkSendMsgCallBack> _Nullable callback, NSString* _Nullable message, NSString* _Nullable receiver, NSString* _Nullable groupID, BOOL onlineUserOnly);
+FOUNDATION_EXPORT void Open_im_sdkSendMessage(id<Open_im_sdk_callbackSendMsgCallBack> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable message, NSString* _Nullable recvID, NSString* _Nullable groupID, NSString* _Nullable offlinePushInfo);
 
-FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkSendMessageNotOss(id<Open_im_sdkSendMsgCallBack> _Nullable callback, NSString* _Nullable message, NSString* _Nullable receiver, NSString* _Nullable groupID, BOOL onlineUserOnly);
+FOUNDATION_EXPORT void Open_im_sdkSendMessageNotOss(id<Open_im_sdk_callbackSendMsgCallBack> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable message, NSString* _Nullable recvID, NSString* _Nullable groupID, NSString* _Nullable offlinePushInfo);
 
-FOUNDATION_EXPORT void Open_im_sdkSetConversationDraft(NSString* _Nullable conversationID, NSString* _Nullable draftText, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkSetAdvancedMsgListener(id<Open_im_sdk_callbackOnAdvancedMsgListener> _Nullable listener);
 
-FOUNDATION_EXPORT void Open_im_sdkSetConversationListener(id<Open_im_sdkOnConversationListener> _Nullable listener);
+FOUNDATION_EXPORT void Open_im_sdkSetConversationDraft(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable conversationID, NSString* _Nullable draftText);
 
-FOUNDATION_EXPORT void Open_im_sdkSetConversationRecvMessageOpt(id<Open_im_sdkBase> _Nullable callback, NSString* _Nullable conversationIDList, long opt);
+FOUNDATION_EXPORT void Open_im_sdkSetConversationListener(id<Open_im_sdk_callbackOnConversationListener> _Nullable listener);
 
-FOUNDATION_EXPORT void Open_im_sdkSetFriendInfo(NSString* _Nullable comment, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkSetConversationRecvMessageOpt(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable conversationIDList, long opt);
 
-FOUNDATION_EXPORT BOOL Open_im_sdkSetFriendListener(id<Open_im_sdkOnFriendshipListener> _Nullable listener);
+FOUNDATION_EXPORT void Open_im_sdkSetFriendListener(id<Open_im_sdk_callbackOnFriendshipListener> _Nullable listener);
 
-FOUNDATION_EXPORT void Open_im_sdkSetGroupInfo(NSString* _Nullable jsonGroupInfo, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkSetFriendRemark(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDRemark);
 
-FOUNDATION_EXPORT void Open_im_sdkSetGroupListener(id<Open_im_sdkOnGroupListener> _Nullable callback);
-
-FOUNDATION_EXPORT void Open_im_sdkSetHearbeatInterval(int32_t interval);
+FOUNDATION_EXPORT void Open_im_sdkSetGroupInfo(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable groupInfo);
 
 /**
- * 1 no print
+ * ////////////////////////group//////////////////////////////////////////
  */
-FOUNDATION_EXPORT void Open_im_sdkSetSdkLog(int32_t flag);
+FOUNDATION_EXPORT void Open_im_sdkSetGroupListener(id<Open_im_sdk_callbackOnGroupListener> _Nullable callback);
 
-FOUNDATION_EXPORT void Open_im_sdkSetSelfInfo(NSString* _Nullable info, id<Open_im_sdkBase> _Nullable cb);
+FOUNDATION_EXPORT void Open_im_sdkSetSelfInfo(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userInfo);
 
-FOUNDATION_EXPORT int64_t Open_im_sdkStringToInt64(NSString* _Nullable i);
+FOUNDATION_EXPORT void Open_im_sdkSetUserListener(id<Open_im_sdk_callbackOnUserListener> _Nullable listener);
 
-FOUNDATION_EXPORT void Open_im_sdkTransferGroupOwner(NSString* _Nullable groupId, NSString* _Nullable userId, id<Open_im_sdkBase> _Nullable callback);
+FOUNDATION_EXPORT void Open_im_sdkTransferGroupOwner(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable newOwnerUserID);
 
-FOUNDATION_EXPORT void Open_im_sdkTypingStatusUpdate(NSString* _Nullable receiver, NSString* _Nullable msgTip);
+FOUNDATION_EXPORT void Open_im_sdkTypingStatusUpdate(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable recvID, NSString* _Nullable msgTip);
 
-FOUNDATION_EXPORT void Open_im_sdkUnInitSDK(void);
-
-// skipped function UnixSecondToTime with unsupported parameter or return types
-
-
-// skipped function WarnByKv with unsupported parameter or return types
-
-
-// skipped function Warning with unsupported parameter or return types
-
-
-@class Open_im_sdkBase;
-
-@class Open_im_sdkIMSDKListener;
-
-@class Open_im_sdkOnAdvancedMsgListener;
-
-@class Open_im_sdkOnConversationListener;
-
-@class Open_im_sdkOnFriendshipListener;
-
-@class Open_im_sdkOnGroupListener;
-
-@class Open_im_sdkSendMsgCallBack;
-
-@interface Open_im_sdkBase : NSObject <goSeqRefInterface, Open_im_sdkBase> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (void)onError:(long)errCode errMsg:(NSString* _Nullable)errMsg;
-- (void)onSuccess:(NSString* _Nullable)data;
-@end
-
-@interface Open_im_sdkIMSDKListener : NSObject <goSeqRefInterface, Open_im_sdkIMSDKListener> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (void)onConnectFailed:(long)ErrCode ErrMsg:(NSString* _Nullable)ErrMsg;
-- (void)onConnectSuccess;
-- (void)onConnecting;
-- (void)onKickedOffline;
-- (void)onSelfInfoUpdated:(NSString* _Nullable)userInfo;
-- (void)onUserTokenExpired;
-@end
-
-@interface Open_im_sdkOnAdvancedMsgListener : NSObject <goSeqRefInterface, Open_im_sdkOnAdvancedMsgListener> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (void)onRecvC2CReadReceipt:(NSString* _Nullable)msgReceiptList;
-- (void)onRecvMessageRevoked:(NSString* _Nullable)msgId;
-- (void)onRecvNewMessage:(NSString* _Nullable)message;
-@end
-
-@interface Open_im_sdkOnConversationListener : NSObject <goSeqRefInterface, Open_im_sdkOnConversationListener> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (void)onConversationChanged:(NSString* _Nullable)conversationList;
-- (void)onNewConversation:(NSString* _Nullable)conversationList;
-- (void)onSyncServerFailed;
-- (void)onSyncServerFinish;
-- (void)onSyncServerStart;
-- (void)onTotalUnreadMessageCountChanged:(int32_t)totalUnreadCount;
-@end
-
-@interface Open_im_sdkOnFriendshipListener : NSObject <goSeqRefInterface, Open_im_sdkOnFriendshipListener> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (void)onBlackListAdd:(NSString* _Nullable)userInfo;
-- (void)onBlackListDeleted:(NSString* _Nullable)userInfo;
-- (void)onFriendApplicationListAccept:(NSString* _Nullable)applyUserInfo;
-- (void)onFriendApplicationListAdded:(NSString* _Nullable)applyUserInfo;
-- (void)onFriendApplicationListDeleted:(NSString* _Nullable)applyUserInfo;
-- (void)onFriendApplicationListReject:(NSString* _Nullable)applyUserInfo;
-- (void)onFriendInfoChanged:(NSString* _Nullable)friendInfo;
-- (void)onFriendListAdded:(NSString* _Nullable)friendInfo;
-- (void)onFriendListDeleted:(NSString* _Nullable)friendInfo;
-@end
-
-@interface Open_im_sdkOnGroupListener : NSObject <goSeqRefInterface, Open_im_sdkOnGroupListener> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (void)onApplicationProcessed:(NSString* _Nullable)groupId opUser:(NSString* _Nullable)opUser AgreeOrReject:(int32_t)AgreeOrReject opReason:(NSString* _Nullable)opReason;
-- (void)onGroupCreated:(NSString* _Nullable)groupId;
-- (void)onGroupInfoChanged:(NSString* _Nullable)groupId groupInfo:(NSString* _Nullable)groupInfo;
-- (void)onMemberEnter:(NSString* _Nullable)groupId memberList:(NSString* _Nullable)memberList;
-- (void)onMemberInvited:(NSString* _Nullable)groupId opUser:(NSString* _Nullable)opUser memberList:(NSString* _Nullable)memberList;
-- (void)onMemberKicked:(NSString* _Nullable)groupId opUser:(NSString* _Nullable)opUser memberList:(NSString* _Nullable)memberList;
-- (void)onMemberLeave:(NSString* _Nullable)groupId member:(NSString* _Nullable)member;
-- (void)onReceiveJoinApplication:(NSString* _Nullable)groupId member:(NSString* _Nullable)member opReason:(NSString* _Nullable)opReason;
-@end
-
-@interface Open_im_sdkSendMsgCallBack : NSObject <goSeqRefInterface, Open_im_sdkSendMsgCallBack> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (void)onError:(long)errCode errMsg:(NSString* _Nullable)errMsg;
-- (void)onProgress:(long)progress;
-- (void)onSuccess:(NSString* _Nullable)data;
-@end
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkUploadImage(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable filePath, NSString* _Nullable token, NSString* _Nullable obj);
 
 #endif

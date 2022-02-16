@@ -10,20 +10,19 @@ import OpenIMCore
 
 public class MessageManager: BaseServiceManager {
     private let KEY_ID: String = "id"
-    private var listeners: [String: AdvancedMsgListener] = [:]
+    // private var listeners: [String: AdvancedMsgListener] = [:]
     
     public override func registerHandlers() {
         super.registerHandlers()
         
-        self["addAdvancedMsgListener"] = addAdvancedMsgListener
-        self["removeAdvancedMsgListener"] = removeAdvancedMsgListener
+        self["setAdvancedMsgListener"] = setAdvancedMsgListener
         self["sendMessage"] = sendMessage
         self["getHistoryMessageList"] = getHistoryMessageList
         self["revokeMessage"] = revokeMessage
         self["deleteMessageFromLocalStorage"] = deleteMessageFromLocalStorage
         self["deleteMessages"] = deleteMessages
         self["insertSingleMessageToLocalStorage"] = insertSingleMessageToLocalStorage
-        self["findMessages"] = findMessages
+        // self["findMessages"] = findMessages
         self["markC2CMessageAsRead"] = markC2CMessageAsRead
         self["typingStatusUpdate"] = typingStatusUpdate
         self["createTextMessage"] = createTextMessage
@@ -35,56 +34,41 @@ public class MessageManager: BaseServiceManager {
         self["createVideoMessage"] = createVideoMessage
         self["createVideoMessageFromFullPath"] = createVideoMessageFromFullPath
         self["createFileMessage"] = createFileMessage
+        self["createFileMessageFromFullPath"] = createFileMessageFromFullPath
         self["createMergerMessage"] = createMergerMessage
         self["createForwardMessage"] = createForwardMessage
         self["createLocationMessage"] = createLocationMessage
         self["createCustomMessage"] = createCustomMessage
         self["createQuoteMessage"] = createQuoteMessage
         self["createCardMessage"] = createCardMessage
-        self["forceSyncMsg"] = forceSyncMsg
+        // self["forceSyncMsg"] = forceSyncMsg
         self["clearC2CHistoryMessage"] = clearC2CHistoryMessage
         self["clearGroupHistoryMessage"] = clearGroupHistoryMessage
     }
     
-    func addAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+    func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let key = methodCall[string: KEY_ID]
-        if listeners[key] == nil {
-            let lis = AdvancedMsgListener(channel: channel, id: key)
-            listeners[key] = lis
-            Open_im_sdkAddAdvancedMsgListener(lis)
-            print("=================add msg listener======\n\(lis)")
-        }
-        callBack(result)
-    }
-    
-    func removeAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let key = methodCall[string: KEY_ID]
-        if let lis = listeners[key] {
-            listeners[key] = nil
-//             Open_im_sdkRemoveAdvancedMsgListener(lis)
-        }
+        let lis = AdvancedMsgListener(channel: channel, id: key)
+        open_im_sdkSetAdvancedMsgListener(lis)
         callBack(result)
     }
     
     func sendMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let sendMsgProgressListener: SendMsgProgressListener = SendMsgProgressListener(channel: channel,result: result,methodCall: methodCall)
-//         sendMsgProgressListener.setCall(methodCall: methodCall)
-//         sendMsgProgressListener.setResult(result: result)
-        print("===============sendMessage===============")
-        Open_im_sdkSendMessage(sendMsgProgressListener, methodCall[jsonString: "message"], methodCall[string: "userID"],
-                               methodCall[string: "groupID"], methodCall[bool: "onlineUserOnly"])
+        Open_im_sdkSendMessage(sendMsgProgressListener, methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[string: "userID"],
+                               methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"])
     }
     
     func getHistoryMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetHistoryMessageList(BaseCallback(result: result), methodCall.toJsonString())
+        Open_im_sdkGetHistoryMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
     func revokeMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkRevokeMessage(BaseCallback(result: result), methodCall.toJsonString())
+        Open_im_sdkRevokeMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
     func deleteMessageFromLocalStorage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteMessageFromLocalStorage(BaseCallback(result: result), methodCall.toJsonString())
+        Open_im_sdkDeleteMessageFromLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
     // deprecated
@@ -92,112 +76,111 @@ public class MessageManager: BaseServiceManager {
     }
     
     func insertSingleMessageToLocalStorage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkInsertSingleMessageToLocalStorage(BaseCallback(result: result), methodCall[jsonString: "message"],
+        Open_im_sdkInsertSingleMessageToLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"],
                                                      methodCall[string: "receiverID"], methodCall[string: "senderID"])
     }
     
-    func findMessages(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkFindMessages(BaseCallback(result: result), methodCall[jsonString: "messageIDList"])
-    }
+    // func findMessages(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+    //     Open_im_sdkFindMessages(BaseCallback(result: result), methodCall[jsonString: "messageIDList"])
+    // }
 
     func markC2CMessageAsRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkMarkC2CMessageAsRead(BaseCallback(result: result), methodCall[string: "userID"], methodCall[jsonString: "messageIDList"])
+        Open_im_sdkMarkC2CMessageAsRead(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"], methodCall[jsonString: "messageIDList"])
     }
 
     func typingStatusUpdate(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkTypingStatusUpdate(methodCall[string: "userID"], methodCall[string: "typing"])
-        callBack(result)
+        Open_im_sdkTypingStatusUpdate(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"], methodCall[string: "msgTip"])
     }
 
     func createTextMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateTextMessage(methodCall[string: "text"]))
+        callBack(result, Open_im_sdkCreateTextMessage(methodCall[string: "operationID"], methodCall[string: "text"]))
     }
     
     func createTextAtMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateTextAtMessage(methodCall[string: "text"], methodCall[jsonString: "atUserList"]))
+        callBack(result, Open_im_sdkCreateTextAtMessage(methodCall[string: "operationID"], methodCall[string: "text"], methodCall[jsonString: "atUserList"]))
     }
     
     func createImageMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateImageMessage(methodCall[string: "imagePath"]))
+        callBack(result, Open_im_sdkCreateImageMessage(methodCall[string: "operationID"], methodCall[string: "imagePath"]))
     }
     
     func createImageMessageFromFullPath(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateImageMessageFromFullPath(methodCall[string: "imagePath"]))
+        callBack(result, Open_im_sdkCreateImageMessageFromFullPath(methodCall[string: "operationID"], methodCall[string: "imagePath"]))
     }
     
     func createSoundMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateSoundMessage(methodCall[string: "soundPath"], methodCall[int64: "duration"]))
+        callBack(result, Open_im_sdkCreateSoundMessage(methodCall[string: "operationID"], methodCall[string: "soundPath"], methodCall[int64: "duration"]))
     }
     
     func createSoundMessageFromFullPath(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateSoundMessageFromFullPath(methodCall[string: "soundPath"], methodCall[int64: "duration"]))
+        callBack(result, Open_im_sdkCreateSoundMessageFromFullPath(methodCall[string: "operationID"], methodCall[string: "soundPath"], methodCall[int64: "duration"]))
     }
     
     func createVideoMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let prama = Open_im_sdkCreateVideoMessage(methodCall[string: "videoPath"], methodCall[string: "videoType"],
+        let prama = Open_im_sdkCreateVideoMessage(methodCall[string: "operationID"], methodCall[string: "videoPath"], methodCall[string: "videoType"],
                                                   methodCall[int64: "duration"], methodCall[string: "snapshotPath"])
         callBack(result, prama)
     }
     
     func createVideoMessageFromFullPath(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let prama = Open_im_sdkCreateVideoMessageFromFullPath(methodCall[string: "videoPath"], methodCall[string: "videoType"],
+        let prama = Open_im_sdkCreateVideoMessageFromFullPath(methodCall[string: "operationID"], methodCall[string: "videoPath"], methodCall[string: "videoType"],
                                                   methodCall[int64: "duration"], methodCall[string: "snapshotPath"])
         callBack(result, prama)
     }
     
     func createFileMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateFileMessage(methodCall[string: "filePath"], methodCall[string: "fileName"]))
+        callBack(result, Open_im_sdkCreateFileMessage(methodCall[string: "operationID"], methodCall[string: "filePath"], methodCall[string: "fileName"]))
     }
 
      func createFileMessageFromFullPath(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-         callBack(result, Open_im_sdkCreateFileMessageFromFullPath(methodCall[string: "filePath"], methodCall[string: "fileName"]))
+         callBack(result, Open_im_sdkCreateFileMessageFromFullPath(methodCall[string: "operationID"], methodCall[string: "filePath"], methodCall[string: "fileName"]))
      }
 
     func createMergerMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let prama = Open_im_sdkCreateMergerMessage(methodCall[jsonString: "messageList"], methodCall[string: "title"],
+        let prama = Open_im_sdkCreateMergerMessage(methodCall[string: "operationID"], methodCall[jsonString: "messageList"], methodCall[string: "title"],
                                                    methodCall[jsonString: "summaryList"])
         callBack(result, prama)
     }
     
     func createForwardMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateForwardMessage(methodCall[jsonString: "message"]))
+        callBack(result, Open_im_sdkCreateForwardMessage(methodCall[string: "operationID"], methodCall[jsonString: "message"]))
     }
     
     func createLocationMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let prama = Open_im_sdkCreateLocationMessage(methodCall[string: "description"],
+        let prama = Open_im_sdkCreateLocationMessage(methodCall[string: "operationID"], methodCall[string: "description"],
                                                      methodCall[double: "longitude"], methodCall[double: "latitude"])
         callBack(result, prama)
     }
     
     func createCustomMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let prama = Open_im_sdkCreateCustomMessage(methodCall[string: "data"],
+        let prama = Open_im_sdkCreateCustomMessage(methodCall[string: "operationID"], methodCall[string: "data"],
                                                    methodCall[string: "extension"], methodCall[string: "description"])
         callBack(result, prama)
     }
     
     func createQuoteMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let prama = Open_im_sdkCreateQuoteMessage(methodCall[string: "quoteText"], methodCall[jsonString: "quoteMessage"])
+        let prama = Open_im_sdkCreateQuoteMessage(methodCall[string: "operationID"], methodCall[string: "quoteText"], methodCall[jsonString: "quoteMessage"])
         callBack(result, prama)
     }
     
     func createCardMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateCardMessage(methodCall[jsonString: "cardMessage"]))
+        callBack(result, Open_im_sdkCreateCardMessage(methodCall[string: "operationID"], methodCall[jsonString: "cardMessage"]))
     }
 
-    func forceSyncMsg(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkForceSyncMsg()
-        callBack(result)
-    }
+    // func forceSyncMsg(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+    //     Open_im_sdkForceSyncMsg()
+    //     callBack(result)
+    // }
 
     func clearC2CHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkClearC2CHistoryMessage(BaseCallback(result: result), methodCall[string: "userID"])
+        Open_im_sdkClearC2CHistoryMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"])
     }
 
     func clearGroupHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkClearGroupHistoryMessage(BaseCallback(result: result), methodCall[string: "groupID"])
+        Open_im_sdkClearGroupHistoryMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
     }
 
-    public class SendMsgProgressListener: NSObject, Open_im_sdkSendMsgCallBackProtocol {
+    public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
         private let channel: FlutterMethodChannel
         private let result: FlutterResult
         private let call: FlutterMethodCall
@@ -217,7 +200,6 @@ public class MessageManager: BaseServiceManager {
 //         }
 
         public func onError(_ errCode: Int, errMsg: String?) {
-            print("=================onError============\nerrcode:\(errCode),errMsg:\(errMsg!)")
             DispatchQueue.main.async { self.result(FlutterError(code: "\(errCode)", message: errMsg, details: nil)) }
         }
 
@@ -226,7 +208,6 @@ public class MessageManager: BaseServiceManager {
 //                 return
 //             }
             var values: [String: Any] = [:]
-            print("=================onProgress============\nprogress:\(progress)")
             let message = call[dict: "message"]
             values["clientMsgID"] = message["clientMsgID"]
             values["progress"] = progress
@@ -234,13 +215,12 @@ public class MessageManager: BaseServiceManager {
         }
 
         public func onSuccess(_ data: String?) {
-            print("=================onSuccess============\nsuccess:\(data!)")
             DispatchQueue.main.async { self.result(data) }
         }
 
     }
 
-    public class AdvancedMsgListener: NSObject, Open_im_sdkOnAdvancedMsgListenerProtocol {
+    public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgListenerProtocol {
         private let channel: FlutterMethodChannel
         private let id: String
 

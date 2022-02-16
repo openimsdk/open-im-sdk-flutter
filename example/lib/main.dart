@@ -36,7 +36,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _login() {
-    if (OpenIM.iMManager.isInitialized)
       OpenIM.iMManager.login(uid: '', token: '');
   }
 
@@ -45,64 +44,27 @@ class _MyAppState extends State<MyApp> {
     OpenIM.iMManager
       ..initSDK(
         platform: Platform.isAndroid ? IMPlatform.android : IMPlatform.ios,
-        ipApi: '',
-        ipWs: '',
-        dbPath: '',
-        listener: OnInitSDKListener(
-          onConnecting: () {},
-          onConnectFailed: (code, error) {},
-          onConnectSuccess: () {},
-          onKickedOffline: () {},
-          onUserSigExpired: () {},
-          onSelfInfoUpdated: (user) {},
-        ),
+        apiAddr: '',
+        wsAddr: '',
+        dataDir: '',
+        listener: OnConnectListener(),
       )
-
+      //
+      ..userManager.setUserListener(OnUserListener())
       // Add message listener (remove when not in use)
-      ..messageManager.addAdvancedMsgListener(OnAdvancedMsgListener(
-        onRecvMessageRevoked: (msgId) {},
-        onRecvC2CReadReceipt: (list) {},
-        onRecvNewMessage: (msg) {},
-      ))
+      ..messageManager.setAdvancedMsgListener(OnAdvancedMsgListener())
 
       // Set up message sending progress listener
-      ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener(
-        onProgress: (msgId, progress) {},
-      ))
+      ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener())
 
       // Set up friend relationship listener
-      ..friendshipManager.setFriendshipListener(OnFriendshipListener(
-        onBlackListAdd: (u) {},
-        onBlackListDeleted: (u) {},
-        onFriendApplicationListAccept: (u) {},
-        onFriendApplicationListAdded: (u) {},
-        onFriendApplicationListDeleted: (u) {},
-        onFriendApplicationListReject: (u) {},
-        onFriendInfoChanged: (u) {},
-        onFriendListAdded: (u) {},
-        onFriendListDeleted: (u) {},
-      ))
+      ..friendshipManager.setFriendshipListener(OnFriendshipListener())
 
       // Set up conversation listener
-      ..conversationManager.setConversationListener(OnConversationListener(
-        onConversationChanged: (list) {},
-        onNewConversation: (list) {},
-        onTotalUnreadMessageCountChanged: (count) {},
-        onSyncServerFailed: () {},
-        onSyncServerFinish: () {},
-        onSyncServerStart: () {},
-      ))
+      ..conversationManager.setConversationListener(OnConversationListener())
 
       // Set up group listener
       ..groupManager.setGroupListener(OnGroupListener(
-        onApplicationProcessed: (groupId, opUser, agreeOrReject, opReason) {},
-        onGroupCreated: (groupId) {},
-        onGroupInfoChanged: (groupId, info) {},
-        onMemberEnter: (groupId, list) {},
-        onMemberInvited: (groupId, opUser, list) {},
-        onMemberKicked: (groupId, opUser, list) {},
-        onMemberLeave: (groupId, info) {},
-        onReceiveJoinApplication: (groupId, info, opReason) {},
       ));
   }
 }

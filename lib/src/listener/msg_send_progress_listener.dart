@@ -1,3 +1,3 @@
 abstract class MsgSendProgressListener {
-  void progress(String msgID, int progress);
+  void progress(String clientMsgID, int progress);
 }

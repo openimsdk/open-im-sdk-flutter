@@ -8,7 +8,7 @@
 import Foundation
 import OpenIMCore
 
-public class BaseCallback: NSObject, Open_im_sdkBaseProtocol {
+public class BaseCallback: NSObject, Open_im_sdk_callbackBaseProtocol {
     
     private let result:FlutterResult
     

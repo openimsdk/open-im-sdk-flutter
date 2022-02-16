@@ -24,7 +24,8 @@ public class GroupManager: BaseServiceManager {
         self["joinGroup"] = joinGroup
         self["quitGroup"] = quitGroup
         self["transferGroupOwner"] = transferGroupOwner
-        self["getGroupApplicationList"] = getGroupApplicationList
+        self["getRecvGroupApplicationList"] = getRecvGroupApplicationList
+        self["getSendGroupApplicationList"] = getSendGroupApplicationList
         self["acceptGroupApplication"] = acceptGroupApplication
         self["refuseGroupApplication"] = refuseGroupApplication
 //        self["forceSyncApplyGroupRequest"] = forceSyncApplyGroupRequest
@@ -39,62 +40,66 @@ public class GroupManager: BaseServiceManager {
     }
 
     func inviteUserToGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkInviteUserToGroup(methodCall[string: "gid"], methodCall[string: "reason"],
-                                     methodCall[jsonString: "uidList"], BaseCallback(result: result))
+        Open_im_sdkInviteUserToGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "reason"],
+                                     methodCall[jsonString: "uidList"])
     }
     
     func kickGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkKickGroupMember(methodCall[string: "gid"], methodCall[string: "reason"],
-                                   methodCall[jsonString: "uidList"], BaseCallback(result: result))
+        Open_im_sdkKickGroupMember(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "reason"],
+                                   methodCall[jsonString: "uidList"])
     }
     
     func getGroupMembersInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetGroupMembersInfo(methodCall[string: "gid"], methodCall[jsonString: "uidList"], BaseCallback(result: result))
+        Open_im_sdkGetGroupMembersInfo(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[jsonString: "uidList"])
     }
     
     func getGroupMemberList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetGroupMemberList(methodCall[string: "gid"], methodCall[int32: "filter"],
-                                      methodCall[int32: "next"], BaseCallback(result: result))
+        Open_im_sdkGetGroupMemberList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[int32: "filter"],
+                                      methodCall[int32: "offset"], methodCall[int32: "count"])
     }
     
     func getJoinedGroupList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetJoinedGroupList(BaseCallback(result: result))
+        Open_im_sdkGetJoinedGroupList(BaseCallback(result: result), methodCall[string: "operationID"])
     }
     
     func createGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkCreateGroup(methodCall[jsonString: "gInfo"], methodCall[jsonString: "memberList"], BaseCallback(result: result))
+        Open_im_sdkCreateGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "gInfo"], methodCall[jsonString: "memberList"])
     }
     
     func setGroupInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetGroupInfo(methodCall[jsonString: "gInfo"], BaseCallback(result: result))
+        Open_im_sdkSetGroupInfo(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[jsonString: "gInfo"])
     }
     
     func getGroupsInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetGroupsInfo(methodCall[jsonString: "gidList"], BaseCallback(result: result))
+        Open_im_sdkGetGroupsInfo(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "gidList"])
     }
     
     func joinGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkJoinGroup(methodCall[string: "gid"], methodCall[string: "reason"], BaseCallback(result: result))
+        Open_im_sdkJoinGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "reason"])
     }
     
     func quitGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkQuitGroup(methodCall[string: "gid"], BaseCallback(result: result))
+        Open_im_sdkQuitGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"])
     }
     
     func transferGroupOwner(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkTransferGroupOwner(methodCall[string: "gid"], methodCall[string: "uid"], BaseCallback(result: result))
+        Open_im_sdkTransferGroupOwner(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "uid"])
     }
     
-    func getGroupApplicationList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetGroupApplicationList(BaseCallback(result: result))
+    func getRecvGroupApplicationList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetRecvGroupApplicationList(BaseCallback(result: result), methodCall[string: "operationID"])
     }
     
+    func getSendGroupApplicationList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetSendGroupApplicationList(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
+
     func acceptGroupApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAcceptGroupApplication(methodCall[jsonString: "application"], methodCall[string: "reason"], BaseCallback(result: result))
+        Open_im_sdkAcceptGroupApplication(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "uid"], methodCall[string: "handleMsg"])
     }
     
     func refuseGroupApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkRefuseGroupApplication(methodCall[jsonString: "application"], methodCall[string: "reason"], BaseCallback(result: result))
+        Open_im_sdkRefuseGroupApplication(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "uid"], methodCall[string: "handleMsg"])
     }
     
 //     func forceSyncApplyGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -118,7 +123,7 @@ public class GroupManager: BaseServiceManager {
 //     }
 
 }
-public class GroupListener: NSObject, Open_im_sdkOnGroupListenerProtocol {
+public class GroupListener: NSObject, Open_im_sdk_callbackOnGroupListenerProtocol {
     
     private let channel:FlutterMethodChannel
     
@@ -126,73 +131,51 @@ public class GroupListener: NSObject, Open_im_sdkOnGroupListenerProtocol {
         self.channel = channel
     }
     
-    public func onApplicationProcessed(_ groupId: String?, opUser: String?, agreeOrReject AgreeOrReject: Int32, opReason: String?) {
-        var values: [String: Any] = [:]
-        values["groupId"] = groupId
-        values["opUser"] = opUser
-        values["agreeOrReject"] = AgreeOrReject
-        values["opReason"] = opReason
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onApplicationProcessed", errCode: nil, errMsg: nil, data: values)
+    public func onGroupApplicationAccepted(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupApplicationAccepted", errCode: nil, errMsg: nil, data: s)
     }
     
-//    public func onApplicationProcessed(_ s: String?,s1: String?,i: Int?,s2: String?) {
-//        let values: NSMutableDictionary = NSMutableDictionary(capacity: 0)
-//        values.setValue(s, forKey: "groupId")
-//        values.setValue(s1, forKey: "opUser")
-//        values.setValue(i, forKey: "agreeOrReject")
-//        values.setValue(s2, forKey: "opReason")
-//        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onApplicationProcessed", errCode: nil, errMsg: nil, data: values)
-//    }
-    
-    public func onGroupCreated(_ s: String?) {
-        var values: [String: Any] = [:]
-        values["groupId"] = s
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupCreated", errCode: nil, errMsg: nil, data: values)
+    public func onGroupApplicationAdded(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupApplicationAdded", errCode: nil, errMsg: nil, data: s)
     }
     
-    public func onGroupInfoChanged(_ s: String?, groupInfo s1: String?) {
-        var values: [String: Any] = [:]
-        values["groupId"] = s
-        values["groupInfo"] = s1
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupInfoChanged", errCode: nil, errMsg: nil, data: values)
+    public func onGroupApplicationDeleted(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupApplicationDeleted", errCode: nil, errMsg: nil, data: s)
     }
     
-    public func onMemberEnter(_ s: String?, memberList s1: String?) {
-        var values: [String: Any] = [:]
-        values["groupId"] = s
-        values["memberList"] = s1
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberEnter", errCode: nil, errMsg: nil, data: values)
+    public func onGroupApplicationRejected(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupApplicationRejected", errCode: nil, errMsg: nil, data: s)
     }
     
-    public func onMemberInvited(_ s: String?,opUser s1: String?, memberList s2: String?) {
-        var values: [String: Any] = [:]
-        values["groupId"] = s
-        values["opUser"] = s1
-        values["memberList"] = s2
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberInvited", errCode: nil, errMsg: nil, data: values)
+    public func onGroupInfoChanged(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupInfoChanged", errCode: nil, errMsg: nil, data: s)
     }
     
-    public func onMemberKicked(_ s: String?,opUser s1: String?,memberList s2: String?) {
-        var values: [String: Any] = [:]
-        values["groupId"] = s
-        values["opUser"] = s1
-        values["memberList"] = s2
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberKicked", errCode: nil, errMsg: nil, data: values)
+    public func onGroupMemberAdded(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupMemberAdded", errCode: nil, errMsg: nil, data: s)
     }
     
-    public func onMemberLeave(_ s: String?,member s1: String?) {
-        var values: [String: Any] = [:]
-        values["groupId"] = s
-        values["member"] = s1
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onMemberLeave", errCode: nil, errMsg: nil, data: values)
+    public func onGroupMemberDeleted(_ s: String?,member s1: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupMemberDeleted", errCode: nil, errMsg: nil, data: s)
     }
     
-    public func onReceiveJoinApplication(_ s: String?,member s1: String?,opReason s2: String?) {
-        var values: [String: Any] = [:]
-        values["groupId"] = s
-        values["member"] = s1
-        values["opReason"] = s2
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onReceiveJoinApplication", errCode: nil, errMsg: nil, data: values)
+    public func onGroupMemberInfoChanged(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupMemberInfoChanged", errCode: nil, errMsg: nil, data: s)
     }
     
+    public func onJoinedGroupAdded(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onJoinedGroupAdded", errCode: nil, errMsg: nil, data: s)
+    }
+
+    public func onJoinedGroupDeleted(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onJoinedGroupDeleted", errCode: nil, errMsg: nil, data: s)
+    }
+
+    public func onReceiveJoinGroupApplicationAdded(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onReceiveJoinGroupApplicationAdded", errCode: nil, errMsg: nil, data: s)
+    }
+
+    public func onReceiveJoinGroupApplicationDeleted(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onReceiveJoinGroupApplicationDeleted", errCode: nil, errMsg: nil, data: s)
+    }
 }

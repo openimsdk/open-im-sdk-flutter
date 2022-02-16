@@ -18,6 +18,7 @@ import io.openim.flutter_openim_sdk.manager.FriendshipManager;
 import io.openim.flutter_openim_sdk.manager.GroupManager;
 import io.openim.flutter_openim_sdk.manager.IMManager;
 import io.openim.flutter_openim_sdk.manager.MessageManager;
+import io.openim.flutter_openim_sdk.manager.UserManager;
 
 
 /**
@@ -31,6 +32,7 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler 
 
     public static MethodChannel channel;
     private static IMManager imManager;
+    private static UserManager userManager;
     private static FriendshipManager friendshipManager;
     private static MessageManager messageManager;
     private static ConversationManager conversationManager;
@@ -41,6 +43,7 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler 
 
     private FlutterOpenimSdkPlugin(Context context) {
         FlutterOpenimSdkPlugin.imManager = new IMManager();
+        FlutterOpenimSdkPlugin.userManager = new UserManager();
         FlutterOpenimSdkPlugin.friendshipManager = new FriendshipManager();
         FlutterOpenimSdkPlugin.messageManager = new MessageManager();
         FlutterOpenimSdkPlugin.conversationManager = new ConversationManager();

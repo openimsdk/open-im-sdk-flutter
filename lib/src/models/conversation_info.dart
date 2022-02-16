@@ -10,16 +10,16 @@ class ConversationInfo {
   String? userID;
   String? groupID;
   String? showName;
-  String? faceUrl;
+  String? faceURL;
   int? recvMsgOpt;
   int? unreadCount;
+  int? groupAtType;
   Message? latestMsg;
   int? latestMsgSendTime;
   String? draftText;
-  int? draftTimestamp;
-
-  ///  pinned value is 1
-  dynamic isPinned;
+  int? draftTextTime;
+  bool? isPinned;
+  String? ext;
 
   ConversationInfo(
       {required this.conversationID,
@@ -27,13 +27,13 @@ class ConversationInfo {
       this.userID,
       this.groupID,
       this.showName,
-      this.faceUrl,
+      this.faceURL,
       this.recvMsgOpt,
       this.unreadCount,
       this.latestMsg,
       this.latestMsgSendTime,
       this.draftText,
-      this.draftTimestamp,
+      this.draftTextTime,
       this.isPinned});
 
   ConversationInfo.fromJson(Map<String, dynamic> json)
@@ -43,7 +43,7 @@ class ConversationInfo {
     userID = json['userID'];
     groupID = json['groupID'];
     showName = json['showName'];
-    faceUrl = json['faceUrl'];
+    faceURL = json['faceURL'];
     recvMsgOpt = json['recvMsgOpt'];
     unreadCount = json['unreadCount'];
     // latestMsg = json['latestMsg'];
@@ -60,7 +60,7 @@ class ConversationInfo {
 
     latestMsgSendTime = json['latestMsgSendTime'];
     draftText = json['draftText'];
-    draftTimestamp = json['draftTimestamp'];
+    draftTextTime = json['draftTextTime'];
     isPinned = json['isPinned'];
   }
 
@@ -71,13 +71,13 @@ class ConversationInfo {
     data['userID'] = this.userID;
     data['groupID'] = this.groupID;
     data['showName'] = this.showName;
-    data['faceUrl'] = this.faceUrl;
+    data['faceURL'] = this.faceURL;
     data['recvMsgOpt'] = this.recvMsgOpt;
     data['unreadCount'] = this.unreadCount;
     data['latestMsg'] = this.latestMsg?.toJson();
     data['latestMsgSendTime'] = this.latestMsgSendTime;
     data['draftText'] = this.draftText;
-    data['draftTimestamp'] = this.draftTimestamp;
+    data['draftTextTime'] = this.draftTextTime;
     data['isPinned'] = this.isPinned;
     return data;
   }
@@ -86,7 +86,6 @@ class ConversationInfo {
 
   bool get isGroupChat => conversationType == ConversationType.group_chat;
 
-  bool get isTop => isPinned == 1;
 
   @override
   bool operator ==(Object other) =>

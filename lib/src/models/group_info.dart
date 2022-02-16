@@ -3,30 +3,43 @@ class GroupInfo {
   String? groupName;
   String? notification;
   String? introduction;
-  String? faceUrl;
-  String? ownerId;
+  String? faceURL;
+  String? ownerUserID;
   int? createTime;
   int? memberCount;
+  int? status;
+  String? creatorUserID;
+  int? groupType;
+  String? ex;
 
-  GroupInfo(
-      {required this.groupID,
-      this.groupName,
-      this.notification,
-      this.introduction,
-      this.faceUrl,
-      this.ownerId,
-      this.createTime,
-      this.memberCount});
+  GroupInfo({
+    required this.groupID,
+    this.groupName,
+    this.notification,
+    this.introduction,
+    this.faceURL,
+    this.ownerUserID,
+    this.createTime,
+    this.memberCount,
+    this.status,
+    this.creatorUserID,
+    this.groupType,
+    this.ex,
+  });
 
   GroupInfo.fromJson(Map<String, dynamic> json) : groupID = json['groupID'] {
     /*groupID = json['groupID'];*/
     groupName = json['groupName'];
     notification = json['notification'];
     introduction = json['introduction'];
-    faceUrl = json['faceUrl'];
-    ownerId = json['ownerId'];
+    faceURL = json['faceURL'];
+    ownerUserID = json['ownerUserID'];
     createTime = json['createTime'];
     memberCount = json['memberCount'];
+    status = json['status'];
+    creatorUserID = json['creatorUserID'];
+    groupType = json['groupType'];
+    ex = json['ex'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,217 +48,257 @@ class GroupInfo {
     data['groupName'] = this.groupName;
     data['notification'] = this.notification;
     data['introduction'] = this.introduction;
-    data['faceUrl'] = this.faceUrl;
-    data['ownerId'] = this.ownerId;
+    data['faceURL'] = this.faceURL;
+    data['ownerUserID'] = this.ownerUserID;
     data['createTime'] = this.createTime;
     data['memberCount'] = this.memberCount;
-    return data;
-  }
-}
-
-class GroupMembersList {
-  int? nextSeq;
-  List<GroupMembersInfo>? data;
-
-  GroupMembersList({this.nextSeq, this.data});
-
-  GroupMembersList.fromJson(Map<String, dynamic> json) {
-    nextSeq = json['nextSeq'];
-    if (json['data'] is List) {
-      data = (json['data'] as List)
-          .map((e) => GroupMembersInfo.fromJson(e))
-          .toList();
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nextSeq'] = this.nextSeq;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
+    data['status'] = this.status;
+    data['creatorUserID'] = this.creatorUserID;
+    data['groupType'] = this.groupType;
+    data['ex'] = this.ex;
     return data;
   }
 }
 
 class GroupMembersInfo {
   String? groupID;
-  String? userId;
-  int? role;
+  String? userID;
+  String? nickname;
+  String? faceURL;
+  int? roleLevel;
   int? joinTime;
-  String? nickName;
-  String? faceUrl;
-  dynamic ext;
+  int? joinSource;
+  String? operatorUserID;
+  String? ext;
 
   GroupMembersInfo({
     this.groupID,
-    this.userId,
-    this.role,
+    this.userID,
+    this.roleLevel,
     this.joinTime,
-    this.nickName,
-    this.faceUrl,
+    this.nickname,
+    this.faceURL,
     this.ext,
+    this.joinSource,
+    this.operatorUserID,
   });
 
   GroupMembersInfo.fromJson(Map<String, dynamic> json) {
     groupID = json['groupID'];
-    userId = json['userId'];
-    role = json['role'];
+    userID = json['userID'];
+    roleLevel = json['roleLevel'];
     joinTime = json['joinTime'];
-    nickName = json['nickName'];
-    faceUrl = json['faceUrl'];
+    nickname = json['nickname'];
+    faceURL = json['faceURL'];
     ext = json['ext'];
+    joinSource = json['joinSource'];
+    operatorUserID = json['operatorUserID'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['groupID'] = this.groupID;
-    data['userId'] = this.userId;
-    data['role'] = this.role;
+    data['userID'] = this.userID;
+    data['roleLevel'] = this.roleLevel;
     data['joinTime'] = this.joinTime;
-    data['nickName'] = this.nickName;
-    data['faceUrl'] = this.faceUrl;
+    data['nickname'] = this.nickname;
+    data['faceURL'] = this.faceURL;
     data['ext'] = this.ext;
-    return data;
-  }
-}
-
-class GroupInviteResult {
-  String? uid;
-  int? result;
-
-  GroupInviteResult({this.uid, this.result});
-
-  GroupInviteResult.fromJson(Map<String, dynamic> json) {
-    uid = json['uid'];
-    result = json['result'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uid'] = this.uid;
-    data['result'] = this.result;
+    data['joinSource'] = this.joinSource;
+    data['operatorUserID'] = this.operatorUserID;
     return data;
   }
 }
 
 class GroupMemberRole {
-  String? uid;
-  int? setRole;
+  String? userID;
 
-  GroupMemberRole({this.uid, this.setRole});
+  /// 1 ordinary member, 2 group owners, 3 administrators
+  /// 1普通成员, 2群主，3管理员
+  int? roleLevel;
+
+  GroupMemberRole({this.userID, this.roleLevel = 1});
 
   GroupMemberRole.fromJson(Map<String, dynamic> json) {
-    uid = json['uid'];
-    setRole = json['setRole'];
+    userID = json['userID'];
+    roleLevel = json['roleLevel'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uid'] = this.uid;
-    data['setRole'] = this.setRole;
+    data['userID'] = this.userID;
+    data['roleLevel'] = this.roleLevel;
     return data;
   }
 }
 
 class GroupApplicationInfo {
-  String? id;
   String? groupID;
-  String? fromUserID;
-  String? toUserID;
-  int? flag; //INIT = 0, REFUSE = -1, AGREE = 1
+  String? groupName;
+  String? notification;
+  String? introduction;
+  String? groupFaceURL;
+  int? createTime;
+  int? status;
+  String? creatorUserID;
+  int? groupType;
+  String? ownerUserID;
+  int? memberCount;
+  String? userID;
+  String? nickname;
+  String? userFaceURL;
+  int? gender;
+  int? handleResult; //REFUSE = -1, AGREE = 1
   String? reqMsg;
   String? handledMsg;
-  int? createTime;
-  String? fromUserNickName;
-  String? toUserNickName;
-  String? fromUserFaceURL;
-  String? toUserFaceURL;
-  String? handledUser;
-  int? type; //APPLICATION = 0, INVITE = 1
-  int? handleStatus; //UNHANDLED = 0, BY_OTHER = 1, BY_SELF = 2
-  int? handleResult; //REFUSE = 0, AGREE = 1
+  int? reqTime;
+  String? handleUserID;
+  int? handledTime;
+  String? ex;
 
-  GroupApplicationInfo(
-      {this.id,
-      this.groupID,
-      this.fromUserID,
-      this.toUserID,
-      this.flag,
-      this.reqMsg,
-      this.handledMsg,
-      this.createTime,
-      this.fromUserNickName,
-      this.toUserNickName,
-      this.fromUserFaceURL,
-      this.toUserFaceURL,
-      this.handledUser,
-      this.type,
-      this.handleStatus,
-      this.handleResult});
+  GroupApplicationInfo({
+    this.groupID,
+    this.groupName,
+    this.notification,
+    this.introduction,
+    this.groupFaceURL,
+    this.createTime,
+    this.status,
+    this.creatorUserID,
+    this.groupType,
+    this.ownerUserID,
+    this.memberCount,
+    this.userID,
+    this.nickname,
+    this.userFaceURL,
+    this.gender,
+    this.handleResult,
+    this.reqMsg,
+    this.handledMsg,
+    this.reqTime,
+    this.handleUserID,
+    this.handledTime,
+    this.ex,
+  });
 
   GroupApplicationInfo.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     groupID = json['groupID'];
-    fromUserID = json['fromUserID'];
-    toUserID = json['toUserID'];
-    flag = json['flag'];
+    groupName = json['groupName'];
+    notification = json['notification'];
+    introduction = json['introduction'];
+    groupFaceURL = json['groupFaceURL'];
+    createTime = json['createTime'];
+    status = json['status'];
+    creatorUserID = json['creatorUserID'];
+    groupType = json['groupType'];
+    ownerUserID = json['ownerUserID'];
+    memberCount = json['memberCount'];
+    userID = json['userID'];
+    nickname = json['nickname'];
+    userFaceURL = json['userFaceURL'];
+    gender = json['gender'];
+    handleResult = json['handleResult'];
     reqMsg = json['reqMsg'];
     handledMsg = json['handledMsg'];
-    createTime = json['createTime'];
-    fromUserNickName = json['fromUserNickName'];
-    toUserNickName = json['toUserNickName'];
-    fromUserFaceURL = json['fromUserFaceURL'];
-    toUserFaceURL = json['toUserFaceURL'];
-    handledUser = json['handledUser'];
-    type = json['type'];
-    handleStatus = json['handleStatus'];
-    handleResult = json['handleResult'];
+    reqTime = json['reqTime'];
+    handleUserID = json['handleUserID'];
+    handledTime = json['handledTime'];
+    ex = json['ex'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    final data = Map<String, dynamic>();
     data['groupID'] = this.groupID;
-    data['fromUserID'] = this.fromUserID;
-    data['toUserID'] = this.toUserID;
-    data['flag'] = this.flag;
+    data['groupName'] = this.groupName;
+    data['notification'] = this.notification;
+    data['introduction'] = this.introduction;
+    data['groupFaceURL'] = this.groupFaceURL;
+    data['createTime'] = this.createTime;
+    data['status'] = this.status;
+    data['creatorUserID'] = this.creatorUserID;
+    data['groupType'] = this.groupType;
+    data['ownerUserID'] = this.ownerUserID;
+    data['memberCount'] = this.memberCount;
+    data['userID'] = this.userID;
+    data['nickname'] = this.nickname;
+    data['userFaceURL'] = this.userFaceURL;
+    data['gender'] = this.gender;
+    data['handleResult'] = this.handleResult;
     data['reqMsg'] = this.reqMsg;
     data['handledMsg'] = this.handledMsg;
-    data['createTime'] = this.createTime;
-    data['fromUserNickName'] = this.fromUserNickName;
-    data['toUserNickName'] = this.toUserNickName;
-    data['fromUserFaceURL'] = this.fromUserFaceURL;
-    data['toUserFaceURL'] = this.toUserFaceURL;
-    data['handledUser'] = this.handledUser;
-    data['type'] = this.type;
-    data['handleStatus'] = this.handleStatus;
-    data['handleResult'] = this.handleResult;
+    data['reqTime'] = this.reqTime;
+    data['handleUserID'] = this.handleUserID;
+    data['handledTime'] = this.handledTime;
+    data['ex'] = this.ex;
     return data;
   }
 }
 
-class GroupApplicationList {
-  int? count;
-  List<GroupApplicationInfo>? user;
+class GroupInviteResult {
+  String? userID;
+  int? result;
 
-  GroupApplicationList({this.count, this.user});
+  GroupInviteResult({this.userID, this.result});
 
-  GroupApplicationList.fromJson(Map<String, dynamic> json) {
-    count = json['count'];
-    if (json['user'] is List) {
-      user = (json['user'] as List)
-          .map((e) => GroupApplicationInfo.fromJson(e))
-          .toList();
-    }
+  GroupInviteResult.fromJson(Map<String, dynamic> json) {
+    userID = json['userID'];
+    result = json['result'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['count'] = this.count;
-    if (this.user != null) {
-      data['user'] = this.user!.map((v) => v.toJson()).toList();
-    }
+    data['userID'] = this.userID;
+    data['result'] = this.result;
     return data;
   }
 }
+
+// class GroupMembersList {
+//   int? nextSeq;
+//   List<GroupMembersInfo>? data;
+//
+//   GroupMembersList({this.nextSeq, this.data});
+//
+//   GroupMembersList.fromJson(Map<String, dynamic> json) {
+//     nextSeq = json['nextSeq'];
+//     if (json['data'] is List) {
+//       data = (json['data'] as List)
+//           .map((e) => GroupMembersInfo.fromJson(e))
+//           .toList();
+//     }
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['nextSeq'] = this.nextSeq;
+//     if (this.data != null) {
+//       data['data'] = this.data!.map((v) => v.toJson()).toList();
+//     }
+//     return data;
+//   }
+// }
+//
+// class GroupApplicationList {
+//   int? count;
+//   List<GroupApplicationInfo>? user;
+//
+//   GroupApplicationList({this.count, this.user});
+//
+//   GroupApplicationList.fromJson(Map<String, dynamic> json) {
+//     count = json['count'];
+//     if (json['user'] is List) {
+//       user = (json['user'] as List)
+//           .map((e) => GroupApplicationInfo.fromJson(e))
+//           .toList();
+//     }
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['count'] = this.count;
+//     if (this.user != null) {
+//       data['user'] = this.user!.map((v) => v.toJson()).toList();
+//     }
+//     return data;
+//   }
+// }

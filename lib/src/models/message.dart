@@ -3,6 +3,9 @@ class Message {
   String? serverMsgID;
   int? createTime;
   int? sendTime;
+
+  /// [ConversationType]
+  int? sessionType;
   String? sendID;
   String? recvID;
   int? msgFrom;
@@ -10,8 +13,7 @@ class Message {
   /// [MessageType]
   int? contentType;
   int? platformID;
-  List<String>? forceList;
-  String? senderNickName;
+  String? senderNickname;
   String? senderFaceUrl;
   String? groupID;
   String? content;
@@ -20,11 +22,10 @@ class Message {
 
   /// [MessageStatus]
   int? status;
-  String? remark;
+  OfflinePushInfo? offlinePush;
+  String? attachedInfo;
+  String? ex;
   dynamic ext;
-
-  /// [ConversationType]
-  int? sessionType;
   PictureElem? pictureElem;
   SoundElem? soundElem;
   VideoElem? videoElem;
@@ -34,28 +35,30 @@ class Message {
   CustomElem? customElem;
   QuoteElem? quoteElem;
   MergeElem? mergeElem;
+  NotificationElem? notificationElem;
 
   Message({
     this.clientMsgID,
     this.serverMsgID,
     this.createTime,
     this.sendTime,
+    this.sessionType,
     this.sendID,
     this.recvID,
     this.msgFrom,
     this.contentType,
     this.platformID,
-    this.forceList,
-    this.senderNickName,
+    this.senderNickname,
     this.senderFaceUrl,
     this.groupID,
     this.content,
     this.seq,
     this.isRead,
     this.status,
-    this.remark,
+    this.offlinePush,
+    this.attachedInfo,
+    this.ex,
     this.ext,
-    this.sessionType,
     this.pictureElem,
     this.soundElem,
     this.videoElem,
@@ -65,6 +68,7 @@ class Message {
     this.customElem,
     this.quoteElem,
     this.mergeElem,
+    this.notificationElem,
   });
 
   Message.fromJson(
@@ -78,17 +82,18 @@ class Message {
     msgFrom = json['msgFrom'];
     contentType = json['contentType'];
     platformID = json['platformID'];
-    if (json['forceList'] is List) {
-      forceList = (json['forceList'] as List).map((e) => '$e').toList();
-    }
-    senderNickName = json['senderNickName'];
+    senderNickname = json['senderNickname'];
     senderFaceUrl = json['senderFaceUrl'];
     groupID = json['groupID'];
     content = json['content'];
     seq = json['seq'];
     isRead = json['isRead'];
     status = json['status'];
-    remark = json['remark'];
+    offlinePush = json['offlinePush'] != null
+        ? OfflinePushInfo.fromJson(json['offlinePush'])
+        : null;
+    attachedInfo = json['attachedInfo'];
+    ex = json['ex'];
     ext = json['ext'];
     sessionType = json['sessionType'];
     pictureElem = json['pictureElem'] != null
@@ -116,6 +121,9 @@ class Message {
     mergeElem = json['mergeElem'] != null
         ? MergeElem.fromJson(json['mergeElem'])
         : null;
+    notificationElem = json['notificationElem'] != null
+        ? NotificationElem.fromJson(json['notificationElem'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -129,15 +137,16 @@ class Message {
     data['msgFrom'] = this.msgFrom;
     data['contentType'] = this.contentType;
     data['platformID'] = this.platformID;
-    data['forceList'] = this.forceList;
-    data['senderNickName'] = this.senderNickName;
+    data['senderNickname'] = this.senderNickname;
     data['senderFaceUrl'] = this.senderFaceUrl;
     data['groupID'] = this.groupID;
     data['content'] = this.content;
     data['seq'] = this.seq;
     data['isRead'] = this.isRead;
     data['status'] = this.status;
-    data['remark'] = this.remark;
+    data['offlinePush'] = this.offlinePush?.toJson();
+    data['attachedInfo'] = this.attachedInfo;
+    data['ex'] = this.ex;
     data['ext'] = this.ext;
     data['sessionType'] = this.sessionType;
     data['pictureElem'] = this.pictureElem?.toJson();
@@ -149,6 +158,7 @@ class Message {
     data['customElem'] = this.customElem?.toJson();
     data['quoteElem'] = this.quoteElem?.toJson();
     data['mergeElem'] = this.mergeElem?.toJson();
+    data['notificationElem'] = this.notificationElem?.toJson();
     return data;
   }
 
@@ -205,7 +215,7 @@ class PictureElem {
 }
 
 class PictureInfo {
-  String? uuID;
+  String? uuid;
   String? type;
   int? size;
   int? width;
@@ -213,10 +223,10 @@ class PictureInfo {
   String? url;
 
   PictureInfo(
-      {this.uuID, this.type, this.size, this.width, this.height, this.url});
+      {this.uuid, this.type, this.size, this.width, this.height, this.url});
 
   PictureInfo.fromJson(Map<String, dynamic> json) {
-    uuID = json['uuID'];
+    uuid = json['uuid'];
     type = json['type'];
     size = json['size'];
     width = json['width'];
@@ -226,7 +236,7 @@ class PictureInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uuID'] = this.uuID;
+    data['uuid'] = this.uuid;
     data['type'] = this.type;
     data['size'] = this.size;
     data['width'] = this.width;
@@ -237,21 +247,21 @@ class PictureInfo {
 }
 
 class SoundElem {
-  String? uuID;
+  String? uuid;
   String? soundPath;
   String? sourceUrl;
   int? dataSize;
   int? duration;
 
   SoundElem(
-      {this.uuID,
+      {this.uuid,
       this.soundPath,
       this.sourceUrl,
       this.dataSize,
       this.duration});
 
   SoundElem.fromJson(Map<String, dynamic> json) {
-    uuID = json['uuID'];
+    uuid = json['uuid'];
     soundPath = json['soundPath'];
     sourceUrl = json['sourceUrl'];
     dataSize = json['dataSize'];
@@ -260,7 +270,7 @@ class SoundElem {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uuID'] = this.uuID;
+    data['uuid'] = this.uuid;
     data['soundPath'] = this.soundPath;
     data['sourceUrl'] = this.sourceUrl;
     data['dataSize'] = this.dataSize;
@@ -332,17 +342,17 @@ class VideoElem {
 
 class FileElem {
   String? filePath;
-  String? uuID;
+  String? uuid;
   String? sourceUrl;
   String? fileName;
   int? fileSize;
 
   FileElem(
-      {this.filePath, this.uuID, this.sourceUrl, this.fileName, this.fileSize});
+      {this.filePath, this.uuid, this.sourceUrl, this.fileName, this.fileSize});
 
   FileElem.fromJson(Map<String, dynamic> json) {
     filePath = json['filePath'];
-    uuID = json['uuID'];
+    uuid = json['uuid'];
     sourceUrl = json['sourceUrl'];
     fileName = json['fileName'];
     fileSize = json['fileSize'];
@@ -351,7 +361,7 @@ class FileElem {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['filePath'] = this.filePath;
-    data['uuID'] = this.uuID;
+    data['uuid'] = this.uuid;
     data['sourceUrl'] = this.sourceUrl;
     data['fileName'] = this.fileName;
     data['fileSize'] = this.fileSize;
@@ -485,6 +495,25 @@ class MergeElem {
   }
 }
 
+class NotificationElem {
+  String? detail;
+  String? defaultTips;
+
+  NotificationElem({this.detail, this.defaultTips});
+
+  NotificationElem.fromJson(Map<String, dynamic> json) {
+    detail = json['detail'];
+    defaultTips = json['defaultTips'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['detail'] = this.detail;
+    data['defaultTips'] = this.defaultTips;
+    return data;
+  }
+}
+
 class HaveReadInfo {
   String? uid;
   List<String>? msgIDList;
@@ -520,6 +549,35 @@ class HaveReadInfo {
     data['msgFrom'] = this.msgFrom;
     data['contentType'] = this.contentType;
     data['sessionType'] = this.sessionType;
+    return data;
+  }
+}
+
+class OfflinePushInfo {
+  String? title;
+  String? desc;
+  String? ex;
+  String? iOSPushSound;
+  bool? iOSBadgeCount;
+
+  OfflinePushInfo(
+      {this.title, this.desc, this.ex, this.iOSPushSound, this.iOSBadgeCount});
+
+  OfflinePushInfo.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+    desc = json['desc'];
+    ex = json['ex'];
+    iOSPushSound = json['iOSPushSound'];
+    iOSBadgeCount = json['iOSBadgeCount'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['desc'] = this.desc;
+    data['ex'] = this.ex;
+    data['iOSPushSound'] = this.iOSPushSound;
+    data['iOSBadgeCount'] = this.iOSBadgeCount;
     return data;
   }
 }

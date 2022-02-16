@@ -1,21 +1,21 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 abstract class FriendshipListener {
-  void blackListAdd(UserInfo u);
+  void friendApplicationAdded(FriendApplicationInfo u);
 
-  void blackListDeleted(UserInfo u);
+  void friendApplicationDeleted(FriendApplicationInfo u);
 
-  void friendApplicationListAccept(UserInfo u);
+  void friendApplicationAccepted(FriendApplicationInfo u);
 
-  void friendApplicationListAdded(UserInfo u);
+  void friendApplicationRejected(FriendApplicationInfo u);
 
-  void friendApplicationListDeleted(UserInfo u);
+  void friendAdded(FriendInfo u);
 
-  void friendApplicationListReject(UserInfo u);
+  void friendDeleted(FriendInfo u);
 
-  void friendInfoChanged(UserInfo u);
+  void friendInfoChanged(FriendInfo u);
 
-  void friendListAdded(UserInfo u);
+  void blacklistAdded(BlacklistInfo u);
 
-  void friendListDeleted(UserInfo u);
+  void blacklistDeleted(BlacklistInfo u);
 }

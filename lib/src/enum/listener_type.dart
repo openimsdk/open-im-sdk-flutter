@@ -1,10 +1,11 @@
 class ListenerType {
-  static const simpleMsgListener = 'simpleMsgListener';
-  static const initSDKListener = 'initSDKListener';
-  static const groupListener = 'groupListener';
-  static const advancedMsgListener = 'advancedMsgListener';
-  static const conversationListener = 'conversationListener';
-  static const friendListener = 'friendListener';
-  static const signalingListener = 'signalingListener';
-  static const msgSendProgressListener = "msgSendProgressListener";
+  static final simpleMsgListener = 'simpleMsgListener';
+  static final connectListener = 'connectListener';
+  static final userListener = 'userListener';
+  static final groupListener = 'groupListener';
+  static final advancedMsgListener = 'advancedMsgListener';
+  static final conversationListener = 'conversationListener';
+  static final friendListener = 'friendListener';
+  static final signalingListener = 'signalingListener';
+  static final msgSendProgressListener = "msgSendProgressListener";
 }
