@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-///
-///
 class ConversationManager {
   MethodChannel _channel;
   late ConversationListener conversationListener;
@@ -26,9 +22,10 @@ class ConversationManager {
           .invokeMethod(
               'getAllConversationList',
               _buildParam({
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toList(value));
+          .then((value) =>
+              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// Paging to get conversation
   /// 分页获取会话
@@ -43,9 +40,10 @@ class ConversationManager {
               _buildParam({
                 'offset': offset,
                 'count': count,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toList(value));
+          .then((value) =>
+              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// Get a conversation, if it doesn't exist it will be created automatically
   /// [sourceID] if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
@@ -64,9 +62,10 @@ class ConversationManager {
               _buildParam({
                 "sourceID": sourceID,
                 "sessionType": sessionType,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) =>
+              Utils.toObj(value, (map) => ConversationInfo.fromJson(map)));
 
   /// Get conversation list by id list
   /// 获取多个会话
@@ -79,9 +78,10 @@ class ConversationManager {
               'getMultipleConversation',
               _buildParam({
                 "conversationIDList": conversationIDList,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toList(value));
+          .then((value) =>
+              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// Delete conversation by id
   /// 删除会话
@@ -89,14 +89,12 @@ class ConversationManager {
     required String conversationID,
     String? operationID,
   }) =>
-      _channel
-          .invokeMethod(
-              'deleteConversation',
-              _buildParam({
-                "conversationID": conversationID,
-                "operationID": _checkOperationID(operationID),
-              }))
-          .then((value) => _printValue(value));
+      _channel.invokeMethod(
+          'deleteConversation',
+          _buildParam({
+            "conversationID": conversationID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
 
   /// Set draft
   /// 设置会话草稿
@@ -105,15 +103,13 @@ class ConversationManager {
     required String draftText,
     String? operationID,
   }) =>
-      _channel
-          .invokeMethod(
-              'setConversationDraft',
-              _buildParam({
-                "conversationID": conversationID,
-                "draftText": draftText,
-                "operationID": _checkOperationID(operationID),
-              }))
-          .then((value) => _printValue(value));
+      _channel.invokeMethod(
+          'setConversationDraft',
+          _buildParam({
+            "conversationID": conversationID,
+            "draftText": draftText,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
 
   /// Pinned conversation
   /// 置顶会话
@@ -122,18 +118,14 @@ class ConversationManager {
     required bool isPinned,
     String? operationID,
   }) =>
-      _channel
-          .invokeMethod(
-              'pinConversation',
-              _buildParam({
-                "conversationID": conversationID,
-                "isPinned": isPinned,
-                "operationID": _checkOperationID(operationID),
-              }))
-          .then((value) => _printValue(value));
+      _channel.invokeMethod(
+          'pinConversation',
+          _buildParam({
+            "conversationID": conversationID,
+            "isPinned": isPinned,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
 
-  /// Mark single chat messages as read
-  /// 标记单聊已读
   // Future<dynamic> markSingleMessageHasRead({required String userID}) =>
   //     _channel.invokeMethod(
   //         'markSingleMessageHasRead', _buildParam({'userID': userID}));
@@ -148,7 +140,7 @@ class ConversationManager {
           'markGroupMessageHasRead',
           _buildParam({
             'groupID': groupID,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Get the total number of unread messages
@@ -159,7 +151,7 @@ class ConversationManager {
       _channel.invokeMethod(
           'getTotalUnreadMsgCount',
           _buildParam({
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Query conversation id
@@ -180,9 +172,9 @@ class ConversationManager {
           }));
 
   /// Message Do Not Disturb
-  /// [status] 1: Do not receive messages. 2: Do not notify when messages are received. 0: Normal.
+  /// [status] 0: Normal. 1: Do not receive messages. 2: Do not notify when messages are received.
   /// 消息免打扰设置
-  /// [status] 1：不接受消息；2：接受在线消息不接受离线消息；3：正常
+  /// [status] 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   Future<dynamic> setConversationRecvMessageOpt({
     required List<String> conversationIDList,
     required int status,
@@ -193,7 +185,7 @@ class ConversationManager {
           _buildParam({
             "conversationIDList": conversationIDList,
             "status": status,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Message Do Not Disturb
@@ -208,12 +200,12 @@ class ConversationManager {
               'getConversationRecvMessageOpt',
               _buildParam({
                 "conversationIDList": conversationIDList,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _formatJson(value));
+          .then((value) => Utils.toListMap(value));
 
   /// Custom sort for conversation list
-  /// 会话列表自定义排序规则
+  /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list
     ..sort((a, b) {
       if ((a.isPinned == true && b.isPinned == true) ||
@@ -241,24 +233,5 @@ class ConversationManager {
   static Map _buildParam(Map param) {
     param["ManagerName"] = "conversationManager";
     return param;
-  }
-
-  static List<ConversationInfo> _toList(String? value) {
-    var list = _formatJson(value);
-    if (null == list) return <ConversationInfo>[];
-    return (list as List).map((e) => ConversationInfo.fromJson(e)).toList();
-  }
-
-  static ConversationInfo _toObj(String value) =>
-      ConversationInfo.fromJson(_formatJson(value));
-
-  static dynamic _formatJson(value) => jsonDecode(_printValue(value));
-
-  static String _printValue(value) {
-    return value;
-  }
-
-  static String _checkOperationID(String? obj) {
-    return obj ?? DateTime.now().millisecondsSinceEpoch.toString();
   }
 }

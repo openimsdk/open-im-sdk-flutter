@@ -1,7 +1,7 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class OnAdvancedMsgListener extends AdvancedMsgListener {
-  Function(List<HaveReadInfo> list)? onRecvC2CReadReceipt;
+  Function(List<ReadReceiptInfo> list)? onRecvC2CReadReceipt;
   Function(String msgId)? onRecvMessageRevoked;
   Function(Message msg)? onRecvNewMessage;
 
@@ -12,7 +12,7 @@ class OnAdvancedMsgListener extends AdvancedMsgListener {
   });
 
   @override
-  void recvC2CReadReceipt(List<HaveReadInfo> list) {
+  void recvC2CReadReceipt(List<ReadReceiptInfo> list) {
     if (null != onRecvC2CReadReceipt) onRecvC2CReadReceipt!(list);
   }
 

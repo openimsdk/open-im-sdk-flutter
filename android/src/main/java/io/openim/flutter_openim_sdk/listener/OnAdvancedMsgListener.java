@@ -7,12 +7,10 @@ import java.util.Map;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 
 public class OnAdvancedMsgListener implements open_im_sdk_callback.OnAdvancedMsgListener {
-    //    final Map<String, String> values = new HashMap<>();
     private final String id;
 
     public OnAdvancedMsgListener(String listenerId) {
         this.id = listenerId;
-//        this.values.put("id", listenerId);
     }
 
     @Override

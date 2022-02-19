@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
@@ -35,22 +33,24 @@ class MessageManager {
   /// 发送消息
   /// [userID]接收消息的用户id
   /// [groupID]接收消息的组id
-  Future<dynamic> sendMessage({
+  Future<Message> sendMessage({
     required Message message,
     String? userID,
     String? groupID,
     OfflinePushInfo? offlinePushInfo,
     String? operationID,
   }) =>
-      _channel.invokeMethod(
-          'sendMessage',
-          _buildParam({
-            'message': message.toJson(),
-            'userID': userID ?? '',
-            'groupID': groupID ?? '',
-            'offlinePushInfo': offlinePushInfo?.toJson(),
-            'operationID': _checkOperationID(operationID),
-          })) /*.then((value) => _toObj(value))*/;
+      _channel
+          .invokeMethod(
+              'sendMessage',
+              _buildParam({
+                'message': message.toJson(),
+                'userID': userID ?? '',
+                'groupID': groupID ?? '',
+                'offlinePushInfo': offlinePushInfo?.toJson() ?? {},
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Find all history message
   /// 获取聊天记录
@@ -71,9 +71,9 @@ class MessageManager {
                 'groupID': groupID ?? '',
                 'startClientMsgID': startMsg?.clientMsgID ?? '',
                 'count': count ?? 10,
-                'operationID': _checkOperationID(operationID),
+                'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toList(value));
+          .then((value) => Utils.toList(value, (map) => Message.fromJson(map)));
 
   /// Revoke the sent information
   /// 撤回消息
@@ -85,7 +85,7 @@ class MessageManager {
           'revokeMessage',
           _buildParam(message.toJson()
             ..addAll({
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             })));
 
   /// Delete message
@@ -98,7 +98,7 @@ class MessageManager {
           'deleteMessageFromLocalStorage',
           _buildParam(message.toJson()
             ..addAll({
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             })));
 
   ///
@@ -119,7 +119,7 @@ class MessageManager {
             "message": message?.toJson(),
             "receiverID": receiverID,
             "senderID": senderID,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Query the message according to the message id
@@ -142,7 +142,7 @@ class MessageManager {
           _buildParam({
             "messageIDList": messageIDList,
             "userID": userID,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Typing
@@ -157,7 +157,7 @@ class MessageManager {
           _buildParam({
             "msgTip": msgTip,
             "userID": userID,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Create text message
@@ -171,9 +171,9 @@ class MessageManager {
               'createTextMessage',
               _buildParam({
                 'text': text,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create @ message
   /// 创建@消息
@@ -188,10 +188,10 @@ class MessageManager {
             _buildParam({
               'text': text,
               'atUserList': atUidList,
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             }),
           )
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create picture message
   /// 创建图片消息
@@ -204,10 +204,10 @@ class MessageManager {
             'createImageMessage',
             _buildParam({
               'imagePath': imagePath,
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             }),
           )
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create picture message
   /// 创建图片消息
@@ -220,10 +220,10 @@ class MessageManager {
             'createImageMessageFromFullPath',
             _buildParam({
               'imagePath': imagePath,
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             }),
           )
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create sound message
   /// 创建语音消息
@@ -238,10 +238,10 @@ class MessageManager {
             _buildParam({
               'soundPath': soundPath,
               "duration": duration,
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             }),
           )
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create sound message
   /// 创建语音消息
@@ -256,10 +256,10 @@ class MessageManager {
             _buildParam({
               'soundPath': soundPath,
               "duration": duration,
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             }),
           )
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create video message
   /// 创建视频消息
@@ -278,9 +278,9 @@ class MessageManager {
                 'videoType': videoType,
                 'duration': duration,
                 'snapshotPath': snapshotPath,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create video message
   /// 创建视频消息
@@ -299,9 +299,9 @@ class MessageManager {
                 'videoType': videoType,
                 'duration': duration,
                 'snapshotPath': snapshotPath,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create file message
   /// 创建文件消息
@@ -316,9 +316,9 @@ class MessageManager {
             _buildParam({
               'filePath': filePath,
               'fileName': fileName,
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             }))
-        .then((value) => _toObj(value));
+        .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
   }
 
   /// Create file message
@@ -334,9 +334,9 @@ class MessageManager {
               _buildParam({
                 'filePath': filePath,
                 'fileName': fileName,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create merger message
   /// 创建合并消息
@@ -353,9 +353,9 @@ class MessageManager {
                 'messageList': messageList.map((e) => e.toJson()).toList(),
                 'title': title,
                 'summaryList': summaryList,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create forward message
   /// 创建转发消息
@@ -368,9 +368,9 @@ class MessageManager {
             'createForwardMessage',
             _buildParam({
               'message': message.toJson(),
-              "operationID": _checkOperationID(operationID),
+              "operationID": Utils.checkOperationID(operationID),
             }))
-        .then((value) => _toObj(value));
+        .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
   }
 
   /// Create location message
@@ -388,9 +388,9 @@ class MessageManager {
                 'latitude': latitude,
                 'longitude': longitude,
                 'description': description,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create custom message
   /// 创建自定义消息
@@ -407,9 +407,9 @@ class MessageManager {
                 'data': data,
                 'extension': extension,
                 'description': description,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create quote message
   /// 创建引用消息
@@ -424,9 +424,9 @@ class MessageManager {
               _buildParam({
                 'quoteText': text,
                 'quoteMessage': quoteMsg.toJson(),
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create card message
   /// 创建卡片消息
@@ -439,9 +439,9 @@ class MessageManager {
               'createCardMessage',
               _buildParam({
                 'cardMessage': data,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toObj(value));
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Clear all c2c history message
   /// 清空单聊消息记录
@@ -453,7 +453,7 @@ class MessageManager {
           'clearC2CHistoryMessage',
           _buildParam({
             "userID": uid,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Clear all group history
@@ -466,31 +466,11 @@ class MessageManager {
           'clearGroupHistoryMessage',
           _buildParam({
             "groupID": gid,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
-
-  ///
-  // void forceSyncMsg() {
-  //   _channel.invokeMethod('forceSyncMsg', _buildParam({}));
-  // }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;
-  }
-
-  static List<Message> _toList(String value) =>
-      (_formatJson(value) as List).map((e) => Message.fromJson(e)).toList();
-
-  static Message _toObj(String value) => Message.fromJson(_formatJson(value));
-
-  static dynamic _formatJson(value) => jsonDecode(_printValue(value));
-
-  static String _printValue(value) {
-    return value;
-  }
-
-  static String _checkOperationID(String? obj) {
-    return obj ?? DateTime.now().millisecondsSinceEpoch.toString();
   }
 }

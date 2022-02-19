@@ -1,10 +1,3 @@
-//
-//  ConversationManager.swift
-//  Runner
-//
-//  Created by z1u24 on 2021/6/29.
-//
-
 import Foundation
 import OpenIMCore
 
@@ -12,7 +5,6 @@ public class ConversationManager: BaseServiceManager {
     
     public override func registerHandlers() {
         super.registerHandlers()
-        
         self["setConversationListener"] = setConversationListener
         self["getAllConversationList"] = getAllConversationList
         self["getConversationListSplit"] = getConversationListSplit

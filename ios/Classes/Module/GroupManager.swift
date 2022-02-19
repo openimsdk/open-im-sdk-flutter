@@ -1,10 +1,3 @@
-//
-//  GroupManager.swift
-//  flutter_openim_sdk
-//
-//  Created by z1u24 on 2021/7/5.
-//
-
 import Foundation
 import OpenIMCore
 
@@ -155,7 +148,7 @@ public class GroupListener: NSObject, Open_im_sdk_callbackOnGroupListenerProtoco
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupMemberAdded", errCode: nil, errMsg: nil, data: s)
     }
     
-    public func onGroupMemberDeleted(_ s: String?,member s1: String?) {
+    public func onGroupMemberDeleted(_ s: String?) {
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onGroupMemberDeleted", errCode: nil, errMsg: nil, data: s)
     }
     
@@ -169,13 +162,5 @@ public class GroupListener: NSObject, Open_im_sdk_callbackOnGroupListenerProtoco
 
     public func onJoinedGroupDeleted(_ s: String?) {
         CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onJoinedGroupDeleted", errCode: nil, errMsg: nil, data: s)
-    }
-
-    public func onReceiveJoinGroupApplicationAdded(_ s: String?) {
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onReceiveJoinGroupApplicationAdded", errCode: nil, errMsg: nil, data: s)
-    }
-
-    public func onReceiveJoinGroupApplicationDeleted(_ s: String?) {
-        CommonUtil.emitEvent(channel: channel, method: "groupListener", type: "onReceiveJoinGroupApplicationDeleted", errCode: nil, errMsg: nil, data: s)
     }
 }

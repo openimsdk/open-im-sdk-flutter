@@ -1,10 +1,3 @@
-//
-//  BaseServiceManager.swift
-//  flutter_openim_sdk
-//
-//  Created by willem on 2021/10/9.
-//
-
 import Flutter
 import OpenIMCore
 import UIKit

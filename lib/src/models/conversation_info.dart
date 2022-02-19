@@ -38,7 +38,6 @@ class ConversationInfo {
 
   ConversationInfo.fromJson(Map<String, dynamic> json)
       : conversationID = json['conversationID'] {
-    // conversationID = json['conversationID'];
     conversationType = json['conversationType'];
     userID = json['userID'];
     groupID = json['groupID'];
@@ -46,8 +45,6 @@ class ConversationInfo {
     faceURL = json['faceURL'];
     recvMsgOpt = json['recvMsgOpt'];
     unreadCount = json['unreadCount'];
-    // latestMsg = json['latestMsg'];
-    // if (null != json['latestMsg']) {
     try {
       if (json['latestMsg'] is String) {
         latestMsg = Message.fromJson(jsonDecode(json['latestMsg']));
@@ -55,9 +52,6 @@ class ConversationInfo {
         latestMsg = Message.fromJson(json['latestMsg']);
       }
     } catch (e) {}
-
-    // }
-
     latestMsgSendTime = json['latestMsgSendTime'];
     draftText = json['draftText'];
     draftTextTime = json['draftTextTime'];
@@ -65,7 +59,7 @@ class ConversationInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['conversationID'] = this.conversationID;
     data['conversationType'] = this.conversationType;
     data['userID'] = this.userID;
@@ -82,10 +76,9 @@ class ConversationInfo {
     return data;
   }
 
-  bool get isSingleChat => conversationType == ConversationType.single_chat;
+  bool get isSingleChat => conversationType == ConversationType.single;
 
-  bool get isGroupChat => conversationType == ConversationType.group_chat;
-
+  bool get isGroupChat => conversationType == ConversationType.group;
 
   @override
   bool operator ==(Object other) =>

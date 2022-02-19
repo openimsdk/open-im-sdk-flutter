@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-import 'package:flutter_openim_sdk/src/manager/im_user_manager.dart';
 
 class IMManager {
   MethodChannel _channel;
@@ -61,7 +59,7 @@ class IMManager {
           dynamic data = call.arguments['data'];
           switch (type) {
             case 'onSelfInfoUpdated':
-              uInfo = UserInfo.fromJson(_formatJson(data));
+              uInfo = Utils.toObj(data, (map) => UserInfo.fromJson(map));
               userManager.userListener.selfInfoUpdated(uInfo);
               break;
           }
@@ -70,52 +68,51 @@ class IMManager {
           dynamic data = call.arguments['data'];
           switch (type) {
             case 'onGroupApplicationAccepted':
-              final i = GroupApplicationInfo.fromJson(_formatJson(data));
+              final i = Utils.toObj(
+                  data, (map) => GroupApplicationInfo.fromJson(map));
               groupManager.groupListener.groupApplicationAccepted(i);
               break;
             case 'onGroupApplicationAdded':
-              final i = GroupApplicationInfo.fromJson(_formatJson(data));
+              final i = Utils.toObj(
+                  data, (map) => GroupApplicationInfo.fromJson(map));
               groupManager.groupListener.groupApplicationAdded(i);
               break;
             case 'onGroupApplicationDeleted':
-              final i = GroupApplicationInfo.fromJson(_formatJson(data));
+              final i = Utils.toObj(
+                  data, (map) => GroupApplicationInfo.fromJson(map));
               groupManager.groupListener.groupApplicationDeleted(i);
               break;
             case 'onGroupApplicationRejected':
-              final i = GroupApplicationInfo.fromJson(_formatJson(data));
+              final i = Utils.toObj(
+                  data, (map) => GroupApplicationInfo.fromJson(map));
               groupManager.groupListener.groupApplicationRejected(i);
               break;
             case 'onGroupInfoChanged':
-              final i = GroupInfo.fromJson(_formatJson(data));
+              final i = Utils.toObj(data, (map) => GroupInfo.fromJson(map));
               groupManager.groupListener.groupInfoChanged(i);
               break;
             case 'onGroupMemberAdded':
-              final i = GroupMembersInfo.fromJson(_formatJson(data));
+              final i =
+                  Utils.toObj(data, (map) => GroupMembersInfo.fromJson(map));
               groupManager.groupListener.groupMemberAdded(i);
               break;
             case 'onGroupMemberDeleted':
-              final i = GroupMembersInfo.fromJson(_formatJson(data));
+              final i =
+                  Utils.toObj(data, (map) => GroupMembersInfo.fromJson(map));
               groupManager.groupListener.groupMemberDeleted(i);
               break;
             case 'onGroupMemberInfoChanged':
-              final i = GroupMembersInfo.fromJson(_formatJson(data));
+              final i =
+                  Utils.toObj(data, (map) => GroupMembersInfo.fromJson(map));
               groupManager.groupListener.groupMemberInfoChanged(i);
               break;
             case 'onJoinedGroupAdded':
-              final i = GroupInfo.fromJson(_formatJson(data));
+              final i = Utils.toObj(data, (map) => GroupInfo.fromJson(map));
               groupManager.groupListener.joinedGroupAdded(i);
               break;
             case 'onJoinedGroupDeleted':
-              final i = GroupInfo.fromJson(_formatJson(data));
+              final i = Utils.toObj(data, (map) => GroupInfo.fromJson(map));
               groupManager.groupListener.joinedGroupDeleted(i);
-              break;
-            case 'onReceiveJoinGroupApplicationAdded':
-              final i = GroupApplicationInfo.fromJson(_formatJson(data));
-              groupManager.groupListener.receiveJoinGroupApplicationAdded(i);
-              break;
-            case 'onReceiveJoinGroupApplicationDeleted':
-              final i = GroupApplicationInfo.fromJson(_formatJson(data));
-              groupManager.groupListener.receiveJoinGroupApplicationDeleted(i);
               break;
           }
         } else if (call.method == ListenerType.advancedMsgListener) {
@@ -124,7 +121,7 @@ class IMManager {
           switch (type) {
             case 'onRecvNewMessage':
               var value = call.arguments['data']['newMessage'];
-              var msg = Message.fromJson(_formatJson(value));
+              final msg = Utils.toObj(value, (map) => Message.fromJson(map));
               messageManager.advancedMsgListener.recvNewMessage(msg);
               break;
             case 'onRecvMessageRevoked':
@@ -133,8 +130,8 @@ class IMManager {
               break;
             case 'onRecvC2CReadReceipt':
               var value = call.arguments['data']['haveReadMessage'];
-              var l = _formatJson(value) as List;
-              var list = l.map((e) => HaveReadInfo.fromJson(e)).toList();
+              var list =
+                  Utils.toList(value, (map) => ReadReceiptInfo.fromJson(map));
               messageManager.advancedMsgListener.recvC2CReadReceipt(list);
               break;
           }
@@ -166,21 +163,13 @@ class IMManager {
               conversationManager.conversationListener.syncServerFailed();
               break;
             case 'onNewConversation':
-              List<ConversationInfo> list = List.empty(growable: true);
-              if (null != data) {
-                list = (_formatJson(data) as List)
-                    .map((e) => ConversationInfo.fromJson(e))
-                    .toList();
-              }
+              var list =
+                  Utils.toList(data, (map) => ConversationInfo.fromJson(map));
               conversationManager.conversationListener.newConversation(list);
               break;
             case 'onConversationChanged':
-              List<ConversationInfo> list = List.empty(growable: true);
-              if (null != data) {
-                list = (_formatJson(data) as List)
-                    .map((e) => ConversationInfo.fromJson(e))
-                    .toList();
-              }
+              var list =
+                  Utils.toList(data, (map) => ConversationInfo.fromJson(map));
               conversationManager.conversationListener
                   .conversationChanged(list);
               break;
@@ -195,46 +184,50 @@ class IMManager {
 
           switch (type) {
             case 'onBlacklistAdded':
-              final u = BlacklistInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(data, (map) => BlacklistInfo.fromJson(map));
               friendshipManager.friendshipListener.blacklistAdded(u);
               break;
             case 'onBlacklistDeleted':
-              final u = BlacklistInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(data, (map) => BlacklistInfo.fromJson(map));
               friendshipManager.friendshipListener.blacklistDeleted(u);
               break;
             case 'onFriendApplicationAccepted':
-              final u = FriendApplicationInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(
+                  data, (map) => FriendApplicationInfo.fromJson(map));
               friendshipManager.friendshipListener.friendApplicationAccepted(u);
               break;
             case 'onFriendApplicationAdded':
-              final u = FriendApplicationInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(
+                  data, (map) => FriendApplicationInfo.fromJson(map));
               friendshipManager.friendshipListener.friendApplicationAdded(u);
               break;
             case 'onFriendApplicationDeleted':
-              final u = FriendApplicationInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(
+                  data, (map) => FriendApplicationInfo.fromJson(map));
               friendshipManager.friendshipListener.friendApplicationDeleted(u);
               break;
             case 'onFriendApplicationListRejected':
-              final u = FriendApplicationInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(
+                  data, (map) => FriendApplicationInfo.fromJson(map));
               friendshipManager.friendshipListener.friendApplicationRejected(u);
               break;
             case 'onFriendInfoChanged':
-              final u = FriendInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(data, (map) => FriendInfo.fromJson(map));
               friendshipManager.friendshipListener.friendInfoChanged(u);
               break;
             case 'onFriendAdded':
-              final u = FriendInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(data, (map) => FriendInfo.fromJson(map));
               friendshipManager.friendshipListener.friendAdded(u);
               break;
             case 'onFriendDeleted':
-              final u = FriendInfo.fromJson(_formatJson(data));
+              final u = Utils.toObj(data, (map) => FriendInfo.fromJson(map));
               friendshipManager.friendshipListener.friendDeleted(u);
               break;
           }
         }
       } catch (err) {
         print(
-            "回调失败了，数据类型异常。$err ${call.method} ${call.arguments['type']} ${call.arguments['data']}");
+            "回调失败了。$err ${call.method} ${call.arguments['type']} ${call.arguments['data']}");
       }
       return Future.value(null);
     });
@@ -242,14 +235,16 @@ class IMManager {
 
   /// Initialize SDK
   ///
-  /// [platform] Refer to [IMPlatform]
-  /// [apiAddr] Api server ip address
-  /// [wsAddr] WebSocket ip address
-  /// [dataDir] Data storage directory
+  /// [platform]  platform number  [IMPlatform]
+  /// [apiAddr]   api server ip address
+  /// [wsAddr]    webSocket ip address
+  /// [dataDir]   data storage directory
+  ///
   /// 初始化SDK
-  /// [platform] 平台编号[IMPlatform]
-  /// [apiAddr]    SDK api地址
-  /// [wsAddr]     SDK websocket地址
+  ///
+  /// [platform]  平台编号[IMPlatform]
+  /// [apiAddr]   SDK api地址
+  /// [wsAddr]    SDK websocket地址
   /// [dataDir]   SDK数据库存储目录
   Future<dynamic> initSDK({
     required int platform,
@@ -272,7 +267,7 @@ class IMManager {
             "data_dir": dataDir,
             "log_level": logLevel,
             "object_storage": objectStorage,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           },
         ));
   }
@@ -294,7 +289,7 @@ class IMManager {
       _buildParam({
         'uid': uid,
         'token': token,
-        'operationID': _checkOperationID(operationID),
+        'operationID': Utils.checkOperationID(operationID),
       }),
     );
     this.isLogined = true;
@@ -309,7 +304,7 @@ class IMManager {
     var value = await _channel.invokeMethod(
         'logout',
         _buildParam({
-          'operationID': _checkOperationID(operationID),
+          'operationID': Utils.checkOperationID(operationID),
         }));
     this.isLogined = false;
     return value;
@@ -330,15 +325,5 @@ class IMManager {
   static Map _buildParam(Map param) {
     param["ManagerName"] = "imManager";
     return param;
-  }
-
-  static dynamic _formatJson(value) => jsonDecode(_printValue(value));
-
-  static String _printValue(value) {
-    return value;
-  }
-
-  static String _checkOperationID(String? obj) {
-    return obj ?? DateTime.now().millisecondsSinceEpoch.toString();
   }
 }

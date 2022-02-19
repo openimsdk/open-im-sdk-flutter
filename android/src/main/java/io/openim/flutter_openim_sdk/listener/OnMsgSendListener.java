@@ -11,14 +11,14 @@ import open_im_sdk_callback.SendMsgCallBack;
 
 public class OnMsgSendListener implements SendMsgCallBack {
     final private MethodChannel.Result result;
-//    final private MethodCall call;
-    final private Object clientMsgID;
+    private Object clientMsgID;
 
     public OnMsgSendListener(MethodChannel.Result result, MethodCall call) {
         this.result = result;
-//        this.call = call;
         Map<String, Object> args = call.argument("message");
-        this.clientMsgID = args.get("clientMsgID");
+        if (null != args) {
+            this.clientMsgID = args.get("clientMsgID");
+        }
     }
 
     @Override
@@ -28,10 +28,12 @@ public class OnMsgSendListener implements SendMsgCallBack {
 
     @Override
     public void onProgress(long l) {
-        final Map<String, Object> values = new ArrayMap<>();
-        values.put("clientMsgID", clientMsgID);
-        values.put("progress", l);
-        CommonUtil.emitEvent("msgSendProgressListener", "onProgress", values);
+        if (null != clientMsgID) {
+            final Map<String, Object> values = new ArrayMap<>();
+            values.put("clientMsgID", clientMsgID);
+            values.put("progress", l);
+            CommonUtil.emitEvent("msgSendProgressListener", "onProgress", values);
+        }
     }
 
     @Override

@@ -1,10 +1,3 @@
-//
-//  IMManager.swift
-//  Runner
-//
-//  Created by z1u24 on 2021/6/28.
-//
-
 import Foundation
 import OpenIMCore
 
@@ -12,7 +5,6 @@ public class IMMananger: BaseServiceManager {
     
     public override func registerHandlers() {
         super.registerHandlers()
-        
         self["initSDK"] = initSDK
         self["login"] = login
         self["logout"] = logout
@@ -75,10 +67,10 @@ public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol 
         self.channel = channel
     }
     
-    public func onConnectFailed(_ errCode: Int, errMsg: String?) {
+    public func onConnectFailed(_ errCode: Int32, errMsg: String?) {
         CommonUtil.emitEvent(channel: self.channel, method: "connectListener", type: "onConnectFailed", errCode: errCode, errMsg: errMsg, data: nil)
     }
-    
+
     public func onConnectSuccess() {
         CommonUtil.emitEvent(channel: self.channel, method: "connectListener", type: "onConnectSuccess", errCode: nil, errMsg: nil, data: nil)
     }

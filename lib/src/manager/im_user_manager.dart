@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
@@ -27,9 +25,9 @@ class UserManager {
               'getUsersInfo',
               _buildParam({
                 'uidList': uidList,
-                'operationID': _checkOperationID(operationID),
+                'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toList(value, (v) => UserInfo.fromJson(v.cast())));
+          .then((value) => Utils.toList(value, (v) => UserInfo.fromJson(v)));
 
   /// Get the information of the currently logged in user
   /// 获取当前登录用户的信息
@@ -40,9 +38,9 @@ class UserManager {
           .invokeMethod(
               'getSelfUserInfo',
               _buildParam({
-                'operationID': _checkOperationID(operationID),
+                'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => UserInfo.fromJson(_formatJson(value)));
+          .then((value) => Utils.toObj(value, (map) => UserInfo.fromJson(map)));
 
   /// Modify current user info
   /// 修改当前登录用户资料
@@ -52,7 +50,7 @@ class UserManager {
     int? gender,
     int? appMangerLevel,
     String? phoneNumber,
-    String? birth,
+    int? birth,
     String? email,
     String? ex,
     String? operationID,
@@ -69,27 +67,11 @@ class UserManager {
             'birth': birth,
             'email': email,
             'ex': ex,
-            'operationID': _checkOperationID(operationID),
+            'operationID': Utils.checkOperationID(operationID),
           }));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "userManager";
     return param;
-  }
-
-  static List<T> _toList<T>(String? value, T f(Map map)) {
-    var list = _formatJson(value);
-    if (null == list) return <T>[];
-    return (list as List).map((e) => f(e)).toList();
-  }
-
-  static dynamic _formatJson(value) => jsonDecode(_printValue(value));
-
-  static String _printValue(value) {
-    return value;
-  }
-
-  static String _checkOperationID(String? obj) {
-    return obj ?? DateTime.now().millisecondsSinceEpoch.toString();
   }
 }

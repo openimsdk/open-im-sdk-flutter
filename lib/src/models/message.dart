@@ -71,8 +71,7 @@ class Message {
     this.notificationElem,
   });
 
-  Message.fromJson(
-      Map<String, dynamic> json) /*  : clientMsgID = json['clientMsgID']*/ {
+  Message.fromJson(Map<String, dynamic> json) {
     clientMsgID = json['clientMsgID'];
     serverMsgID = json['serverMsgID'];
     createTime = json['createTime'];
@@ -127,7 +126,7 @@ class Message {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['clientMsgID'] = this.clientMsgID;
     data['serverMsgID'] = this.serverMsgID;
     data['createTime'] = this.createTime;
@@ -171,6 +170,41 @@ class Message {
 
   @override
   int get hashCode => clientMsgID.hashCode;
+
+  void update(Message message) {
+    if (clientMsgID != message.clientMsgID) return;
+    // clientMsgID = message.clientMsgID;
+    serverMsgID = message.serverMsgID;
+    createTime = message.createTime;
+    sendTime = message.sendTime;
+    sendID = message.sendID;
+    recvID = message.recvID;
+    msgFrom = message.msgFrom;
+    contentType = message.contentType;
+    platformID = message.platformID;
+    senderNickname = message.senderNickname;
+    senderFaceUrl = message.senderFaceUrl;
+    groupID = message.groupID;
+    content = message.content;
+    seq = message.seq;
+    isRead = message.isRead;
+    status = message.status;
+    offlinePush = message.offlinePush;
+    attachedInfo = message.attachedInfo;
+    ex = message.ex;
+    ext = message.ext;
+    sessionType = message.sessionType;
+    pictureElem = message.pictureElem;
+    soundElem = message.soundElem;
+    videoElem = message.videoElem;
+    fileElem = message.fileElem;
+    atElem = message.atElem;
+    locationElem = message.locationElem;
+    customElem = message.customElem;
+    quoteElem = message.quoteElem;
+    mergeElem = message.mergeElem;
+    notificationElem = message.notificationElem;
+  }
 }
 
 class PictureElem {
@@ -199,7 +233,7 @@ class PictureElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['sourcePath'] = this.sourcePath;
     if (this.sourcePicture != null) {
       data['sourcePicture'] = this.sourcePicture?.toJson();
@@ -235,7 +269,7 @@ class PictureInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['uuid'] = this.uuid;
     data['type'] = this.type;
     data['size'] = this.size;
@@ -269,7 +303,7 @@ class SoundElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['uuid'] = this.uuid;
     data['soundPath'] = this.soundPath;
     data['sourceUrl'] = this.sourceUrl;
@@ -323,7 +357,7 @@ class VideoElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['videoPath'] = this.videoPath;
     data['videoUUID'] = this.videoUUID;
     data['videoUrl'] = this.videoUrl;
@@ -359,7 +393,7 @@ class FileElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['filePath'] = this.filePath;
     data['uuid'] = this.uuid;
     data['sourceUrl'] = this.sourceUrl;
@@ -385,7 +419,7 @@ class AtElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['text'] = this.text;
     data['atUserList'] = this.atUserList;
     data['isAtSelf'] = this.isAtSelf;
@@ -416,7 +450,7 @@ class LocationElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['description'] = this.description;
     data['longitude'] = this.longitude;
     data['latitude'] = this.latitude;
@@ -438,7 +472,7 @@ class CustomElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['data'] = this.data;
     data['extension'] = this.extension;
     data['description'] = this.description;
@@ -460,7 +494,7 @@ class QuoteElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['text'] = this.text;
     data['quoteMessage'] = this.quoteMessage?.toJson();
     return data;
@@ -487,7 +521,7 @@ class MergeElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['title'] = this.title;
     data['abstractList'] = this.abstractList;
     data['multiMessage'] = this.multiMessage?.map((e) => e.toJson()).toList();
@@ -507,14 +541,14 @@ class NotificationElem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['detail'] = this.detail;
     data['defaultTips'] = this.defaultTips;
     return data;
   }
 }
 
-class HaveReadInfo {
+class ReadReceiptInfo {
   String? uid;
   List<String>? msgIDList;
   int? readTime;
@@ -522,7 +556,7 @@ class HaveReadInfo {
   int? contentType;
   int? sessionType;
 
-  HaveReadInfo(
+  ReadReceiptInfo(
       {this.uid,
       this.msgIDList,
       this.readTime,
@@ -530,7 +564,7 @@ class HaveReadInfo {
       this.contentType,
       this.sessionType});
 
-  HaveReadInfo.fromJson(Map<String, dynamic> json) {
+  ReadReceiptInfo.fromJson(Map<String, dynamic> json) {
     uid = json['uid'];
     if (json['msgIDList'] is List) {
       msgIDList = (json['msgIDList'] as List).map((e) => '$e').toList();
@@ -542,7 +576,7 @@ class HaveReadInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['uid'] = this.uid;
     data['msgIDList'] = this.msgIDList;
     data['readTime'] = this.readTime;
@@ -572,7 +606,7 @@ class OfflinePushInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['title'] = this.title;
     data['desc'] = this.desc;
     data['ex'] = this.ex;

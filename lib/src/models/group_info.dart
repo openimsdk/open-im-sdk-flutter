@@ -43,7 +43,7 @@ class GroupInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['groupID'] = this.groupID;
     data['groupName'] = this.groupName;
     data['notification'] = this.notification;
@@ -96,7 +96,7 @@ class GroupMembersInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['groupID'] = this.groupID;
     data['userID'] = this.userID;
     data['roleLevel'] = this.roleLevel;
@@ -125,7 +125,7 @@ class GroupMemberRole {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['userID'] = this.userID;
     data['roleLevel'] = this.roleLevel;
     return data;
@@ -148,7 +148,10 @@ class GroupApplicationInfo {
   String? nickname;
   String? userFaceURL;
   int? gender;
-  int? handleResult; //REFUSE = -1, AGREE = 1
+
+  /// REFUSE = -1, AGREE = 1
+  /// -1：拒绝，1：同意
+  int? handleResult;
   String? reqMsg;
   String? handledMsg;
   int? reqTime;
@@ -246,59 +249,9 @@ class GroupInviteResult {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = Map<String, dynamic>();
     data['userID'] = this.userID;
     data['result'] = this.result;
     return data;
   }
 }
-
-// class GroupMembersList {
-//   int? nextSeq;
-//   List<GroupMembersInfo>? data;
-//
-//   GroupMembersList({this.nextSeq, this.data});
-//
-//   GroupMembersList.fromJson(Map<String, dynamic> json) {
-//     nextSeq = json['nextSeq'];
-//     if (json['data'] is List) {
-//       data = (json['data'] as List)
-//           .map((e) => GroupMembersInfo.fromJson(e))
-//           .toList();
-//     }
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['nextSeq'] = this.nextSeq;
-//     if (this.data != null) {
-//       data['data'] = this.data!.map((v) => v.toJson()).toList();
-//     }
-//     return data;
-//   }
-// }
-//
-// class GroupApplicationList {
-//   int? count;
-//   List<GroupApplicationInfo>? user;
-//
-//   GroupApplicationList({this.count, this.user});
-//
-//   GroupApplicationList.fromJson(Map<String, dynamic> json) {
-//     count = json['count'];
-//     if (json['user'] is List) {
-//       user = (json['user'] as List)
-//           .map((e) => GroupApplicationInfo.fromJson(e))
-//           .toList();
-//     }
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['count'] = this.count;
-//     if (this.user != null) {
-//       data['user'] = this.user!.map((v) => v.toJson()).toList();
-//     }
-//     return data;
-//   }
-// }

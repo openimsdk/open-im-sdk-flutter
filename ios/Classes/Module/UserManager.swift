@@ -1,4 +1,3 @@
-
 import Foundation
 import OpenIMCore
 
@@ -6,6 +5,7 @@ public class UserManager: BaseServiceManager {
 
   public override func registerHandlers() {
         super.registerHandlers()
+        self["setUserListener"] = setUserListener
         self["getUsersInfo"] = getUsersInfo
         self["setSelfInfo"] = setSelfInfo
         self["getSelfUserInfo"] = getSelfUserInfo
@@ -32,7 +32,7 @@ public class UserManager: BaseServiceManager {
 public class UserListener: NSObject, Open_im_sdk_callbackOnUserListenerProtocol {
     
     private let channel:FlutterMethodChannel
-    
+
     init(channel:FlutterMethodChannel) {
         self.channel = channel
     }

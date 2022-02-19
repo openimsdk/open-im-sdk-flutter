@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
@@ -27,9 +25,9 @@ class FriendshipManager {
               'getFriendsInfo',
               _buildParam({
                 "uidList": uidList,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => _toList(value, (v) => UserInfo.fromJson(v.cast())));
+          .then((value) => Utils.toList(value, (v) => UserInfo.fromJson(v)));
 
   /// Send an friend application
   /// 发送一个好友请求
@@ -43,7 +41,7 @@ class FriendshipManager {
           _buildParam({
             "toUserID": uid,
             "reqMsg": reason,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Get someone's request to add me as a friend
@@ -54,10 +52,10 @@ class FriendshipManager {
           .invokeMethod(
               'getRecvFriendApplicationList',
               _buildParam({
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) =>
-              _toList(value, (v) => FriendApplicationInfo.fromJson(v.cast())));
+              Utils.toList(value, (v) => FriendApplicationInfo.fromJson(v)));
 
   /// Get friend requests from me
   /// 获取我发出的好友申请
@@ -67,10 +65,10 @@ class FriendshipManager {
           .invokeMethod(
               'getSendFriendApplicationList',
               _buildParam({
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) =>
-              _toList(value, (v) => FriendApplicationInfo.fromJson(v.cast())));
+              Utils.toList(value, (v) => FriendApplicationInfo.fromJson(v)));
 
   /// Find all friends including those who have been added to the blacklist
   /// 获取好友列表包含已拉入黑名单的好友
@@ -78,9 +76,9 @@ class FriendshipManager {
       .invokeMethod(
           'getFriendList',
           _buildParam({
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }))
-      .then((value) => _toList(value, (v) => UserInfo.fromJson(v.cast())));
+      .then((value) => Utils.toList(value, (v) => UserInfo.fromJson(v)));
 
   /// Find all friends including those who have been added to the blacklist
   /// 获取好友列表
@@ -88,11 +86,11 @@ class FriendshipManager {
       .invokeMethod(
           'getFriendList',
           _buildParam({
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }))
-      .then((value) => _toListMap(value));
+      .then((value) => Utils.toListMap(value));
 
-  /// Modify friend information, only [comment] can be modified
+  /// Modify friend remark name
   /// 设置好友备注
   Future<dynamic> setFriendRemark({
     required String uid,
@@ -104,7 +102,7 @@ class FriendshipManager {
           _buildParam({
             'toUserID': uid,
             'remark': remark,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Add friends to blacklist
@@ -117,7 +115,7 @@ class FriendshipManager {
           'addBlacklist',
           _buildParam({
             "uid": uid,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Find all blacklist
@@ -126,9 +124,9 @@ class FriendshipManager {
       .invokeMethod(
           'getBlacklist',
           _buildParam({
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }))
-      .then((value) => _toList(value, (v) => UserInfo.fromJson(v.cast())));
+      .then((value) => Utils.toList(value, (v) => UserInfo.fromJson(v)));
 
   /// Remove from blacklist
   /// 从黑名单移除
@@ -140,7 +138,7 @@ class FriendshipManager {
           'removeBlacklist',
           _buildParam({
             "uid": uid,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Determine if there is a friendship by userId
@@ -154,10 +152,10 @@ class FriendshipManager {
               'checkFriend',
               _buildParam({
                 'uidList': uidList,
-                "operationID": _checkOperationID(operationID),
+                "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) =>
-              _toList(value, (v) => FriendshipInfo.fromJson(v.cast())));
+              Utils.toList(value, (v) => FriendshipInfo.fromJson(v)));
 
   /// Dissolve friendship from friend list
   /// 删除好友
@@ -169,7 +167,7 @@ class FriendshipManager {
           'deleteFriend',
           _buildParam({
             "uid": uid,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Accept application of be friend
@@ -184,7 +182,7 @@ class FriendshipManager {
           _buildParam({
             "toUserID": uid,
             "handleMsg": handleMsg,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Refuse application of be friend
@@ -199,49 +197,11 @@ class FriendshipManager {
           _buildParam({
             "toUserID": uid,
             "handleMsg": handleMsg,
-            "operationID": _checkOperationID(operationID),
+            "operationID": Utils.checkOperationID(operationID),
           }));
-
-  ///
-  // Future<dynamic> forceSyncFriendApplication() {
-  //   return _channel.invokeMethod('forceSyncFriendApplication', _buildParam({}));
-  // }
-
-  ///
-  // Future<dynamic> forceSyncFriend() {
-  //   return _channel.invokeMethod('forceSyncFriend', _buildParam({}));
-  // }
-
-  ///
-  // Future<dynamic> forceSyncBlackList() {
-  //   return _channel.invokeMethod('forceSyncBlackList', _buildParam({}));
-  // }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "friendshipManager";
     return param;
-  }
-
-  static List<T> _toList<T>(String? value, T f(Map map)) {
-    var list = _formatJson(value);
-    if (null == list) return <T>[];
-    return (list as List).map((e) => f(e)).toList();
-  }
-
-  static List<dynamic> _toListMap(String? value) {
-    var list = _formatJson(value);
-    return list;
-  }
-
-  // static UserInfo _toObj(String value) => UserInfo.fromJson(_formatJson(value));
-
-  static dynamic _formatJson(value) => jsonDecode(_printValue(value));
-
-  static String _printValue(value) {
-    return value;
-  }
-
-  static String _checkOperationID(String? obj) {
-    return obj ?? DateTime.now().millisecondsSinceEpoch.toString();
   }
 }

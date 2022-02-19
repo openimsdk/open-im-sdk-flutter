@@ -1,10 +1,3 @@
-//
-//  MessageManager.swift
-//  Runner
-//
-//  Created by z1u24 on 2021/6/29.
-//
-
 import Foundation
 import OpenIMCore
 
@@ -14,7 +7,6 @@ public class MessageManager: BaseServiceManager {
     
     public override func registerHandlers() {
         super.registerHandlers()
-        
         self["setAdvancedMsgListener"] = setAdvancedMsgListener
         self["sendMessage"] = sendMessage
         self["getHistoryMessageList"] = getHistoryMessageList
@@ -49,7 +41,7 @@ public class MessageManager: BaseServiceManager {
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let key = methodCall[string: KEY_ID]
         let lis = AdvancedMsgListener(channel: channel, id: key)
-        open_im_sdkSetAdvancedMsgListener(lis)
+        Open_im_sdkSetAdvancedMsgListener(lis)
         callBack(result)
     }
     
@@ -191,22 +183,11 @@ public class MessageManager: BaseServiceManager {
             self.call = methodCall
         }
 
-//         func setResult(result: @escaping FlutterResult){
-//             self.result = result
-//         }
-//
-//         func setCall(methodCall: FlutterMethodCall){
-//             self.call = methodCall
-//         }
-
-        public func onError(_ errCode: Int, errMsg: String?) {
+        public func onError(_ errCode: Int32, errMsg: String?) {
             DispatchQueue.main.async { self.result(FlutterError(code: "\(errCode)", message: errMsg, details: nil)) }
         }
 
         public func onProgress(_ progress: Int) {
-//             guard let call = call else {
-//                 return
-//             }
             var values: [String: Any] = [:]
             let message = call[dict: "message"]
             values["clientMsgID"] = message["clientMsgID"]
@@ -224,12 +205,9 @@ public class MessageManager: BaseServiceManager {
         private let channel: FlutterMethodChannel
         private let id: String
 
-//         private var values: [String: Any] = [:]
-
         init(channel: FlutterMethodChannel, id: String) {
             self.channel = channel
             self.id = id
-//             values["id"] = id
         }
 
         public func onRecvC2CReadReceipt(_ msgReceiptList: String?) {

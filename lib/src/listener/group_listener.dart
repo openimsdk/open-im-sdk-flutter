@@ -9,10 +9,6 @@ abstract class GroupListener {
 
   void groupMemberDeleted(GroupMembersInfo info);
 
-  void receiveJoinGroupApplicationAdded(GroupApplicationInfo info);
-
-  void receiveJoinGroupApplicationDeleted(GroupApplicationInfo info);
-
   void groupApplicationAdded(GroupApplicationInfo info);
 
   void groupApplicationDeleted(GroupApplicationInfo info);

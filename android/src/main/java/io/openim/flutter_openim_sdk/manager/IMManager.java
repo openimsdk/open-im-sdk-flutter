@@ -15,7 +15,6 @@ public class IMManager extends BaseManager {
                 value(methodCall, "operationID"),
                 jsonValue(methodCall))
         );
-//        CommonUtil.runMainThreadReturn(result, null);
     }
 
     public void login(MethodCall methodCall, MethodChannel.Result result) {

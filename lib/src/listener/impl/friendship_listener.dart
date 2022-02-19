@@ -1,28 +1,5 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-/// 申请添加好友：
-/// 主动申请者收到 OnFriendApplicationAdded
-/// 被添加者收到 OnFriendApplicationAdded
-///
-/// 同意好友申请：
-/// 操作者收到 OnFriendApplicationAccepted OnFriendAdded
-/// 申请者收到 OnFriendApplicationAccepted OnFriendAdded
-///
-/// 好友拒绝申请：
-/// 操作者收到 OnFriendApplicationRejected
-/// 申请者收到 OnFriendApplicationRejected
-///
-/// 删除好友：
-/// 操作者收到 OnFriendDeleted
-///
-/// 修改备注：
-/// 操作者收到 OnFriendInfoChanged
-///
-/// 添加黑名单：
-/// 操作者收到 OnBlacklistAdded；
-///
-/// 移除黑名单：
-/// 操作者收到 OnBlacklistDeleted
 class OnFriendshipListener extends FriendshipListener {
   Function(FriendApplicationInfo i)? onFriendApplicationAdded;
   Function(FriendApplicationInfo i)? onFriendApplicationDeleted;

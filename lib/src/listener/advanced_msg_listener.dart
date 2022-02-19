@@ -10,7 +10,7 @@ abstract class AdvancedMsgListener {
   void recvNewMessage(Message msg);
 
   /// Message read receipt
-  void recvC2CReadReceipt(List<HaveReadInfo> list);
+  void recvC2CReadReceipt(List<ReadReceiptInfo> list);
 
   /// A friend withdrew a message
   void recvMessageRevoked(String msgId);

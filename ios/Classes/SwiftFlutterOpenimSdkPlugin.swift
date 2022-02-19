@@ -2,7 +2,6 @@ import Flutter
 import UIKit
 
 public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
-    
     let imManager: IMMananger
     let conversationManager: ConversationManager
     let friendshipManager: FriendshipManager

@@ -27,68 +27,31 @@ A flutter im plugin for android and ios.
 #### 3， Init config
 
 ```
-// Initialize SDK
+		// Initialize SDK
     OpenIM.iMManager
       ..initSDK(
         platform: Platform.isAndroid ? IMPlatform.android : IMPlatform.ios,
-        ipApi: '',
-        ipWs: '',
-        dbPath: '',
-        listener: OnInitSDKListener(
-          onConnecting: () {},
-          onConnectFailed: (code, error) {},
-          onConnectSuccess: () {},
-          onKickedOffline: () {},
-          onUserSigExpired: () {},
-          onSelfInfoUpdated: (user) {},
-        ),
+        apiAddr: '',
+        wsAddr: '',
+        dataDir: '',
+        listener: OnConnectListener(),
       )
-
+      // Set up current user info changed listener
+      ..userManager.setUserListener(OnUserListener())
       // Add message listener (remove when not in use)
-      ..messageManager.addAdvancedMsgListener(OnAdvancedMsgListener(
-        onRecvMessageRevoked: (msgId) {},
-        onRecvC2CReadReceipt: (list) {},
-        onRecvNewMessage: (msg) {},
-      ))
+      ..messageManager.setAdvancedMsgListener(OnAdvancedMsgListener())
 
       // Set up message sending progress listener
-      ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener(
-        onProgress: (msgId, progress) {},
-      ))
+      ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener())
 
       // Set up friend relationship listener
-      ..friendshipManager.setFriendshipListener(OnFriendshipListener(
-        onBlackListAdd: (u) {},
-        onBlackListDeleted: (u) {},
-        onFriendApplicationListAccept: (u) {},
-        onFriendApplicationListAdded: (u) {},
-        onFriendApplicationListDeleted: (u) {},
-        onFriendApplicationListReject: (u) {},
-        onFriendInfoChanged: (u) {},
-        onFriendListAdded: (u) {},
-        onFriendListDeleted: (u) {},
-      ))
+      ..friendshipManager.setFriendshipListener(OnFriendshipListener())
 
       // Set up conversation listener
-      ..conversationManager.setConversationListener(OnConversationListener(
-        onConversationChanged: (list) {},
-        onNewConversation: (list) {},
-        onTotalUnreadMessageCountChanged: (count) {},
-        onSyncServerFailed: () {},
-        onSyncServerFinish: () {},
-        onSyncServerStart: () {},
-      ))
+      ..conversationManager.setConversationListener(OnConversationListener())
 
       // Set up group listener
       ..groupManager.setGroupListener(OnGroupListener(
-        onApplicationProcessed: (groupId, opUser, agreeOrReject, opReason) {},
-        onGroupCreated: (groupId) {},
-        onGroupInfoChanged: (groupId, info) {},
-        onMemberEnter: (groupId, list) {},
-        onMemberInvited: (groupId, opUser, list) {},
-        onMemberKicked: (groupId, opUser, list) {},
-        onMemberLeave: (groupId, info) {},
-        onReceiveJoinApplication: (groupId, info, opReason) {},
       ));
 ```
 
@@ -139,7 +102,7 @@ var message = await OpenIM.iMManager.messageManager.createTextMessage(
 // Send
 OpenIM.iMManager.messageManager.sendMessage(
    message: message,
-   onlineUserOnly: false,
+   offlinePushInfo: offlinePushInfo,
    userID: uid, // Single chat value is not null
    groupID: gid, // The group chat value is not null
  ).then((v) {
@@ -153,120 +116,116 @@ OpenIM.iMManager.messageManager.sendMessage(
 OpenIM.iMManager.logout();
 ```
 
-
-
 ####  OpenIM.iMManager
 
-| method           | description                     |
-| ---------------- | ------------------------------- |
-| initSDK          | Initialize SDK                  |
-| unInitSDK        |                                 |
-| login            | Log in                          |
-| logout           | Sign out                        |
-| getLoginStatus   | Login status                    |
-| getLoginUid      | Current user id                 |
-| getLoginUserInfo | Current user information        |
-| setSelfInfo      | Modify current user information |
-| getUsersInfo     | Get user information by user id |
-| enabledSDKLog    | Setup sdk log                   |
+| method           | description              |
+| ---------------- | ------------------------ |
+| initSDK          | Initialize SDK           |
+| unInitSDK        |                          |
+| login            | Log in                   |
+| logout           | Sign out                 |
+| getLoginStatus   | Login status             |
+| getLoginUid      | Current user id          |
+| getLoginUserInfo | Current user information |
 
+#### OpenIM.userManager
 
+| method          | description                                         |
+| --------------- | --------------------------------------------------- |
+| setSelfInfo     | Modify current user information                     |
+| getUsersInfo    | Get user information by user id                     |
+| getSelfUserInfo | Get the information of the currently logged in user |
 
 #### OpenIM.iMManager.conversationManager
 
-| method                        | description                             |
-| ----------------------------- | --------------------------------------- |
-| setConversationListener       | Listener                                |
-| getAllConversationList        | Get all conversation                    |
-| getSingleConversation         | Get  single conversation                |
-| getMultipleConversation       | Get multiple conversation               |
-| deleteConversation            | Delete conversation                     |
-| setConversationDraft          | Set  conversation draftText             |
-| pinConversation               | Top conversation                        |
-| markSingleMessageHasRead      | Mark single chat messages as read       |
-| markGroupMessageHasRead       | Mark group chat messages as read        |
-| getTotalUnreadMsgCount        | Get the total number of unread messages |
-| getConversationID             | Query conversation id                   |
-| setConversationRecvMessageOpt | Setup  message do not disturb           |
-| getConversationRecvMessageOpt | Message do not disturb status           |
-
-
+| method                         | description                                                  |
+| ------------------------------ | ------------------------------------------------------------ |
+| setConversationListener        | Listener                                                     |
+| getAllConversationList         | Get all conversation                                         |
+| getConversationListSplit       | Paging to get conversation                                   |
+| getOneConversation             | Get a conversation, if it doesn't exist it will be created automatically |
+| getMultipleConversation        | Get conversation list by id list                             |
+| deleteConversation             | Delete conversation by id                                    |
+| setConversationDraft           | Set  conversation draftText                                  |
+| pinConversation                | Pinned conversation                                          |
+| markGroupMessageHasRead        | Mark group chat messages as read                             |
+| getTotalUnreadMsgCount         | Get the total number of unread messages                      |
+| getConversationIDBySessionType | Query conversation id                                        |
+| setConversationRecvMessageOpt  | Setup  message do not disturb                                |
+| getConversationRecvMessageOpt  | Message do not disturb status                                |
 
 #### OpenIM.iMManager.friendshipManager
 
-| method                   | description                                                  |
-| ------------------------ | ------------------------------------------------------------ |
-| setFriendshipListener    | Listener                                                     |
-| getFriendsInfo           | Get friend information                                       |
-| addFriend                | Send an friend application                                   |
-| getFriendApplicationList | Get all friend application, sent to you by others            |
-| getFriendList            | Find all friends including those who have been added to the blacklist |
-| setFriendInfo            | Modify friend information, only comment can be modified      |
-| addToBlackList           | Add to blacklist                                             |
-| getBlackList             | Get blacklist list                                           |
-| deleteFromBlackList      | Remove from blacklist                                        |
-| checkFriend              | Check friendship                                             |
-| deleteFromFriendList     | Remove friend                                                |
-| acceptFriendApplication  | Accept friend application                                    |
-| refuseFriendApplication  | Reject friend application                                    |
-
-
+| method                       | description                                                  |
+| ---------------------------- | ------------------------------------------------------------ |
+| setFriendshipListener        | Set up a friend relationship listener                        |
+| getFriendsInfo               | Get friend info by user id                                   |
+| addFriend                    | Send an friend application                                   |
+| getRecvFriendApplicationList | Get someone's request to add me as a friend                  |
+| getSendFriendApplicationList | Get friend requests from me                                  |
+| getFriendList                | Find all friends including those who have been added to the blacklist |
+| setFriendRemark              | Modify friend remark name                                    |
+| addBlacklist                 | Add friends to blacklist                                     |
+| getBlacklist                 | Get blacklist list                                           |
+| removeBlacklist              | Remove from blacklist                                        |
+| checkFriend                  | Determine if there is a friendship by userId                 |
+| deleteFriend                 | Dissolve friendship from friend list                         |
+| acceptFriendApplication      | Accept application of be friend                              |
+| refuseFriendApplication      | Refuse application of be friend                              |
 
 #### OpenIM.iMManager.messageManager
 
-| method                            | description                       |
-| --------------------------------- | --------------------------------- |
-| addAdvancedMsgListener            | Add message listener              |
-| setMsgSendProgressListener        | Message sending progress listener |
-| sendMessage                       | Send a message                    |
-| getHistoryMessageList             | Get history news                  |
-| revokeMessage                     | Revoke message                    |
-| deleteMessageFromLocalStorage     | Delete message                    |
-| insertSingleMessageToLocalStorage | Insert message                    |
-| findMessages                      | Query the message by id           |
-| markC2CMessageAsRead              | Mark c2c message as read          |
-| typingStatusUpdate                | Typing prompt                     |
-| createTextMessage                 | Create text message               |
-| createTextAtMessage               | Create @ message                  |
-| createImageMessage                | Create picture message            |
-| createImageMessageFromFullPath    | Create picture message            |
-| createSoundMessage                | Create voice message              |
-| createSoundMessageFromFullPath    | Create voice message              |
-| createVideoMessage                | Create video message              |
-| createVideoMessageFromFullPath    | Create video message              |
-| createFileMessage                 | Create file message               |
-| createFileMessageFromFullPath     | Create file message               |
-| createMergerMessage               | Create merge message              |
-| createForwardMessage              | Create a forwarded message        |
-| createLocationMessage             | Create location message           |
-| createCustomMessage               | Create custom message             |
-| createQuoteMessage                | Create quote message              |
-| createCardMessage                 | Create card message               |
-| clearC2CHistoryMessage            | Clear all message history         |
-| clearGroupHistoryMessage          | Clear all message history         |
-
-
+| method                            | description                                |
+| --------------------------------- | ------------------------------------------ |
+| setAdvancedMsgListener            | Set a message listener                     |
+| setMsgSendProgressListener        | Set up message sending progress monitoring |
+| sendMessage                       | Send a message to user or to group         |
+| getHistoryMessageList             | Find all history message                   |
+| revokeMessage                     | Revoke the sent information                |
+| deleteMessageFromLocalStorage     | Delete message                             |
+| insertSingleMessageToLocalStorage | Insert message                             |
+| markC2CMessageAsRead              | Mark c2c message as read                   |
+| typingStatusUpdate                | Typing prompt                              |
+| createTextMessage                 | Create text message                        |
+| createTextAtMessage               | Create @ message                           |
+| createImageMessage                | Create picture message                     |
+| createImageMessageFromFullPath    | Create picture message                     |
+| createSoundMessage                | Create voice message                       |
+| createSoundMessageFromFullPath    | Create voice message                       |
+| createVideoMessage                | Create video message                       |
+| createVideoMessageFromFullPath    | Create video message                       |
+| createFileMessage                 | Create file message                        |
+| createFileMessageFromFullPath     | Create file message                        |
+| createMergerMessage               | Create merge message                       |
+| createForwardMessage              | Create a forwarded message                 |
+| createLocationMessage             | Create location message                    |
+| createCustomMessage               | Create custom message                      |
+| createQuoteMessage                | Create quote message                       |
+| createCardMessage                 | Create card message                        |
+| clearC2CHistoryMessage            | Clear all c2c history message              |
+| clearGroupHistoryMessage          | Clear all group history                    |
 
 #### OpenIM.iMManager.groupManager
 
-| method                  | description                     |
-| ----------------------- | ------------------------------- |
-| setGroupListener        | Listener                        |
-| inviteUserToGroup       | Invite into the group           |
-| kickGroupMember         | Remove group members            |
-| getGroupMembersInfo     | Get group member information    |
-| getGroupMemberList      | Get group members               |
-| getJoinedGroupList      | Get joined groups               |
-| isJoinedGroup           | Check you have joined the group |
-| createGroup             | Create a group                  |
-| setGroupInfo            | Edit group information          |
-| getGroupsInfo           | Get group information           |
-| joinGroup               | Join group                      |
-| quitGroup               | Exit group                      |
-| transferGroupOwner      | Group permission transfer       |
-| getGroupApplicationList | Get group application list      |
-| acceptGroupApplication  | Accept group invitation         |
-| refuseGroupApplication  | Refuse group application        |
+| method                      | description                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| setGroupListener            | Set up group relationship monitoring                         |
+| inviteUserToGroup           | Invite friends into the group                                |
+| kickGroupMember             | Remove member from group                                     |
+| getGroupMembersInfo         | Get group member information                                 |
+| getGroupMemberList          | Get the list of group members                                |
+| getJoinedGroupList          | Find all groups you have joined                              |
+| isJoinedGroup               | Check if you are a member of the group                       |
+| createGroup                 | Create a group                                               |
+| setGroupInfo                | Edit group information                                       |
+| getGroupsInfo               | Find group information by group id                           |
+| joinGroup                   | Apply to join the group                                      |
+| quitGroup                   | Leave group                                                  |
+| transferGroupOwner          | Give group permissions to others                             |
+| getRecvGroupApplicationList | As the group owner or administrator, get the list of received group members' applications to join the group. |
+| getSendGroupApplicationList | Get the record of the group membership application issued by yourself |
+| acceptGroupApplication      | Accept group application                                     |
+| refuseGroupApplication      | Refuse group application                                     |
 
 #### Other
 
@@ -323,19 +282,19 @@ Platform
   static const linux = 7;
 ```
 
-Group member role
+Group member role level
 
 ```
-  static const member = 0;
-  static const owner = 1;
-  static const admin = 2;
+  static const member = 1;
+  static const owner = 2;
+  static const admin = 3;
 ```
 
 Conversation type
 
 ```
- static const single_chat = 1;
- static const group_chat = 2;
+ static const single = 1;
+ static const group = 2;
 ```
 
 Message status
