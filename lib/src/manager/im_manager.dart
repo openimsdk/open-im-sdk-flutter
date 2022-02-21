@@ -13,7 +13,7 @@ class IMManager {
 
   // late OfflinePushManager offlinePushManager;
   // late SignalingManager signalingManager;
-  late ConnectListener _connectListener;
+  late OnConnectListener _connectListener;
   late String uid;
   late UserInfo uInfo;
   bool isLogined = false;
@@ -251,7 +251,7 @@ class IMManager {
     required String apiAddr,
     required String wsAddr,
     required String dataDir,
-    required ConnectListener listener,
+    required OnConnectListener listener,
     int logLevel = 6,
     String? objectStorage,
     String? operationID,

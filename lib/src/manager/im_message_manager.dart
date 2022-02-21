@@ -5,14 +5,14 @@ class MessageManager {
   MethodChannel _channel;
 
   // List<AdvancedMsgListener> advancedMsgListeners = List.empty(growable: true);
-  MsgSendProgressListener? msgSendProgressListener;
-  late AdvancedMsgListener advancedMsgListener;
+  OnMsgSendProgressListener? msgSendProgressListener;
+  late OnAdvancedMsgListener advancedMsgListener;
 
   MessageManager(this._channel);
 
   /// Set a message listener
   /// 消息监听
-  Future setAdvancedMsgListener(AdvancedMsgListener listener) {
+  Future setAdvancedMsgListener(OnAdvancedMsgListener listener) {
     this.advancedMsgListener = listener;
     // advancedMsgListeners.add(listener);
     return _channel.invokeMethod(
@@ -24,7 +24,7 @@ class MessageManager {
 
   /// Set up message sending progress monitoring
   /// 消息发送进度监听
-  void setMsgSendProgressListener(MsgSendProgressListener listener) {
+  void setMsgSendProgressListener(OnMsgSendProgressListener listener) {
     msgSendProgressListener = listener;
   }
 
@@ -47,7 +47,14 @@ class MessageManager {
                 'message': message.toJson(),
                 'userID': userID ?? '',
                 'groupID': groupID ?? '',
-                'offlinePushInfo': offlinePushInfo?.toJson() ?? {},
+                'offlinePushInfo': offlinePushInfo?.toJson() ??
+                    {
+                      "title": "You have a new message",
+                      "desc": "",
+                      "ex": "",
+                      "iOSPushSound": "+1",
+                      "iOSBadgeCount": true,
+                    },
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));

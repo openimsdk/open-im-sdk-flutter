@@ -1,15 +1,44 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-abstract class ConversationListener {
-  void conversationChanged(List<ConversationInfo> list);
+class OnConversationListener {
+  Function(List<ConversationInfo> list)? onConversationChanged;
+  Function(List<ConversationInfo> list)? onNewConversation;
+  Function(int count)? onTotalUnreadMessageCountChanged;
+  Function()? onSyncServerFailed;
+  Function()? onSyncServerFinish;
+  Function()? onSyncServerStart;
 
-  void newConversation(List<ConversationInfo> list);
+  OnConversationListener({
+    this.onConversationChanged,
+    this.onNewConversation,
+    this.onTotalUnreadMessageCountChanged,
+    this.onSyncServerFailed,
+    this.onSyncServerFinish,
+    this.onSyncServerStart,
+  });
 
-  void syncServerFailed();
+  void conversationChanged(List<ConversationInfo> list) {
+    if (onConversationChanged != null) onConversationChanged!(list);
+  }
 
-  void syncServerFinish();
+  void newConversation(List<ConversationInfo> list) {
+    if (onNewConversation != null) onNewConversation!(list);
+  }
 
-  void syncServerStart();
+  void syncServerFailed() {
+    if (onSyncServerFailed != null) onSyncServerFailed!();
+  }
 
-  void totalUnreadMessageCountChanged(int i);
+  void syncServerFinish() {
+    if (onSyncServerFinish != null) onSyncServerFinish!();
+  }
+
+  void syncServerStart() {
+    if (onSyncServerStart != null) onSyncServerStart!();
+  }
+
+  void totalUnreadMessageCountChanged(int i) {
+    if (onTotalUnreadMessageCountChanged != null)
+      onTotalUnreadMessageCountChanged!(i);
+  }
 }

@@ -1,17 +1,33 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-abstract class AdvancedMsgListener {
-  /// Uniquely identifies
-  final String id;
+class OnAdvancedMsgListener {
+  /// Message read receipt
+  Function(List<ReadReceiptInfo> list)? onRecvC2CReadReceipt;
 
-  AdvancedMsgListener() : id = "id_${DateTime.now().microsecondsSinceEpoch}";
+  /// A friend revoked a message
+  Function(String msgId)? onRecvMessageRevoked;
 
   /// Receive new message
-  void recvNewMessage(Message msg);
+  Function(Message msg)? onRecvNewMessage;
 
-  /// Message read receipt
-  void recvC2CReadReceipt(List<ReadReceiptInfo> list);
+  /// Uniquely identifies
+  String id;
 
-  /// A friend withdrew a message
-  void recvMessageRevoked(String msgId);
+  OnAdvancedMsgListener({
+    this.onRecvC2CReadReceipt,
+    this.onRecvMessageRevoked,
+    this.onRecvNewMessage,
+  }) : id = "id_${DateTime.now().microsecondsSinceEpoch}";
+
+  void recvC2CReadReceipt(List<ReadReceiptInfo> list) {
+    if (null != onRecvC2CReadReceipt) onRecvC2CReadReceipt!(list);
+  }
+
+  void recvMessageRevoked(String msgId) {
+    if (null != onRecvMessageRevoked) onRecvMessageRevoked!(msgId);
+  }
+
+  void recvNewMessage(Message msg) {
+    if (null != onRecvNewMessage) onRecvNewMessage!(msg);
+  }
 }
