@@ -1,6 +1,7 @@
 framework module "OpenIMCore" {
 	header "ref.h"
     header "Open_im_sdk.objc.h"
+    header "Open_im_sdk_callback.objc.h"
     header "Universe.objc.h"
     header "OpenIMCore.h"
 
