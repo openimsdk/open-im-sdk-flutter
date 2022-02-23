@@ -1,10 +1,3 @@
-//
-//  JsonUtil.swift
-//  Runner
-//
-//  Created by z1u24 on 2021/6/28.
-//
-
 import Foundation
 
 public class JsonUtil {

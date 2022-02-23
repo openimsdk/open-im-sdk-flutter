@@ -41,5 +41,5 @@ android {
     }
 }
 dependencies {
-    implementation 'io.openim:client-sdk:1.4.5@aar'
+    implementation 'io.openim:client-sdk:2.0.3@aar'
 }

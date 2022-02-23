@@ -2,74 +2,98 @@ package io.openim.flutter_openim_sdk.manager;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
-import io.openim.flutter_openim_sdk.listener.BaseListener;
-import io.openim.flutter_openim_sdk.listener.ConversationListener;
+import io.openim.flutter_openim_sdk.listener.OnBaseListener;
+import io.openim.flutter_openim_sdk.listener.OnConversationListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
 
 public class ConversationManager extends BaseManager {
 
     public void setConversationListener(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setConversationListener(new ConversationListener());
+        Open_im_sdk.setConversationListener(new OnConversationListener());
     }
 
+
     public void getAllConversationList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getAllConversationList(new BaseListener(result));
+        Open_im_sdk.getAllConversationList(
+                new OnBaseListener(result),
+                value(methodCall, "operationID")
+        );
     }
 
     public void getConversationListSplit(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getConversationListSplit(new BaseListener(result),
+        Open_im_sdk.getConversationListSplit(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
                 int2long(methodCall, "offset"),
-                int2long(methodCall, "count"));
+                int2long(methodCall, "count")
+        );
     }
 
     public void getOneConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getOneConversation(
-                value(methodCall, "sourceID"),
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
                 int2long(methodCall, "sessionType"),
-                new BaseListener(result));
+                value(methodCall, "sourceID")
+        );
     }
 
     public void getMultipleConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getMultipleConversation(
-                jsonValue(methodCall, "conversationIDList"),
-                new BaseListener(result));
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "conversationIDList")
+        );
     }
 
     public void deleteConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.deleteConversation(
-                value(methodCall, "conversationID"),
-                new BaseListener(result));
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID")
+        );
     }
 
     public void setConversationDraft(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setConversationDraft(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
                 value(methodCall, "conversationID"),
-                value(methodCall, "draftText"),
-                new BaseListener(result));
+                value(methodCall, "draftText")
+        );
     }
 
     public void pinConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.pinConversation(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
                 value(methodCall, "conversationID"),
-                value(methodCall, "isPinned"),
-                new BaseListener(result));
+                value(methodCall, "isPinned")
+        );
     }
 
-    public void markSingleMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.markSingleMessageHasRead(
-                new BaseListener(result),
-                value(methodCall, "userID"));
-    }
+//    public void markSingleMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.markSingleMessageHasRead(
+//                new OnBaseListener(result),
+//                value(methodCall, "operationID"),
+//                value(methodCall, "userID")
+//        );
+//    }
 
     public void markGroupMessageHasRead(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.markGroupMessageHasRead(
-                new BaseListener(result),
-                value(methodCall, "groupID"));
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID")
+        );
     }
 
     public void getTotalUnreadMsgCount(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getTotalUnreadMsgCount(new BaseListener(result));
+        Open_im_sdk.getTotalUnreadMsgCount(
+                new OnBaseListener(result),
+                value(methodCall, "operationID")
+        );
     }
 
     public void getConversationIDBySessionType(MethodCall methodCall, MethodChannel.Result result) {
@@ -80,7 +104,8 @@ public class ConversationManager extends BaseManager {
 
     public void setConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setConversationRecvMessageOpt(
-                new BaseListener(result),
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
                 jsonValue(methodCall, "conversationIDList"),
                 int2long(methodCall, "status")
         );
@@ -88,7 +113,8 @@ public class ConversationManager extends BaseManager {
 
     public void getConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getConversationRecvMessageOpt(
-                new BaseListener(result),
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
                 jsonValue(methodCall, "conversationIDList")
         );
     }

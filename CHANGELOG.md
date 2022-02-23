@@ -1,3 +1,11 @@
+## 2.0.0
+
+1.Refactor mobile sdk, server sdk (2022-2-21)
+
+## 1.1.1
+
+1.Update sdk maven url
+
 ## 1.1.0
 
 1.Fix the problem of missing id in ios message progress

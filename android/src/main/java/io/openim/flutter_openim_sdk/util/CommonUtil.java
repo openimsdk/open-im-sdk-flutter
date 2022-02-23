@@ -32,7 +32,7 @@ public class CommonUtil {
         runMainThreadReturnError(result, String.valueOf(errorCode), errorMessage, errorDetails);
     }
 
-    public synchronized static <T> void emitEvent(String method, String type, Long errCode, String errMsg, T data) {
+    public synchronized static <T> void emitEvent(String method, String type, Object errCode, String errMsg, T data) {
         runMainThread(() -> {
             Map<String, Object> res = new ArrayMap<>();
             if (null != type) {

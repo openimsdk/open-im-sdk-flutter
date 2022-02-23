@@ -2,12 +2,12 @@ import Flutter
 import UIKit
 
 public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
-    
     let imManager: IMMananger
     let conversationManager: ConversationManager
     let friendshipManager: FriendshipManager
     let messageManager: MessageManager
     let groupManager: GroupManager
+    let userManger: UserManager
     
     init(channel: FlutterMethodChannel) {
         self.imManager = IMMananger(channel: channel)
@@ -15,6 +15,7 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
         self.friendshipManager = FriendshipManager(channel: channel)
         self.messageManager = MessageManager(channel: channel)
         self.groupManager = GroupManager(channel: channel)
+        self.userManger = UserManager(channel: channel)
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -36,6 +37,8 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
             friendshipManager.handleMethod(call: call, result: result)
         case "groupManager":
             groupManager.handleMethod(call: call, result: result)
+        case "userManager":
+            userManger.handleMethod(call: call, result: result)
         default:
             print("Handle ManagerName Error: \(managerName) not found")
         }
