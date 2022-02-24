@@ -1,3 +1,7 @@
+## 2.0.1
+
+1.Fix multi-terminal synchronization bug fix for retracted messages
+
 ## 2.0.0
 
 1.Refactor mobile sdk, server sdk (2022-2-21)

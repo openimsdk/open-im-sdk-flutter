@@ -33,11 +33,12 @@ class MessageManager {
   /// 发送消息
   /// [userID]接收消息的用户id
   /// [groupID]接收消息的组id
+  /// [offlinePushInfo]离线消息显示内容
   Future<Message> sendMessage({
     required Message message,
+    required OfflinePushInfo offlinePushInfo,
     String? userID,
     String? groupID,
-    OfflinePushInfo? offlinePushInfo,
     String? operationID,
   }) =>
       _channel
@@ -45,16 +46,9 @@ class MessageManager {
               'sendMessage',
               _buildParam({
                 'message': message.toJson(),
+                'offlinePushInfo': offlinePushInfo.toJson(),
                 'userID': userID ?? '',
                 'groupID': groupID ?? '',
-                'offlinePushInfo': offlinePushInfo?.toJson() ??
-                    {
-                      "title": "You have a new message",
-                      "desc": "",
-                      "ex": "",
-                      "iOSPushSound": "+1",
-                      "iOSBadgeCount": true,
-                    },
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
