@@ -253,7 +253,7 @@ class IMManager {
     required String dataDir,
     required OnConnectListener listener,
     int logLevel = 6,
-    String? objectStorage,
+    String objectStorage = 'cos',
     String? operationID,
   }) {
     _connectListener = listener;
