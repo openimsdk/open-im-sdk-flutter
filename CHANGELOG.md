@@ -1,6 +1,8 @@
-## 2.0.1
+## 2.0.0+1
 
-1.Fix multi-terminal synchronization bug fix for retracted messages
+1.Fix multi-terminal synchronization bug fix for retracted messages </br>
+2.Fix sending picture flashback bug </br>
+3.Fix other bug
 
 ## 2.0.0
 
