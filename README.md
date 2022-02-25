@@ -5,9 +5,7 @@
 
 A flutter im plugin for android and ios.
 
-#### [中文文档](README.zh-cn.md)
-
-#### [demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git) | [widget](https://github.com/hrxiang/flutter_openim_widget.git)
+#### [中文文档](README.zh-cn.md) | [demo](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git) | [widget](https://github.com/hrxiang/flutter_openim_widget.git)
 
 ![Android](https://www.pgyer.com/app/qrcode/OpenIM)
 
