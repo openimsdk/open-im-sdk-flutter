@@ -1,5 +1,9 @@
 ## 2.0.0+1
 
+1.Fix some one crash </br>
+
+## 2.0.0+1
+
 1.Fix multi-terminal synchronization bug fix for retracted messages </br>
 2.Fix sending picture flashback bug </br>
 3.Fix other bug
