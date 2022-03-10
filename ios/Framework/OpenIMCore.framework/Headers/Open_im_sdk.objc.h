@@ -29,6 +29,9 @@ FOUNDATION_EXPORT void Open_im_sdkAddFriend(id<Open_im_sdk_callbackBase> _Nullab
 
 FOUNDATION_EXPORT void Open_im_sdkCheckFriend(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDList);
 
+// skipped function CheckResourceLoad with unsupported parameter or return types
+
+
 FOUNDATION_EXPORT BOOL Open_im_sdkCheckToken(NSString* _Nullable userID, NSString* _Nullable token, NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT void Open_im_sdkClearC2CHistoryMessage(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userID);
@@ -38,6 +41,8 @@ FOUNDATION_EXPORT void Open_im_sdkClearGroupHistoryMessage(id<Open_im_sdk_callba
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateCardMessage(NSString* _Nullable operationID, NSString* _Nullable cardInfo);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateCustomMessage(NSString* _Nullable operationID, NSString* _Nullable data, NSString* _Nullable extension, NSString* _Nullable description);
+
+FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateFaceMessage(NSString* _Nullable operationID, long index, NSString* _Nullable data);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateFileMessage(NSString* _Nullable operationID, NSString* _Nullable filePath, NSString* _Nullable fileName);
 

@@ -444,6 +444,25 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
+  /// Create custom emoji message
+  /// 创建自定义表情消息
+  /// [index] The position of the emoji, such as the position emoji（表情的位置，如位置表情）
+  /// [data] Other data, such as url expressions（其他数据，如url表情）
+  Future<Message> createFaceMessage({
+    int index = -1,
+    String? data,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'createFaceMessage',
+              _buildParam({
+                'index': index,
+                'data': data,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
   /// Clear all c2c history message
   /// 清空单聊消息记录
   Future<dynamic> clearC2CHistoryMessage({

@@ -36,6 +36,7 @@ class Message {
   QuoteElem? quoteElem;
   MergeElem? mergeElem;
   NotificationElem? notificationElem;
+  FaceElem? faceElem;
 
   Message({
     this.clientMsgID,
@@ -69,6 +70,7 @@ class Message {
     this.quoteElem,
     this.mergeElem,
     this.notificationElem,
+    this.faceElem,
   });
 
   Message.fromJson(Map<String, dynamic> json) {
@@ -123,6 +125,8 @@ class Message {
     notificationElem = json['notificationElem'] != null
         ? NotificationElem.fromJson(json['notificationElem'])
         : null;
+    faceElem =
+        json['faceElem'] != null ? FaceElem.fromJson(json['faceElem']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -158,6 +162,7 @@ class Message {
     data['quoteElem'] = this.quoteElem?.toJson();
     data['mergeElem'] = this.mergeElem?.toJson();
     data['notificationElem'] = this.notificationElem?.toJson();
+    data['faceElem'] = this.faceElem?.toJson();
     return data;
   }
 
@@ -172,8 +177,7 @@ class Message {
   int get hashCode => clientMsgID.hashCode;
 
   void update(Message message) {
-    if (clientMsgID != message.clientMsgID) return;
-    // clientMsgID = message.clientMsgID;
+    if (this != message) return;
     serverMsgID = message.serverMsgID;
     createTime = message.createTime;
     sendTime = message.sendTime;
@@ -204,6 +208,7 @@ class Message {
     quoteElem = message.quoteElem;
     mergeElem = message.mergeElem;
     notificationElem = message.notificationElem;
+    faceElem = message.faceElem;
   }
 }
 
@@ -544,6 +549,25 @@ class NotificationElem {
     final data = Map<String, dynamic>();
     data['detail'] = this.detail;
     data['defaultTips'] = this.defaultTips;
+    return data;
+  }
+}
+
+class FaceElem {
+  int? index;
+  String? data;
+
+  FaceElem({this.index, this.data});
+
+  FaceElem.fromJson(Map<String, dynamic> json) {
+    index = json['index'];
+    data = json['data'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['index'] = this.index;
+    data['data'] = this.data;
     return data;
   }
 }

@@ -285,6 +285,13 @@ public class MessageManager extends BaseManager {
         ));
     }
 
+    public void createFaceMessage(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.createFaceMessage(
+                value(methodCall, "operationID"),
+                int2long(methodCall, "index"),
+                value(methodCall, "data")
+        ));
+    }
 //    public void forceSyncMsg(MethodCall methodCall, MethodChannel.Result result) {
 //        Open_im_sdk.forceSyncMsg();
 //    }

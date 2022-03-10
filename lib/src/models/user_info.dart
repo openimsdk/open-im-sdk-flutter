@@ -16,11 +16,17 @@ class UserInfo {
   int? createTime;
   String? remark;
 
+  /// User's public profile（用户公开的资料）
   PublicUserInfo? publicInfo;
+
+  /// Only friends can view information（好友才能查看的资料）
   FriendInfo? friendInfo;
+
+  /// blacklist information（黑名单资料）
   BlacklistInfo? blackInfo;
 
   bool? isFriendship;
+
   bool? isBlacklist;
 
   UserInfo({
@@ -76,7 +82,7 @@ class UserInfo {
     birth = json['birth'] ?? _birth;
     email = json['email'] ?? _email;
     remark = json['remark'] ?? _remark;
-    ex = json['ex'];
+    ex = json['ex'] ?? _ex;
     createTime = json['createTime'];
   }
 
@@ -123,6 +129,10 @@ class UserInfo {
       ? friendInfo?.gender
       : (isBlacklist! ? blackInfo?.gender : publicInfo?.gender);
 
+  String? get _ex => isFriendship!
+      ? friendInfo?.ex
+      : (isBlacklist! ? blackInfo?.ex : publicInfo?.ex);
+
   String? get _phoneNumber => friendInfo?.phoneNumber;
 
   int? get _birth => friendInfo?.birth;
@@ -131,9 +141,9 @@ class UserInfo {
 
   String? get _remark => friendInfo?.remark;
 
-  String getShowName() => _trimBlank(remark) ?? _trimBlank(nickname) ?? userID!;
+  String getShowName() => _isNull(remark) ?? _isNull(nickname) ?? userID!;
 
-  static String? _trimBlank(String? value) {
+  static String? _isNull(String? value) {
     if (value == null || value.trim().isEmpty) return null;
     return value;
   }
@@ -145,6 +155,7 @@ class PublicUserInfo {
   String? faceURL;
   int? gender;
   int? appMangerLevel;
+  String? ex;
 
   PublicUserInfo({
     this.userID,
@@ -152,6 +163,7 @@ class PublicUserInfo {
     this.faceURL,
     this.gender,
     this.appMangerLevel,
+    this.ex,
   });
 
   PublicUserInfo.fromJson(Map<String, dynamic> json) {
@@ -160,6 +172,7 @@ class PublicUserInfo {
     faceURL = json['faceURL'];
     gender = json['gender'];
     appMangerLevel = json['appMangerLevel'];
+    ex = json['ex'];
   }
 
   Map<String, dynamic> toJson() {
@@ -169,6 +182,7 @@ class PublicUserInfo {
     data['faceURL'] = this.faceURL;
     data['gender'] = this.gender;
     data['appMangerLevel'] = this.appMangerLevel;
+    data['ex'] = this.ex;
     return data;
   }
 }
