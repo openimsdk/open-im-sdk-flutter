@@ -3,14 +3,14 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class FriendshipManager {
   MethodChannel _channel;
-  late OnFriendshipListener friendshipListener;
+  late OnFriendshipListener listener;
 
   FriendshipManager(this._channel);
 
   /// Set up a friend relationship listener
   /// 好友关系监听
   Future setFriendshipListener(OnFriendshipListener listener) {
-    this.friendshipListener = listener;
+    this.listener = listener;
     return _channel.invokeMethod('setFriendListener', _buildParam({}));
   }
 

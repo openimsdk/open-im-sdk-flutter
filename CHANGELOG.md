@@ -1,6 +1,8 @@
-## 2.0.0+1
+## 2.0.0+2
 
 1.Fix some one crash </br>
+2.New add signaling function </br>
+3.Delete getConversationRecvMessageOpt
 
 ## 2.0.0+1
 

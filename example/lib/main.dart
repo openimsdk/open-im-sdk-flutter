@@ -163,6 +163,23 @@ class _MyAppState extends State<MyApp> {
         onGroupInfoChanged: (groupInfo) {
           // 组资料变更
         },
+      ))
+      ..signalingManager.setSignalingListener(OnSignalingListener(
+        onReceiveNewInvitation: (info) {
+          // 被邀请者收到：音视频通话邀请
+        },
+        onInviteeRejected: (info) {
+          // 邀请者收到：被邀请者拒绝音视频通话
+        },
+        onInviteeAccepted: (info) {
+          // 邀请者收到：被邀请者同意音视频通话
+        },
+        onInvitationTimeout: (info) {
+          // 邀请者收到：被邀请者超时未接通
+        },
+        onInvitationCancelled: (info) {
+          // 被邀请者收到：邀请者取消音视频通话
+        },
       ));
   }
 
@@ -264,9 +281,9 @@ class _MyAppState extends State<MyApp> {
       conversationIDList: [], // 会话id列表
       status: 1, // 1：不接受消息；2：接受在线消息不接受离线消息；0：正常
     );
-    OpenIM.iMManager.conversationManager.getConversationRecvMessageOpt(
-      conversationIDList: [], // 会话id列表
-    );
+    // OpenIM.iMManager.conversationManager.getConversationRecvMessageOpt(
+    //   conversationIDList: [], // 会话id列表
+    // );
     OpenIM.iMManager.conversationManager.simpleSort([]);
   }
 

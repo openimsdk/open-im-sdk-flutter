@@ -3,14 +3,14 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationManager {
   MethodChannel _channel;
-  late OnConversationListener conversationListener;
+  late OnConversationListener listener;
 
   ConversationManager(this._channel);
 
   /// Observe conversation changes
   /// 会话监听
   Future setConversationListener(OnConversationListener listener) {
-    this.conversationListener = listener;
+    this.listener = listener;
     return _channel.invokeMethod('setConversationListener', _buildParam({}));
   }
 
@@ -191,18 +191,18 @@ class ConversationManager {
   /// Message Do Not Disturb
   /// [{"conversationId":"single_13922222222","result":0}]
   /// 查询免打扰状态
-  Future<List<dynamic>> getConversationRecvMessageOpt({
-    required List<String> conversationIDList,
-    String? operationID,
-  }) =>
-      _channel
-          .invokeMethod(
-              'getConversationRecvMessageOpt',
-              _buildParam({
-                "conversationIDList": conversationIDList,
-                "operationID": Utils.checkOperationID(operationID),
-              }))
-          .then((value) => Utils.toListMap(value));
+  // Future<List<dynamic>> getConversationRecvMessageOpt({
+  //   required List<String> conversationIDList,
+  //   String? operationID,
+  // }) =>
+  //     _channel
+  //         .invokeMethod(
+  //             'getConversationRecvMessageOpt',
+  //             _buildParam({
+  //               "conversationIDList": conversationIDList,
+  //               "operationID": Utils.checkOperationID(operationID),
+  //             }))
+  //         .then((value) => Utils.toListMap(value));
 
   /// Custom sort for conversation list
   /// 会话列表自定义排序规则。

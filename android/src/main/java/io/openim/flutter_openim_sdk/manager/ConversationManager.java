@@ -111,11 +111,11 @@ public class ConversationManager extends BaseManager {
         );
     }
 
-    public void getConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getConversationRecvMessageOpt(
-                new OnBaseListener(result),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "conversationIDList")
-        );
-    }
+//    public void getConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.getConversationRecvMessageOpt(
+//                new OnBaseListener(result),
+//                value(methodCall, "operationID"),
+//                jsonValue(methodCall, "conversationIDList")
+//        );
+//    }
 }

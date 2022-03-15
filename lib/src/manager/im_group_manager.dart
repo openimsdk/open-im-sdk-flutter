@@ -3,14 +3,14 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class GroupManager {
   MethodChannel _channel;
-  late OnGroupListener groupListener;
+  late OnGroupListener listener;
 
   GroupManager(this._channel);
 
   /// Set up group relationship monitoring
   /// 组关系监听
   Future setGroupListener(OnGroupListener listener) {
-    this.groupListener = listener;
+    this.listener = listener;
     return _channel.invokeMethod('setGroupListener', _buildParam({}));
   }
 

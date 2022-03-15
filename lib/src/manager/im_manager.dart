@@ -12,7 +12,8 @@ class IMManager {
   late UserManager userManager;
 
   // late OfflinePushManager offlinePushManager;
-  // late SignalingManager signalingManager;
+  late SignalingManager signalingManager;
+
   late OnConnectListener _connectListener;
   late String uid;
   late UserInfo uInfo;
@@ -25,7 +26,7 @@ class IMManager {
     groupManager = GroupManager(_channel);
     userManager = UserManager(_channel);
     // offlinePushManager = OfflinePushManager(_channel);
-    // signalingManager = SignalingManager(_channel);
+    signalingManager = SignalingManager(_channel);
     _addNativeCallback(_channel);
   }
 
@@ -60,7 +61,7 @@ class IMManager {
           switch (type) {
             case 'onSelfInfoUpdated':
               uInfo = Utils.toObj(data, (map) => UserInfo.fromJson(map));
-              userManager.userListener.selfInfoUpdated(uInfo);
+              userManager.listener.selfInfoUpdated(uInfo);
               break;
           }
         } else if (call.method == ListenerType.groupListener) {
@@ -70,49 +71,49 @@ class IMManager {
             case 'onGroupApplicationAccepted':
               final i = Utils.toObj(
                   data, (map) => GroupApplicationInfo.fromJson(map));
-              groupManager.groupListener.groupApplicationAccepted(i);
+              groupManager.listener.groupApplicationAccepted(i);
               break;
             case 'onGroupApplicationAdded':
               final i = Utils.toObj(
                   data, (map) => GroupApplicationInfo.fromJson(map));
-              groupManager.groupListener.groupApplicationAdded(i);
+              groupManager.listener.groupApplicationAdded(i);
               break;
             case 'onGroupApplicationDeleted':
               final i = Utils.toObj(
                   data, (map) => GroupApplicationInfo.fromJson(map));
-              groupManager.groupListener.groupApplicationDeleted(i);
+              groupManager.listener.groupApplicationDeleted(i);
               break;
             case 'onGroupApplicationRejected':
               final i = Utils.toObj(
                   data, (map) => GroupApplicationInfo.fromJson(map));
-              groupManager.groupListener.groupApplicationRejected(i);
+              groupManager.listener.groupApplicationRejected(i);
               break;
             case 'onGroupInfoChanged':
               final i = Utils.toObj(data, (map) => GroupInfo.fromJson(map));
-              groupManager.groupListener.groupInfoChanged(i);
+              groupManager.listener.groupInfoChanged(i);
               break;
             case 'onGroupMemberAdded':
               final i =
                   Utils.toObj(data, (map) => GroupMembersInfo.fromJson(map));
-              groupManager.groupListener.groupMemberAdded(i);
+              groupManager.listener.groupMemberAdded(i);
               break;
             case 'onGroupMemberDeleted':
               final i =
                   Utils.toObj(data, (map) => GroupMembersInfo.fromJson(map));
-              groupManager.groupListener.groupMemberDeleted(i);
+              groupManager.listener.groupMemberDeleted(i);
               break;
             case 'onGroupMemberInfoChanged':
               final i =
                   Utils.toObj(data, (map) => GroupMembersInfo.fromJson(map));
-              groupManager.groupListener.groupMemberInfoChanged(i);
+              groupManager.listener.groupMemberInfoChanged(i);
               break;
             case 'onJoinedGroupAdded':
               final i = Utils.toObj(data, (map) => GroupInfo.fromJson(map));
-              groupManager.groupListener.joinedGroupAdded(i);
+              groupManager.listener.joinedGroupAdded(i);
               break;
             case 'onJoinedGroupDeleted':
               final i = Utils.toObj(data, (map) => GroupInfo.fromJson(map));
-              groupManager.groupListener.joinedGroupDeleted(i);
+              groupManager.listener.joinedGroupDeleted(i);
               break;
           }
         } else if (call.method == ListenerType.advancedMsgListener) {
@@ -153,28 +154,27 @@ class IMManager {
           dynamic data = call.arguments['data'];
           switch (type) {
             case 'onSyncServerStart':
-              conversationManager.conversationListener.syncServerStart();
+              conversationManager.listener.syncServerStart();
               break;
             case 'onSyncServerFinish':
-              conversationManager.conversationListener.syncServerFinish();
+              conversationManager.listener.syncServerFinish();
               break;
 
             case 'onSyncServerFailed':
-              conversationManager.conversationListener.syncServerFailed();
+              conversationManager.listener.syncServerFailed();
               break;
             case 'onNewConversation':
               var list =
                   Utils.toList(data, (map) => ConversationInfo.fromJson(map));
-              conversationManager.conversationListener.newConversation(list);
+              conversationManager.listener.newConversation(list);
               break;
             case 'onConversationChanged':
               var list =
                   Utils.toList(data, (map) => ConversationInfo.fromJson(map));
-              conversationManager.conversationListener
-                  .conversationChanged(list);
+              conversationManager.listener.conversationChanged(list);
               break;
             case 'onTotalUnreadMessageCountChanged':
-              conversationManager.conversationListener
+              conversationManager.listener
                   .totalUnreadMessageCountChanged(data ?? 0);
               break;
           }
@@ -185,43 +185,64 @@ class IMManager {
           switch (type) {
             case 'onBlacklistAdded':
               final u = Utils.toObj(data, (map) => BlacklistInfo.fromJson(map));
-              friendshipManager.friendshipListener.blacklistAdded(u);
+              friendshipManager.listener.blacklistAdded(u);
               break;
             case 'onBlacklistDeleted':
               final u = Utils.toObj(data, (map) => BlacklistInfo.fromJson(map));
-              friendshipManager.friendshipListener.blacklistDeleted(u);
+              friendshipManager.listener.blacklistDeleted(u);
               break;
             case 'onFriendApplicationAccepted':
               final u = Utils.toObj(
                   data, (map) => FriendApplicationInfo.fromJson(map));
-              friendshipManager.friendshipListener.friendApplicationAccepted(u);
+              friendshipManager.listener.friendApplicationAccepted(u);
               break;
             case 'onFriendApplicationAdded':
               final u = Utils.toObj(
                   data, (map) => FriendApplicationInfo.fromJson(map));
-              friendshipManager.friendshipListener.friendApplicationAdded(u);
+              friendshipManager.listener.friendApplicationAdded(u);
               break;
             case 'onFriendApplicationDeleted':
               final u = Utils.toObj(
                   data, (map) => FriendApplicationInfo.fromJson(map));
-              friendshipManager.friendshipListener.friendApplicationDeleted(u);
+              friendshipManager.listener.friendApplicationDeleted(u);
               break;
             case 'onFriendApplicationListRejected':
               final u = Utils.toObj(
                   data, (map) => FriendApplicationInfo.fromJson(map));
-              friendshipManager.friendshipListener.friendApplicationRejected(u);
+              friendshipManager.listener.friendApplicationRejected(u);
               break;
             case 'onFriendInfoChanged':
               final u = Utils.toObj(data, (map) => FriendInfo.fromJson(map));
-              friendshipManager.friendshipListener.friendInfoChanged(u);
+              friendshipManager.listener.friendInfoChanged(u);
               break;
             case 'onFriendAdded':
               final u = Utils.toObj(data, (map) => FriendInfo.fromJson(map));
-              friendshipManager.friendshipListener.friendAdded(u);
+              friendshipManager.listener.friendAdded(u);
               break;
             case 'onFriendDeleted':
               final u = Utils.toObj(data, (map) => FriendInfo.fromJson(map));
-              friendshipManager.friendshipListener.friendDeleted(u);
+              friendshipManager.listener.friendDeleted(u);
+              break;
+          }
+        } else if (call.method == ListenerType.signalingListener) {
+          String type = call.arguments['type'];
+          dynamic data = call.arguments['data'];
+          final u = Utils.toObj(data, (map) => SignalingInfo.fromJson(map));
+          switch (type) {
+            case 'onInvitationCancelled':
+              signalingManager.listener.invitationCancelled(u);
+              break;
+            case 'onInvitationTimeout':
+              signalingManager.listener.invitationTimeout(u);
+              break;
+            case 'onInviteeAccepted':
+              signalingManager.listener.inviteeAccepted(u);
+              break;
+            case 'onInviteeRejected':
+              signalingManager.listener.inviteeRejected(u);
+              break;
+            case 'onReceiveNewInvitation':
+              signalingManager.listener.receiveNewInvitation(u);
               break;
           }
         }
