@@ -6,14 +6,14 @@ class MessageManager {
 
   // List<AdvancedMsgListener> advancedMsgListeners = List.empty(growable: true);
   OnMsgSendProgressListener? msgSendProgressListener;
-  late OnAdvancedMsgListener advancedMsgListener;
+  late OnAdvancedMsgListener msgListener;
 
   MessageManager(this._channel);
 
   /// Set a message listener
   /// 消息监听
   Future setAdvancedMsgListener(OnAdvancedMsgListener listener) {
-    this.advancedMsgListener = listener;
+    this.msgListener = listener;
     // advancedMsgListeners.add(listener);
     return _channel.invokeMethod(
         'setAdvancedMsgListener',
@@ -119,6 +119,22 @@ class MessageManager {
           _buildParam({
             "message": message?.toJson(),
             "receiverID": receiverID,
+            "senderID": senderID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  ///
+  Future insertGroupMessageToLocalStorage({
+    String? groupID,
+    String? senderID,
+    Message? message,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'insertGroupMessageToLocalStorage',
+          _buildParam({
+            "message": message?.toJson(),
+            "groupID": groupID,
             "senderID": senderID,
             "operationID": Utils.checkOperationID(operationID),
           }));

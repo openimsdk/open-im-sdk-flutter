@@ -6,6 +6,8 @@ class OnSignalingListener {
   final Function(SignalingInfo info)? onInviteeAccepted;
   final Function(SignalingInfo info)? onInviteeRejected;
   final Function(SignalingInfo info)? onReceiveNewInvitation;
+  final Function(SignalingInfo info)? onInviteeRejectedByOtherDevice;
+  final Function(SignalingInfo info)? onInviteeAcceptedByOtherDevice;
 
   OnSignalingListener({
     this.onInvitationCancelled,
@@ -13,6 +15,8 @@ class OnSignalingListener {
     this.onInviteeAccepted,
     this.onInviteeRejected,
     this.onReceiveNewInvitation,
+    this.onInviteeAcceptedByOtherDevice,
+    this.onInviteeRejectedByOtherDevice,
   });
 
   /// 被邀请者收到：邀请者取消音视频通话
@@ -38,5 +42,15 @@ class OnSignalingListener {
   /// 被邀请者收到：音视频通话邀请
   void receiveNewInvitation(SignalingInfo info) {
     onReceiveNewInvitation?.call(info);
+  }
+
+  /// 被邀请者（其他端）收到：比如被邀请者在手机拒接，在pc上会收到此回调
+  void inviteeAcceptedByOtherDevice(SignalingInfo info) {
+    onInviteeAcceptedByOtherDevice?.call(info);
+  }
+
+  /// 被邀请者（其他端）收到：比如被邀请者在手机拒接，在pc上会收到此回调
+  void inviteeRejectedByOtherDevice(SignalingInfo info) {
+    onInviteeRejectedByOtherDevice?.call(info);
   }
 }

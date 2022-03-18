@@ -83,9 +83,12 @@ class _MyAppState extends State<MyApp> {
         onRecvMessageRevoked: (messageID) {
           // 消息成功撤回，从界面移除消息
         },
-        onRecvC2CReadReceipt: (list) {
+        onRecvC2CMessageReadReceipt: (list) {
           // 消息被阅读回执，将消息标记为已读
         },
+        onRecvGroupMessageReadReceipt: (list){
+          // 消息被阅读回执，将消息标记为已读
+        }
       ))
       ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener(
         onProgress: (messageID, progress) {

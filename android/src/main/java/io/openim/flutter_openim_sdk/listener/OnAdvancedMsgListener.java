@@ -17,8 +17,16 @@ public class OnAdvancedMsgListener implements open_im_sdk_callback.OnAdvancedMsg
     public void onRecvC2CReadReceipt(String s) {
         final Map<String, String> values = new ArrayMap<>();
         values.put("id", id);
-        values.put("haveReadMessage", s);
+        values.put("c2cMessageReadReceipt", s);
         CommonUtil.emitEvent("advancedMsgListener", "onRecvC2CReadReceipt", values);
+    }
+
+    @Override
+    public void onRecvGroupReadReceipt(String s) {
+        final Map<String, String> values = new ArrayMap<>();
+        values.put("id", id);
+        values.put("groupMessageReadReceipt", s);
+        CommonUtil.emitEvent("advancedMsgListener", "onRecvGroupReadReceipt", values);
     }
 
     @Override

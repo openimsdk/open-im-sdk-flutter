@@ -14,6 +14,7 @@ public class MessageManager: BaseServiceManager {
         self["deleteMessageFromLocalStorage"] = deleteMessageFromLocalStorage
         self["deleteMessages"] = deleteMessages
         self["insertSingleMessageToLocalStorage"] = insertSingleMessageToLocalStorage
+        self["insertGroupMessageToLocalStorage"] = insertGroupMessageToLocalStorage
         // self["findMessages"] = findMessages
         self["markC2CMessageAsRead"] = markC2CMessageAsRead
         self["typingStatusUpdate"] = typingStatusUpdate
@@ -71,6 +72,11 @@ public class MessageManager: BaseServiceManager {
     func insertSingleMessageToLocalStorage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkInsertSingleMessageToLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"],
                                                      methodCall[string: "receiverID"], methodCall[string: "senderID"])
+    }
+    
+    func insertGroupMessageToLocalStorage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkInsertGroupMessageToLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"],
+                                                     methodCall[string: "groupID"], methodCall[string: "senderID"])
     }
     
     // func findMessages(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -217,8 +223,15 @@ public class MessageManager: BaseServiceManager {
         public func onRecvC2CReadReceipt(_ msgReceiptList: String?) {
             var values: [String: Any] = [:]
             values["id"] = id
-            values["haveReadMessage"] = msgReceiptList
+            values["c2cMessageReadReceipt"] = msgReceiptList
             CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvC2CReadReceipt", errCode: nil, errMsg: nil, data: values)
+        }
+        
+        public func onRecvGroupReadReceipt(_ groupMsgReceiptList: String?) {
+            var values: [String: Any] = [:]
+            values["id"] = id
+            values["groupMessageReadReceipt"] = groupMsgReceiptList
+            CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvGroupReadReceipt", errCode: nil, errMsg: nil, data: values)
         }
         
         public func onRecvMessageRevoked(_ msgId: String?) {

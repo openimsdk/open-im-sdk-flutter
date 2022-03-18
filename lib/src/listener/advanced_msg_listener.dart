@@ -2,7 +2,9 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class OnAdvancedMsgListener {
   /// Message read receipt
-  Function(List<ReadReceiptInfo> list)? onRecvC2CReadReceipt;
+  Function(List<ReadReceiptInfo> list)? onRecvC2CMessageReadReceipt;
+
+  Function(List<ReadReceiptInfo> list)? onRecvGroupMessageReadReceipt;
 
   /// A friend revoked a message
   Function(String msgId)? onRecvMessageRevoked;
@@ -14,20 +16,25 @@ class OnAdvancedMsgListener {
   String id;
 
   OnAdvancedMsgListener({
-    this.onRecvC2CReadReceipt,
+    this.onRecvC2CMessageReadReceipt,
+    this.onRecvGroupMessageReadReceipt,
     this.onRecvMessageRevoked,
     this.onRecvNewMessage,
   }) : id = "id_${DateTime.now().microsecondsSinceEpoch}";
 
-  void recvC2CReadReceipt(List<ReadReceiptInfo> list) {
-    if (null != onRecvC2CReadReceipt) onRecvC2CReadReceipt!(list);
+  void recvC2CMessageReadReceipt(List<ReadReceiptInfo> list) {
+    onRecvC2CMessageReadReceipt?.call(list);
+  }
+
+  void recvGroupMessageReadReceipt(List<ReadReceiptInfo> list) {
+    onRecvGroupMessageReadReceipt?.call(list);
   }
 
   void recvMessageRevoked(String msgId) {
-    if (null != onRecvMessageRevoked) onRecvMessageRevoked!(msgId);
+    onRecvMessageRevoked?.call(msgId);
   }
 
   void recvNewMessage(Message msg) {
-    if (null != onRecvNewMessage) onRecvNewMessage!(msg);
+    onRecvNewMessage?.call(msg);
   }
 }

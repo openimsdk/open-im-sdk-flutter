@@ -123,17 +123,23 @@ class IMManager {
             case 'onRecvNewMessage':
               var value = call.arguments['data']['newMessage'];
               final msg = Utils.toObj(value, (map) => Message.fromJson(map));
-              messageManager.advancedMsgListener.recvNewMessage(msg);
+              messageManager.msgListener.recvNewMessage(msg);
               break;
             case 'onRecvMessageRevoked':
-              var value = call.arguments['data']['revokedMessage'];
-              messageManager.advancedMsgListener.recvMessageRevoked(value);
+              var msgID = call.arguments['data']['revokedMessage'];
+              messageManager.msgListener.recvMessageRevoked(msgID);
               break;
             case 'onRecvC2CReadReceipt':
-              var value = call.arguments['data']['haveReadMessage'];
+              var value = call.arguments['data']['c2cMessageReadReceipt'];
               var list =
                   Utils.toList(value, (map) => ReadReceiptInfo.fromJson(map));
-              messageManager.advancedMsgListener.recvC2CReadReceipt(list);
+              messageManager.msgListener.recvC2CMessageReadReceipt(list);
+              break;
+            case 'onRecvGroupReadReceipt':
+              var value = call.arguments['data']['groupMessageReadReceipt'];
+              var list =
+                  Utils.toList(value, (map) => ReadReceiptInfo.fromJson(map));
+              messageManager.msgListener.recvGroupMessageReadReceipt(list);
               break;
           }
         } else if (call.method == ListenerType.msgSendProgressListener) {
@@ -243,6 +249,12 @@ class IMManager {
               break;
             case 'onReceiveNewInvitation':
               signalingManager.listener.receiveNewInvitation(u);
+              break;
+            case 'onInviteeAcceptedByOtherDevice':
+              signalingManager.listener.inviteeAcceptedByOtherDevice(u);
+              break;
+            case 'onInviteeRejectedByOtherDevice':
+              signalingManager.listener.inviteeRejectedByOtherDevice(u);
               break;
           }
         }

@@ -573,7 +573,8 @@ class FaceElem {
 }
 
 class ReadReceiptInfo {
-  String? uid;
+  String? userID;
+  String? groupID;
   List<String>? msgIDList;
   int? readTime;
   int? msgFrom;
@@ -581,7 +582,8 @@ class ReadReceiptInfo {
   int? sessionType;
 
   ReadReceiptInfo(
-      {this.uid,
+      {this.userID,
+      this.groupID,
       this.msgIDList,
       this.readTime,
       this.msgFrom,
@@ -589,7 +591,7 @@ class ReadReceiptInfo {
       this.sessionType});
 
   ReadReceiptInfo.fromJson(Map<String, dynamic> json) {
-    uid = json['uid'];
+    userID = json['uid'] ?? json['userID'];
     if (json['msgIDList'] is List) {
       msgIDList = (json['msgIDList'] as List).map((e) => '$e').toList();
     }
@@ -601,7 +603,7 @@ class ReadReceiptInfo {
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
-    data['uid'] = this.uid;
+    data['userID'] = this.userID;
     data['msgIDList'] = this.msgIDList;
     data['readTime'] = this.readTime;
     data['msgFrom'] = this.msgFrom;

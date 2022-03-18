@@ -19,8 +19,18 @@ public class OnSignalingListener implements open_im_sdk_callback.OnSignalingList
     }
 
     @Override
+    public void onInviteeAcceptedByOtherDevice(String s) {
+        CommonUtil.emitEvent("signalingListener", "onInviteeAcceptedByOtherDevice", s);
+    }
+
+    @Override
     public void onInviteeRejected(String s) {
         CommonUtil.emitEvent("signalingListener", "onInviteeRejected", s);
+    }
+
+    @Override
+    public void onInviteeRejectedByOtherDevice(String s) {
+        CommonUtil.emitEvent("signalingListener", "onInviteeRejectedByOtherDevice", s);
     }
 
     @Override

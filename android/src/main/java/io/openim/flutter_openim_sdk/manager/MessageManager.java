@@ -133,6 +133,16 @@ public class MessageManager extends BaseManager {
         );
     }
 
+    public void insertGroupMessageToLocalStorage(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.insertGroupMessageToLocalStorage(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "message"),
+                value(methodCall, "groupID"),
+                value(methodCall, "senderID")
+        );
+    }
+
 //    public void findMessages(MethodCall methodCall, MethodChannel.Result result) {
 //        Open_im_sdk.findMessages(new OnBaseListener(result), jsonValue(methodCall, "messageIDList"));
 //    }

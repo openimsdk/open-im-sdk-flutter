@@ -191,18 +191,18 @@ class ConversationManager {
   /// Message Do Not Disturb
   /// [{"conversationId":"single_13922222222","result":0}]
   /// 查询免打扰状态
-  // Future<List<dynamic>> getConversationRecvMessageOpt({
-  //   required List<String> conversationIDList,
-  //   String? operationID,
-  // }) =>
-  //     _channel
-  //         .invokeMethod(
-  //             'getConversationRecvMessageOpt',
-  //             _buildParam({
-  //               "conversationIDList": conversationIDList,
-  //               "operationID": Utils.checkOperationID(operationID),
-  //             }))
-  //         .then((value) => Utils.toListMap(value));
+  Future<List<dynamic>> getConversationRecvMessageOpt({
+    required List<String> conversationIDList,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getConversationRecvMessageOpt',
+              _buildParam({
+                "conversationIDList": conversationIDList,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toListMap(value));
 
   /// Custom sort for conversation list
   /// 会话列表自定义排序规则。
