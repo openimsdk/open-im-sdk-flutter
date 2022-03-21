@@ -638,6 +638,7 @@ class ReadReceiptInfo {
 
   ReadReceiptInfo.fromJson(Map<String, dynamic> json) {
     userID = json['uid'] ?? json['userID'];
+    groupID = json['groupID'];
     if (json['msgIDList'] is List) {
       msgIDList = (json['msgIDList'] as List).map((e) => '$e').toList();
     }
