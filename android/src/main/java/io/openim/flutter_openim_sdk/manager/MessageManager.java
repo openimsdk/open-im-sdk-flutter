@@ -156,6 +156,15 @@ public class MessageManager extends BaseManager {
         );
     }
 
+    public void markGroupMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.markGroupMessageAsRead(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID"),
+                jsonValue(methodCall, "messageIDList")
+        );
+    }
+
     public void typingStatusUpdate(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.typingStatusUpdate(
                 new OnBaseListener(result),

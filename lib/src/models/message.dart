@@ -37,6 +37,7 @@ class Message {
   MergeElem? mergeElem;
   NotificationElem? notificationElem;
   FaceElem? faceElem;
+  AttachedInfoElem? attachedInfoElem;
 
   Message({
     this.clientMsgID,
@@ -71,6 +72,7 @@ class Message {
     this.mergeElem,
     this.notificationElem,
     this.faceElem,
+    this.attachedInfoElem,
   });
 
   Message.fromJson(Map<String, dynamic> json) {
@@ -127,6 +129,9 @@ class Message {
         : null;
     faceElem =
         json['faceElem'] != null ? FaceElem.fromJson(json['faceElem']) : null;
+    attachedInfoElem = json['attachedInfoElem'] != null
+        ? AttachedInfoElem.fromJson(json['attachedInfoElem'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -163,6 +168,7 @@ class Message {
     data['mergeElem'] = this.mergeElem?.toJson();
     data['notificationElem'] = this.notificationElem?.toJson();
     data['faceElem'] = this.faceElem?.toJson();
+    data['attachedInfoElem'] = this.attachedInfoElem?.toJson();
     return data;
   }
 
@@ -209,6 +215,7 @@ class Message {
     mergeElem = message.mergeElem;
     notificationElem = message.notificationElem;
     faceElem = message.faceElem;
+    attachedInfoElem = message.attachedInfoElem;
   }
 }
 
@@ -568,6 +575,45 @@ class FaceElem {
     final data = Map<String, dynamic>();
     data['index'] = this.index;
     data['data'] = this.data;
+    return data;
+  }
+}
+
+class AttachedInfoElem {
+  GroupHasReadInfo? groupHasReadInfo;
+
+  AttachedInfoElem({this.groupHasReadInfo});
+
+  AttachedInfoElem.fromJson(Map<String, dynamic> json) {
+    groupHasReadInfo = json['groupHasReadInfo'] == null
+        ? null
+        : GroupHasReadInfo.fromJson(json['groupHasReadInfo']);
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['groupHasReadInfo'] = this.groupHasReadInfo?.toJson();
+    return data;
+  }
+}
+
+class GroupHasReadInfo {
+  List<String>? hasReadUserIDList;
+  int? hasReadCount;
+
+  GroupHasReadInfo.fromJson(Map<String, dynamic> json) {
+    if (json['hasReadUserIDList'] == null) {
+      hasReadUserIDList = <String>[];
+    } else {
+      hasReadUserIDList = (json['hasReadUserIDList'] as List).cast<String>();
+    }
+    hasReadCount = json['hasReadCount'] ?? 0;
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['hasReadUserIDList'] = this.hasReadUserIDList;
+    data['hasReadCount'] = this.hasReadCount;
     return data;
   }
 }

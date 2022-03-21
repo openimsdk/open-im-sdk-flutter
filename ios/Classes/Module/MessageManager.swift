@@ -17,6 +17,7 @@ public class MessageManager: BaseServiceManager {
         self["insertGroupMessageToLocalStorage"] = insertGroupMessageToLocalStorage
         // self["findMessages"] = findMessages
         self["markC2CMessageAsRead"] = markC2CMessageAsRead
+        self["markGroupMessageAsRead"] = markGroupMessageAsRead
         self["typingStatusUpdate"] = typingStatusUpdate
         self["createTextMessage"] = createTextMessage
         self["createTextAtMessage"] = createTextAtMessage
@@ -86,7 +87,11 @@ public class MessageManager: BaseServiceManager {
     func markC2CMessageAsRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkMarkC2CMessageAsRead(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"], methodCall[jsonString: "messageIDList"])
     }
-    
+
+    func markGroupMessageAsRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkMarkGroupMessageAsRead(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[jsonString: "messageIDList"])
+    }
+
     func typingStatusUpdate(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkTypingStatusUpdate(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"], methodCall[string: "msgTip"])
     }

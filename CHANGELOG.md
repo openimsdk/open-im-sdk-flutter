@@ -2,7 +2,7 @@
 
 1.Fix some one crash </br>
 2.New add signaling function </br>
-3.Delete getConversationRecvMessageOpt
+3.New add group have read receipt
 
 ## 2.0.0+1
 

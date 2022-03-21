@@ -46,4 +46,11 @@ public class SignalingManager extends BaseManager {
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "signalingInfo"));
     }
+
+    public void signalingHungUp(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.signalingHungUp(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "signalingInfo"));
+    }
 }

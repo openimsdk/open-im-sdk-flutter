@@ -83,6 +83,18 @@ class SignalingManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  /// 挂断
+  Future<dynamic> signalingHungUp({
+    required SignalingInfo info,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'signalingHungUp',
+          _buildParam({
+            'signalingInfo': info.toJson(),
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "signalingManager";
     return param;

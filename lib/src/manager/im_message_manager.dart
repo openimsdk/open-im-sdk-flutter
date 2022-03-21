@@ -162,6 +162,21 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// Mark group message as read
+  /// 标记群聊消息已读
+  Future markGroupMessageAsRead({
+    required String groupID,
+    required List<String> messageIDList,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'markGroupMessageAsRead',
+          _buildParam({
+            "messageIDList": messageIDList,
+            "groupID": groupID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   /// Typing
   /// 正在输入提示
   Future typingStatusUpdate({

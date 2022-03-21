@@ -19,24 +19,40 @@ class MessageType {
   static const custom_face = 115;
 
   ///
-  static const accept_friend = 201;
-  static const add_friend = 202;
-  static const refuse_friend_application = 203;
-  static const set_self_info = 204;
-  static const revoke_message = 205;
-  static const c2c_message_as_read = 206;
+  static const notificationBegin = 1000;
+  static const friendNotificationBegin = 1200;
 
-  static const kick_online = 303;
+  static const friendApplicationApprovedNotification = 1201;
+  static const friendApplicationRejectedNotification = 1202;
+  static const friendApplicationNotification = 1203;
+  static const friendAddedNotification = 1204;
+  static const friendDeletedNotification = 1205;
+  static const friendRemarkSetNotification = 1206;
+  static const blackAddedNotification = 1207;
+  static const blackDeletedNotification = 1208;
+  static const friendNotificationEnd = 1299;
+  static const conversationChangeNotification = 1300;
 
-  ///
-  static const transfer_group_owner = 501;
-  static const create_group = 502;
-  // static const create_group = 503;
-  static const join_group = 504;
-  static const quit_group = 505;
-  static const set_group_info = 506;
-  static const accept_group_application = 507;
-  static const refuse_group_application = 508;
-  static const kick_group_member = 509;
-  static const invited_user_to_group = 510;
+  static const userNotificationBegin = 1301;
+  static const userInfoUpdatedNotification = 1303;
+  static const userNotificationEnd = 1399;
+
+  static const groupNotificationBegin = 1500;
+
+  static const groupCreatedNotification = 1501;
+  static const groupInfoSetNotification = 1502;
+  static const joinGroupApplicationNotification = 1503;
+  static const memberQuitNotification = 1504;
+  static const groupApplicationAcceptedNotification = 1505;
+  static const groupApplicationRejectedNotification = 1506;
+  static const groupOwnerTransferredNotification = 1507;
+  static const memberKickedNotification = 1508;
+  static const memberInvitedNotification = 1509;
+  static const memberEnterNotification = 1510;
+  static const groupNotificationEnd = 1599;
+
+  static const signalingNotificationBegin = 1600;
+  static const signalingNotification = 1601;
+  static const signalingNotificationEnd = 1699;
+  static const notificationEnd = 2000;
 }
