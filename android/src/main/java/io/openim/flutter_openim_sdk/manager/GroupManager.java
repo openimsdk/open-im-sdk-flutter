@@ -148,19 +148,12 @@ public class GroupManager extends BaseManager {
 
     }
 
-//    public void forceSyncApplyGroupRequest(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.forceSyncApplyGroupRequest();
-//    }
-//
-//    public void forceSyncGroupRequest(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.forceSyncGroupRequest();
-//    }
-//
-//    public void forceSyncJoinedGroup(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.forceSyncJoinedGroup();
-//    }
-//
-//    public void forceSyncJoinedGroupMember(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.forceSyncJoinedGroupMember();
-//    }
+    public void dismissGroup(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.dismissGroup(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "gid")
+        );
+
+    }
 }

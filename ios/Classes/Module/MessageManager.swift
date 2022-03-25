@@ -15,7 +15,6 @@ public class MessageManager: BaseServiceManager {
         self["deleteMessages"] = deleteMessages
         self["insertSingleMessageToLocalStorage"] = insertSingleMessageToLocalStorage
         self["insertGroupMessageToLocalStorage"] = insertGroupMessageToLocalStorage
-        // self["findMessages"] = findMessages
         self["markC2CMessageAsRead"] = markC2CMessageAsRead
         self["markGroupMessageAsRead"] = markGroupMessageAsRead
         self["typingStatusUpdate"] = typingStatusUpdate
@@ -36,9 +35,9 @@ public class MessageManager: BaseServiceManager {
         self["createQuoteMessage"] = createQuoteMessage
         self["createCardMessage"] = createCardMessage
         self["createFaceMessage"] = createFaceMessage
-        // self["forceSyncMsg"] = forceSyncMsg
         self["clearC2CHistoryMessage"] = clearC2CHistoryMessage
         self["clearGroupHistoryMessage"] = clearGroupHistoryMessage
+        self["searchLocalMessages"] = searchLocalMessages
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -79,10 +78,6 @@ public class MessageManager: BaseServiceManager {
         Open_im_sdkInsertGroupMessageToLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"],
                                                      methodCall[string: "groupID"], methodCall[string: "senderID"])
     }
-    
-    // func findMessages(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-    //     Open_im_sdkFindMessages(BaseCallback(result: result), methodCall[jsonString: "messageIDList"])
-    // }
     
     func markC2CMessageAsRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkMarkC2CMessageAsRead(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"], methodCall[jsonString: "messageIDList"])
@@ -174,10 +169,6 @@ public class MessageManager: BaseServiceManager {
     func createFaceMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         callBack(result, Open_im_sdkCreateFaceMessage(methodCall[string: "operationID"], methodCall[int: "index"], methodCall[string: "data"]))
     }
-    // func forceSyncMsg(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-    //     Open_im_sdkForceSyncMsg()
-    //     callBack(result)
-    // }
     
     func clearC2CHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkClearC2CHistoryMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"])
@@ -185,6 +176,10 @@ public class MessageManager: BaseServiceManager {
     
     func clearGroupHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkClearGroupHistoryMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
+    }
+    
+    func searchLocalMessages(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSearchLocalMessages(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "filter"])
     }
     
     public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {

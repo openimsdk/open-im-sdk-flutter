@@ -320,6 +320,19 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  /// Dissmiss group
+  /// 解散群
+  Future<dynamic> dismissGroup({
+    required String groupID,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'dismissGroup',
+          _buildParam({
+            'gid': 'groupID',
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";
     return param;

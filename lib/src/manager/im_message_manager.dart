@@ -520,6 +520,39 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// Search local message
+  /// 搜索消息
+  Future<dynamic> searchLocalMessages({
+    required String sourceID,
+    required String sessionType,
+    List<String> keywordList = const [],
+    int keywordListMatchType = 0,
+    List<String> senderUserIDList = const [],
+    List<String> messageTypeList = const [],
+    int searchTimePosition = 0,
+    int searchTimePeriod = 0,
+    int pageIndex = 1,
+    int count = 40,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'searchLocalMessages',
+          _buildParam({
+            'filter': {
+              'sourceID': sourceID,
+              'sessionType': sessionType,
+              'keywordList': keywordList,
+              'keywordListMatchType': keywordListMatchType,
+              'senderUserIDList': senderUserIDList,
+              'messageTypeList': messageTypeList,
+              'searchTimePosition': searchTimePosition,
+              'searchTimePeriod': searchTimePeriod,
+              'pageIndex': pageIndex,
+              'count': count,
+            },
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;

@@ -143,10 +143,6 @@ public class MessageManager extends BaseManager {
         );
     }
 
-//    public void findMessages(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.findMessages(new OnBaseListener(result), jsonValue(methodCall, "messageIDList"));
-//    }
-
     public void markC2CMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.markC2CMessageAsRead(
                 new OnBaseListener(result),
@@ -311,9 +307,6 @@ public class MessageManager extends BaseManager {
                 value(methodCall, "data")
         ));
     }
-//    public void forceSyncMsg(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.forceSyncMsg();
-//    }
 
     public void clearC2CHistoryMessage(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.clearC2CHistoryMessage(
@@ -328,6 +321,14 @@ public class MessageManager extends BaseManager {
                 new OnBaseListener(result),
                 value(methodCall, "operationID"),
                 value(methodCall, "groupID")
+        );
+    }
+
+    public void searchLocalMessages(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchLocalMessages(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "filter")
         );
     }
 }

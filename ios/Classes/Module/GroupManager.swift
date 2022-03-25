@@ -21,10 +21,7 @@ public class GroupManager: BaseServiceManager {
         self["getSendGroupApplicationList"] = getSendGroupApplicationList
         self["acceptGroupApplication"] = acceptGroupApplication
         self["refuseGroupApplication"] = refuseGroupApplication
-//        self["forceSyncApplyGroupRequest"] = forceSyncApplyGroupRequest
-//        self["forceSyncGroupRequest"] = forceSyncGroupRequest
-//        self["forceSyncJoinedGroup"] = forceSyncJoinedGroup
-//        self["forceSyncJoinedGroupMember"] = forceSyncJoinedGroupMember
+        self["dismissGroup"] = dismissGroup
     }
 
     func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -95,27 +92,11 @@ public class GroupManager: BaseServiceManager {
         Open_im_sdkRefuseGroupApplication(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "uid"], methodCall[string: "handleMsg"])
     }
     
-//     func forceSyncApplyGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//         Open_im_sdkForceSyncApplyGroupRequest()
-//         callBack(result)
-//     }
-//
-//     func forceSyncGroupRequest(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//         Open_im_sdkForceSyncGroupRequest()
-//         callBack(result)
-//     }
-//
-//     func forceSyncJoinedGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//         Open_im_sdkForceSyncJoinedGroup()
-//         callBack(result)
-//     }
-//
-//     func forceSyncJoinedGroupMember(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//         Open_im_sdkForceSyncJoinedGroupMember()
-//         callBack(result)
-//     }
-
+    func dismissGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkDismissGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"])
+    }
 }
+
 public class GroupListener: NSObject, Open_im_sdk_callbackOnGroupListenerProtocol {
     
     private let channel:FlutterMethodChannel

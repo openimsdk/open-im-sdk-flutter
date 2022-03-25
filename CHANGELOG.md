@@ -1,3 +1,9 @@
+## 2.0.0+4
+
+1.New dismiss group </br>
+2.New search local message </br>
+3.Upgrade client-sdk to 2.0.18
+
 ## 2.0.0+3
 
 1.Fix bug </br>
