@@ -133,15 +133,30 @@ public class MessageManager extends BaseManager {
         );
     }
 
-//    public void findMessages(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.findMessages(new OnBaseListener(result), jsonValue(methodCall, "messageIDList"));
-//    }
+    public void insertGroupMessageToLocalStorage(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.insertGroupMessageToLocalStorage(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "message"),
+                value(methodCall, "groupID"),
+                value(methodCall, "senderID")
+        );
+    }
 
     public void markC2CMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.markC2CMessageAsRead(
                 new OnBaseListener(result),
                 value(methodCall, "operationID"),
                 value(methodCall, "userID"),
+                jsonValue(methodCall, "messageIDList")
+        );
+    }
+
+    public void markGroupMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.markGroupMessageAsRead(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID"),
                 jsonValue(methodCall, "messageIDList")
         );
     }
@@ -285,9 +300,13 @@ public class MessageManager extends BaseManager {
         ));
     }
 
-//    public void forceSyncMsg(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.forceSyncMsg();
-//    }
+    public void createFaceMessage(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.createFaceMessage(
+                value(methodCall, "operationID"),
+                int2long(methodCall, "index"),
+                value(methodCall, "data")
+        ));
+    }
 
     public void clearC2CHistoryMessage(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.clearC2CHistoryMessage(
@@ -302,6 +321,14 @@ public class MessageManager extends BaseManager {
                 new OnBaseListener(result),
                 value(methodCall, "operationID"),
                 value(methodCall, "groupID")
+        );
+    }
+
+    public void searchLocalMessages(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchLocalMessages(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "filter")
         );
     }
 }

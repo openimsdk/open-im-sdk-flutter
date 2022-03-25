@@ -83,9 +83,12 @@ class _MyAppState extends State<MyApp> {
         onRecvMessageRevoked: (messageID) {
           // 消息成功撤回，从界面移除消息
         },
-        onRecvC2CReadReceipt: (list) {
+        onRecvC2CMessageReadReceipt: (list) {
           // 消息被阅读回执，将消息标记为已读
         },
+        onRecvGroupMessageReadReceipt: (list){
+          // 消息被阅读回执，将消息标记为已读
+        }
       ))
       ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener(
         onProgress: (messageID, progress) {
@@ -162,6 +165,23 @@ class _MyAppState extends State<MyApp> {
         },
         onGroupInfoChanged: (groupInfo) {
           // 组资料变更
+        },
+      ))
+      ..signalingManager.setSignalingListener(OnSignalingListener(
+        onReceiveNewInvitation: (info) {
+          // 被邀请者收到：音视频通话邀请
+        },
+        onInviteeRejected: (info) {
+          // 邀请者收到：被邀请者拒绝音视频通话
+        },
+        onInviteeAccepted: (info) {
+          // 邀请者收到：被邀请者同意音视频通话
+        },
+        onInvitationTimeout: (info) {
+          // 邀请者收到：被邀请者超时未接通
+        },
+        onInvitationCancelled: (info) {
+          // 被邀请者收到：邀请者取消音视频通话
         },
       ));
   }
@@ -264,9 +284,9 @@ class _MyAppState extends State<MyApp> {
       conversationIDList: [], // 会话id列表
       status: 1, // 1：不接受消息；2：接受在线消息不接受离线消息；0：正常
     );
-    OpenIM.iMManager.conversationManager.getConversationRecvMessageOpt(
-      conversationIDList: [], // 会话id列表
-    );
+    // OpenIM.iMManager.conversationManager.getConversationRecvMessageOpt(
+    //   conversationIDList: [], // 会话id列表
+    // );
     OpenIM.iMManager.conversationManager.simpleSort([]);
   }
 

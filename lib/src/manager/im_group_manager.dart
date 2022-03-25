@@ -3,14 +3,14 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class GroupManager {
   MethodChannel _channel;
-  late OnGroupListener groupListener;
+  late OnGroupListener listener;
 
   GroupManager(this._channel);
 
   /// Set up group relationship monitoring
   /// 组关系监听
   Future setGroupListener(OnGroupListener listener) {
-    this.groupListener = listener;
+    this.listener = listener;
     return _channel.invokeMethod('setGroupListener', _buildParam({}));
   }
 
@@ -317,6 +317,19 @@ class GroupManager {
             'gid': gid,
             'uid': uid,
             'handleMsg': handleMsg,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  /// Dissmiss group
+  /// 解散群
+  Future<dynamic> dismissGroup({
+    required String groupID,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'dismissGroup',
+          _buildParam({
+            'gid': 'groupID',
             'operationID': Utils.checkOperationID(operationID),
           }));
 

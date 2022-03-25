@@ -5,9 +5,11 @@
 ```
 OpenIM.iMManager.initSDK(
     platform: 0, // 平台，参照IMPlatform类,
-    apiAddr: "", // SDK的API接口地址。如：http:xxx:10000
-    wsAddr: "",  // SDK的web socket地址。如： ws:xxx:17778
+    apiAddr: "", // SDK的API接口地址。如：http://xxx:10000
+    wsAddr: "",  // SDK的web socket地址。如： ws://xxx:17778
     dataDir: "", // 数据存储路径。如：var apath =(await getApplicationDocumentsDirectory()).path
+    objectStorage: 'cos', // 图片服务器默认'cos'
+    logLevel: 6, // 日志等级，默认值6
     listener: OnConnectListener(
       onConnectSuccess: () {
         // 已经成功连接到服务器
@@ -127,6 +129,23 @@ OpenIM.iMManager
         },
         onGroupInfoChanged: (groupInfo) {
           // 组资料变更
+        },
+      ))
+      ..signalingManager.setSignalingListener(OnSignalingListener(
+        onReceiveNewInvitation: (info) {
+          // 被邀请者收到：音视频通话邀请
+        },
+        onInviteeRejected: (info) {
+          // 邀请者收到：被邀请者拒绝音视频通话
+        },
+        onInviteeAccepted: (info) {
+          // 邀请者收到：被邀请者同意音视频通话
+        },
+        onInvitationTimeout: (info) {
+          // 邀请者收到：被邀请者超时未接通
+        },
+        onInvitationCancelled: (info) {
+          // 被邀请者收到：邀请者取消音视频通话
         },
       ));
 ```
@@ -333,6 +352,7 @@ OpenIM.iMManager.conversationManager.setConversationRecvMessageOpt(
 - ##### getConversationRecvMessageOpt（查询免打扰状态）
 
 ```
+/// 此方法已废弃，使用getOneConversation/getMultipleConversation方法替代
 OpenIM.iMManager.conversationManager.getConversationRecvMessageOpt(
       conversationIDList: [], // 会话id列表
  ).then((list) {

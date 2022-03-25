@@ -3,14 +3,14 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class UserManager {
   MethodChannel _channel;
-  late OnUserListener userListener;
+  late OnUserListener listener;
 
   UserManager(this._channel);
 
   /// Observe user info changes
   /// 用户资料改变监听
   Future setUserListener(OnUserListener listener) {
-    this.userListener = listener;
+    this.listener = listener;
     return _channel.invokeMethod('setUserListener', _buildParam({}));
   }
 

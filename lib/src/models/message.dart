@@ -36,6 +36,8 @@ class Message {
   QuoteElem? quoteElem;
   MergeElem? mergeElem;
   NotificationElem? notificationElem;
+  FaceElem? faceElem;
+  AttachedInfoElem? attachedInfoElem;
 
   Message({
     this.clientMsgID,
@@ -69,6 +71,8 @@ class Message {
     this.quoteElem,
     this.mergeElem,
     this.notificationElem,
+    this.faceElem,
+    this.attachedInfoElem,
   });
 
   Message.fromJson(Map<String, dynamic> json) {
@@ -123,6 +127,11 @@ class Message {
     notificationElem = json['notificationElem'] != null
         ? NotificationElem.fromJson(json['notificationElem'])
         : null;
+    faceElem =
+        json['faceElem'] != null ? FaceElem.fromJson(json['faceElem']) : null;
+    attachedInfoElem = json['attachedInfoElem'] != null
+        ? AttachedInfoElem.fromJson(json['attachedInfoElem'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -158,6 +167,8 @@ class Message {
     data['quoteElem'] = this.quoteElem?.toJson();
     data['mergeElem'] = this.mergeElem?.toJson();
     data['notificationElem'] = this.notificationElem?.toJson();
+    data['faceElem'] = this.faceElem?.toJson();
+    data['attachedInfoElem'] = this.attachedInfoElem?.toJson();
     return data;
   }
 
@@ -172,8 +183,7 @@ class Message {
   int get hashCode => clientMsgID.hashCode;
 
   void update(Message message) {
-    if (clientMsgID != message.clientMsgID) return;
-    // clientMsgID = message.clientMsgID;
+    if (this != message) return;
     serverMsgID = message.serverMsgID;
     createTime = message.createTime;
     sendTime = message.sendTime;
@@ -204,6 +214,8 @@ class Message {
     quoteElem = message.quoteElem;
     mergeElem = message.mergeElem;
     notificationElem = message.notificationElem;
+    faceElem = message.faceElem;
+    attachedInfoElem = message.attachedInfoElem;
   }
 }
 
@@ -548,8 +560,67 @@ class NotificationElem {
   }
 }
 
+class FaceElem {
+  int? index;
+  String? data;
+
+  FaceElem({this.index, this.data});
+
+  FaceElem.fromJson(Map<String, dynamic> json) {
+    index = json['index'];
+    data = json['data'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['index'] = this.index;
+    data['data'] = this.data;
+    return data;
+  }
+}
+
+class AttachedInfoElem {
+  GroupHasReadInfo? groupHasReadInfo;
+
+  AttachedInfoElem({this.groupHasReadInfo});
+
+  AttachedInfoElem.fromJson(Map<String, dynamic> json) {
+    groupHasReadInfo = json['groupHasReadInfo'] == null
+        ? null
+        : GroupHasReadInfo.fromJson(json['groupHasReadInfo']);
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['groupHasReadInfo'] = this.groupHasReadInfo?.toJson();
+    return data;
+  }
+}
+
+class GroupHasReadInfo {
+  List<String>? hasReadUserIDList;
+  int? hasReadCount;
+
+  GroupHasReadInfo.fromJson(Map<String, dynamic> json) {
+    if (json['hasReadUserIDList'] == null) {
+      hasReadUserIDList = <String>[];
+    } else {
+      hasReadUserIDList = (json['hasReadUserIDList'] as List).cast<String>();
+    }
+    hasReadCount = json['hasReadCount'] ?? 0;
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['hasReadUserIDList'] = this.hasReadUserIDList;
+    data['hasReadCount'] = this.hasReadCount;
+    return data;
+  }
+}
+
 class ReadReceiptInfo {
-  String? uid;
+  String? userID;
+  String? groupID;
   List<String>? msgIDList;
   int? readTime;
   int? msgFrom;
@@ -557,7 +628,8 @@ class ReadReceiptInfo {
   int? sessionType;
 
   ReadReceiptInfo(
-      {this.uid,
+      {this.userID,
+      this.groupID,
       this.msgIDList,
       this.readTime,
       this.msgFrom,
@@ -565,7 +637,8 @@ class ReadReceiptInfo {
       this.sessionType});
 
   ReadReceiptInfo.fromJson(Map<String, dynamic> json) {
-    uid = json['uid'];
+    userID = json['uid'] ?? json['userID'];
+    groupID = json['groupID'];
     if (json['msgIDList'] is List) {
       msgIDList = (json['msgIDList'] as List).map((e) => '$e').toList();
     }
@@ -577,7 +650,7 @@ class ReadReceiptInfo {
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
-    data['uid'] = this.uid;
+    data['userID'] = this.userID;
     data['msgIDList'] = this.msgIDList;
     data['readTime'] = this.readTime;
     data['msgFrom'] = this.msgFrom;

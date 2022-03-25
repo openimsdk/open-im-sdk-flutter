@@ -3,14 +3,14 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationManager {
   MethodChannel _channel;
-  late OnConversationListener conversationListener;
+  late OnConversationListener listener;
 
   ConversationManager(this._channel);
 
   /// Observe conversation changes
   /// 会话监听
   Future setConversationListener(OnConversationListener listener) {
-    this.conversationListener = listener;
+    this.listener = listener;
     return _channel.invokeMethod('setConversationListener', _buildParam({}));
   }
 

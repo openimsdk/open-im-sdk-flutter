@@ -1,3 +1,25 @@
+## 2.0.0+4
+
+1.New dismiss group </br>
+2.New search local message </br>
+3.Upgrade client-sdk to 2.0.18
+
+## 2.0.0+3
+
+1.Fix bug </br>
+
+## 2.0.0+2
+
+1.Fix some one crash </br>
+2.New add signaling function </br>
+3.New add group have read receipt
+
+## 2.0.0+1
+
+1.Fix multi-terminal synchronization bug fix for retracted messages </br>
+2.Fix sending picture flashback bug </br>
+3.Fix other bug
+
 ## 2.0.0
 
 1.Refactor mobile sdk, server sdk (2022-2-21)

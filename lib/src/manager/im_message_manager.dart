@@ -6,14 +6,14 @@ class MessageManager {
 
   // List<AdvancedMsgListener> advancedMsgListeners = List.empty(growable: true);
   OnMsgSendProgressListener? msgSendProgressListener;
-  late OnAdvancedMsgListener advancedMsgListener;
+  late OnAdvancedMsgListener msgListener;
 
   MessageManager(this._channel);
 
   /// Set a message listener
   /// 消息监听
   Future setAdvancedMsgListener(OnAdvancedMsgListener listener) {
-    this.advancedMsgListener = listener;
+    this.msgListener = listener;
     // advancedMsgListeners.add(listener);
     return _channel.invokeMethod(
         'setAdvancedMsgListener',
@@ -33,11 +33,12 @@ class MessageManager {
   /// 发送消息
   /// [userID]接收消息的用户id
   /// [groupID]接收消息的组id
+  /// [offlinePushInfo]离线消息显示内容
   Future<Message> sendMessage({
     required Message message,
+    required OfflinePushInfo offlinePushInfo,
     String? userID,
     String? groupID,
-    OfflinePushInfo? offlinePushInfo,
     String? operationID,
   }) =>
       _channel
@@ -45,16 +46,9 @@ class MessageManager {
               'sendMessage',
               _buildParam({
                 'message': message.toJson(),
+                'offlinePushInfo': offlinePushInfo.toJson(),
                 'userID': userID ?? '',
                 'groupID': groupID ?? '',
-                'offlinePushInfo': offlinePushInfo?.toJson() ??
-                    {
-                      "title": "You have a new message",
-                      "desc": "",
-                      "ex": "",
-                      "iOSPushSound": "+1",
-                      "iOSBadgeCount": true,
-                    },
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
@@ -129,6 +123,22 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  ///
+  Future insertGroupMessageToLocalStorage({
+    String? groupID,
+    String? senderID,
+    Message? message,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'insertGroupMessageToLocalStorage',
+          _buildParam({
+            "message": message?.toJson(),
+            "groupID": groupID,
+            "senderID": senderID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   /// Query the message according to the message id
   // Future findMessages({required List<String> messageIDList}) =>
   //     _channel.invokeMethod(
@@ -149,6 +159,21 @@ class MessageManager {
           _buildParam({
             "messageIDList": messageIDList,
             "userID": userID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// Mark group message as read
+  /// 标记群聊消息已读
+  Future markGroupMessageAsRead({
+    required String groupID,
+    required List<String> messageIDList,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'markGroupMessageAsRead',
+          _buildParam({
+            "messageIDList": messageIDList,
+            "groupID": groupID,
             "operationID": Utils.checkOperationID(operationID),
           }));
 
@@ -450,6 +475,25 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
+  /// Create custom emoji message
+  /// 创建自定义表情消息
+  /// [index] The position of the emoji, such as the position emoji（表情的位置，如位置表情）
+  /// [data] Other data, such as url expressions（其他数据，如url表情）
+  Future<Message> createFaceMessage({
+    int index = -1,
+    String? data,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'createFaceMessage',
+              _buildParam({
+                'index': index,
+                'data': data,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
   /// Clear all c2c history message
   /// 清空单聊消息记录
   Future<dynamic> clearC2CHistoryMessage({
@@ -474,6 +518,39 @@ class MessageManager {
           _buildParam({
             "groupID": gid,
             "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// Search local message
+  /// 搜索消息
+  Future<dynamic> searchLocalMessages({
+    required String sourceID,
+    required String sessionType,
+    List<String> keywordList = const [],
+    int keywordListMatchType = 0,
+    List<String> senderUserIDList = const [],
+    List<String> messageTypeList = const [],
+    int searchTimePosition = 0,
+    int searchTimePeriod = 0,
+    int pageIndex = 1,
+    int count = 40,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'searchLocalMessages',
+          _buildParam({
+            'filter': {
+              'sourceID': sourceID,
+              'sessionType': sessionType,
+              'keywordList': keywordList,
+              'keywordListMatchType': keywordListMatchType,
+              'senderUserIDList': senderUserIDList,
+              'messageTypeList': messageTypeList,
+              'searchTimePosition': searchTimePosition,
+              'searchTimePeriod': searchTimePeriod,
+              'pageIndex': pageIndex,
+              'count': count,
+            },
+            'operationID': Utils.checkOperationID(operationID),
           }));
 
   static Map _buildParam(Map param) {
