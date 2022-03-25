@@ -1,6 +1,7 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class SearchResult {
+  /// 获取到的总的消息数量
   int? totalCount;
   List<SearchResultItems>? searchResultItems;
 
@@ -28,8 +29,13 @@ class SearchResult {
 }
 
 class SearchResultItems {
+  /// 会话ID
   String? conversationID;
+
+  /// 这个会话下的消息数量
   int? messageCount;
+
+  /// [Message]的列表
   List<Message>? messageList;
 
   SearchResultItems({this.conversationID, this.messageCount, this.messageList});

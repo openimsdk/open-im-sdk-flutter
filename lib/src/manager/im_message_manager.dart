@@ -522,6 +522,16 @@ class MessageManager {
 
   /// Search local message
   /// 搜索消息
+  /// [sourceID]单聊为用户ID，群聊为群ID
+  /// [sessionType]会话类型，单聊为1，群聊为2，如果为0，则代表搜索全部
+  /// [keywordList]搜索关键词列表，目前仅支持一个关键词搜索
+  /// [keywordListMatchType]关键词匹配模式，1代表与，2代表或，暂时未用
+  /// [senderUserIDList]指定消息发送的uid列表 暂时未用
+  /// [messageTypeList]消息类型列表
+  /// [searchTimePosition]搜索的起始时间点。默认为0即代表从现在开始搜索。UTC 时间戳，单位：秒
+  /// [searchTimePeriod]从起始时间点开始的过去时间范围，单位秒。默认为0即代表不限制时间范围，传24x60x60代表过去一天
+  /// [pageIndex]当前页数
+  /// [count]每页数量
   Future<SearchResult> searchLocalMessages({
     required String sourceID,
     required int sessionType,
