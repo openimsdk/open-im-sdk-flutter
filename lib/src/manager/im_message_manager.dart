@@ -524,7 +524,7 @@ class MessageManager {
   /// 搜索消息
   Future<dynamic> searchLocalMessages({
     required String sourceID,
-    required String sessionType,
+    required int sessionType,
     List<String> keywordList = const [],
     int keywordListMatchType = 0,
     List<String> senderUserIDList = const [],
