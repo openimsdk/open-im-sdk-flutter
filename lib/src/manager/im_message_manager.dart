@@ -522,7 +522,7 @@ class MessageManager {
 
   /// Search local message
   /// 搜索消息
-  Future<dynamic> searchLocalMessages({
+  Future<SearchResult> searchLocalMessages({
     required String sourceID,
     required int sessionType,
     List<String> keywordList = const [],
@@ -535,23 +535,26 @@ class MessageManager {
     int count = 40,
     String? operationID,
   }) =>
-      _channel.invokeMethod(
-          'searchLocalMessages',
-          _buildParam({
-            'filter': {
-              'sourceID': sourceID,
-              'sessionType': sessionType,
-              'keywordList': keywordList,
-              'keywordListMatchType': keywordListMatchType,
-              'senderUserIDList': senderUserIDList,
-              'messageTypeList': messageTypeList,
-              'searchTimePosition': searchTimePosition,
-              'searchTimePeriod': searchTimePeriod,
-              'pageIndex': pageIndex,
-              'count': count,
-            },
-            'operationID': Utils.checkOperationID(operationID),
-          }));
+      _channel
+          .invokeMethod(
+              'searchLocalMessages',
+              _buildParam({
+                'filter': {
+                  'sourceID': sourceID,
+                  'sessionType': sessionType,
+                  'keywordList': keywordList,
+                  'keywordListMatchType': keywordListMatchType,
+                  'senderUserIDList': senderUserIDList,
+                  'messageTypeList': messageTypeList,
+                  'searchTimePosition': searchTimePosition,
+                  'searchTimePeriod': searchTimePeriod,
+                  'pageIndex': pageIndex,
+                  'count': count,
+                },
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
