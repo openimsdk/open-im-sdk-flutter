@@ -538,7 +538,7 @@ class MessageManager {
     List<String> keywordList = const [],
     int keywordListMatchType = 0,
     List<String> senderUserIDList = const [],
-    List<String> messageTypeList = const [],
+    List<int> messageTypeList = const [],
     int searchTimePosition = 0,
     int searchTimePeriod = 0,
     int pageIndex = 1,

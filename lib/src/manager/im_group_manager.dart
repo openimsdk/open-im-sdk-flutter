@@ -329,7 +329,7 @@ class GroupManager {
       _channel.invokeMethod(
           'dismissGroup',
           _buildParam({
-            'gid': 'groupID',
+            'gid': groupID,
             'operationID': Utils.checkOperationID(operationID),
           }));
 

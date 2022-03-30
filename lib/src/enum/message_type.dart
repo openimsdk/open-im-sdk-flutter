@@ -7,8 +7,6 @@ class MessageType {
   static const file = 105;
   static const at_text = 106;
   static const merger = 107;
-
-  // static const forward = 108;
   static const card = 108;
   static const location = 109;
   static const custom = 110;
@@ -20,8 +18,8 @@ class MessageType {
 
   ///
   static const notificationBegin = 1000;
-  static const friendNotificationBegin = 1200;
 
+  static const friendNotificationBegin = 1200;
   static const friendApplicationApprovedNotification = 1201;
   static const friendApplicationRejectedNotification = 1202;
   static const friendApplicationNotification = 1203;
@@ -31,6 +29,7 @@ class MessageType {
   static const blackAddedNotification = 1207;
   static const blackDeletedNotification = 1208;
   static const friendNotificationEnd = 1299;
+
   static const conversationChangeNotification = 1300;
 
   static const userNotificationBegin = 1301;
@@ -38,7 +37,6 @@ class MessageType {
   static const userNotificationEnd = 1399;
 
   static const groupNotificationBegin = 1500;
-
   static const groupCreatedNotification = 1501;
   static const groupInfoSetNotification = 1502;
   static const joinGroupApplicationNotification = 1503;
@@ -49,10 +47,12 @@ class MessageType {
   static const memberKickedNotification = 1508;
   static const memberInvitedNotification = 1509;
   static const memberEnterNotification = 1510;
+  static const dismissGroupNotification = 1511;
   static const groupNotificationEnd = 1599;
 
   static const signalingNotificationBegin = 1600;
   static const signalingNotification = 1601;
   static const signalingNotificationEnd = 1699;
+
   static const notificationEnd = 2000;
 }
