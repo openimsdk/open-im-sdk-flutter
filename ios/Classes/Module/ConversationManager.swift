@@ -19,6 +19,7 @@ public class ConversationManager: BaseServiceManager {
         self["getConversationIDBySessionType"] = getConversationIDBySessionType
         self["setConversationRecvMessageOpt"] = setConversationRecvMessageOpt
         self["getConversationRecvMessageOpt"] = getConversationRecvMessageOpt
+        self["setOneConversationPrivateChat"] = setOneConversationPrivateChat
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -77,6 +78,10 @@ public class ConversationManager: BaseServiceManager {
 
     func getConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "conversationIDList"])
+    }
+    
+    func setOneConversationPrivateChat(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetOneConversationPrivateChat(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"],methodCall[bool: "isPrivate"])
     }
 }
 

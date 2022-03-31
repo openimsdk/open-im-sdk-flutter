@@ -27,6 +27,10 @@ FOUNDATION_EXPORT void Open_im_sdkAddBlack(id<Open_im_sdk_callbackBase> _Nullabl
 
 FOUNDATION_EXPORT void Open_im_sdkAddFriend(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDReqMsg);
 
+FOUNDATION_EXPORT void Open_im_sdkChangeGroupMemberMute(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, NSString* _Nullable userID, long mutedSeconds);
+
+FOUNDATION_EXPORT void Open_im_sdkChangeGroupMute(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable groupID, BOOL isMute);
+
 FOUNDATION_EXPORT void Open_im_sdkCheckFriend(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable userIDList);
 
 // skipped function CheckResourceLoad with unsupported parameter or return types
@@ -243,5 +247,7 @@ FOUNDATION_EXPORT void Open_im_sdkTransferGroupOwner(id<Open_im_sdk_callbackBase
 FOUNDATION_EXPORT void Open_im_sdkTypingStatusUpdate(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable recvID, NSString* _Nullable msgTip);
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkUploadImage(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID, NSString* _Nullable filePath, NSString* _Nullable token, NSString* _Nullable obj);
+
+FOUNDATION_EXPORT void Open_im_sdkWakeUp(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
 #endif

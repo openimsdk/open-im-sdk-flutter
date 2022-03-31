@@ -50,6 +50,11 @@ class MessageType {
   static const dismissGroupNotification = 1511;
   static const groupNotificationEnd = 1599;
 
+  static const groupMemberMutedNotification = 1512;
+  static const groupMemberCancelMutedNotification = 1513;
+  static const groupMutedNotification = 1514;
+  static const groupCancelMutedNotification = 1515;
+
   static const signalingNotificationBegin = 1600;
   static const signalingNotification = 1601;
   static const signalingNotificationEnd = 1699;

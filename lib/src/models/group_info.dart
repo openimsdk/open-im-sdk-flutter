@@ -7,6 +7,7 @@ class GroupInfo {
   String? ownerUserID;
   int? createTime;
   int? memberCount;
+  /// ok = 0 blocked = 1 Dismissed = 2 Muted  = 3
   int? status;
   String? creatorUserID;
   int? groupType;
@@ -70,6 +71,7 @@ class GroupMembersInfo {
   int? joinSource;
   String? operatorUserID;
   String? ext;
+  int? muteEndTime;
 
   GroupMembersInfo({
     this.groupID,
@@ -81,6 +83,7 @@ class GroupMembersInfo {
     this.ext,
     this.joinSource,
     this.operatorUserID,
+    this.muteEndTime,
   });
 
   GroupMembersInfo.fromJson(Map<String, dynamic> json) {
@@ -93,6 +96,7 @@ class GroupMembersInfo {
     ext = json['ext'];
     joinSource = json['joinSource'];
     operatorUserID = json['operatorUserID'];
+    muteEndTime = json['muteEndTime'];
   }
 
   Map<String, dynamic> toJson() {
@@ -106,6 +110,7 @@ class GroupMembersInfo {
     data['ext'] = this.ext;
     data['joinSource'] = this.joinSource;
     data['operatorUserID'] = this.operatorUserID;
+    data['muteEndTime'] = this.muteEndTime;
     return data;
   }
 }

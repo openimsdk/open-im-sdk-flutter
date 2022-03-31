@@ -2,7 +2,8 @@
 
 1.New dismiss group </br>
 2.New search local message </br>
-3.Upgrade client-sdk to 2.0.18
+3.New private chat </br>
+4.New group mute
 
 ## 2.0.0+3
 

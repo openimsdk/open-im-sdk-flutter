@@ -19,6 +19,7 @@ class ConversationInfo {
   String? draftText;
   int? draftTextTime;
   bool? isPinned;
+  bool? isPrivateChat;
   String? ext;
 
   ConversationInfo(
@@ -34,6 +35,7 @@ class ConversationInfo {
       this.latestMsgSendTime,
       this.draftText,
       this.draftTextTime,
+      this.isPrivateChat,
       this.isPinned});
 
   ConversationInfo.fromJson(Map<String, dynamic> json)
@@ -56,6 +58,7 @@ class ConversationInfo {
     draftText = json['draftText'];
     draftTextTime = json['draftTextTime'];
     isPinned = json['isPinned'];
+    isPrivateChat = json['isPrivateChat'];
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +76,7 @@ class ConversationInfo {
     data['draftText'] = this.draftText;
     data['draftTextTime'] = this.draftTextTime;
     data['isPinned'] = this.isPinned;
+    data['isPrivateChat'] = this.isPrivateChat;
     return data;
   }
 

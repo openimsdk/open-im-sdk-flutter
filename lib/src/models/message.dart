@@ -581,18 +581,21 @@ class FaceElem {
 
 class AttachedInfoElem {
   GroupHasReadInfo? groupHasReadInfo;
+  bool? isPrivateChat;
 
-  AttachedInfoElem({this.groupHasReadInfo});
+  AttachedInfoElem({this.groupHasReadInfo, this.isPrivateChat});
 
   AttachedInfoElem.fromJson(Map<String, dynamic> json) {
     groupHasReadInfo = json['groupHasReadInfo'] == null
         ? null
         : GroupHasReadInfo.fromJson(json['groupHasReadInfo']);
+    isPrivateChat = json['isPrivateChat'];
   }
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
     data['groupHasReadInfo'] = this.groupHasReadInfo?.toJson();
+    data['isPrivateChat'] = this.isPrivateChat;
     return data;
   }
 }

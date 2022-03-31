@@ -204,6 +204,21 @@ class ConversationManager {
               }))
           .then((value) => Utils.toListMap(value));
 
+  /// burn after reading
+  /// 阅后即焚
+  Future<dynamic> setOneConversationPrivateChat({
+    required String conversationID,
+    required bool isPrivate,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setOneConversationPrivateChat',
+          _buildParam({
+            "conversationID": conversationID,
+            "isPrivate": isPrivate,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   /// Custom sort for conversation list
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list

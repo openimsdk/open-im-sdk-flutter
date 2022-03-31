@@ -154,6 +154,24 @@ public class GroupManager extends BaseManager {
                 value(methodCall, "operationID"),
                 value(methodCall, "gid")
         );
+    }
 
+    public void changeGroupMute(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.changeGroupMute(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "gid"),
+                value(methodCall, "mute")
+        );
+    }
+
+    public void changeGroupMemberMute(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.changeGroupMemberMute(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "gid"),
+                value(methodCall, "uid"),
+                int2long(methodCall, "seconds")
+        );
     }
 }
