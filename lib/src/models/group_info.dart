@@ -7,6 +7,7 @@ class GroupInfo {
   String? ownerUserID;
   int? createTime;
   int? memberCount;
+
   /// ok = 0 blocked = 1 Dismissed = 2 Muted  = 3
   int? status;
   String? creatorUserID;
