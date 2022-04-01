@@ -1,8 +1,19 @@
+## 2.0.0+5
+
+1.New oa notification </br>
+2.New method deleteConversationMsgFromLocalAndSvr </br>
+2.New method deleteMessageFromLocalAndSvr </br>
+3.New method deleteAllMsgFromLocal </br>
+3.New method deleteAllMsgFromLocalAndSvr </br>
+3.New method markMessageAsReadByConID </br>
+3.New method wakeUp </br>
+
 ## 2.0.0+4
 
 1.New dismiss group </br>
 2.New search local message </br>
-3.Upgrade client-sdk to 2.0.18
+3.New private chat </br>
+4.New group mute
 
 ## 2.0.0+3
 

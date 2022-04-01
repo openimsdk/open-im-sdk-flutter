@@ -12,7 +12,6 @@ public class MessageManager: BaseServiceManager {
         self["getHistoryMessageList"] = getHistoryMessageList
         self["revokeMessage"] = revokeMessage
         self["deleteMessageFromLocalStorage"] = deleteMessageFromLocalStorage
-        self["deleteMessages"] = deleteMessages
         self["insertSingleMessageToLocalStorage"] = insertSingleMessageToLocalStorage
         self["insertGroupMessageToLocalStorage"] = insertGroupMessageToLocalStorage
         self["markC2CMessageAsRead"] = markC2CMessageAsRead
@@ -38,6 +37,10 @@ public class MessageManager: BaseServiceManager {
         self["clearC2CHistoryMessage"] = clearC2CHistoryMessage
         self["clearGroupHistoryMessage"] = clearGroupHistoryMessage
         self["searchLocalMessages"] = searchLocalMessages
+        self["deleteMessageFromLocalAndSvr"] = deleteMessageFromLocalAndSvr
+        self["deleteAllMsgFromLocal"] = deleteAllMsgFromLocal
+        self["deleteAllMsgFromLocalAndSvr"] = deleteAllMsgFromLocalAndSvr
+        self["markMessageAsReadByConID"] = markMessageAsReadByConID
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -65,9 +68,6 @@ public class MessageManager: BaseServiceManager {
         Open_im_sdkDeleteMessageFromLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
-    // deprecated
-    func deleteMessages(methodCall: FlutterMethodCall, result: FlutterResult){
-    }
     
     func insertSingleMessageToLocalStorage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkInsertSingleMessageToLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"],
@@ -180,6 +180,22 @@ public class MessageManager: BaseServiceManager {
     
     func searchLocalMessages(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSearchLocalMessages(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "filter"])
+    }
+    
+    func deleteMessageFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkDeleteMessageFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
+    }
+
+    func deleteAllMsgFromLocal(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkDeleteAllMsgFromLocal(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
+
+    func deleteAllMsgFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkDeleteAllMsgFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
+
+    func markMessageAsReadByConID(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkMarkMessageAsReadByConID(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[jsonString: "messageIDList"])
     }
     
     public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {

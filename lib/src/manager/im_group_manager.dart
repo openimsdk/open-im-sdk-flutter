@@ -329,7 +329,39 @@ class GroupManager {
       _channel.invokeMethod(
           'dismissGroup',
           _buildParam({
-            'gid': 'groupID',
+            'gid': groupID,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  /// Enable group mute
+  /// 开启群禁言
+  Future<dynamic> changeGroupMute({
+    required String groupID,
+    required bool mute,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'changeGroupMute',
+          _buildParam({
+            'gid': groupID,
+            'mute': mute,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  /// Mute group members
+  /// 禁言群成员
+  Future<dynamic> changeGroupMemberMute({
+    required String groupID,
+    required String userID,
+    int seconds = 0,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'changeGroupMemberMute',
+          _buildParam({
+            'gid': groupID,
+            'uid': userID,
+            'seconds': seconds,
             'operationID': Utils.checkOperationID(operationID),
           }));
 

@@ -331,4 +331,35 @@ public class MessageManager extends BaseManager {
                 jsonValue(methodCall, "filter")
         );
     }
+
+    public void deleteMessageFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteMessageFromLocalAndSvr(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall)
+        );
+    }
+
+    public void deleteAllMsgFromLocal(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteAllMsgFromLocal(
+                new OnBaseListener(result),
+                value(methodCall, "operationID")
+        );
+    }
+
+    public void deleteAllMsgFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteAllMsgFromLocalAndSvr(
+                new OnBaseListener(result),
+                value(methodCall, "operationID")
+        );
+    }
+
+    public void markMessageAsReadByConID(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.markMessageAsReadByConID(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                jsonValue(methodCall, "messageIDList")
+        );
+    }
 }

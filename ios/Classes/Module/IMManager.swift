@@ -9,12 +9,7 @@ public class IMMananger: BaseServiceManager {
         self["login"] = login
         self["logout"] = logout
         self["getLoginStatus"] = getLoginStatus
-//        self["getLoginUid"] = getLoginUid
-        // self["getUsersInfo"] = getUsersInfo
-        // self["setSelfInfo"] = setSelfInfo
-        // self["forceSyncLoginUerInfo"] = forceSyncLoginUerInfo
-//        self["forceReConn"] = forceReConn
-        // self["setSdkLog"] = setSdkLog
+        self["wakeUp"] = wakeUp
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -34,30 +29,10 @@ public class IMMananger: BaseServiceManager {
         callBack(result, Open_im_sdkGetLoginStatus())
     }
     
-//     func getLoginUid(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//         callBack(result, Open_im_sdkGetLoginUser())
-//     }
+    func wakeUp(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkWakeUp(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
     
-    // func getUsersInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-    //     Open_im_sdkGetUsersInfo(methodCall[jsonString: "uidList"], BaseCallback(result: result))
-    // }
-    
-    // func setSelfInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-    //     Open_im_sdkSetSelfInfo(methodCall.toJsonString(), BaseCallback(result: result))
-    // }
-    
-    // func forceSyncLoginUerInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-    //     Open_im_sdkForceSyncLoginUerInfo()
-    //     callBack(result)
-    // }
-
-    // func setSdkLog(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-    //      Open_im_sdkSetSdkLog(methodCall[int32: "sdkLog"])
-    // }
-//     func forceReConn(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-//         Open_im_sdkForceReConn()
-//         callBack(result)
-//     }
 }
 
 public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol {

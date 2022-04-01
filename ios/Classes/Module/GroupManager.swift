@@ -22,6 +22,8 @@ public class GroupManager: BaseServiceManager {
         self["acceptGroupApplication"] = acceptGroupApplication
         self["refuseGroupApplication"] = refuseGroupApplication
         self["dismissGroup"] = dismissGroup
+        self["changeGroupMute"] = changeGroupMute
+        self["changeGroupMemberMute"] = changeGroupMemberMute
     }
 
     func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -94,6 +96,14 @@ public class GroupManager: BaseServiceManager {
     
     func dismissGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkDismissGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"])
+    }
+    
+    func changeGroupMute(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkChangeGroupMute(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[bool: "mute"])
+    }
+    
+    func changeGroupMemberMute(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkChangeGroupMemberMute(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string:"uid"],methodCall[int:"seconds"])
     }
 }
 

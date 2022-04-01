@@ -118,4 +118,21 @@ public class ConversationManager extends BaseManager {
                 jsonValue(methodCall, "conversationIDList")
         );
     }
+
+    public void setOneConversationPrivateChat(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setOneConversationPrivateChat(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                value(methodCall, "isPrivate")
+        );
+    }
+
+    public void deleteConversationMsgFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteConversationMsgFromLocalAndSvr(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID")
+        );
+    }
 }
