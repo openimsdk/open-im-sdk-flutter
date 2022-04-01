@@ -32,7 +32,7 @@ public class IMMananger: BaseServiceManager {
     func wakeUp(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkWakeUp(BaseCallback(result: result), methodCall[string: "operationID"])
     }
-    
+
 }
 
 public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol {

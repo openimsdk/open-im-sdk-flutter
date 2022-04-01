@@ -101,7 +101,7 @@ public class GroupManager: BaseServiceManager {
     func changeGroupMute(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkChangeGroupMute(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[bool: "mute"])
     }
-    
+
     func changeGroupMemberMute(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkChangeGroupMemberMute(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string:"uid"],methodCall[int:"seconds"])
     }

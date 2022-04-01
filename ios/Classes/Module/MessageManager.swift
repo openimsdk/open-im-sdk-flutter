@@ -197,7 +197,7 @@ public class MessageManager: BaseServiceManager {
     func markMessageAsReadByConID(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkMarkMessageAsReadByConID(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[jsonString: "messageIDList"])
     }
-    
+
     public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
         private let channel: FlutterMethodChannel
         private let result: FlutterResult
