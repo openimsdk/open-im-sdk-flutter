@@ -36,6 +36,8 @@ class MessageType {
   static const userInfoUpdatedNotification = 1303;
   static const userNotificationEnd = 1399;
 
+  static const oaNotification = 1400;
+
   static const groupNotificationBegin = 1500;
   static const groupCreatedNotification = 1501;
   static const groupInfoSetNotification = 1502;

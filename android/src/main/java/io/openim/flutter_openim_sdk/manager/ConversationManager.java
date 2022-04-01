@@ -127,4 +127,12 @@ public class ConversationManager extends BaseManager {
                 value(methodCall, "isPrivate")
         );
     }
+
+    public void deleteConversationMsgFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteConversationMsgFromLocalAndSvr(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID")
+        );
+    }
 }

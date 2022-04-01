@@ -56,10 +56,12 @@ class MessageManager {
   /// Find all history message
   /// 获取聊天记录
   /// [userID]接收消息的用户id
+  /// [conversationID] 会话id，查询通知是可用
   /// [groupID]接收消息的组id
   Future<List<Message>> getHistoryMessageList({
     String? userID,
     String? groupID,
+    String? conversationID,
     Message? startMsg,
     int? count,
     String? operationID,
@@ -70,6 +72,7 @@ class MessageManager {
               _buildParam({
                 'userID': userID ?? '',
                 'groupID': groupID ?? '',
+                'conversationID': conversationID ?? '',
                 'startClientMsgID': startMsg?.clientMsgID ?? '',
                 'count': count ?? 10,
                 'operationID': Utils.checkOperationID(operationID),
@@ -565,6 +568,56 @@ class MessageManager {
               }))
           .then((value) =>
               Utils.toObj(value, (map) => SearchResult.fromJson(map)));
+
+  /// Delete message from local and service
+  /// 删除消息
+  Future<dynamic> deleteMessageFromLocalAndSvr({
+    required Message message,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteMessageFromLocalAndSvr',
+          _buildParam(message.toJson()
+            ..addAll({
+              "operationID": Utils.checkOperationID(operationID),
+            })));
+
+  /// Delete all message from local
+  /// 删除所有消息
+  Future<dynamic> deleteAllMsgFromLocal({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteAllMsgFromLocal',
+          _buildParam({
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// Delete all message from service
+  /// 删除所有消息
+  Future<dynamic> deleteAllMsgFromLocalAndSvr({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteAllMsgFromLocalAndSvr',
+          _buildParam({
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// Mark conversation message as read
+  /// 标记消息已读
+  Future markMessageAsReadByConID({
+    required String conversationID,
+    required List<String> messageIDList,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'markMessageAsReadByConID',
+          _buildParam({
+            "messageIDList": messageIDList,
+            "conversationID": conversationID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";

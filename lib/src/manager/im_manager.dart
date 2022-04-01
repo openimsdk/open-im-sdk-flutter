@@ -355,6 +355,13 @@ class IMManager {
   /// 获取当前登录用户信息
   Future<UserInfo> getLoginUserInfo() async => uInfo;
 
+  /// wakeup
+  Future wakeUp({String? operationID}) => _channel.invokeMethod(
+      'wakeUp',
+      _buildParam({
+        'operationID': Utils.checkOperationID(operationID),
+      }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "imManager";
     return param;

@@ -19,6 +19,7 @@ class Message {
   String? content;
   int? seq;
   bool? isRead;
+  int? hasReadTime;
 
   /// [MessageStatus]
   int? status;
@@ -56,6 +57,7 @@ class Message {
     this.content,
     this.seq,
     this.isRead,
+    this.hasReadTime,
     this.status,
     this.offlinePush,
     this.attachedInfo,
@@ -132,6 +134,7 @@ class Message {
     attachedInfoElem = json['attachedInfoElem'] != null
         ? AttachedInfoElem.fromJson(json['attachedInfoElem'])
         : null;
+    hasReadTime = json['hasReadTime'] ?? attachedInfoElem?.hasReadTime;
   }
 
   Map<String, dynamic> toJson() {
@@ -151,6 +154,7 @@ class Message {
     data['content'] = this.content;
     data['seq'] = this.seq;
     data['isRead'] = this.isRead;
+    data['hasReadTime'] = this.hasReadTime;
     data['status'] = this.status;
     data['offlinePush'] = this.offlinePush?.toJson();
     data['attachedInfo'] = this.attachedInfo;
@@ -198,6 +202,7 @@ class Message {
     content = message.content;
     seq = message.seq;
     isRead = message.isRead;
+    hasReadTime = message.hasReadTime;
     status = message.status;
     offlinePush = message.offlinePush;
     attachedInfo = message.attachedInfo;
@@ -581,21 +586,30 @@ class FaceElem {
 
 class AttachedInfoElem {
   GroupHasReadInfo? groupHasReadInfo;
-  bool? isPrivateChat;
 
-  AttachedInfoElem({this.groupHasReadInfo, this.isPrivateChat});
+  /// 单聊有效
+  bool? isPrivateChat;
+  int? hasReadTime;
+
+  AttachedInfoElem({
+    this.groupHasReadInfo,
+    this.isPrivateChat,
+    this.hasReadTime,
+  });
 
   AttachedInfoElem.fromJson(Map<String, dynamic> json) {
     groupHasReadInfo = json['groupHasReadInfo'] == null
         ? null
         : GroupHasReadInfo.fromJson(json['groupHasReadInfo']);
     isPrivateChat = json['isPrivateChat'];
+    hasReadTime = json['hasReadTime'];
   }
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
     data['groupHasReadInfo'] = this.groupHasReadInfo?.toJson();
     data['isPrivateChat'] = this.isPrivateChat;
+    data['hasReadTime'] = this.hasReadTime;
     return data;
   }
 }

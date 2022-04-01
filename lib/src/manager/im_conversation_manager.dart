@@ -219,6 +219,19 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// Delete conversation from local and service
+  /// 删除会话
+  Future<dynamic> deleteConversationMsgFromLocalAndSvr({
+    required String conversationID,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteConversationMsgFromLocalAndSvr',
+          _buildParam({
+            "conversationID": conversationID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   /// Custom sort for conversation list
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list

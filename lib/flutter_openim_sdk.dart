@@ -25,6 +25,7 @@ export 'src/manager/im_user_manager.dart';
 export 'src/models/conversation_info.dart';
 export 'src/models/group_info.dart';
 export 'src/models/message.dart';
+export 'src/models/notification_info.dart';
 export 'src/models/search_info.dart';
 export 'src/models/signaling_info.dart';
 export 'src/models/user_info.dart';

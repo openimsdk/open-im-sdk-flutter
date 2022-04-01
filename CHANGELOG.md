@@ -1,3 +1,13 @@
+## 2.0.0+5
+
+1.New oa notification </br>
+2.New method deleteConversationMsgFromLocalAndSvr </br>
+2.New method deleteMessageFromLocalAndSvr </br>
+3.New method deleteAllMsgFromLocal </br>
+3.New method deleteAllMsgFromLocalAndSvr </br>
+3.New method markMessageAsReadByConID </br>
+3.New method wakeUp </br>
+
 ## 2.0.0+4
 
 1.New dismiss group </br>
