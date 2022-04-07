@@ -61,5 +61,7 @@ class MessageType {
   static const signalingNotification = 1601;
   static const signalingNotificationEnd = 1699;
 
+  static const burnAfterReadingNotification = 1701;
+
   static const notificationEnd = 2000;
 }
