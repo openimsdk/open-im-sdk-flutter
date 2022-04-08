@@ -9,6 +9,7 @@
 7.New clearGroupHistoryMessageFromLocalAndSvr method </br>
 8.New markMessageAsReadByConID method </br>
 9.New wakeUp method </br>
+10.New deleteAllConversationFromLocal method </br>
 
 ## 2.0.0+4
 

@@ -232,6 +232,17 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// Delete conversation from local
+  /// 删除会话
+  Future<dynamic> deleteAllConversationFromLocal({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteAllConversationFromLocal',
+          _buildParam({
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   /// Custom sort for conversation list
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list

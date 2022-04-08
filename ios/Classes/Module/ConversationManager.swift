@@ -21,6 +21,7 @@ public class ConversationManager: BaseServiceManager {
         self["getConversationRecvMessageOpt"] = getConversationRecvMessageOpt
         self["setOneConversationPrivateChat"] = setOneConversationPrivateChat
         self["deleteConversationFromLocalAndSvr"] = deleteConversationFromLocalAndSvr
+        self["deleteAllConversationFromLocal"] = deleteAllConversationFromLocal
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -87,6 +88,10 @@ public class ConversationManager: BaseServiceManager {
     
     func deleteConversationFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkDeleteConversationFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
+    }
+    
+    func deleteAllConversationFromLocal(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkDeleteAllConversationFromLocal(BaseCallback(result: result), methodCall[string: "operationID"])
     }
 }
 

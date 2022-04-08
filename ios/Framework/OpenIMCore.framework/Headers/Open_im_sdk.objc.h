@@ -90,6 +90,8 @@ FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessageByURL(NSString
 
 FOUNDATION_EXPORT NSString* _Nonnull Open_im_sdkCreateVideoMessageFromFullPath(NSString* _Nullable operationID, NSString* _Nullable videoFullPath, NSString* _Nullable videoType, int64_t duration, NSString* _Nullable snapshotFullPath);
 
+FOUNDATION_EXPORT void Open_im_sdkDeleteAllConversationFromLocal(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
+
 FOUNDATION_EXPORT void Open_im_sdkDeleteAllMsgFromLocal(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
 
 FOUNDATION_EXPORT void Open_im_sdkDeleteAllMsgFromLocalAndSvr(id<Open_im_sdk_callbackBase> _Nullable callback, NSString* _Nullable operationID);
