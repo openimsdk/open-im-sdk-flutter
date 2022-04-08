@@ -362,4 +362,20 @@ public class MessageManager extends BaseManager {
                 jsonValue(methodCall, "messageIDList")
         );
     }
+
+    public void clearC2CHistoryMessageFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.clearC2CHistoryMessageFromLocalAndSvr(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "userID")
+        );
+    }
+
+    public void clearGroupHistoryMessageFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.clearGroupHistoryMessageFromLocalAndSvr(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID")
+        );
+    }
 }

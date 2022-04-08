@@ -73,6 +73,7 @@ class GroupMembersInfo {
   String? operatorUserID;
   String? ext;
   int? muteEndTime;
+  int? appMangerLevel;
 
   GroupMembersInfo({
     this.groupID,
@@ -85,6 +86,7 @@ class GroupMembersInfo {
     this.joinSource,
     this.operatorUserID,
     this.muteEndTime,
+    this.appMangerLevel,
   });
 
   GroupMembersInfo.fromJson(Map<String, dynamic> json) {
@@ -98,6 +100,7 @@ class GroupMembersInfo {
     joinSource = json['joinSource'];
     operatorUserID = json['operatorUserID'];
     muteEndTime = json['muteEndTime'];
+    appMangerLevel = json['appMangerLevel'];
   }
 
   Map<String, dynamic> toJson() {
@@ -112,6 +115,7 @@ class GroupMembersInfo {
     data['joinSource'] = this.joinSource;
     data['operatorUserID'] = this.operatorUserID;
     data['muteEndTime'] = this.muteEndTime;
+    data['appMangerLevel'] = this.appMangerLevel;
     return data;
   }
 }

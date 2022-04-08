@@ -147,6 +147,16 @@ class UserInfo {
     if (value == null || value.trim().isEmpty) return null;
     return value;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserInfo &&
+          runtimeType == other.runtimeType &&
+          userID == other.userID;
+
+  @override
+  int get hashCode => userID.hashCode;
 }
 
 class PublicUserInfo {

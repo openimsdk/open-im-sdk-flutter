@@ -1,12 +1,15 @@
 ## 2.0.0+5
 
-1.New oa notification </br>
-2.New method deleteConversationMsgFromLocalAndSvr </br>
-2.New method deleteMessageFromLocalAndSvr </br>
-3.New method deleteAllMsgFromLocal </br>
-3.New method deleteAllMsgFromLocalAndSvr </br>
-3.New method markMessageAsReadByConID </br>
-3.New method wakeUp </br>
+1.New notification parse </br>
+2.New deleteConversationFromLocalAndSvr method </br>
+3.New deleteMessageFromLocalAndSvr method </br>
+4.New deleteAllMsgFromLocal method </br>
+5.New deleteAllMsgFromLocalAndSvr method </br>
+6.New clearC2CHistoryMessageFromLocalAndSvr method </br>
+7.New clearGroupHistoryMessageFromLocalAndSvr method </br>
+8.New markMessageAsReadByConID method </br>
+9.New wakeUp method </br>
+10.New deleteAllConversationFromLocal method </br>
 
 ## 2.0.0+4
 

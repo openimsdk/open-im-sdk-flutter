@@ -619,6 +619,32 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// Clear all c2c history message
+  /// 清空单聊消息记录
+  Future<dynamic> clearC2CHistoryMessageFromLocalAndSvr({
+    required String uid,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'clearC2CHistoryMessageFromLocalAndSvr',
+          _buildParam({
+            "userID": uid,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// Clear all group history
+  /// 清空组消息记录
+  Future<dynamic> clearGroupHistoryMessageFromLocalAndSvr({
+    required String gid,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'clearGroupHistoryMessageFromLocalAndSvr',
+          _buildParam({
+            "groupID": gid,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;

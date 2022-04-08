@@ -221,14 +221,25 @@ class ConversationManager {
 
   /// Delete conversation from local and service
   /// 删除会话
-  Future<dynamic> deleteConversationMsgFromLocalAndSvr({
+  Future<dynamic> deleteConversationFromLocalAndSvr({
     required String conversationID,
     String? operationID,
   }) =>
       _channel.invokeMethod(
-          'deleteConversationMsgFromLocalAndSvr',
+          'deleteConversationFromLocalAndSvr',
           _buildParam({
             "conversationID": conversationID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// Delete conversation from local
+  /// 删除会话
+  Future<dynamic> deleteAllConversationFromLocal({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteAllConversationFromLocal',
+          _buildParam({
             "operationID": Utils.checkOperationID(operationID),
           }));
 

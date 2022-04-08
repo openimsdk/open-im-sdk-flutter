@@ -128,11 +128,18 @@ public class ConversationManager extends BaseManager {
         );
     }
 
-    public void deleteConversationMsgFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteConversationMsgFromLocalAndSvr(
+    public void deleteConversationFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteConversationFromLocalAndSvr(
                 new OnBaseListener(result),
                 value(methodCall, "operationID"),
                 value(methodCall, "conversationID")
+        );
+    }
+
+    public void deleteAllConversationFromLocal(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteAllConversationFromLocal(
+                new OnBaseListener(result),
+                value(methodCall, "operationID")
         );
     }
 }
