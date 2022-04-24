@@ -174,4 +174,13 @@ public class GroupManager extends BaseManager {
                 int2long(methodCall, "seconds")
         );
     }
+
+    public void setGroupMemberNickname(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setGroupMemberNickname(new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "gid"),
+                value(methodCall, "uid"),
+                value(methodCall, "groupNickname")
+        );
+    }
 }

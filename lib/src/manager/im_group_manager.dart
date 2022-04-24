@@ -365,6 +365,23 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  /// Set group user nickname
+  /// 设置群成员昵称
+  Future<dynamic> setGroupMemberNickname({
+    required String groupID,
+    required String userID,
+    String? groupNickname,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setGroupMemberNickname',
+          _buildParam({
+            'gid': groupID,
+            'uid': userID,
+            'groupNickname': groupNickname ?? '',
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";
     return param;

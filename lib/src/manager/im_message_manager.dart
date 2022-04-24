@@ -214,7 +214,9 @@ class MessageManager {
   /// 创建@消息
   Future<Message> createTextAtMessage({
     required String text,
-    required List<String> atUidList,
+    required List<String> atUserIDList,
+    List<AtUserInfo> atUserInfoList = const [],
+    Message? quoteMessage,
     String? operationID,
   }) =>
       _channel
@@ -222,7 +224,9 @@ class MessageManager {
             'createTextAtMessage',
             _buildParam({
               'text': text,
-              'atUserList': atUidList,
+              'atUserIDList': atUserIDList,
+              'atUserInfoList': atUserInfoList.map((e) => e.toJson()).toList(),
+              'quoteMessage': quoteMessage?.toJson(),
               "operationID": Utils.checkOperationID(operationID),
             }),
           )

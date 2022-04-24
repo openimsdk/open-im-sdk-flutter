@@ -182,7 +182,10 @@ public class MessageManager extends BaseManager {
                 Open_im_sdk.createTextAtMessage(
                         value(methodCall, "operationID"),
                         value(methodCall, "text"),
-                        jsonValue(methodCall, "atUserList")));
+                        jsonValue(methodCall, "atUserIDList"),
+                        jsonValue(methodCall, "atUserInfoList"),
+                        jsonValue(methodCall, "quoteMessage")
+                ));
     }
 
     public void createImageMessage(MethodCall methodCall, MethodChannel.Result result) {

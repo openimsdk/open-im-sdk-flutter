@@ -98,7 +98,8 @@ public class MessageManager: BaseServiceManager {
     }
     
     func createTextAtMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateTextAtMessage(methodCall[string: "operationID"], methodCall[string: "text"], methodCall[jsonString: "atUserList"]))
+        callBack(result, Open_im_sdkCreateTextAtMessage(methodCall[string: "operationID"], methodCall[string: "text"],
+                                                        methodCall[jsonString: "atUserIDList"], methodCall[jsonString: "atUserInfoList"], methodCall[jsonString: "quoteMessage"]))
     }
     
     func createImageMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

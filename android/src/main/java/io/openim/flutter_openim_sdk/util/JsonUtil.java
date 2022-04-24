@@ -4,8 +4,9 @@ import org.json.JSONObject;
 
 public class JsonUtil {
     public static String toString(Object o) {
+        if (o == null) return null;
         if (o instanceof String) {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             buffer.append("\"");
             buffer.append(o);
             buffer.append("\"");

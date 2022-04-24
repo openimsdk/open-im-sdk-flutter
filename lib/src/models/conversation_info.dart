@@ -21,22 +21,25 @@ class ConversationInfo {
   bool? isPinned;
   bool? isPrivateChat;
   String? ext;
+  bool? isNotInGroup;
 
-  ConversationInfo(
-      {required this.conversationID,
-      this.conversationType,
-      this.userID,
-      this.groupID,
-      this.showName,
-      this.faceURL,
-      this.recvMsgOpt,
-      this.unreadCount,
-      this.latestMsg,
-      this.latestMsgSendTime,
-      this.draftText,
-      this.draftTextTime,
-      this.isPrivateChat,
-      this.isPinned});
+  ConversationInfo({
+    required this.conversationID,
+    this.conversationType,
+    this.userID,
+    this.groupID,
+    this.showName,
+    this.faceURL,
+    this.recvMsgOpt,
+    this.unreadCount,
+    this.latestMsg,
+    this.latestMsgSendTime,
+    this.draftText,
+    this.draftTextTime,
+    this.isPrivateChat,
+    this.isPinned,
+    this.isNotInGroup,
+  });
 
   ConversationInfo.fromJson(Map<String, dynamic> json)
       : conversationID = json['conversationID'] {
@@ -59,6 +62,8 @@ class ConversationInfo {
     draftTextTime = json['draftTextTime'];
     isPinned = json['isPinned'];
     isPrivateChat = json['isPrivateChat'];
+    isNotInGroup = json['isNotInGroup'];
+    groupAtType = json['groupAtType'];
   }
 
   Map<String, dynamic> toJson() {
@@ -77,6 +82,8 @@ class ConversationInfo {
     data['draftTextTime'] = this.draftTextTime;
     data['isPinned'] = this.isPinned;
     data['isPrivateChat'] = this.isPrivateChat;
+    data['isNotInGroup'] = this.isNotInGroup;
+    data['groupAtType'] = this.groupAtType;
     return data;
   }
 

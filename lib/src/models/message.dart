@@ -424,8 +424,16 @@ class AtElem {
   String? text;
   List<String>? atUserList;
   bool? isAtSelf;
+  List<AtUserInfo>? atUsersInfo;
+  Message? quoteMessage;
 
-  AtElem({this.text, this.atUserList, this.isAtSelf});
+  AtElem({
+    this.text,
+    this.atUserList,
+    this.isAtSelf,
+    this.atUsersInfo,
+    this.quoteMessage,
+  });
 
   AtElem.fromJson(Map<String, dynamic> json) {
     text = json['text'];
@@ -433,6 +441,14 @@ class AtElem {
       atUserList = (json['atUserList'] as List).map((e) => '$e').toList();
     }
     isAtSelf = json['isAtSelf'];
+    if (json['atUsersInfo'] is List) {
+      atUsersInfo = (json['atUsersInfo'] as List)
+          .map((e) => AtUserInfo.fromJson(e))
+          .toList();
+    }
+    quoteMessage = null != json['quoteMessage']
+        ? Message.fromJson(json['quoteMessage'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -440,6 +456,8 @@ class AtElem {
     data['text'] = this.text;
     data['atUserList'] = this.atUserList;
     data['isAtSelf'] = this.isAtSelf;
+    data['atUsersInfo'] = this.atUsersInfo?.map((e) => e.toJson()).toList();
+    data['quoteMessage'] = this.quoteMessage?.toJson();
     return data;
   }
 }
@@ -702,6 +720,25 @@ class OfflinePushInfo {
     data['ex'] = this.ex;
     data['iOSPushSound'] = this.iOSPushSound;
     data['iOSBadgeCount'] = this.iOSBadgeCount;
+    return data;
+  }
+}
+
+class AtUserInfo {
+  String? atUserID;
+  String? groupNickname;
+
+  AtUserInfo({this.atUserID, this.groupNickname});
+
+  AtUserInfo.fromJson(Map<String, dynamic> json) {
+    atUserID = json['atUserID'];
+    groupNickname = json['groupNickname'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['atUserID'] = this.atUserID;
+    data['groupNickname'] = this.groupNickname;
     return data;
   }
 }

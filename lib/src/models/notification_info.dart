@@ -233,6 +233,33 @@ class QuitGroupNotification {
   }
 }
 
+/// Enter group notification
+/// 进群通知
+class EnterGroupNotification {
+  GroupInfo? group;
+  GroupMembersInfo? entrantUser;
+
+  EnterGroupNotification({this.group, this.entrantUser});
+
+  EnterGroupNotification.fromJson(Map<String, dynamic> json) {
+    group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
+    entrantUser = json['entrantUser'] != null
+        ? GroupMembersInfo.fromJson(json['entrantUser'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    if (this.group != null) {
+      data['group'] = this.group!.toJson();
+    }
+    if (this.entrantUser != null) {
+      data['quitUser'] = this.entrantUser!.toJson();
+    }
+    return data;
+  }
+}
+
 /// Group rights transfer noticication
 /// 群权转让通知
 class GroupRightsTransferNoticication {
@@ -277,11 +304,13 @@ class MuteMemberNotification {
   GroupInfo? group;
   GroupMembersInfo? opUser;
   GroupMembersInfo? mutedUser;
+  int? mutedSeconds;
 
   MuteMemberNotification({
     this.group,
     this.opUser,
     this.mutedUser,
+    this.mutedSeconds,
   });
 
   MuteMemberNotification.fromJson(Map<String, dynamic> json) {
@@ -292,6 +321,7 @@ class MuteMemberNotification {
     mutedUser = json['mutedUser'] != null
         ? GroupMembersInfo.fromJson(json['mutedUser'])
         : null;
+    mutedSeconds = json['mutedSeconds'];
   }
 
   Map<String, dynamic> toJson() {
@@ -305,6 +335,7 @@ class MuteMemberNotification {
     if (this.mutedUser != null) {
       data['mutedUser'] = this.mutedUser!.toJson();
     }
+    data['mutedSeconds'] = this.mutedSeconds;
     return data;
   }
 }
@@ -329,6 +360,44 @@ class BurnAfterReadingNotification {
     data['recvID'] = this.recvID;
     data['sendID'] = this.sendID;
     data['isPrivate'] = this.isPrivate;
+    return data;
+  }
+}
+
+/// Group member info changed notification
+/// 禁言成员通知
+class GroupMemberInfoChangedNotification {
+  GroupInfo? group;
+  GroupMembersInfo? opUser;
+  GroupMembersInfo? changedUser;
+
+  GroupMemberInfoChangedNotification({
+    this.group,
+    this.opUser,
+    this.changedUser,
+  });
+
+  GroupMemberInfoChangedNotification.fromJson(Map<String, dynamic> json) {
+    group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
+    opUser = json['opUser'] != null
+        ? GroupMembersInfo.fromJson(json['opUser'])
+        : null;
+    changedUser = json['changedUser'] != null
+        ? GroupMembersInfo.fromJson(json['changedUser'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    if (this.group != null) {
+      data['group'] = this.group!.toJson();
+    }
+    if (this.opUser != null) {
+      data['opUser'] = this.opUser!.toJson();
+    }
+    if (this.changedUser != null) {
+      data['changedUser'] = this.changedUser!.toJson();
+    }
     return data;
   }
 }

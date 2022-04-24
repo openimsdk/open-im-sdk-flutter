@@ -1,3 +1,12 @@
+## 2.0.0+6
+
+1.Fix bug</br>
+2.New modify group nickname</br>
+3.Update at message</br>
+4.ConverstaionInfo new add isNotInGroup field</br>
+5.New at type</br>
+6.New work moments</br>
+
 ## 2.0.0+5
 
 1.New notification parse </br>

@@ -56,6 +56,7 @@ class MessageType {
   static const groupMemberCancelMutedNotification = 1513;
   static const groupMutedNotification = 1514;
   static const groupCancelMutedNotification = 1515;
+  static const groupMemberInfoChangedNotification = 1516;
 
   static const signalingNotificationBegin = 1600;
   static const signalingNotification = 1601;

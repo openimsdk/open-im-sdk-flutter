@@ -8,4 +8,5 @@ class ListenerType {
   static final friendListener = 'friendListener';
   static final signalingListener = 'signalingListener';
   static final msgSendProgressListener = "msgSendProgressListener";
+  static final workMomentsListener = "workMomentsListener";
 }
