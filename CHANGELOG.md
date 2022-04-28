@@ -6,6 +6,11 @@
 4.ConverstaionInfo new add isNotInGroup field</br>
 5.New at type</br>
 6.New work moments</br>
+7.New global search</br>
+8.New getHistoryMessageListReverse method</br>
+9.New getAtAllTag method</br>
+10.New resetConversationGroupAtType method</br>
+11.New searchGroups method</br>
 
 ## 2.0.0+5
 

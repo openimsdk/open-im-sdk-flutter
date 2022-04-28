@@ -8,7 +8,7 @@ import open_im_sdk.Open_im_sdk;
 
 public class WorkMomentsManager extends BaseManager {
 
-    void setWorkMomentsListener(MethodCall methodCall, MethodChannel.Result result) {
+    public void setWorkMomentsListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setWorkMomentsListener(new OnWorkMomentsListener());
     }
 

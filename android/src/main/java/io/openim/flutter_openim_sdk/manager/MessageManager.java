@@ -381,4 +381,12 @@ public class MessageManager extends BaseManager {
                 value(methodCall, "groupID")
         );
     }
+
+    public void getHistoryMessageListReverse(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getHistoryMessageListReverse(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall)
+        );
+    }
 }

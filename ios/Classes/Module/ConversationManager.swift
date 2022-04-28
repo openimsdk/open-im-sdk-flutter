@@ -22,6 +22,8 @@ public class ConversationManager: BaseServiceManager {
         self["setOneConversationPrivateChat"] = setOneConversationPrivateChat
         self["deleteConversationFromLocalAndSvr"] = deleteConversationFromLocalAndSvr
         self["deleteAllConversationFromLocal"] = deleteAllConversationFromLocal
+        self["resetConversationGroupAtType"] = resetConversationGroupAtType
+        self["getAtAllTag"] = getAtAllTag
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -92,6 +94,14 @@ public class ConversationManager: BaseServiceManager {
     
     func deleteAllConversationFromLocal(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkDeleteAllConversationFromLocal(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
+    
+    func resetConversationGroupAtType(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkResetConversationGroupAtType(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
+    }
+    
+    func getAtAllTag(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        callBack(result, Open_im_sdkGetAtAllTag())
     }
 }
 

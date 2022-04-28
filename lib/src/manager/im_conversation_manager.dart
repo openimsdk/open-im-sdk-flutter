@@ -243,6 +243,24 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// Reset group converstaion at type
+  /// 重置at标准位
+  Future<dynamic> resetConversationGroupAtType({
+    required String conversationID,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'resetConversationGroupAtType',
+          _buildParam({
+            "conversationID": conversationID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// Get @ all member tag
+  /// 查询at所有人标识
+  Future<dynamic> getAtAllTag() =>
+      _channel.invokeMethod('getAtAllTag', _buildParam({}));
+
   /// Custom sort for conversation list
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list

@@ -258,6 +258,9 @@ class IMManager {
             case 'onInviteeRejectedByOtherDevice':
               signalingManager.listener.inviteeRejectedByOtherDevice(u);
               break;
+            case 'onHangUp':
+              signalingManager.listener.hangup(u);
+              break;
           }
         } else if (call.method == ListenerType.workMomentsListener) {
           String type = call.arguments['type'];

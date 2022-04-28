@@ -529,8 +529,7 @@ class MessageManager {
 
   /// Search local message
   /// 搜索消息
-  /// [sourceID]单聊为用户ID，群聊为群ID
-  /// [sessionType]会话类型，单聊为1，群聊为2，如果为0，则代表搜索全部
+  /// [conversationID] 根据会话查询，如果是全局搜索传null
   /// [keywordList]搜索关键词列表，目前仅支持一个关键词搜索
   /// [keywordListMatchType]关键词匹配模式，1代表与，2代表或，暂时未用
   /// [senderUserIDList]指定消息发送的uid列表 暂时未用
@@ -540,8 +539,7 @@ class MessageManager {
   /// [pageIndex]当前页数
   /// [count]每页数量
   Future<SearchResult> searchLocalMessages({
-    required String sourceID,
-    required int sessionType,
+    String? conversationID,
     List<String> keywordList = const [],
     int keywordListMatchType = 0,
     List<String> senderUserIDList = const [],
@@ -557,8 +555,7 @@ class MessageManager {
               'searchLocalMessages',
               _buildParam({
                 'filter': {
-                  'sourceID': sourceID,
-                  'sessionType': sessionType,
+                  'conversationID': conversationID,
                   'keywordList': keywordList,
                   'keywordListMatchType': keywordListMatchType,
                   'senderUserIDList': senderUserIDList,
@@ -648,6 +645,32 @@ class MessageManager {
             "groupID": gid,
             "operationID": Utils.checkOperationID(operationID),
           }));
+
+  /// Find all history message
+  /// 获取聊天记录
+  /// [userID]接收消息的用户id
+  /// [conversationID] 会话id
+  /// [groupID]接收消息的组id
+  Future<List<Message>> getHistoryMessageListReverse({
+    String? userID,
+    String? groupID,
+    String? conversationID,
+    Message? startMsg,
+    int? count,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getHistoryMessageListReverse',
+              _buildParam({
+                'userID': userID ?? '',
+                'groupID': groupID ?? '',
+                'conversationID': conversationID ?? '',
+                'startClientMsgID': startMsg?.clientMsgID ?? '',
+                'count': count ?? 10,
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toList(value, (map) => Message.fromJson(map)));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";

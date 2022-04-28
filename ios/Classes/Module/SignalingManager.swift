@@ -44,7 +44,7 @@ public class SignalingManager: BaseServiceManager {
     }
 }
 public class SignalingListener: NSObject, Open_im_sdk_callbackOnSignalingListenerProtocol {
-    
+   
     private let channel:FlutterMethodChannel
     
     init(channel:FlutterMethodChannel) {
@@ -78,5 +78,9 @@ public class SignalingListener: NSObject, Open_im_sdk_callbackOnSignalingListene
     public func onReceiveNewInvitation(_ s: String?) {
         CommonUtil.emitEvent(channel: channel, method: "signalingListener", type: "onReceiveNewInvitation", errCode: nil, errMsg: nil, data: s)
     }
-
+    
+    public func onHangUp(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "signalingListener", type: "onHangUp", errCode: nil, errMsg: nil, data: s)
+    }
+    
 }

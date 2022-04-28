@@ -8,6 +8,7 @@ class OnSignalingListener {
   final Function(SignalingInfo info)? onReceiveNewInvitation;
   final Function(SignalingInfo info)? onInviteeRejectedByOtherDevice;
   final Function(SignalingInfo info)? onInviteeAcceptedByOtherDevice;
+  final Function(SignalingInfo info)? onHangup;
 
   OnSignalingListener({
     this.onInvitationCancelled,
@@ -17,6 +18,7 @@ class OnSignalingListener {
     this.onReceiveNewInvitation,
     this.onInviteeAcceptedByOtherDevice,
     this.onInviteeRejectedByOtherDevice,
+    this.onHangup,
   });
 
   /// 被邀请者收到：邀请者取消音视频通话
@@ -52,5 +54,10 @@ class OnSignalingListener {
   /// 被邀请者（其他端）收到：比如被邀请者在手机拒接，在pc上会收到此回调
   void inviteeRejectedByOtherDevice(SignalingInfo info) {
     onInviteeRejectedByOtherDevice?.call(info);
+  }
+
+  /// 被挂断
+  void hangup(SignalingInfo info) {
+    onHangup?.call(info);
   }
 }

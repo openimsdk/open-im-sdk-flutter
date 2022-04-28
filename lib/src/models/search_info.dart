@@ -32,7 +32,12 @@ class SearchResultItems {
   /// 会话ID
   String? conversationID;
 
-  /// 这个会话下的消息数量
+  /// 会话类型1单聊，2群聊，3，超级大群，4通知会话
+  int? conversationType;
+  String? showName;
+  String? faceURL;
+
+  /// 搜索到的这个会话下的消息数量
   int? messageCount;
 
   /// [Message]的列表
@@ -42,6 +47,9 @@ class SearchResultItems {
 
   SearchResultItems.fromJson(Map<String, dynamic> json) {
     conversationID = json['conversationID'];
+    conversationType = json['conversationType'];
+    showName = json['showName'];
+    faceURL = json['faceURL'];
     messageCount = json['messageCount'];
     if (json['messageList'] != null) {
       messageList = <Message>[];
@@ -54,6 +62,9 @@ class SearchResultItems {
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
     data['conversationID'] = this.conversationID;
+    data['conversationType'] = this.conversationType;
+    data['showName'] = this.showName;
+    data['faceURL'] = this.faceURL;
     data['messageCount'] = this.messageCount;
     if (this.messageList != null) {
       data['messageList'] = this.messageList!.map((v) => v.toJson()).toList();

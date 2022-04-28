@@ -93,6 +93,7 @@
 @end
 
 @protocol Open_im_sdk_callbackOnSignalingListener <NSObject>
+- (void)onHangUp:(NSString* _Nullable)hangUpCallback;
 - (void)onInvitationCancelled:(NSString* _Nullable)invitationCancelledCallback;
 - (void)onInvitationTimeout:(NSString* _Nullable)invitationTimeoutCallback;
 - (void)onInviteeAccepted:(NSString* _Nullable)inviteeAcceptedCallback;
@@ -229,6 +230,7 @@
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (void)onHangUp:(NSString* _Nullable)hangUpCallback;
 - (void)onInvitationCancelled:(NSString* _Nullable)invitationCancelledCallback;
 - (void)onInvitationTimeout:(NSString* _Nullable)invitationTimeoutCallback;
 - (void)onInviteeAccepted:(NSString* _Nullable)inviteeAcceptedCallback;

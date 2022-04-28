@@ -142,4 +142,16 @@ public class ConversationManager extends BaseManager {
                 value(methodCall, "operationID")
         );
     }
+
+    public void resetConversationGroupAtType(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.resetConversationGroupAtType(
+                new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID")
+        );
+    }
+
+    public void getAtAllTag(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getAtAllTag());
+    }
 }

@@ -183,4 +183,11 @@ public class GroupManager extends BaseManager {
                 value(methodCall, "groupNickname")
         );
     }
+
+    public void searchGroups(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchGroups(new OnBaseListener(result),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "searchParam")
+        );
+    }
 }

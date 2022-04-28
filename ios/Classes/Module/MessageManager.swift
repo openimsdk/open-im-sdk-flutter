@@ -43,6 +43,7 @@ public class MessageManager: BaseServiceManager {
         self["markMessageAsReadByConID"] = markMessageAsReadByConID
         self["clearC2CHistoryMessageFromLocalAndSvr"] = clearC2CHistoryMessageFromLocalAndSvr
         self["clearGroupHistoryMessageFromLocalAndSvr"] = clearGroupHistoryMessageFromLocalAndSvr
+        self["getHistoryMessageListReverse"] = getHistoryMessageListReverse
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -207,6 +208,10 @@ public class MessageManager: BaseServiceManager {
     
     func clearGroupHistoryMessageFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkClearGroupHistoryMessageFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
+    }
+    
+    func getHistoryMessageListReverse(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetHistoryMessageListReverse(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
     public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
