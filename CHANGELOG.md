@@ -1,16 +1,17 @@
 ## 2.0.0+6
 
 1.Fix bug</br>
-2.New modify group nickname</br>
-3.Update at message</br>
-4.ConverstaionInfo new add isNotInGroup field</br>
-5.New at type</br>
-6.New work moments</br>
-7.New global search</br>
-8.New getHistoryMessageListReverse method</br>
-9.New getAtAllTag method</br>
-10.New resetConversationGroupAtType method</br>
-11.New searchGroups method</br>
+2.Adapter ios emulator</br>
+3.New modify group nickname</br>
+4.Update at message</br>
+5.ConverstaionInfo new add isNotInGroup field</br>
+6.New at type</br>
+7.New work moments</br>
+8.New global search</br>
+9.New getHistoryMessageListReverse method</br>
+10.New getAtAllTag method</br>
+11.New resetConversationGroupAtType method</br>
+12.New searchGroups method</br>
 
 ## 2.0.0+5
 

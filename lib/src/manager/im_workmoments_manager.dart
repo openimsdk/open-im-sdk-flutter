@@ -23,7 +23,7 @@ class WorkMomentsManager {
               _buildParam({
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toObj(value, (map) => map['unread_count']));
+          .then((value) => Utils.toObj(value, (map) => map['unreadCount']));
 
   /// Get work moments notification list
   Future<List<WorkMomentsInfo>> getWorkMomentsNotification({
