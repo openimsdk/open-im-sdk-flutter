@@ -15,7 +15,7 @@ public class FriendshipManager extends BaseManager {
 
     public void getFriendsInfo(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getDesignatedFriendsInfo(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "uidList")
         );
@@ -23,7 +23,7 @@ public class FriendshipManager extends BaseManager {
 
     public void addFriend(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.addFriend(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall)
         );
@@ -31,28 +31,28 @@ public class FriendshipManager extends BaseManager {
 
     public void getRecvFriendApplicationList(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getRecvFriendApplicationList(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
     }
 
     public void getSendFriendApplicationList(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getSendFriendApplicationList(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
     }
 
     public void getFriendList(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getFriendList(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
     }
 
     public void setFriendRemark(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setFriendRemark(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall)
         );
@@ -60,7 +60,7 @@ public class FriendshipManager extends BaseManager {
 
     public void addBlacklist(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.addBlack(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "uid")
         );
@@ -68,14 +68,14 @@ public class FriendshipManager extends BaseManager {
 
     public void getBlacklist(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getBlackList(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
     }
 
     public void removeBlacklist(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.removeBlack(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "uid")
         );
@@ -83,7 +83,7 @@ public class FriendshipManager extends BaseManager {
 
     public void checkFriend(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.checkFriend(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "uidList")
         );
@@ -91,7 +91,7 @@ public class FriendshipManager extends BaseManager {
 
     public void deleteFriend(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.deleteFriend(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "uid")
         );
@@ -99,7 +99,7 @@ public class FriendshipManager extends BaseManager {
 
     public void acceptFriendApplication(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.acceptFriendApplication(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall)
         );
@@ -107,7 +107,7 @@ public class FriendshipManager extends BaseManager {
 
     public void refuseFriendApplication(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.refuseFriendApplication(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall)
         );

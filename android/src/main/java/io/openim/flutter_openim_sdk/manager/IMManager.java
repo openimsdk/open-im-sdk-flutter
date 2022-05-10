@@ -19,7 +19,7 @@ public class IMManager extends BaseManager {
 
     public void login(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.login(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "uid"),
                 value(methodCall, "token")
@@ -28,7 +28,7 @@ public class IMManager extends BaseManager {
 
     public void logout(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.logout(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
     }
@@ -39,7 +39,7 @@ public class IMManager extends BaseManager {
 
     public void wakeUp(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.wakeUp(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
     }

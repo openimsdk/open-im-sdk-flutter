@@ -13,19 +13,19 @@ public class WorkMomentsManager extends BaseManager {
     }
 
     public void getWorkMomentsUnReadCount(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getWorkMomentsUnReadCount(new OnBaseListener(result),
+        Open_im_sdk.getWorkMomentsUnReadCount(new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"));
     }
 
     public void getWorkMomentsNotification(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getWorkMomentsNotification(new OnBaseListener(result),
+        Open_im_sdk.getWorkMomentsNotification(new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 int2long(methodCall, "offset"),
                 int2long(methodCall, "count"));
     }
 
     public void clearWorkMomentsNotification(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.clearWorkMomentsNotification(new OnBaseListener(result),
+        Open_im_sdk.clearWorkMomentsNotification(new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"));
     }
 }

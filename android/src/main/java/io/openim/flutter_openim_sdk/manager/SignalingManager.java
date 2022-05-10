@@ -14,42 +14,42 @@ public class SignalingManager extends BaseManager {
 
     public void signalingInvite(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.signalingInvite(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "signalingInfo"));
     }
 
     public void signalingInviteInGroup(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.signalingInviteInGroup(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "signalingInfo"));
     }
 
     public void signalingAccept(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.signalingAccept(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "signalingInfo"));
     }
 
     public void signalingReject(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.signalingReject(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "signalingInfo"));
     }
 
     public void signalingCancel(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.signalingCancel(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "signalingInfo"));
     }
 
     public void signalingHungUp(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.signalingHungUp(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "signalingInfo"));
     }

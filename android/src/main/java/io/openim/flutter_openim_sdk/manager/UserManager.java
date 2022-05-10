@@ -14,21 +14,21 @@ public class UserManager extends BaseManager {
 
     public void getUsersInfo(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getUsersInfo(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "uidList"));
     }
 
     public void setSelfInfo(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setSelfInfo(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall));
     }
 
     public void getSelfUserInfo(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getSelfUserInfo(
-                new OnBaseListener(result),
+                new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
     }
