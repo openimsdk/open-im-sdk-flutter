@@ -19,13 +19,13 @@ public class OnBaseListener implements Base {
 
     @Override
     public void onError(int l, String s) {
-        Log.i("OnBaseListener", "method: " + call.method + ", onError: { code:" + l + ", message:" + s + "}");
+        Log.i("F-OpenIMSDK(flutter call native)", "method: 【 " + call.method + " 】, onError: { code:" + l + ", message:" + s + "}");
         CommonUtil.runMainThreadReturnError(result, l, s, null);
     }
 
     @Override
     public void onSuccess(String s) {
-        Log.i("OnBaseListener", "method: " + call.method + ", onSuccess: " + s);
+        Log.i("F-OpenIMSDK(flutter call native)", "method: 【 " + call.method + " 】, onSuccess: " + s);
         CommonUtil.runMainThreadReturn(result, s);
     }
 }
