@@ -165,6 +165,8 @@ OpenIM.iMManager
 
 ## 方法名、参数、返回值说明
 
+
+
 - ##### logout（ 登出）
 
 ```
@@ -172,6 +174,8 @@ OpenIM.iMManager
       // 退出成功
  });
 ```
+
+
 
 - ##### getLoginUserInfo（获取当前登录用户的资料）
 
@@ -181,6 +185,8 @@ OpenIM.iMManager.getLoginUserInfo().then((userInfo){
  });
 ```
 
+
+
 - ##### getLoginUserID（获取当前登录用户的ID）
 
 ```
@@ -188,6 +194,8 @@ OpenIM.iMManager.getLoginUserInfo().then((userInfo){
      // 当前登录用户的ID
   });
 ```
+
+
 
 - ##### getUsersInfo（根据用户ID批量获取用户信息）
 
@@ -199,6 +207,8 @@ OpenIM.iMManager.getLoginUserInfo().then((userInfo){
   });
 ```
 
+
+
 - ##### getSelfUserInfo（获取当前登录用户的资料）
 
 ```
@@ -206,6 +216,8 @@ OpenIM.iMManager.getLoginUserInfo().then((userInfo){
       // 返回当前登录用户的资料
   });
 ```
+
+
 
 - ##### setSelfInfo（修改当前用登录户资料）
 
@@ -223,6 +235,8 @@ OpenIM.iMManager.getLoginUserInfo().then((userInfo){
     );
 ```
 
+
+
 - ##### getAllConversationList（获取所有会话）
 
 ```
@@ -230,6 +244,8 @@ OpenIM.iMManager.getLoginUserInfo().then((userInfo){
       // List<ConversationInfo> 会话列表
   });
 ```
+
+
 
 - ##### getConversationListSplit（分页获取会话）
 
@@ -242,6 +258,8 @@ OpenIM.iMManager.conversationManager.getConversationListSplit(
  });
 ```
 
+
+
 - ##### getOneConversation（获取一个会话，如果不存在会自动创建）
 
 ```
@@ -253,6 +271,8 @@ OpenIM.iMManager.conversationManager.getOneConversation(
  });
 ```
 
+
+
 - ##### getMultipleConversation（根据会话id查询会话）
 
 ```
@@ -262,6 +282,8 @@ OpenIM.iMManager.conversationManager.getOneConversation(
       // 返回与id匹配的会话列表
   });
 ```
+
+
 
 - ##### deleteConversation（根据会话id删除指定会话)
 
@@ -276,6 +298,8 @@ OpenIM.iMManager.conversationManager.deleteConversation(
  		// 失败
  });
 ```
+
+
 
 - ##### setConversationDraft（设置会话草稿）
 
@@ -292,6 +316,8 @@ OpenIM.iMManager.conversationManager.setConversationDraft(
  });
 ```
 
+
+
 - ##### pinConversation（置顶会话）
 
 会触onConversationChanged回调
@@ -307,6 +333,8 @@ OpenIM.iMManager.conversationManager.pinConversation(
  });
 ```
 
+
+
 - ##### markGroupMessageHasRead（标记群会话已读，清除未读数）
 
 会触onConversationChanged、onTotalUnreadMessageCountChanged回调
@@ -317,6 +345,8 @@ OpenIM.iMManager.conversationManager.markGroupMessageHasRead(
  );
 ```
 
+
+
 - ##### getTotalUnreadMsgCount（获取未读消息总数）
 
 ```
@@ -324,6 +354,8 @@ OpenIM.iMManager.conversationManager.getTotalUnreadMsgCount().then((count){
 	// 总数
 });
 ```
+
+
 
 - ##### getConversationIDBySessionType（查询会话id）
 
@@ -335,6 +367,8 @@ OpenIM.iMManager.conversationManager.getTotalUnreadMsgCount().then((count){
   	// 会话ID
   });
 ```
+
+
 
 - ##### setConversationRecvMessageOpt（设置免打扰模式）
 
@@ -349,6 +383,8 @@ OpenIM.iMManager.conversationManager.setConversationRecvMessageOpt(
  });
 ```
 
+
+
 - ##### getConversationRecvMessageOpt（查询免打扰状态）
 
 ```
@@ -361,11 +397,79 @@ OpenIM.iMManager.conversationManager.getConversationRecvMessageOpt(
  });
 ```
 
+
+
+- ##### setOneConversationPrivateChat（开启阅后即焚）
+
+```
+OpenIM.iMManager.conversationManager.setOneConversationPrivateChat(
+      conversationID:"", // 会话id
+      isPrivate:true,//true开启
+ ).then((_) {
+    // 成功
+ }).catchError((_){
+ 		// 失败
+ });
+```
+
+
+
+- ##### deleteConversationFromLocalAndSvr（删除本地跟服务器端会话记录）
+
+```
+OpenIM.iMManager.conversationManager.deleteConversationFromLocalAndSvr(
+      conversationID:"", // 会话id
+ ).then((_) {
+    // 成功
+ }).catchError((_){
+ 		// 失败
+ });
+```
+
+
+
+- ##### deleteAllConversationFromLocal（清空本地所有会话）
+
+```
+OpenIM.iMManager.conversationManager.deleteAllConversationFromLocal(
+ ).then((_) {
+    // 成功
+ }).catchError((_){
+ 		// 失败
+ });
+```
+
+
+
+- ##### resetConversationGroupAtType
+
+```
+OpenIM.iMManager.conversationManager.resetConversationGroupAtType(
+      conversationID:"", // 会话id
+ ).then((_) {
+    // 成功
+ }).catchError((_){
+ 		// 失败
+ });
+```
+
+
+
+- ##### getAtAllTag
+
+```
+OpenIM.iMManager.conversationManager.getAtAllTag();
+```
+
+
+
 - ##### simpleSort（自定义会话排序规则）
 
 ```
 var list = OpenIM.iMManager.conversationManager.simpleSort([]);// 返回排序好的列表
 ```
+
+
 
 - ##### getFriendsInfo（根据userID查询好友资料）
 
@@ -376,6 +480,8 @@ var list = OpenIM.iMManager.conversationManager.simpleSort([]);// 返回排序�
       // List<UserInfo>
  });
 ```
+
+
 
 - ##### addFriend（发起好友申请）
 
@@ -394,6 +500,8 @@ var list = OpenIM.iMManager.conversationManager.simpleSort([]);// 返回排序�
  });
 ```
 
+
+
 - ##### checkFriend（检查是否是好友）
 
 ```
@@ -403,6 +511,8 @@ OpenIM.iMManager.friendshipManager.checkFriend(
       // List<FriendshipInfo>
  });
 ```
+
+
 
 - ##### deleteFriend（删除好友）
 
@@ -417,6 +527,8 @@ OpenIM.iMManager.friendshipManager.deleteFriend(
  		// 失败
  });
 ```
+
+
 
 - ##### setFriendRemark（好友备注设置）
 
@@ -433,6 +545,8 @@ OpenIM.iMManager.friendshipManager.deleteFriend(
  });
 ```
 
+
+
 - ##### getFriendList（好友列表）
 
 返回的数据里包含已拉入黑名单的好友，可以根据isBlacklist字段筛选。
@@ -443,6 +557,8 @@ OpenIM.iMManager.friendshipManager.getFriendList().then((list){
 });
 ```
 
+
+
 - ##### getRecvFriendApplicationList（收到的好友申请）
 
 ```
@@ -451,6 +567,8 @@ OpenIM.iMManager.friendshipManager.getFriendList().then((list){
  });
 ```
 
+
+
 - ##### getSendFriendApplicationList（发出的好友申请）
 
 ```
@@ -458,6 +576,8 @@ OpenIM.iMManager.friendshipManager.getSendFriendApplicationList().then((list){
       // List<FriendApplicationInfo> 申请列表
  });
 ```
+
+
 
 - ##### addBlacklist（拉黑好友）
 
@@ -473,6 +593,8 @@ OpenIM.iMManager.friendshipManager.getSendFriendApplicationList().then((list){
  });
 ```
 
+
+
 - ##### getBlacklist（黑名单）
 
 ```
@@ -480,6 +602,8 @@ OpenIM.iMManager.friendshipManager.getBlacklist().then((list){
       // List<UserInfo>
    });
 ```
+
+
 
 - ##### removeBlacklist（移除黑名单）
 
@@ -494,6 +618,8 @@ OpenIM.iMManager.friendshipManager.removeBlacklist(
  		// 失败
  });
 ```
+
+
 
 - ##### acceptFriendApplication（接受好友申请）
 
@@ -512,6 +638,8 @@ OpenIM.iMManager.friendshipManager.acceptFriendApplication(
  });
 ```
 
+
+
 - ##### refuseFriendApplication（拒绝好友申请）
 
 操作者收到OnFriendApplicationRejected
@@ -528,6 +656,8 @@ OpenIM.iMManager.friendshipManager.acceptFriendApplication(
  		// 失败
  });
 ```
+
+
 
 - ##### inviteUserToGroup（邀请进组）
 
@@ -548,6 +678,8 @@ OpenIM.iMManager.friendshipManager.acceptFriendApplication(
 }
 ```
 
+
+
 - ##### kickGroupMember（移除组成员）
 
 被踢者收到OnJoinedGroupDeleted
@@ -564,6 +696,8 @@ OpenIM.iMManager.groupManager.kickGroupMember(
  });
 ```
 
+
+
 - ##### getGroupMembersInfo（查询组成员信息）
 
 ```
@@ -574,6 +708,8 @@ OpenIM.iMManager.groupManager.getGroupMembersInfo(
   // List<GroupMembersInfo>
 });
 ```
+
+
 
 - ##### getGroupMemberList（组成员列表）
 
@@ -588,6 +724,8 @@ OpenIM.iMManager.groupManager.getGroupMemberList(
 });
 ```
 
+
+
 - ##### getJoinedGroupList（获取已加入的群组）
 
 ```
@@ -595,6 +733,8 @@ OpenIM.iMManager.groupManager.getJoinedGroupList().then((list){
   // List<GroupInfo>
 });
 ```
+
+
 
 - ##### isJoinedGroup（检查是否已入群）
 
@@ -605,6 +745,8 @@ OpenIM.iMManager.groupManager.isJoinedGroup(
   // true已加入；false未加入
 });
 ```
+
+
 
 - ##### createGroup（创建组）
 
@@ -624,6 +766,8 @@ OpenIM.iMManager.groupManager.createGroup(
 });
 ```
 
+
+
 - ##### setGroupInfo（修改组信息）
 
 群成员收到OnGroupInfoChanged
@@ -639,6 +783,8 @@ OpenIM.iMManager.groupManager.setGroupInfo(
 );
 ```
 
+
+
 - ##### getGroupsInfo（根据id查询组信息）
 
 ```
@@ -648,6 +794,8 @@ OpenIM.iMManager.groupManager.getGroupsInfo(
   // List<GroupInfo>
 });
 ```
+
+
 
 - ##### joinGroup（申请入群组）
 
@@ -663,6 +811,8 @@ OpenIM.iMManager.groupManager.joinGroup(
   reason: '', // 入群备注信息
 );
 ```
+
+
 
 - ##### quitGroup（退出组）
 
@@ -680,6 +830,8 @@ OpenIM.iMManager.groupManager.quitGroup(
  });
 ```
 
+
+
 - ##### transferGroupOwner（群转让）
 
 ```
@@ -693,6 +845,8 @@ OpenIM.iMManager.groupManager.transferGroupOwner(
  });
 ```
 
+
+
 - ##### getRecvGroupApplicationList（收到的入群申请）
 
 作为群主或者管理员，获取收到的群成员申请进群列表。
@@ -703,6 +857,8 @@ OpenIM.iMManager.groupManager.getRecvGroupApplicationList().then((list){
 });
 ```
 
+
+
 - ##### getSendGroupApplicationList（发出的入群申请）
 
 ```
@@ -710,6 +866,8 @@ OpenIM.iMManager.groupManager.getSendGroupApplicationList().then((list){
   // List<GroupApplicationInfo>
 });
 ```
+
+
 
 - ##### acceptGroupApplication（接受入群申请）
 
@@ -727,6 +885,8 @@ OpenIM.iMManager.groupManager.acceptGroupApplication(
 );
 ```
 
+
+
 - ##### refuseGroupApplication（拒绝入群申请）
 
 申请者收到OnGroupApplicationRejected
@@ -740,6 +900,65 @@ OpenIM.iMManager.groupManager.refuseGroupApplication(
   handleMsg: '', // 备注信息
 );
 ```
+
+
+
+- ##### dismissGroup（解散群）
+
+```
+OpenIM.iMManager.groupManager.dismissGroup(
+  groupID: '', // 组ID
+);
+```
+
+
+
+- ##### changeGroupMute（开启群禁言）
+
+```
+OpenIM.iMManager.groupManager.changeGroupMute(
+  groupID: '', // 组ID
+  mute:true, // 禁言
+);
+```
+
+
+
+- ##### changeGroupMemberMute（对群成员禁言)
+
+```
+OpenIM.iMManager.groupManager.changeGroupMemberMute(
+  groupID: '', // 组ID
+  userID:'', // 群成员userID
+  seconds:0, // 禁言时长s
+);
+```
+
+
+
+- ##### setGroupMemberNickname（修改成员组昵称）
+
+```
+OpenIM.iMManager.groupManager.setGroupMemberNickname(
+  groupID: '', // 组ID
+  userID:'', // 群成员userID
+  groupNickname:'', // 群昵称
+);
+```
+
+
+
+- ##### searchGroups（搜索群）
+
+```
+List<GroupInfo> list = await OpenIM.iMManager.groupManager.searchGroups(
+  keywordList: [], // 关键词
+  isSearchGroupID: true, // 以id搜索
+  isSearchGroupName: false, // 以群名搜索
+);
+```
+
+
 
 - ##### sendMessage（发送消息）
 
@@ -755,6 +974,8 @@ OpenIM.iMManager.messageManager.sendMessage(
  		// 失败
  });
 ```
+
+
 
 - ##### getHistoryMessageList（获取聊天记录）
 
@@ -773,6 +994,8 @@ OpenIM.iMManager.messageManager.getHistoryMessageList(
 
 下次就是list.first（index == 0），以此类推。
 
+
+
 - ##### revokeMessage（撤回消息）
 
 撤回成功需要当前用户从列表里移除Message然后更新ui，而另外一方通过撤回监听（onRecvMessageRevoked）移除。
@@ -787,6 +1010,8 @@ OpenIM.iMManager.messageManager.revokeMessage(
  });
 ```
 
+
+
 - ##### deleteMessageFromLocalStorage（删除单条消息）
 
 ```
@@ -799,6 +1024,8 @@ OpenIM.iMManager.messageManager.deleteMessageFromLocalStorage(
  });
 ```
 
+
+
 - ##### insertSingleMessageToLocalStorage（向本地插入一条消息）
 
 ```
@@ -808,6 +1035,8 @@ OpenIM.iMManager.messageManager.insertSingleMessageToLocalStorage(
   message: Message(), // 消息体
 );
 ```
+
+
 
 - ##### markC2CMessageAsRead（标记c2c消息已读）
 
@@ -820,6 +1049,8 @@ OpenIM.iMManager.messageManager.markC2CMessageAsRead(
 );
 ```
 
+
+
 - ##### typingStatusUpdate（正在输入提示）
 
 会通过onRecvNewMessage回调
@@ -830,6 +1061,8 @@ OpenIM.iMManager.messageManager.typingStatusUpdate(
   msgTip: '', // 自定义提示内容
 );
 ```
+
+
 
 - ##### clearC2CHistoryMessage（清空c2c聊天记录）
 
@@ -843,6 +1076,8 @@ OpenIM.iMManager.messageManager.clearC2CHistoryMessage(
  });
 ```
 
+
+
 - ##### clearGroupHistoryMessage（清空群聊天记录）
 
 ```
@@ -855,6 +1090,8 @@ OpenIM.iMManager.messageManager.clearGroupHistoryMessage(
  });
 ```
 
+
+
 - ##### createTextMessage（文本消息）
 
 ```
@@ -863,14 +1100,20 @@ var message = await OpenIM.iMManager.messageManager.createTextMessage(
 );
 ```
 
+
+
 - ##### createTextAtMessage（@消息）
 
 ```
 var message = await OpenIM.iMManager.messageManager.createTextAtMessage(
       text: '', // 发送的内容
-      atUidList: [], // 被@到的userID集合
+      atUserIDList: [], // 被@到的用户ID集合
+      atUserInfoList: [], // 被@到的用户Info集合
+      quoteMessage: null, //被引用的消息体
  );
 ```
+
+
 
 - ##### createImageMessage（图片消息，相对路径）
 
@@ -882,6 +1125,8 @@ var message = await OpenIM.iMManager.messageManager.createImageMessage(
 
 注：initSDK时传入了数据缓存（dataDir）路径，如路径：A，这时需要你将图片复制到A路径下后，如 A/pic/a.png路径，imagePath的值：“/pic/a.png”。同以下其他消息的相对路径。
 
+
+
 - ##### createImageMessageFromFullPath（图片消息全路径）
 
 ```
@@ -889,6 +1134,8 @@ var message = await OpenIM.iMManager.messageManager.createImageMessageFromFullPa
   imagePath: '', // 绝对路径
 );
 ```
+
+
 
 - ##### createSoundMessage（语音消息，相对路径）
 
@@ -899,6 +1146,8 @@ var message = await OpenIM.iMManager.messageManager.createSoundMessage(
 );
 ```
 
+
+
 - ##### createSoundMessageFromFullPath（语音消息全路径）
 
 ```
@@ -907,6 +1156,8 @@ var message = await OpenIM.iMManager.messageManager.createSoundMessageFromFullPa
   duration: 0, // 时长s
 );
 ```
+
+
 
 - ##### createVideoMessage（视频消息，相对路径）
 
@@ -919,6 +1170,8 @@ var message = await OpenIM.iMManager.messageManager.createVideoMessage(
 );
 ```
 
+
+
 - ##### createVideoMessageFromFullPath（视频消息全路径）
 
 ```
@@ -930,6 +1183,8 @@ var message = await OpenIM.iMManager.messageManager.createVideoMessageFromFullPa
 );
 ```
 
+
+
 - ##### createFileMessage（文件消息，相对路径）
 
 ```
@@ -938,6 +1193,8 @@ var message = await OpenIM.iMManager.messageManager.createFileMessage(
   fileName: '', // 文件名
 );
 ```
+
+
 
 - ##### createFileMessageFromFullPath（文件消息全路径）
 
@@ -948,6 +1205,8 @@ var message = await OpenIM.iMManager.messageManager.createFileMessageFromFullPat
 );
 ```
 
+
+
 - ##### createForwardMessage（转发消息）
 
 ```
@@ -955,6 +1214,8 @@ var message = await OpenIM.iMManager.messageManager.createForwardMessage(
   message: Message(), // 被转发的消息体
 );
 ```
+
+
 
 - ##### createMergerMessage（合并消息）
 
@@ -966,6 +1227,8 @@ var message = await OpenIM.iMManager.messageManager.createMergerMessage(
 );
 ```
 
+
+
 - ##### createLocationMessage（位置消息）
 
 ```
@@ -975,6 +1238,8 @@ var message = await OpenIM.iMManager.messageManager.createLocationMessage(
   description: '', // 位置描述信息
 );
 ```
+
+
 
 - ##### createCustomMessage（自定义消息）
 
@@ -986,6 +1251,8 @@ var message = await OpenIM.iMManager.messageManager.createCustomMessage(
 );
 ```
 
+
+
 - ##### createQuoteMessage（引用消息/消息回复）
 
 ```
@@ -995,6 +1262,8 @@ var message = await OpenIM.iMManager.messageManager.createQuoteMessage(
 );
 ```
 
+
+
 - ##### createCardMessage（名片消息）
 
 ```
@@ -1002,3 +1271,156 @@ OpenIM.iMManager.messageManager.createCardMessage(
   data: {}, // 自定义内容
 );
 ```
+
+
+
+- ##### searchLocalMessages（全局搜索)
+
+```
+SearchResult result = await OpenIM.iMManager.messageManager.searchLocalMessages(
+  conversationID: null, // 根据会话查询，如果是全局搜索传null
+  keywordList: [], // 搜索关键词列表，目前仅支持一个关键词搜索
+  keywordListMatchType: 0, // 关键词匹配模式，1代表与，2代表或，暂时未用
+  senderUserIDList: [], // 指定消息发送的uid列表 暂时未用
+  messageTypeList: [], // 消息类型列表
+  searchTimePosition: 0, // 搜索的起始时间点。默认为0即代表从现在开始搜索。UTC 时间戳，单位：秒
+  searchTimePeriod: 0, // 从起始时间点开始的过去时间范围，单位秒。默认为0即代表不限制时间范围，传24x60x60代表过去一天
+  pageIndex: 1, // 当前页数
+  count: 10, // 每页数量
+);
+```
+
+
+
+- ##### deleteMessageFromLocalAndSvr（删除本地跟服务器聊天记录）
+
+```
+OpenIM.iMManager.messageManager.createCardMessage(
+  message: null, // 消息体
+);
+```
+
+
+
+- ##### deleteAllMsgFromLocal（清空所有本地聊天记录）
+
+```
+OpenIM.iMManager.messageManager.deleteAllMsgFromLocal(
+);
+```
+
+
+
+- ##### deleteAllMsgFromLocalAndSvr（清空本地跟服务器所有聊天记录)
+
+```
+OpenIM.iMManager.messageManager.deleteAllMsgFromLocalAndSvr(
+);
+```
+
+
+
+- ##### markMessageAsReadByConID（标记会话里某些消息为已读）
+
+```
+OpenIM.iMManager.messageManager.markMessageAsReadByConID(
+	conversationID: null, // 会话ID
+	messageIDList: [], // 消息id列表
+);
+```
+
+
+
+- ##### clearC2CHistoryMessageFromLocalAndSvr（清空单聊本地跟服务端聊天记录）
+
+```
+OpenIM.iMManager.messageManager.clearC2CHistoryMessageFromLocalAndSvr(
+	uid: null, // 用户id
+);
+```
+
+
+
+- ##### clearGroupHistoryMessageFromLocalAndSvr（清空群聊本地跟服务端聊天记录)
+
+```
+OpenIM.iMManager.messageManager.clearGroupHistoryMessageFromLocalAndSvr(
+	gid: null, // 群组id
+);
+```
+
+
+
+- ##### getHistoryMessageListReverse（获取新的聊天记录）
+
+```
+OpenIM.iMManager.messageManager.getHistoryMessageListReverse(
+  userID: '', // 单聊对象的userID
+  groupID: '', // 群聊的组id
+  startMsg: null, // 消息体
+  count: 0, // 每次拉取的数量
+).then((list){
+  // List<Message>
+});
+```
+
+
+
+- ##### signalingInvite（邀请个人加入音视频通话）
+
+```
+SignalingCertificate sc = await OpenIM.iMManager.signalingManager.signalingInvite(
+	info: null, // 信令对象SignalingInfo
+);
+```
+
+
+
+- ##### signalingInviteInGroup（邀请群成员加入音视频通话)
+
+```
+SignalingCertificate sc = await OpenIM.iMManager.signalingManager.signalingInviteInGroup(
+	info: null, // 信令对象SignalingInfo
+);
+```
+
+
+
+- ##### signalingAccept（接受邀请）
+
+```
+SignalingCertificate sc = await OpenIM.iMManager.signalingManager.signalingAccept(
+	info: null, // 信令对象SignalingInfo
+);
+```
+
+
+
+- ##### signalingReject（拒绝邀请）
+
+```
+OpenIM.iMManager.signalingManager.signalingReject(
+	info: null, // 信令对象SignalingInfo
+);
+```
+
+
+
+- ##### signalingCancel（取消）
+
+```
+OpenIM.iMManager.signalingManager.signalingCancel(
+	info: null, // 信令对象SignalingInfo
+);
+```
+
+
+
+- ##### signalingHungUp（挂断）
+
+```
+OpenIM.iMManager.signalingManager.signalingHungUp(
+	info: null, // 信令对象SignalingInfo
+);
+```
+

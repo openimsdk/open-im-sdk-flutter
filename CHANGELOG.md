@@ -1,3 +1,9 @@
+## 2.0.8
+
+1.Fix bug </br>
+2.Change the sdk maven address </br>
+3.Sync go IM sdk version number </br>
+
 ## 2.0.0+6
 
 1.Fix bug</br>
