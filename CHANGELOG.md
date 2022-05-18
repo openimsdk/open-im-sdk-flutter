@@ -1,3 +1,9 @@
+## 2.0.9
+
+1.Fix bug </br>
+2.New organization fuction</br>
+3.New uploadImage method </br>
+
 ## 2.0.8
 
 1.Fix bug </br>

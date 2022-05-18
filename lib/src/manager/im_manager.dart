@@ -14,11 +14,14 @@ class IMManager {
   // late OfflinePushManager offlinePushManager;
   late SignalingManager signalingManager;
   late WorkMomentsManager workMomentsManager;
+  late OrganizationManager organizationManager;
 
   late OnConnectListener _connectListener;
   late String uid;
   late UserInfo uInfo;
   bool isLogined = false;
+  String? token;
+  String? _objectStorage;
 
   IMManager(this._channel) {
     conversationManager = ConversationManager(_channel);
@@ -29,6 +32,7 @@ class IMManager {
     // offlinePushManager = OfflinePushManager(_channel);
     signalingManager = SignalingManager(_channel);
     workMomentsManager = WorkMomentsManager(_channel);
+    organizationManager = OrganizationManager(_channel);
     _addNativeCallback(_channel);
   }
 
@@ -269,6 +273,13 @@ class IMManager {
               workMomentsManager.listener.recvNewNotification();
               break;
           }
+        } else if (call.method == ListenerType.organizationListener) {
+          String type = call.arguments['type'];
+          switch (type) {
+            case 'onOrganizationUpdated':
+              organizationManager.listener.organizationUpdated();
+              break;
+          }
         }
       } catch (err) {
         print(
@@ -284,6 +295,8 @@ class IMManager {
   /// [apiAddr]   api server ip address
   /// [wsAddr]    webSocket ip address
   /// [dataDir]   data storage directory
+  /// [objectStorage] storage object: cos/minio
+  /// [logLevel] log level: 1-not print
   ///
   /// 初始化SDK
   ///
@@ -291,6 +304,8 @@ class IMManager {
   /// [apiAddr]   SDK api地址
   /// [wsAddr]    SDK websocket地址
   /// [dataDir]   SDK数据库存储目录
+  /// [objectStorage] 存储对象 cos/minio
+  /// [logLevel] 日志 1-不打印
   Future<dynamic> initSDK({
     required int platform,
     required String apiAddr,
@@ -301,7 +316,8 @@ class IMManager {
     String objectStorage = 'cos',
     String? operationID,
   }) {
-    _connectListener = listener;
+    this._connectListener = listener;
+    this._objectStorage = objectStorage;
     return _channel.invokeMethod(
         'initSDK',
         _buildParam(
@@ -324,6 +340,8 @@ class IMManager {
 
   /// Login sdk
   /// 登录
+  /// [uid]用户id
+  /// [token]登录token，从业务服务器上获取
   Future<UserInfo> login({
     required String uid,
     required String token,
@@ -339,6 +357,7 @@ class IMManager {
     );
     this.isLogined = true;
     this.uid = uid;
+    this.token = token;
     this.uInfo = await userManager.getSelfUserInfo();
     return uInfo;
   }
@@ -352,6 +371,7 @@ class IMManager {
           'operationID': Utils.checkOperationID(operationID),
         }));
     this.isLogined = false;
+    this.token = null;
     return value;
   }
 
@@ -368,11 +388,32 @@ class IMManager {
   Future<UserInfo> getLoginUserInfo() async => uInfo;
 
   /// wakeup
+  /// 从后台回到前台立刻唤醒
   Future wakeUp({String? operationID}) => _channel.invokeMethod(
       'wakeUp',
       _buildParam({
         'operationID': Utils.checkOperationID(operationID),
       }));
+
+  /// upload image to server
+  /// 上传图片到服务器
+  /// [path]图片路径
+  /// [token] im token
+  /// [objectStorage] 存储对象 cos/minio
+  Future uploadImage({
+    required String path,
+    String? token,
+    String? objectStorage,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'uploadImage',
+          _buildParam({
+            'path': path,
+            'token': token ?? this.token,
+            'obj': objectStorage ?? this._objectStorage,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "imManager";

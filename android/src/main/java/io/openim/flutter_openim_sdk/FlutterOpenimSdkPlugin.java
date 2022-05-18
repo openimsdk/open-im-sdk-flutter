@@ -18,6 +18,7 @@ import io.openim.flutter_openim_sdk.manager.FriendshipManager;
 import io.openim.flutter_openim_sdk.manager.GroupManager;
 import io.openim.flutter_openim_sdk.manager.IMManager;
 import io.openim.flutter_openim_sdk.manager.MessageManager;
+import io.openim.flutter_openim_sdk.manager.OrganizationManager;
 import io.openim.flutter_openim_sdk.manager.SignalingManager;
 import io.openim.flutter_openim_sdk.manager.UserManager;
 import io.openim.flutter_openim_sdk.manager.WorkMomentsManager;
@@ -41,6 +42,7 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler 
     private static GroupManager groupManager;
     private static SignalingManager signalingManager;
     private static WorkMomentsManager workMomentsManager;
+    private static OrganizationManager organizationManager;
 
     public FlutterOpenimSdkPlugin() {
     }
@@ -54,6 +56,7 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler 
         FlutterOpenimSdkPlugin.groupManager = new GroupManager();
         FlutterOpenimSdkPlugin.signalingManager = new SignalingManager();
         FlutterOpenimSdkPlugin.workMomentsManager = new WorkMomentsManager();
+        FlutterOpenimSdkPlugin.organizationManager = new OrganizationManager();
     }
 
     @Override

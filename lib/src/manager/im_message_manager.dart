@@ -54,10 +54,12 @@ class MessageManager {
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Find all history message
-  /// 获取聊天记录
-  /// [userID]接收消息的用户id
-  /// [conversationID] 会话id，查询通知是可用
-  /// [groupID]接收消息的组id
+  /// 获取聊天记录(以startMsg为节点，以前的聊天记录)
+  /// [userID] 接收消息的用户id
+  /// [conversationID] 会话id，查询通知时可用
+  /// [groupID] 接收消息的组id
+  /// [startMsg] 从这条消息开始查询[count]条，获取的列表index==length-1为最新消息，所以获取下一页历史记录startMsg=list.first
+  /// [count] 一次拉取的总数
   Future<List<Message>> getHistoryMessageList({
     String? userID,
     String? groupID,
@@ -93,7 +95,7 @@ class MessageManager {
             })));
 
   /// Delete message
-  /// 删除消息
+  /// 删除本地消息
   Future deleteMessageFromLocalStorage({
     required Message message,
     String? operationID,
@@ -110,45 +112,41 @@ class MessageManager {
   //     _channel.invokeMethod('deleteMessages',
   //         _buildParam({"msgList": msgList.map((e) => e.toJson()).toList()}));
 
-  ///
-  Future insertSingleMessageToLocalStorage({
+  /// 插入单聊消息到本地
+  Future<Message> insertSingleMessageToLocalStorage({
     String? receiverID,
     String? senderID,
     Message? message,
     String? operationID,
   }) =>
-      _channel.invokeMethod(
-          'insertSingleMessageToLocalStorage',
-          _buildParam({
-            "message": message?.toJson(),
-            "receiverID": receiverID,
-            "senderID": senderID,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+      _channel
+          .invokeMethod(
+              'insertSingleMessageToLocalStorage',
+              _buildParam({
+                "message": message?.toJson(),
+                "receiverID": receiverID,
+                "senderID": senderID,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  ///
-  Future insertGroupMessageToLocalStorage({
+  /// 插入群聊消息到本地
+  Future<Message> insertGroupMessageToLocalStorage({
     String? groupID,
     String? senderID,
     Message? message,
     String? operationID,
   }) =>
-      _channel.invokeMethod(
-          'insertGroupMessageToLocalStorage',
-          _buildParam({
-            "message": message?.toJson(),
-            "groupID": groupID,
-            "senderID": senderID,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
-  /// Query the message according to the message id
-  // Future findMessages({required List<String> messageIDList}) =>
-  //     _channel.invokeMethod(
-  //         'findMessages',
-  //         _buildParam({
-  //           "messageIDList": messageIDList,
-  //         }));
+      _channel
+          .invokeMethod(
+              'insertGroupMessageToLocalStorage',
+              _buildParam({
+                "message": message?.toJson(),
+                "groupID": groupID,
+                "senderID": senderID,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Mark c2c message as read
   /// 标记c2c消息已读
@@ -182,6 +180,7 @@ class MessageManager {
 
   /// Typing
   /// 正在输入提示
+  /// [msgTip] 自定义内容
   Future typingStatusUpdate({
     required String userID,
     String? msgTip,
@@ -212,6 +211,10 @@ class MessageManager {
 
   /// Create @ message
   /// 创建@消息
+  /// [text] 输入内容
+  /// [atUserIDList] 被@到的userID集合
+  /// [atUserInfoList] userID跟nickname映射关系，用在界面显示时将id替换为nickname
+  /// [quoteMessage] 引用消息（被回复的消息）
   Future<Message> createTextAtMessage({
     required String text,
     required List<String> atUserIDList,
@@ -250,6 +253,7 @@ class MessageManager {
 
   /// Create picture message
   /// 创建图片消息
+  /// [imagePath] 路径
   Future<Message> createImageMessageFromFullPath({
     required String imagePath,
     String? operationID,
@@ -273,7 +277,7 @@ class MessageManager {
   }) =>
       _channel
           .invokeMethod(
-            'createSoundMessage',
+        'createSoundMessage',
             _buildParam({
               'soundPath': soundPath,
               "duration": duration,
@@ -284,6 +288,8 @@ class MessageManager {
 
   /// Create sound message
   /// 创建语音消息
+  /// [soundPath] 路径
+  /// [duration] 时长s
   Future<Message> createSoundMessageFromFullPath({
     required String soundPath,
     required int duration,
@@ -323,6 +329,10 @@ class MessageManager {
 
   /// Create video message
   /// 创建视频消息
+  /// [videoPath] 路径
+  /// [videoType] 视频mime类型
+  /// [duration] 时长s
+  /// [snapshotPath] 默认站位图路径
   Future<Message> createVideoMessageFromFullPath({
     required String videoPath,
     required String videoType,
@@ -362,6 +372,8 @@ class MessageManager {
 
   /// Create file message
   /// 创建文件消息
+  /// [filePath] 路径
+  /// [fileName] 文件名
   Future<Message> createFileMessageFromFullPath({
     required String filePath,
     required String fileName,
@@ -379,6 +391,9 @@ class MessageManager {
 
   /// Create merger message
   /// 创建合并消息
+  /// [messageList] 被选中的消息
+  /// [title] 摘要标题
+  /// [summaryList] 摘要内容
   Future<Message> createMergerMessage({
     required List<Message> messageList,
     required String title,
@@ -398,6 +413,7 @@ class MessageManager {
 
   /// Create forward message
   /// 创建转发消息
+  /// [message] 被转发的消息
   Future<Message> createForwardMessage({
     required Message message,
     String? operationID,
@@ -414,6 +430,9 @@ class MessageManager {
 
   /// Create location message
   /// 创建位置消息
+  /// [latitude] 纬度
+  /// [longitude] 经度
+  /// [description] 自定义描述信息
   Future<Message> createLocationMessage({
     required double latitude,
     required double longitude,
@@ -452,6 +471,8 @@ class MessageManager {
 
   /// Create quote message
   /// 创建引用消息
+  /// [text] 回复的内容
+  /// [quoteMsg] 被回复的消息
   Future<Message> createQuoteMessage({
     required String text,
     required Message quoteMsg,
@@ -483,9 +504,11 @@ class MessageManager {
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// Create custom emoji message
+  /// [index] The position of the emoji, such as the position emoji
+  /// [data] Other data, such as url expressions
   /// 创建自定义表情消息
-  /// [index] The position of the emoji, such as the position emoji（表情的位置，如位置表情）
-  /// [data] Other data, such as url expressions（其他数据，如url表情）
+  /// [index] 位置表情，根据index匹配
+  /// [data] url表情，直接使用url显示
   Future<Message> createFaceMessage({
     int index = -1,
     String? data,
@@ -571,7 +594,7 @@ class MessageManager {
               Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
   /// Delete message from local and service
-  /// 删除消息
+  /// 删除本地跟服务器的指定的消息
   Future<dynamic> deleteMessageFromLocalAndSvr({
     required Message message,
     String? operationID,
@@ -584,7 +607,7 @@ class MessageManager {
             })));
 
   /// Delete all message from local
-  /// 删除所有消息
+  /// 删除本地所有聊天记录
   Future<dynamic> deleteAllMsgFromLocal({
     String? operationID,
   }) =>
@@ -595,7 +618,7 @@ class MessageManager {
           }));
 
   /// Delete all message from service
-  /// 删除所有消息
+  /// 删除本地跟服务器所有聊天记录
   Future<dynamic> deleteAllMsgFromLocalAndSvr({
     String? operationID,
   }) =>
@@ -607,6 +630,8 @@ class MessageManager {
 
   /// Mark conversation message as read
   /// 标记消息已读
+  /// [conversationID] 会话ID
+  /// [messageIDList] 被标记的消息clientMsgID
   Future markMessageAsReadByConID({
     required String conversationID,
     required List<String> messageIDList,
@@ -621,7 +646,7 @@ class MessageManager {
           }));
 
   /// Clear all c2c history message
-  /// 清空单聊消息记录
+  /// 删除本地跟服务器的单聊聊天记录
   Future<dynamic> clearC2CHistoryMessageFromLocalAndSvr({
     required String uid,
     String? operationID,
@@ -634,7 +659,7 @@ class MessageManager {
           }));
 
   /// Clear all group history
-  /// 清空组消息记录
+  /// 删除本地跟服务器的群聊天记录
   Future<dynamic> clearGroupHistoryMessageFromLocalAndSvr({
     required String gid,
     String? operationID,
@@ -647,10 +672,12 @@ class MessageManager {
           }));
 
   /// Find all history message
-  /// 获取聊天记录
-  /// [userID]接收消息的用户id
-  /// [conversationID] 会话id
-  /// [groupID]接收消息的组id
+  /// 获取聊天记录(以startMsg为节点，新收到的聊天记录)，用在全局搜索定位某一条消息，然后此条消息后新增的消息
+  /// [userID] 接收消息的用户id
+  /// [conversationID] 会话id，查询通知时可用
+  /// [groupID] 接收消息的组id
+  /// [startMsg] 从这条消息开始查询[count]条，获取的列表index==length-1为最新消息，所以获取下一页历史记录startMsg=list.last
+  /// [count] 一次拉取的总数
   Future<List<Message>> getHistoryMessageListReverse({
     String? userID,
     String? groupID,

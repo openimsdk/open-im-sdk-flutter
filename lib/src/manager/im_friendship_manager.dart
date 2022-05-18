@@ -16,6 +16,7 @@ class FriendshipManager {
 
   /// Get friend info by user id
   /// 查询好友信息
+  /// [uidList] 好友的userID集合
   Future<List<UserInfo>> getFriendsInfo({
     required List<String> uidList,
     String? operationID,
@@ -30,7 +31,9 @@ class FriendshipManager {
           .then((value) => Utils.toList(value, (v) => UserInfo.fromJson(v)));
 
   /// Send an friend application
-  /// 发送一个好友请求
+  /// 发送一个好友请求，需要对方调用同意申请才能成为好友。
+  /// [uid] 被邀请的用户ID
+  /// [reason] 说明
   Future<dynamic> addFriend({
     required String uid,
     String? reason,
@@ -92,6 +95,8 @@ class FriendshipManager {
 
   /// Modify friend remark name
   /// 设置好友备注
+  /// [uid] 好友的userID
+  /// [remark] 好友的备注
   Future<dynamic> setFriendRemark({
     required String uid,
     required String remark,
@@ -107,6 +112,7 @@ class FriendshipManager {
 
   /// Add friends to blacklist
   /// 加入黑名单
+  /// [uid]被加入黑名单的好友ID
   Future<dynamic> addBlacklist({
     required String uid,
     String? operationID,

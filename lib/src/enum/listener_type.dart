@@ -9,4 +9,5 @@ class ListenerType {
   static final signalingListener = 'signalingListener';
   static final msgSendProgressListener = "msgSendProgressListener";
   static final workMomentsListener = "workMomentsListener";
+  static final organizationListener = "organizationListener";
 }

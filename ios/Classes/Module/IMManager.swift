@@ -32,6 +32,9 @@ public class IMMananger: BaseServiceManager {
         Open_im_sdkWakeUp(BaseCallback(result: result), methodCall[string: "operationID"])
     }
     
+    func uploadImage(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkUploadImage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "path"], methodCall[string: "token"], methodCall[string: "obj"])
+    }
 }
 
 public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol {

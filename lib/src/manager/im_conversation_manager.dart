@@ -130,8 +130,8 @@ class ConversationManager {
   //     _channel.invokeMethod(
   //         'markSingleMessageHasRead', _buildParam({'userID': userID}));
 
-  /// Mark group chat messages as read
-  /// 标记群聊已读
+  /// Mark group chat all messages as read
+  /// 标记群聊会话已读
   Future<dynamic> markGroupMessageHasRead({
     required String groupID,
     String? operationID,

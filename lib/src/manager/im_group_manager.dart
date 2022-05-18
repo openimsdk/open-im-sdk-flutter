@@ -74,6 +74,10 @@ class GroupManager {
 
   /// Get the list of group members
   /// 分页获取组成员列表
+  /// [groupId] 群ID
+  /// [filter] 过滤成员 1普通成员, 2群主，3管理员，0所有
+  /// [offset] 开始下标
+  /// [count] 总数
   Future<List<GroupMembersInfo>> getGroupMemberList({
     required String groupId,
     int filter = 0,
@@ -96,6 +100,10 @@ class GroupManager {
 
   /// Get the list of group members
   /// 分页获取组成员列表
+  /// [groupId] 群ID
+  /// [filter] 过滤成员 1普通成员, 2群主，3管理员，0所有
+  /// [offset] 开始下标
+  /// [count] 总数
   Future<List<dynamic>> getGroupMemberListMap({
     required String groupId,
     int filter = 0,
@@ -147,6 +155,12 @@ class GroupManager {
 
   /// Create a group
   /// 创建一个组
+  /// [groupName] 群名
+  /// [notification] 公告
+  /// [introduction] 群介绍
+  /// [faceUrl] 群头像
+  /// [ex] 额外信息
+  /// [list] 初创群成员以及其角色
   Future<GroupInfo> createGroup({
     String? groupName,
     String? notification,
@@ -177,6 +191,12 @@ class GroupManager {
 
   /// Edit group information
   /// 编辑组资料
+  /// [groupID] 被编辑的群ID
+  /// [groupName] 新的群名
+  /// [notification] 新的公告
+  /// [introduction] 新的群介绍
+  /// [faceUrl] 新的群头像
+  /// [ex] 新的额外信息
   Future<dynamic> setGroupInfo({
     required String groupID,
     String? groupName,
@@ -218,7 +238,7 @@ class GroupManager {
               (value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
   /// Apply to join the group
-  /// 申请加入组，需要通过管理员同意。
+  /// 申请加入组，需要通过管理员/群组同意。
   Future<dynamic> joinGroup({
     required String gid,
     String? reason,
@@ -260,8 +280,8 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// As the group owner or administrator, get the list of received group members' applications to join the group.
-  /// 作为群主或者管理员，获取收到的群成员申请进群列表。
+  /// As the group owner or administrator, the group member's application to join the group received
+  /// 作为群主或者管理员，收到的群成员入群申请
   Future<List<GroupApplicationInfo>> getRecvGroupApplicationList(
           {String? operationID}) =>
       _channel
@@ -288,6 +308,7 @@ class GroupManager {
 
   /// Accept group application
   /// 管理员或者群主同意某人进入某群
+  /// 注：主动申请入群需要通过管理员/群组处理，被别人拉入群不需要管理员/群组处理
   Future<dynamic> acceptGroupApplication({
     required String gid,
     required String uid,
@@ -305,6 +326,7 @@ class GroupManager {
 
   /// Refuse group application
   /// 管理员或者群主拒绝某人进入某群
+  /// 注：主动申请入群需要通过管理员/群组处理，被别人拉入群不需要管理员/群组处理
   Future<dynamic> refuseGroupApplication({
     required String gid,
     required String uid,
@@ -334,7 +356,9 @@ class GroupManager {
           }));
 
   /// Enable group mute
-  /// 开启群禁言
+  /// 开启群禁言，所有群成员禁止发言
+  /// [groupID] 将开启群禁言的组ID
+  /// [mute] true：开启，false：关闭
   Future<dynamic> changeGroupMute({
     required String groupID,
     required bool mute,
@@ -350,6 +374,9 @@ class GroupManager {
 
   /// Mute group members
   /// 禁言群成员
+  /// [groupID] 群ID
+  /// [userID] 将被禁言的成员ID
+  /// [seconds] 被禁言的时间s，设置为0则为接触禁言
   Future<dynamic> changeGroupMemberMute({
     required String groupID,
     required String userID,
@@ -367,6 +394,9 @@ class GroupManager {
 
   /// Set group user nickname
   /// 设置群成员昵称
+  /// [groupID] 群ID
+  /// [userID] 群成员的用户ID
+  /// [groupNickname] 群昵称
   Future<dynamic> setGroupMemberNickname({
     required String groupID,
     required String userID,
