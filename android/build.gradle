@@ -3,13 +3,10 @@ version '1.0'
 
 buildscript {
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven {
+            url 'http://121.37.25.71:8081/repository/maven2/'
             allowInsecureProtocol = true
 //            url 'http://121.37.25.71:8081/repository/maven-releases/'
-            url 'http://121.37.25.71:8081/repository/maven2/'
         }
         google()
         mavenCentral()
@@ -22,13 +19,10 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven {
+            url 'http://121.37.25.71:8081/repository/maven2/'
             allowInsecureProtocol = true
 //            url 'http://121.37.25.71:8081/repository/maven-releases/'
-            url 'http://121.37.25.71:8081/repository/maven2/'
         }
         google()
         mavenCentral()

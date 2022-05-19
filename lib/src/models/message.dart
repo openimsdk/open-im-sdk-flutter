@@ -608,11 +608,13 @@ class AttachedInfoElem {
   /// 单聊有效
   bool? isPrivateChat;
   int? hasReadTime;
+  bool? notSenderNotificationPush;
 
   AttachedInfoElem({
     this.groupHasReadInfo,
     this.isPrivateChat,
     this.hasReadTime,
+    this.notSenderNotificationPush,
   });
 
   AttachedInfoElem.fromJson(Map<String, dynamic> json) {
@@ -621,6 +623,7 @@ class AttachedInfoElem {
         : GroupHasReadInfo.fromJson(json['groupHasReadInfo']);
     isPrivateChat = json['isPrivateChat'];
     hasReadTime = json['hasReadTime'];
+    notSenderNotificationPush = json['notSenderNotificationPush'];
   }
 
   Map<String, dynamic> toJson() {
@@ -628,6 +631,7 @@ class AttachedInfoElem {
     data['groupHasReadInfo'] = this.groupHasReadInfo?.toJson();
     data['isPrivateChat'] = this.isPrivateChat;
     data['hasReadTime'] = this.hasReadTime;
+    data['notSenderNotificationPush'] = this.notSenderNotificationPush;
     return data;
   }
 }
