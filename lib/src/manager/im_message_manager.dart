@@ -277,7 +277,7 @@ class MessageManager {
   }) =>
       _channel
           .invokeMethod(
-        'createSoundMessage',
+            'createSoundMessage',
             _buildParam({
               'soundPath': soundPath,
               "duration": duration,
