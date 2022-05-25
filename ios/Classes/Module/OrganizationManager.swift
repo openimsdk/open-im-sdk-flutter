@@ -30,7 +30,7 @@ public class OrganizationManager: BaseServiceManager {
     }
     
     func getDepartmentMemberAndSubDepartment(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkGetDepartmentMemberAndSubDepartment(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "departmentID"], methodCall[int: "departmentOffset"], methodCall[int: "departmentCount"], methodCall[int: "memberOffset"], methodCall[int: "memberCount"])
+        Open_im_sdkGetDepartmentMemberAndSubDepartment(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "departmentID"])
     }
 }
 
