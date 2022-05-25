@@ -70,12 +70,12 @@ class OrganizationManager {
 
   /// Get the sub-departments and employees under the department
   /// 获取部门下的子部门跟员工
-  Future<List<UserInDept>> getDeptMemberAndSubDept({
+  Future<DeptMemberAndSubDept> getDeptMemberAndSubDept({
     required String departmentID,
-    int departmentOffset = 0,
-    int departmentCount = 40,
-    int memberOffset = 0,
-    int memberCount = 40,
+    // int departmentOffset = 0,
+    // int departmentCount = 40,
+    // int memberOffset = 0,
+    // int memberCount = 40,
     String? operationID,
   }) =>
       _channel
@@ -83,13 +83,14 @@ class OrganizationManager {
               'getDepartmentMemberAndSubDepartment',
               _buildParam({
                 'departmentID': departmentID,
-                'departmentOffset': departmentOffset,
-                'departmentCount': departmentCount,
-                'memberOffset': memberOffset,
-                'memberCount': memberCount,
+                // 'departmentOffset': departmentOffset,
+                // 'departmentCount': departmentCount,
+                // 'memberOffset': memberOffset,
+                // 'memberCount': memberCount,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (v) => UserInDept.fromJson(v)));
+          .then((value) =>
+              Utils.toObj(value, (v) => DeptMemberAndSubDept.fromJson(v)));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "organizationManager";
