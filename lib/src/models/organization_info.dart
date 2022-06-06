@@ -187,8 +187,13 @@ class UserInDept {
 class DeptMemberAndSubDept {
   List<DeptInfo>? departmentList;
   List<DeptMemberInfo>? departmentMemberList;
+  List<DeptInfo>? parentDepartmentList;
 
-  DeptMemberAndSubDept({this.departmentList, this.departmentMemberList});
+  DeptMemberAndSubDept({
+    this.departmentList,
+    this.departmentMemberList,
+    this.parentDepartmentList,
+  });
 
   DeptMemberAndSubDept.fromJson(Map<String, dynamic> json) {
     if (json['departmentList'] != null) {
@@ -203,6 +208,12 @@ class DeptMemberAndSubDept {
         departmentMemberList!.add(DeptMemberInfo.fromJson(v));
       });
     }
+    if (json['parentDepartmentList'] != null) {
+      parentDepartmentList = <DeptInfo>[];
+      json['parentDepartmentList'].forEach((v) {
+        parentDepartmentList!.add(DeptInfo.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -214,6 +225,10 @@ class DeptMemberAndSubDept {
     if (this.departmentMemberList != null) {
       data['departmentMemberList'] =
           this.departmentMemberList!.map((v) => v.toJson()).toList();
+    }
+    if (this.parentDepartmentList != null) {
+      data['parentDepartmentList'] =
+          this.parentDepartmentList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
