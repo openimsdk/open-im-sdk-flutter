@@ -36,6 +36,7 @@ class InvitationInfo {
   String? groupID; //如果是单聊，为""
   String? roomID; //房间ID，必须唯一，可以不设置。
   int? timeout; //邀请超时时间（秒）
+  int? initiateTime;
   String? mediaType; //video 或者audio
   int? sessionType; //1为单聊，2为群聊
   int? platformID; //和之前定义一致
@@ -46,6 +47,7 @@ class InvitationInfo {
       this.groupID,
       this.roomID,
       this.timeout,
+      this.initiateTime,
       this.mediaType,
       this.sessionType,
       this.platformID});
@@ -56,6 +58,7 @@ class InvitationInfo {
     groupID = json['groupID'];
     roomID = json['roomID'];
     timeout = json['timeout'];
+    initiateTime = json['initiateTime'];
     mediaType = json['mediaType'];
     sessionType = json['sessionType'];
     platformID = json['platformID'];
@@ -68,6 +71,7 @@ class InvitationInfo {
     data['groupID'] = this.groupID;
     data['roomID'] = this.roomID;
     data['timeout'] = this.timeout;
+    data['initiateTime'] = this.initiateTime;
     data['mediaType'] = this.mediaType;
     data['sessionType'] = this.sessionType;
     data['platformID'] = this.platformID;
