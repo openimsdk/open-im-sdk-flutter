@@ -112,4 +112,12 @@ public class FriendshipManager extends BaseManager {
                 jsonValue(methodCall)
         );
     }
+
+    public void searchFriends(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchFriends(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "searchParam")
+        );
+    }
 }

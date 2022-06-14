@@ -47,4 +47,22 @@ public class OrganizationManager extends BaseManager {
                 value(methodCall, "departmentID")
         );
     }
+
+    public void getDepartmentInfo(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getDepartmentInfo(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "departmentID")
+        );
+    }
+
+    public void searchOrganization(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchOrganization(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "searchParams"),
+                int2long(methodCall, "offset"),
+                int2long(methodCall, "count")
+        );
+    }
 }

@@ -1,3 +1,11 @@
+## 2.0.9+2
+
+1.Fix bug </br>
+2.New searchOrganization method</br>
+3.New searchFriends method</br>
+4.New getDepartmentInfo method</br>
+5.New setGroupMemberRoleLevel method</br>
+
 ## 2.0.9+1
 
 1.Fix bug </br>

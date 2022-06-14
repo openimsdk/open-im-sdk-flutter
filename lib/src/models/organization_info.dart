@@ -84,24 +84,31 @@ class DeptMemberInfo {
   String? ex;
   String? attachedInfo;
 
-  DeptMemberInfo(
-      {this.userID,
-      this.nickname,
-      this.englishName,
-      this.faceURL,
-      this.gender,
-      this.mobile,
-      this.telephone,
-      this.birth,
-      this.email,
-      this.departmentID,
-      this.order,
-      this.position,
-      this.leader,
-      this.status,
-      this.createTime,
-      this.ex,
-      this.attachedInfo});
+  /// 搜索时使用
+  String? departmentName;
+  List<DeptInfo>? parentDepartmentList;
+
+  DeptMemberInfo({
+    this.userID,
+    this.nickname,
+    this.englishName,
+    this.faceURL,
+    this.gender,
+    this.mobile,
+    this.telephone,
+    this.birth,
+    this.email,
+    this.departmentID,
+    this.order,
+    this.position,
+    this.leader,
+    this.status,
+    this.createTime,
+    this.ex,
+    this.attachedInfo,
+    this.departmentName,
+    this.parentDepartmentList,
+  });
 
   DeptMemberInfo.fromJson(Map<String, dynamic> json) {
     userID = json['userID'];
@@ -121,6 +128,13 @@ class DeptMemberInfo {
     createTime = json['createTime'];
     ex = json['ex'];
     attachedInfo = json['attachedInfo'];
+    departmentName = json['departmentName'];
+    if (json['parentDepartmentList'] != null) {
+      parentDepartmentList = <DeptInfo>[];
+      json['parentDepartmentList'].forEach((v) {
+        parentDepartmentList!.add(DeptInfo.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -142,6 +156,11 @@ class DeptMemberInfo {
     data['createTime'] = this.createTime;
     data['ex'] = this.ex;
     data['attachedInfo'] = this.attachedInfo;
+    data['departmentName'] = this.departmentName;
+    if (this.parentDepartmentList != null) {
+      data['parentDepartmentList'] =
+          this.parentDepartmentList!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 
@@ -229,6 +248,44 @@ class DeptMemberAndSubDept {
     if (this.parentDepartmentList != null) {
       data['parentDepartmentList'] =
           this.parentDepartmentList!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class OrganizationSearchResult {
+  List<DeptInfo>? departmentList;
+  List<DeptMemberInfo>? departmentMemberList;
+
+  OrganizationSearchResult({
+    this.departmentList,
+    this.departmentMemberList,
+  });
+
+  OrganizationSearchResult.fromJson(Map<String, dynamic> json) {
+    if (json['departmentList'] != null) {
+      departmentList = <DeptInfo>[];
+      json['departmentList'].forEach((v) {
+        departmentList!.add(DeptInfo.fromJson(v));
+      });
+    }
+    if (json['departmentMemberList'] != null) {
+      departmentMemberList = <DeptMemberInfo>[];
+      json['departmentMemberList'].forEach((v) {
+        departmentMemberList!.add(DeptMemberInfo.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    if (this.departmentList != null) {
+      data['departmentList'] =
+          this.departmentList!.map((v) => v.toJson()).toList();
+    }
+    if (this.departmentMemberList != null) {
+      data['departmentMemberList'] =
+          this.departmentMemberList!.map((v) => v.toJson()).toList();
     }
     return data;
   }

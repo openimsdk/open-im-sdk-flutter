@@ -206,6 +206,34 @@ class FriendshipManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// Search friends
+  /// 查好友
+  /// [keywordList] 搜索关键词，目前仅支持一个关键词搜索，不能为空
+  /// [isSearchUserID] 是否以关键词搜索好友ID(注：不可以同时为false)，为空默认false
+  /// [isSearchNickname] 是否以关键词搜索昵称，为空默认false
+  /// [isSearchRemark] 是否以关键词搜索备注名，为空默认false
+  Future<List<FriendInfo>> searchFriends({
+    List<String> keywordList = const [],
+    bool isSearchUserID = false,
+    bool isSearchNickname = false,
+    bool isSearchRemark = false,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'searchFriends',
+              _buildParam({
+                'searchParam': {
+                  'keywordList': keywordList,
+                  'isSearchUserID': isSearchUserID,
+                  'isSearchNickname': isSearchNickname,
+                  'isSearchRemark': isSearchRemark,
+                },
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => FriendInfo.fromJson(map)));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "friendshipManager";
     return param;

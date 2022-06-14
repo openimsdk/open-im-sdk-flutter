@@ -26,6 +26,7 @@ public class GroupManager: BaseServiceManager {
         self["changeGroupMemberMute"] = changeGroupMemberMute
         self["setGroupMemberNickname"] = setGroupMemberNickname
         self["searchGroups"] = searchGroups
+        self["setGroupMemberRoleLevel"] = setGroupMemberRoleLevel
     }
 
     func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -114,6 +115,10 @@ public class GroupManager: BaseServiceManager {
     
     func searchGroups(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSearchGroups(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParam"])
+    }
+    
+    func setGroupMemberRoleLevel(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetGroupMemberRoleLevel(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[string:"userID"],methodCall[int:"roleLevel"])
     }
 }
 

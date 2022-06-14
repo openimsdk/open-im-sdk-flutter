@@ -19,6 +19,7 @@ public class FriendshipManager: BaseServiceManager {
         self["deleteFriend"] = deleteFriend
         self["acceptFriendApplication"] = acceptFriendApplication
         self["refuseFriendApplication"] = refuseFriendApplication
+        self["searchFriends"] = searchFriends
 //        self["forceSyncFriendApplication"] = forceSyncFriendApplication
 //        self["forceSyncFriend"] = forceSyncFriend
 //        self["forceSyncBlackList"] = forceSyncBlackList
@@ -81,6 +82,9 @@ public class FriendshipManager: BaseServiceManager {
         Open_im_sdkRefuseFriendApplication(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
+    func searchFriends(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSearchFriends(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParam"])
+    }
 //     func forceSyncFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
 //         Open_im_sdkForceSyncFriendApplication()
 //         callBack(result)

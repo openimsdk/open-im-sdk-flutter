@@ -437,6 +437,26 @@ class GroupManager {
           .then(
               (value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
+  /// Set group user role
+  /// 设置群成员权限
+  /// [groupID] 群ID
+  /// [userID] 群成员的用户ID
+  /// [roleLevel] 角色等级
+  Future<dynamic> setGroupMemberRoleLevel({
+    required String groupID,
+    required String userID,
+    required int roleLevel,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setGroupMemberRoleLevel',
+          _buildParam({
+            'groupID': groupID,
+            'userID': userID,
+            'roleLevel': roleLevel,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";
     return param;

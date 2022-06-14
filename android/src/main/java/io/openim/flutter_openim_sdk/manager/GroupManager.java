@@ -190,4 +190,13 @@ public class GroupManager extends BaseManager {
                 jsonValue(methodCall, "searchParam")
         );
     }
+
+    public void setGroupMemberRoleLevel(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setGroupMemberRoleLevel(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID"),
+                value(methodCall, "userID"),
+                int2long(methodCall, "roleLevel")
+        );
+    }
 }

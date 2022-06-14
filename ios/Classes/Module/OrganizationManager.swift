@@ -10,6 +10,8 @@ public class OrganizationManager: BaseServiceManager {
         self["getDepartmentMember"] = getDepartmentMember
         self["getUserInDepartment"] = getUserInDepartment
         self["getDepartmentMemberAndSubDepartment"] = getDepartmentMemberAndSubDepartment
+        self["getDepartmentInfo"] = getDepartmentInfo
+        self["searchOrganization"] = searchOrganization
     }
 
     func setOrganizationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -31,6 +33,14 @@ public class OrganizationManager: BaseServiceManager {
     
     func getDepartmentMemberAndSubDepartment(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkGetDepartmentMemberAndSubDepartment(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "departmentID"])
+    }
+    
+    func getDepartmentInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkGetDepartmentInfo(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "departmentID"])
+    }
+    
+    func searchOrganization(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkSearchOrganization(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParams"], methodCall[int: "offset"], methodCall[int: "count"])
     }
 }
 
