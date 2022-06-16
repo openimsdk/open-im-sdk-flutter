@@ -154,4 +154,12 @@ public class ConversationManager extends BaseManager {
     public void getAtAllTag(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result, Open_im_sdk.getAtAllTag());
     }
+
+    public void setGlobalRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setGlobalRecvMessageOpt(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                int2long(methodCall, "status")
+        );
+    }
 }

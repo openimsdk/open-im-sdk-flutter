@@ -29,6 +29,9 @@ class UserInfo {
 
   bool? isBlacklist;
 
+  /// 全局免打扰
+  int? globalRecvMsgOpt;
+
   UserInfo({
     this.publicInfo,
     this.friendInfo,
@@ -46,6 +49,7 @@ class UserInfo {
     this.ex,
     this.createTime,
     this.remark,
+    this.globalRecvMsgOpt,
   });
 
   // UserInfo.self(Map<String, dynamic> json) {
@@ -84,6 +88,7 @@ class UserInfo {
     remark = json['remark'] ?? _remark;
     ex = json['ex'] ?? _ex;
     createTime = json['createTime'];
+    globalRecvMsgOpt = json['globalRecvMsgOpt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -104,6 +109,7 @@ class UserInfo {
     data['ex'] = this.ex;
     data['createTime'] = this.createTime;
     data['remark'] = this.remark;
+    data['globalRecvMsgOpt'] = this.globalRecvMsgOpt;
     return data;
   }
 

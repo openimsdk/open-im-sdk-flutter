@@ -261,6 +261,21 @@ class ConversationManager {
   Future<dynamic> getAtAllTag() =>
       _channel.invokeMethod('getAtAllTag', _buildParam({}));
 
+  /// Global Do Not Disturb
+  /// [status] 0: Normal. 1: Do not receive messages. 2: Do not notify when messages are received.
+  /// 全局免打扰
+  /// [status] 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
+  Future<dynamic> setGlobalRecvMessageOpt({
+    required int status,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setGlobalRecvMessageOpt',
+          _buildParam({
+            "status": status,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   /// Custom sort for conversation list
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list
