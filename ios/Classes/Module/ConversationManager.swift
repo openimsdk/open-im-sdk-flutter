@@ -24,6 +24,7 @@ public class ConversationManager: BaseServiceManager {
         self["deleteAllConversationFromLocal"] = deleteAllConversationFromLocal
         self["resetConversationGroupAtType"] = resetConversationGroupAtType
         self["getAtAllTag"] = getAtAllTag
+        self["setGlobalRecvMessageOpt"] = setGlobalRecvMessageOpt
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -102,6 +103,10 @@ public class ConversationManager: BaseServiceManager {
     
     func getAtAllTag(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         callBack(result, Open_im_sdkGetAtAllTag())
+    }
+    
+    func setGlobalRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetGlobalRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int: "status"])
     }
 }
 
