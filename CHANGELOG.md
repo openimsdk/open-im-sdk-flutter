@@ -1,8 +1,11 @@
+## 2.1.0
+
+1.Fix bug </br>
+
 ## 2.0.9+3
 
 1.Fix bug </br>
 2.New setGlobalRecvMessageOpt method</br>
-
 
 ## 2.0.9+2
 

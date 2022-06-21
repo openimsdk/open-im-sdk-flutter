@@ -124,7 +124,7 @@ class IMManager {
           }
         } else if (call.method == ListenerType.advancedMsgListener) {
           var type = call.arguments['type'];
-          var id = call.arguments['data']['id'];
+          // var id = call.arguments['data']['id'];
           switch (type) {
             case 'onRecvNewMessage':
               var value = call.arguments['data']['newMessage'];
