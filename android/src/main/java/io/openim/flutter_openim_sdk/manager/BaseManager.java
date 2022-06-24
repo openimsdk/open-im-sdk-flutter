@@ -18,7 +18,10 @@ class BaseManager {
     }
 
     static Long int2long(MethodCall methodCall, String key) {
-        Integer i = value(methodCall, key);
-        return Long.valueOf(i);
+        Object i = value(methodCall, key);
+        if (i instanceof Long) {
+            return (Long) i;
+        }
+        return Long.valueOf((Integer) i);
     }
 }

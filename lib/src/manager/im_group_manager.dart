@@ -457,6 +457,37 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  /// Get the list of group members
+  /// 分页获取组成员列表
+  /// [groupID] 群ID
+  /// [joinTimeBegin] 加入开始时间
+  /// [joinTimeEnd] 加入结束时间
+  /// [offset] 开始下标
+  /// [count] 总数
+  Future<List<GroupMembersInfo>> getGroupMemberListByJoinTime({
+    required String groupID,
+    int offset = 0,
+    int count = 0,
+    int joinTimeBegin = 0,
+    int joinTimeEnd = 0,
+    List<String> excludeUserIDList = const [],
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getGroupMemberListByJoinTimeFilter',
+              _buildParam({
+                'groupID': groupID,
+                'offset': offset,
+                'count': count,
+                'joinTimeBegin': joinTimeBegin,
+                'joinTimeEnd': joinTimeEnd,
+                'excludeUserIDList': excludeUserIDList,
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";
     return param;

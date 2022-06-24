@@ -1,6 +1,8 @@
 ## 2.1.0
 
 1.Fix bug </br>
+2.New getGroupMemberListByJoinTime method </br>
+3.New group message need read count field groupMemberCount </br>
 
 ## 2.0.9+3
 

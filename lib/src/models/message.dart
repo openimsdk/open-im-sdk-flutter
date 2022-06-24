@@ -639,6 +639,7 @@ class AttachedInfoElem {
 class GroupHasReadInfo {
   List<String>? hasReadUserIDList;
   int? hasReadCount;
+  int? groupMemberCount;
 
   GroupHasReadInfo.fromJson(Map<String, dynamic> json) {
     if (json['hasReadUserIDList'] == null) {
@@ -647,12 +648,14 @@ class GroupHasReadInfo {
       hasReadUserIDList = (json['hasReadUserIDList'] as List).cast<String>();
     }
     hasReadCount = json['hasReadCount'] ?? 0;
+    groupMemberCount = json['groupMemberCount'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
     data['hasReadUserIDList'] = this.hasReadUserIDList;
     data['hasReadCount'] = this.hasReadCount;
+    data['groupMemberCount'] = this.groupMemberCount;
     return data;
   }
 }
