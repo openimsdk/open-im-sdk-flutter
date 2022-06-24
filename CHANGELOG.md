@@ -1,21 +1,21 @@
 ## 2.1.0
 
 1.Fix bug </br>
-2.New getGroupMemberListByJoinTime method </br>
-3.New group message need read count field groupMemberCount </br>
+2.Add getGroupMemberListByJoinTime method </br>
+3.Add groupMemberCount field </br>
 
 ## 2.0.9+3
 
 1.Fix bug </br>
-2.New setGlobalRecvMessageOpt method</br>
+2.Add setGlobalRecvMessageOpt method </br>
 
 ## 2.0.9+2
 
 1.Fix bug </br>
-2.New searchOrganization method</br>
-3.New searchFriends method</br>
-4.New getDepartmentInfo method</br>
-5.New setGroupMemberRoleLevel method</br>
+2.Add searchOrganization method </br>
+3.Add searchFriends method </br>
+4.Add getDepartmentInfo method </br>
+5.Add setGroupMemberRoleLevel method </br>
 
 ## 2.0.9+1
 
@@ -24,9 +24,9 @@
 ## 2.0.9
 
 1.Fix bug </br>
-2.New organization fuction</br>
-3.New uploadImage method </br>
-4.Fix login slow bug</br>
+2.Add organization fuction </br>
+3.Add uploadImage method </br>
+4.Fix login slow bug </br>
 
 ## 2.0.8
 
@@ -36,38 +36,38 @@
 
 ## 2.0.0+6
 
-1.Fix bug</br>
-2.Adapter ios emulator</br>
-3.New modify group nickname</br>
-4.Update at message</br>
+1.Fix bug </br>
+2.Adapter ios emulator </br>
+3.Add modify group nickname </br>
+4.Update at message </br>
 5.ConverstaionInfo new add isNotInGroup field</br>
-6.New at type</br>
-7.New work moments</br>
-8.New global search</br>
-9.New getHistoryMessageListReverse method</br>
-10.New getAtAllTag method</br>
-11.New resetConversationGroupAtType method</br>
-12.New searchGroups method</br>
+6.Add at type </br>
+7.Add work moments </br>
+8.Add global search </br>
+9.Add getHistoryMessageListReverse method </br>
+10.Add getAtAllTag method </br>
+11.Add resetConversationGroupAtType method </br>
+12.Add searchGroups method </br>
 
 ## 2.0.0+5
 
-1.New notification parse </br>
-2.New deleteConversationFromLocalAndSvr method </br>
-3.New deleteMessageFromLocalAndSvr method </br>
-4.New deleteAllMsgFromLocal method </br>
-5.New deleteAllMsgFromLocalAndSvr method </br>
-6.New clearC2CHistoryMessageFromLocalAndSvr method </br>
-7.New clearGroupHistoryMessageFromLocalAndSvr method </br>
-8.New markMessageAsReadByConID method </br>
-9.New wakeUp method </br>
-10.New deleteAllConversationFromLocal method </br>
+1.Add notification parse </br>
+2.Add deleteConversationFromLocalAndSvr method </br>
+3.Add deleteMessageFromLocalAndSvr method </br>
+4.Add deleteAllMsgFromLocal method </br>
+5.Add deleteAllMsgFromLocalAndSvr method </br>
+6.Add clearC2CHistoryMessageFromLocalAndSvr method </br>
+7.Add clearGroupHistoryMessageFromLocalAndSvr method </br>
+8.Add markMessageAsReadByConID method </br>
+9.Add wakeUp method </br>
+10.Add deleteAllConversationFromLocal method </br>
 
 ## 2.0.0+4
 
-1.New dismiss group </br>
-2.New search local message </br>
-3.New private chat </br>
-4.New group mute
+1.Add dismiss group </br>
+2.Add search local message </br>
+3.Add private chat </br>
+4.Add group mute
 
 ## 2.0.0+3
 
@@ -76,8 +76,8 @@
 ## 2.0.0+2
 
 1.Fix some one crash </br>
-2.New add signaling function </br>
-3.New add group have read receipt
+2.Add signaling function </br>
+3.Add group have read receipt
 
 ## 2.0.0+1
 
@@ -104,13 +104,13 @@
 ## 1.0.8
 
 1.Upgrade sdk to 1.4.4. </br>
-2.New and changed conversation return changed data and no longer return all data. </br>
-3.New conversation paging method.
+2.Add changed conversation return changed data and no longer return all data. </br>
+3.Add conversation paging method.
 
 ## 1.0.7
 
 Upgrade sdk to 1.3.4 </br>
-New add method setConversationRecvMessageOpt and getConversationRecvMessageOpt
+Add method setConversationRecvMessageOpt and getConversationRecvMessageOpt
 
 ## 1.0.6
 
@@ -148,7 +148,7 @@ Fix bug
 ## 0.0.9+5
 
 1. Android upgrade sdk to 0.0.17 </br>
-2. New add createFileMessageFromFullPath method
+2. Add createFileMessageFromFullPath method
 
 ## 0.0.9+4
 Fix ios friendship params error
