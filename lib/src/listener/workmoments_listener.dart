@@ -1,3 +1,4 @@
+/// 朋友圈监听
 class OnWorkMomentsListener {
   Function()? onRecvNewNotification;
 

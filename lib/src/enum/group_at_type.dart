@@ -1,6 +1,6 @@
 /// 会话强提示内容
 class GroupAtType {
-  /// 无提示
+  /// 取消所有提示，即调用了resetConversationGroupAtType方法
   static const atNormal = 0;
 
   /// @了我提示

@@ -83,6 +83,7 @@ class MessageType {
 
   /// 用户信息改变
   static const userInfoUpdatedNotification = 1303;
+
   static const userNotificationEnd = 1399;
 
   /// OA通知
@@ -122,6 +123,7 @@ class MessageType {
 
   /// 解散群
   static const dismissGroupNotification = 1511;
+
   static const groupNotificationEnd = 1599;
 
   /// 群成员被禁言
@@ -143,6 +145,7 @@ class MessageType {
 
   /// 信令
   static const signalingNotification = 1601;
+
   static const signalingNotificationEnd = 1699;
 
   /// 阅后即焚

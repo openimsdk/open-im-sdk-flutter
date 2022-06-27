@@ -1,3 +1,4 @@
+/// 组织架构监听
 class OnOrganizationListener {
   Function()? onOrganizationUpdated;
 

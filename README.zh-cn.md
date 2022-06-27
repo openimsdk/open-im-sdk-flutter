@@ -8,7 +8,7 @@
 
 
 
-## 方法名、参数、返回值说明
+## 类方法说明
 
 #### IMManager（初始化管理）
 
@@ -199,6 +199,8 @@
 | clearWorkMomentsNotification | 清除通知列表           |
 
 
+
+## 方法名、参数、返回值说明
 
 - ##### initSDK（初始化SDK）
 

@@ -4,6 +4,7 @@ class OnMsgSendProgressListener {
 
   OnMsgSendProgressListener({this.onProgress});
 
+  /// 消息发送进度
   void progress(String clientMsgID, int progress) {
     if (null != onProgress) onProgress!(clientMsgID, progress);
   }

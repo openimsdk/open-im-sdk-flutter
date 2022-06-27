@@ -323,7 +323,7 @@ class IMManager {
         ));
   }
 
-  @deprecated
+  /// 反初始化SDK
   Future<dynamic> unInitSDK() {
     return _channel.invokeMethod('unInitSDK', _buildParam({}));
   }
@@ -381,7 +381,7 @@ class IMManager {
       }));
 
   /// 上传图片到服务器
-  /// [path]图片路径
+  /// [path] 图片路径
   /// [token] im token
   /// [objectStorage] 存储对象 cos/minio
   Future uploadImage({

@@ -1,5 +1,6 @@
 import 'package:flutter_openim_sdk/src/models/signaling_info.dart';
 
+/// 信令监听
 class OnSignalingListener {
   final Function(SignalingInfo info)? onInvitationCancelled;
   final Function(SignalingInfo info)? onInvitationTimeout;

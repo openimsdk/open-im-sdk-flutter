@@ -18,7 +18,7 @@ class OnConversationListener {
     this.onSyncServerStart,
   });
 
-  /// 会话发送改变
+  /// 会话发生改变
   void conversationChanged(List<ConversationInfo> list) {
     if (onConversationChanged != null) onConversationChanged!(list);
   }
@@ -26,6 +26,12 @@ class OnConversationListener {
   /// 有新会话产生
   void newConversation(List<ConversationInfo> list) {
     if (onNewConversation != null) onNewConversation!(list);
+  }
+
+  /// 未读消息总数发送改变
+  void totalUnreadMessageCountChanged(int i) {
+    if (onTotalUnreadMessageCountChanged != null)
+      onTotalUnreadMessageCountChanged!(i);
   }
 
   void syncServerFailed() {
@@ -38,11 +44,5 @@ class OnConversationListener {
 
   void syncServerStart() {
     if (onSyncServerStart != null) onSyncServerStart!();
-  }
-
-  /// 未读消息总数发送改变
-  void totalUnreadMessageCountChanged(int i) {
-    if (onTotalUnreadMessageCountChanged != null)
-      onTotalUnreadMessageCountChanged!(i);
   }
 }

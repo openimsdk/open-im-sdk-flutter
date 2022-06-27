@@ -1,3 +1,4 @@
+/// callback类型
 class ListenerType {
   static final simpleMsgListener = 'simpleMsgListener';
   static final connectListener = 'connectListener';

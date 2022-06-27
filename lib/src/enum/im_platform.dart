@@ -1,3 +1,4 @@
+/// 当前flutter平台仅支持Android/ios
 class IMPlatform {
   /// IOS
   static const ios = 1;
