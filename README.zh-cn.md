@@ -2,6 +2,206 @@
 
 ##### 1，初始化
 
+##### 2，设置监听器
+
+##### 3，登录
+
+
+
+## 方法名、参数、返回值说明
+
+#### IMManager（初始化管理）
+
+| 方法             | 描述                                          |
+| ---------------- | --------------------------------------------- |
+| initSDK          | 初始化SDK                                     |
+| unInitSDK        | 反初始化SDK                                   |
+| login            | 登录                                          |
+| logout           | 登出                                          |
+| getLoginStatus   | 获取登录状态                                  |
+| getLoginUserID   | 登录者用户ID                                  |
+| getLoginUserInfo | 登录者用户资料                                |
+| wakeUp           | 唤醒socket通信（当app从后台回到前台恢复通信） |
+| uploadImage      | 上传图片到服务器                              |
+
+
+
+#### UserManager（用户信息管理）
+
+| 方法            | 描述                     |
+| --------------- | ------------------------ |
+| setUserListener | 当前登录用户信息变更监听 |
+| getUsersInfo    | 根据userID获取用户资料   |
+| getSelfUserInfo | 获取当前登录用户资料     |
+| setSelfInfo     | 修改当前登录用户资料     |
+
+
+
+#### ConversationManager（会话管理）
+
+| 方法                              | 描述                                   |
+| --------------------------------- | -------------------------------------- |
+| setConversationListener           | 会话监听                               |
+| getAllConversationList            | 获取所有会话                           |
+| getConversationListSplit          | 分页获取会话                           |
+| getOneConversation                | 查询会话，如果会话不存在会自动生成一个 |
+| getMultipleConversation           | 根据会话id获取多个会话                 |
+| deleteConversation                | 通过会话id删除指定会话                 |
+| setConversationDraft              | 设置会话草稿                           |
+| pinConversation                   | 置顶会话                               |
+| markGroupMessageHasRead           | 标记群聊会话已读                       |
+| getTotalUnreadMsgCount            | 获取未读消息总数                       |
+| getConversationIDBySessionType    | 查询会话id                             |
+| setConversationRecvMessageOpt     | 消息免打扰设置                         |
+| getConversationRecvMessageOpt     | 查询免打扰状态                         |
+| setOneConversationPrivateChat     | 阅后即焚                               |
+| deleteConversationFromLocalAndSvr | 删除本地以及服务器的会话               |
+| deleteAllConversationFromLocal    | 删除所有本地会话                       |
+| resetConversationGroupAtType      | 重置强提醒标识                         |
+| getAtAllTag                       | 查询@所有人标识                        |
+| setGlobalRecvMessageOpt           | 全局免打扰设置                         |
+
+
+
+#### FriendshipManager（好友关系管理）
+
+| 方法                         | 描述                                               |
+| ---------------------------- | -------------------------------------------------- |
+| setFriendshipListener        | 好友关系监听                                       |
+| getFriendsInfo               | 查询好友信息                                       |
+| addFriend                    | 发送一个好友请求，需要对方调用同意申请才能成为好友 |
+| getRecvFriendApplicationList | 获取别人加我为好友的申请                           |
+| getSendFriendApplicationList | 获取我发出的好友申请                               |
+| getFriendList                | 获取好友列表，返回的列表包含了已拉入黑名单的好友   |
+| setFriendRemark              | 设置好友备注                                       |
+| addBlacklist                 | 加入黑名单                                         |
+| getBlacklist                 | 获取黑名单列表                                     |
+| removeBlacklist              | 从黑名单移除                                       |
+| checkFriend                  | 检查友好关系                                       |
+| deleteFriend                 | 删除好友                                           |
+| acceptFriendApplication      | 接受好友请求                                       |
+| refuseFriendApplication      | 拒绝好友请求                                       |
+| searchFriends                | 查好友                                             |
+
+
+
+#### GroupManager（组/群关系管理）
+
+| 方法                         | 描述                                     |
+| ---------------------------- | ---------------------------------------- |
+| setGroupListener             | 组关系监听                               |
+| inviteUserToGroup            | 邀请进组，直接进组无需同意               |
+| kickGroupMember              | 移除组成员                               |
+| getGroupMembersInfo          | 查询组成员资料                           |
+| getGroupMemberList           | 分页获取组成员列表                       |
+| getJoinedGroupList           | 查询已加入的组列表                       |
+| isJoinedGroup                | 检查是否已加入组                         |
+| createGroup                  | 创建一个组                               |
+| setGroupInfo                 | 编辑组资料                               |
+| getGroupsInfo                | 查询组信息                               |
+| joinGroup                    | 申请加入组，需要通过管理员/群组同意。    |
+| quitGroup                    | 退出组                                   |
+| transferGroupOwner           | 转移组拥有者权限                         |
+| getRecvGroupApplicationList  | 作为群主或者管理员，收到的群成员入群申请 |
+| getSendGroupApplicationList  | 获取自己发出的入群申请记录               |
+| acceptGroupApplication       | 管理员或者群主同意某人进入某群           |
+| refuseGroupApplication       | 管理员或者群主拒绝某人进入某群           |
+| dismissGroup                 | 解散群                                   |
+| changeGroupMute              | 开启群禁言，所有群成员禁止发言           |
+| changeGroupMemberMute        | 禁言群成员                               |
+| setGroupMemberNickname       | 设置群成员昵称                           |
+| searchGroups                 | 查询群                                   |
+| setGroupMemberRoleLevel      | 设置群成员权限                           |
+| getGroupMemberListByJoinTime | 根据加入时间分页获取组成员列表           |
+
+
+
+#### MessageManager（消息管理）
+
+| 方法                                    | 描述                                                         |
+| --------------------------------------- | ------------------------------------------------------------ |
+| setAdvancedMsgListener                  | 消息监听                                                     |
+| setMsgSendProgressListener              | 消息发送进度监听                                             |
+| sendMessage                             | 发送消息                                                     |
+| getHistoryMessageList                   | 获取聊天记录(以startMsg为节点，以前的聊天记录)               |
+| revokeMessage                           | 撤回消息                                                     |
+| deleteMessageFromLocalStorage           | 删除本地消息                                                 |
+| insertSingleMessageToLocalStorage       | 插入单聊消息到本地                                           |
+| insertGroupMessageToLocalStorage        | 插入群聊消息到本地                                           |
+| markC2CMessageAsRead                    | 标记c2c单条消息已读                                          |
+| markGroupMessageAsRead                  | 标记群聊消息已读                                             |
+| typingStatusUpdate                      | 正在输入提示                                                 |
+| createTextMessage                       | 创建文本消息                                                 |
+| createTextAtMessage                     | 创建@消息                                                    |
+| createImageMessage                      | 创建图片消息                                                 |
+| createImageMessageFromFullPath          | 创建图片消息                                                 |
+| createSoundMessage                      | 创建语音消息                                                 |
+| createSoundMessageFromFullPath          | 创建语音消息                                                 |
+| createVideoMessage                      | 创建视频消息                                                 |
+| createVideoMessageFromFullPath          | 创建视频消息                                                 |
+| createFileMessage                       | 创建文件消息                                                 |
+| createFileMessageFromFullPath           | 创建文件消息                                                 |
+| createMergerMessage                     | 创建合并消息                                                 |
+| createForwardMessage                    | 创建转发消息                                                 |
+| createLocationMessage                   | 创建位置消息                                                 |
+| createCustomMessage                     | 创建自定义消息                                               |
+| createQuoteMessage                      | 创建引用消息                                                 |
+| createCardMessage                       | 创建卡片消息                                                 |
+| createFaceMessage                       | 创建自定义表情消息                                           |
+| clearC2CHistoryMessage                  | 清空单聊消息记录                                             |
+| clearGroupHistoryMessage                | 清空组消息记录                                               |
+| searchLocalMessages                     | 搜索消息                                                     |
+| deleteMessageFromLocalAndSvr            | 删除本地跟服务器的指定的消息                                 |
+| deleteAllMsgFromLocal                   | 删除本地所有聊天记录                                         |
+| deleteAllMsgFromLocalAndSvr             | 删除本地跟服务器所有聊天记录                                 |
+| markMessageAsReadByConID                | 标记消息已读                                                 |
+| clearC2CHistoryMessageFromLocalAndSvr   | 删除本地跟服务器的单聊聊天记录                               |
+| clearGroupHistoryMessageFromLocalAndSvr | 删除本地跟服务器的群聊天记录                                 |
+| getHistoryMessageListReverse            | 获取聊天记录(以startMsg为节点，新收到的聊天记录)，用在全局搜索定位某一条消息，然后此条消息后新增的消息 |
+
+
+
+#### OrganizationManager（组织架构管理）
+
+| 方法                    | 描述                                           |
+| ----------------------- | ---------------------------------------------- |
+| setOrganizationListener | 组织架构发生变化回调                           |
+| getSubDept              | 获取子部门列表，返回当前部门下的一级子部门     |
+| getDeptMember           | 获取部门下的成员列表，返回当前部门下的一级成员 |
+| getUserInDept           | 获取成员所在的部门                             |
+| getDeptMemberAndSubDept | 获取部门下的子部门跟员工                       |
+| getDeptInfo             | 查询部门信息                                   |
+| searchOrganization      | 搜索组织人员                                   |
+
+
+
+#### SignalingManager（信令管理）
+
+| 方法                   | 描述                     |
+| ---------------------- | ------------------------ |
+| setSignalingListener   | 信令监听                 |
+| signalingInvite        | 邀请个人加入音视频       |
+| signalingInviteInGroup | 邀请群里某些人加入音视频 |
+| signalingAccept        | 同意某人音视频邀请       |
+| signalingReject        | 拒绝某人音视频邀请       |
+| signalingCancel        | 邀请者取消音视频通话     |
+| signalingHungUp        | 挂断                     |
+
+
+
+#### WorkMomentsManager（朋友圈管理）
+
+| 方法                         | 描述                   |
+| ---------------------------- | ---------------------- |
+| setWorkMomentsListener       | 朋友圈信息发送变化通知 |
+| getWorkMomentsUnReadCount    | 获取朋友圈未读消息总数 |
+| getWorkMomentsNotification   | 获取通知列表           |
+| clearWorkMomentsNotification | 清除通知列表           |
+
+
+
+- ##### initSDK（初始化SDK）
+
 ```
 OpenIM.iMManager.initSDK(
     platform: 0, // 平台，参照IMPlatform类,
@@ -34,136 +234,18 @@ OpenIM.iMManager.initSDK(
   });
 ```
 
-##### 2，设置监听器
+
+
+- ##### login（登录）
 
 ```
-OpenIM.iMManager
-      ..userManager.setUserListener(OnUserListener(
-        onSelfInfoUpdated: (userInfo) {
-          // 当前登录用户资料变更回调
-        },
-      ))
-      ..messageManager.setAdvancedMsgListener(OnAdvancedMsgListener(
-        onRecvNewMessage: (message) {
-          // 收到新消息，界面添加新消息
-        },
-        onRecvMessageRevoked: (messageID) {
-          // 消息成功撤回，从界面移除消息
-        },
-        onRecvC2CReadReceipt: (list) {
-          // 消息被阅读回执，将消息标记为已读
-        },
-      ))
-      ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener(
-        onProgress: (messageID, progress) {
-          // 消息发送进度回调
-        },
-      ))
-      ..friendshipManager.setFriendshipListener(OnFriendshipListener(
-        onFriendApplicationRejected: (applicationInfo) {
-          // 发出或收到的好友申请被拒绝
-        },
-        onFriendApplicationDeleted: (applicationInfo) {
-          // 发出或收到的好友申请被删除
-        },
-        onFriendApplicationAdded: (applicationInfo) {
-          // 发出或收到的好友申请被添加
-        },
-        onFriendApplicationAccepted: (applicationInfo) {
-          // 发出或收到的好友申请已同意
-        },
-        onFriendAdded: (frinedInfo) {
-          // 好友被添加
-        },
-        onFriendDeleted: (frinedInfo) {
-          // 好友被删除
-        },
-        onFriendInfoChanged: (frinedInfo) {
-          // 朋友的资料发生变化
-        },
-        onBlacklistDeleted: (blackInfo) {
-          // 从黑名单删除
-        },
-        onBlacklistAdded: (blackInfo) {
-          // 拉入黑名单
-        },
-      ))
-      ..conversationManager.setConversationListener(OnConversationListener(
-        onNewConversation: (list) {
-          // 新增会话
-        },
-        onConversationChanged: (list) {
-          // 已添加的会话发送改变
-        },
-        onTotalUnreadMessageCountChanged: (count) {
-          // 未读消息数发送变化
-        },
-      ))
-      ..groupManager.setGroupListener(OnGroupListener(
-        onGroupMemberInfoChanged: (memberInfo) {
-          // 组成员信息发生变化
-        },
-        onGroupMemberDeleted: (memberInfo) {
-          // 组成员退出
-        },
-        onGroupMemberAdded: (memberInfo) {
-          // 组成员进入
-        },
-        onGroupApplicationRejected: (applicationInfo) {
-          // 发出或收到的组申请被拒绝
-        },
-        onGroupApplicationDeleted: (applicationInfo) {
-          // 发出或收到的组申请被删除
-        },
-        onGroupApplicationAdded: (applicationInfo) {
-          // 发出或收到的组申请有新增
-        },
-        onGroupApplicationAccepted: (applicationInfo) {
-          // 发出或收到的组申请被接受
-        },
-        onJoinedGroupDeleted: (groupInfo) {
-          // 退出群：退出者收到；踢出群：被踢者收到
-        },
-        onJoinedGroupAdded: (groupInfo) {
-          // 创建群： 初始成员收到；邀请进群：被邀请者收到
-        },
-        onGroupInfoChanged: (groupInfo) {
-          // 组资料变更
-        },
-      ))
-      ..signalingManager.setSignalingListener(OnSignalingListener(
-        onReceiveNewInvitation: (info) {
-          // 被邀请者收到：音视频通话邀请
-        },
-        onInviteeRejected: (info) {
-          // 邀请者收到：被邀请者拒绝音视频通话
-        },
-        onInviteeAccepted: (info) {
-          // 邀请者收到：被邀请者同意音视频通话
-        },
-        onInvitationTimeout: (info) {
-          // 邀请者收到：被邀请者超时未接通
-        },
-        onInvitationCancelled: (info) {
-          // 被邀请者收到：邀请者取消音视频通话
-        },
-      ));
-```
-
-##### 3，登录
-
-```
- OpenIM.iMManager.login(
+OpenIM.iMManager.login(
       uid: "", // uid来自于自身业务服务器
       token: "", // token需要业务服务器根据secret向OpenIM服务端交换获取
     ).then((userInfo) {
       // 返回当前登录用户的资料
     });
 ```
-
-
-
-## 方法名、参数、返回值说明
 
 
 
@@ -441,7 +523,7 @@ OpenIM.iMManager.conversationManager.deleteAllConversationFromLocal(
 
 
 
-- ##### resetConversationGroupAtType
+- ##### resetConversationGroupAtType（重置会话强提示标识位）
 
 ```
 OpenIM.iMManager.conversationManager.resetConversationGroupAtType(
@@ -455,10 +537,20 @@ OpenIM.iMManager.conversationManager.resetConversationGroupAtType(
 
 
 
-- ##### getAtAllTag
+- ##### getAtAllTag（@所有标识）
 
 ```
 OpenIM.iMManager.conversationManager.getAtAllTag();
+```
+
+
+
+- ##### setGlobalRecvMessageOpt（设置全局免打扰状态）
+
+```
+OpenIM.iMManager.conversationManager.setGlobalRecvMessageOpt(
+	status: status,// 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
+);
 ```
 
 
@@ -659,6 +751,18 @@ OpenIM.iMManager.friendshipManager.acceptFriendApplication(
 
 
 
+- ##### searchFriends（搜索好友）
+
+```
+var list = await OpenIM.iMManager.friendshipManager.searchFriends(
+      keywordList: [searchCtrl.text.trim()],//关键词
+      isSearchNickname: true,//按昵称查找
+      isSearchRemark: true,//按备注查找
+ );
+```
+
+
+
 - ##### inviteUserToGroup（邀请进组）
 
 直接进组无需同意。
@@ -780,6 +884,7 @@ OpenIM.iMManager.groupManager.setGroupInfo(
   notification: '', // 群公告
   introduction: '', // 群简介
   ex: '', // 扩展信息
+  needVerification: '',// 进群验证设置
 );
 ```
 
@@ -955,6 +1060,33 @@ List<GroupInfo> list = await OpenIM.iMManager.groupManager.searchGroups(
   keywordList: [], // 关键词
   isSearchGroupID: true, // 以id搜索
   isSearchGroupName: false, // 以群名搜索
+);
+```
+
+
+
+- ##### setGroupMemberRoleLevel（设置群成员角色）
+
+```
+OpenIM.iMManager.groupManager.setGroupMemberRoleLevel(
+  groupID: groupID,
+  userID: userID,
+  roleLevel: GroupRoleLevel.member,
+)
+```
+
+
+
+- ##### getGroupMemberListByJoinTime（根据加入时间分页获取组成员列表）
+
+```
+// 如：获取消息发送前入群的成员，用于查看消息未读列表
+var list = await OpenIM.iMManager.groupManager.getGroupMemberListByJoinTime(
+  groupID: message.groupID!,
+  joinTimeEnd: message.sendTime! ~/ 1000,
+  offset: 0,
+  count: 40,
+  excludeUserIDList: [...hasReadIDList, OpenIM.iMManager.uid],// 排除的人员
 );
 ```
 
@@ -1354,6 +1486,7 @@ OpenIM.iMManager.messageManager.clearGroupHistoryMessageFromLocalAndSvr(
 - ##### getHistoryMessageListReverse（获取新的聊天记录）
 
 ```
+// 获取聊天记录(以startMsg为节点，新收到的聊天记录)，用在全局搜索定位某一条消息，然后此条消息后新增的消息
 OpenIM.iMManager.messageManager.getHistoryMessageListReverse(
   userID: '', // 单聊对象的userID
   groupID: '', // 群聊的组id
@@ -1422,5 +1555,219 @@ OpenIM.iMManager.signalingManager.signalingCancel(
 OpenIM.iMManager.signalingManager.signalingHungUp(
 	info: null, // 信令对象SignalingInfo
 );
+```
+
+
+
+- ##### getSubDept（获取子部门列表，返回当前部门下的一级子部门）
+
+```
+var list = await OpenIM.iMManager.organizationManager.getSubDept(
+	departmentID: '', // 部门id
+	offset: 0, // 开始下标
+	count: 40, // 每页大小
+);
+```
+
+
+
+- ##### getDeptMember（获取部门下的成员列表，返回当前部门下的一级成员）
+
+```
+var list = await OpenIM.iMManager.organizationManager.getDeptMember(
+	departmentID: '', // 部门id
+	offset: 0, // 开始下标
+	count: 40, // 每页大小
+);
+```
+
+
+
+- ##### getUserInDept（获取成员所在的部门）
+
+```
+var list = await OpenIM.iMManager.organizationManager.getUserInDept(
+	userID: '', // 成员id
+);
+```
+
+
+
+- ##### getDeptMemberAndSubDept（获取部门下的子部门跟员工）
+
+```
+var detail = await OpenIM.iMManager.organizationManager.getDeptMemberAndSubDept(
+	departmentID: '', // 部门id
+);
+```
+
+
+
+- ##### getDeptInfo（查询部门信息）
+
+```
+var info = await OpenIM.iMManager.organizationManager.getDeptInfo(
+	departmentID: '', // 部门id
+);
+```
+
+
+
+- ##### searchOrganization（搜索组织人员）
+
+```
+var result = await OpenIM.iMManager.organizationManager.searchOrganization(
+  keyWord: searchCtrl.text.trim(),
+  isSearchUserName: true,
+  isSearchEnglishName: true,
+  isSearchPosition: true,
+  offset: offset,
+  count: count,
+);
+```
+
+
+
+- ##### getWorkMomentsUnReadCount（获取朋友圈未读消息总数）
+
+```
+var count = await OpenIM.iMManager.workMomentsManager.getWorkMomentsUnReadCount();
+```
+
+
+
+- ##### getWorkMomentsNotification（获取朋友圈通知列表）
+
+```
+var list = await OpenIM.iMManager.workMomentsManager.getWorkMomentsNotification(
+	offset:0,//开始下标
+	count:40,//每页大小
+);
+```
+
+
+
+- ##### clearWorkMomentsNotification（清除朋友圈通知列表）
+
+```
+OpenIM.iMManager.workMomentsManager.clearWorkMomentsNotification();
+```
+
+
+
+- ##### 监听器设置
+
+```
+OpenIM.iMManager
+      ..userManager.setUserListener(OnUserListener(
+        onSelfInfoUpdated: (userInfo) {
+          // 当前登录用户资料变更回调
+        },
+      ))
+      ..messageManager.setAdvancedMsgListener(OnAdvancedMsgListener(
+        onRecvNewMessage: (message) {
+          // 收到新消息，界面添加新消息
+        },
+        onRecvMessageRevoked: (messageID) {
+          // 消息成功撤回，从界面移除消息
+        },
+        onRecvC2CReadReceipt: (list) {
+          // 消息被阅读回执，将消息标记为已读
+        },
+      ))
+      ..messageManager.setMsgSendProgressListener(OnMsgSendProgressListener(
+        onProgress: (messageID, progress) {
+          // 消息发送进度回调
+        },
+      ))
+      ..friendshipManager.setFriendshipListener(OnFriendshipListener(
+        onFriendApplicationRejected: (applicationInfo) {
+          // 发出或收到的好友申请被拒绝
+        },
+        onFriendApplicationDeleted: (applicationInfo) {
+          // 发出或收到的好友申请被删除
+        },
+        onFriendApplicationAdded: (applicationInfo) {
+          // 发出或收到的好友申请被添加
+        },
+        onFriendApplicationAccepted: (applicationInfo) {
+          // 发出或收到的好友申请已同意
+        },
+        onFriendAdded: (frinedInfo) {
+          // 好友被添加
+        },
+        onFriendDeleted: (frinedInfo) {
+          // 好友被删除
+        },
+        onFriendInfoChanged: (frinedInfo) {
+          // 朋友的资料发生变化
+        },
+        onBlacklistDeleted: (blackInfo) {
+          // 从黑名单删除
+        },
+        onBlacklistAdded: (blackInfo) {
+          // 拉入黑名单
+        },
+      ))
+      ..conversationManager.setConversationListener(OnConversationListener(
+        onNewConversation: (list) {
+          // 新增会话
+        },
+        onConversationChanged: (list) {
+          // 已添加的会话发送改变
+        },
+        onTotalUnreadMessageCountChanged: (count) {
+          // 未读消息数发送变化
+        },
+      ))
+      ..groupManager.setGroupListener(OnGroupListener(
+        onGroupMemberInfoChanged: (memberInfo) {
+          // 组成员信息发生变化
+        },
+        onGroupMemberDeleted: (memberInfo) {
+          // 组成员退出
+        },
+        onGroupMemberAdded: (memberInfo) {
+          // 组成员进入
+        },
+        onGroupApplicationRejected: (applicationInfo) {
+          // 发出或收到的组申请被拒绝
+        },
+        onGroupApplicationDeleted: (applicationInfo) {
+          // 发出或收到的组申请被删除
+        },
+        onGroupApplicationAdded: (applicationInfo) {
+          // 发出或收到的组申请有新增
+        },
+        onGroupApplicationAccepted: (applicationInfo) {
+          // 发出或收到的组申请被接受
+        },
+        onJoinedGroupDeleted: (groupInfo) {
+          // 退出群：退出者收到；踢出群：被踢者收到
+        },
+        onJoinedGroupAdded: (groupInfo) {
+          // 创建群： 初始成员收到；邀请进群：被邀请者收到
+        },
+        onGroupInfoChanged: (groupInfo) {
+          // 组资料变更
+        },
+      ))
+      ..signalingManager.setSignalingListener(OnSignalingListener(
+        onReceiveNewInvitation: (info) {
+          // 被邀请者收到：音视频通话邀请
+        },
+        onInviteeRejected: (info) {
+          // 邀请者收到：被邀请者拒绝音视频通话
+        },
+        onInviteeAccepted: (info) {
+          // 邀请者收到：被邀请者同意音视频通话
+        },
+        onInvitationTimeout: (info) {
+          // 邀请者收到：被邀请者超时未接通
+        },
+        onInvitationCancelled: (info) {
+          // 被邀请者收到：邀请者取消音视频通话
+        },
+      ));
 ```
 
