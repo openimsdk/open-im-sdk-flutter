@@ -6,6 +6,7 @@ class OnUserListener {
 
   OnUserListener({this.onSelfInfoUpdated});
 
+  /// 自身信息发送变化
   void selfInfoUpdated(UserInfo info) {
     onSelfInfoUpdated?.call(info);
   }

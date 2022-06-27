@@ -3,24 +3,55 @@ import 'dart:convert';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationInfo {
+  /// 会话ID
   String conversationID;
 
-  /// [ConversationType]
+  /// 会话类型[ConversationType]
   int? conversationType;
+
+  /// 参与会话的userID
   String? userID;
+
+  /// 参与会话的groupID
   String? groupID;
+
+  /// 昵称
   String? showName;
+
+  /// 头像
   String? faceURL;
+
+  /// 免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   int? recvMsgOpt;
+
+  /// 未读消息数
   int? unreadCount;
+
+  /// 强制提示，[GroupAtType]包含@所有人，@个人以及公告提示
   int? groupAtType;
+
+  /// 会话最新消息内容
   Message? latestMsg;
+
+  /// 最新消息发送时间
   int? latestMsgSendTime;
+
+  /// 草稿
   String? draftText;
+
+  /// 草稿生成时间
   int? draftTextTime;
+
+  /// 是否置顶
   bool? isPinned;
+
+  /// 是否开启了私聊（阅后即焚）
   bool? isPrivateChat;
+
+  /// 附加内容
   String? ext;
+
+  /// 是否还在组内，如果退群返回true
   bool? isNotInGroup;
 
   ConversationInfo({

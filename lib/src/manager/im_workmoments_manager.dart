@@ -7,13 +7,13 @@ class WorkMomentsManager {
 
   WorkMomentsManager(this._channel);
 
-  /// Observe work moments changes
+  /// 朋友圈信息发送变化通知
   Future setWorkMomentsListener(OnWorkMomentsListener listener) {
     this.listener = listener;
     return _channel.invokeMethod('setWorkMomentsListener', _buildParam({}));
   }
 
-  /// Get work moments unread count
+  /// 获取朋友圈未读消息总数
   Future<int> getWorkMomentsUnReadCount({
     String? operationID,
   }) =>
@@ -25,7 +25,9 @@ class WorkMomentsManager {
               }))
           .then((value) => Utils.toObj(value, (map) => map['unreadCount']));
 
-  /// Get work moments notification list
+  /// 获取通知列表
+  /// [offset] 开始下标
+  /// [count] 每页大小
   Future<List<WorkMomentsInfo>> getWorkMomentsNotification({
     required int offset,
     required int count,
@@ -42,7 +44,7 @@ class WorkMomentsManager {
           .then((value) =>
               Utils.toList(value, (map) => WorkMomentsInfo.fromJson(map)));
 
-  /// Clear work moments notification
+  /// 清除通知列表
   Future clearWorkMomentsNotification({
     String? operationID,
   }) =>

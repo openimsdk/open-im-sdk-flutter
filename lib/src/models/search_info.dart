@@ -3,6 +3,8 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 class SearchResult {
   /// 获取到的总的消息数量
   int? totalCount;
+
+  /// 搜索到的具体内容
   List<SearchResultItems>? searchResultItems;
 
   SearchResult({this.totalCount, this.searchResultItems});
@@ -34,7 +36,11 @@ class SearchResultItems {
 
   /// 会话类型1单聊，2群聊，3，超级大群，4通知会话
   int? conversationType;
+
+  /// 显示名
   String? showName;
+
+  /// 头像
   String? faceURL;
 
   /// 搜索到的这个会话下的消息数量

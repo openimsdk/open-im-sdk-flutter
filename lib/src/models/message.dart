@@ -1,43 +1,108 @@
+import 'dart:io';
+
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+
 class Message {
+  /// 消息id，唯一标识
   String? clientMsgID;
+
+  /// 服务端生成的id
   String? serverMsgID;
+
+  /// 创建时间
   int? createTime;
+
+  /// 发送时间
   int? sendTime;
 
-  /// [ConversationType]
+  /// 会话类型[ConversationType]
   int? sessionType;
+
+  /// 发送者id
   String? sendID;
+
+  /// 接收者id
   String? recvID;
+
+  /// 来源
   int? msgFrom;
 
-  /// [MessageType]
+  /// 消息类型[MessageType]
   int? contentType;
+
+  /// 平台[Platform]
   int? platformID;
+
+  /// 发送者昵称
   String? senderNickname;
+
+  /// 发送者头像
   String? senderFaceUrl;
+
+  /// 群ID
   String? groupID;
+
+  /// 消息内容
   String? content;
+
+  /// 消息的seq
   int? seq;
+
+  /// 是否已读
   bool? isRead;
+
+  /// 已读时间
   int? hasReadTime;
 
-  /// [MessageStatus]
+  /// 消息发送状态[MessageStatus]
   int? status;
+
+  /// 离线显示内容
   OfflinePushInfo? offlinePush;
+
+  /// 附加信息
   String? attachedInfo;
+
+  /// 扩展信息
   String? ex;
+
+  /// 自定义扩展信息，目前用于客服端处理消息时间分段
   dynamic ext;
+
+  /// 图片
   PictureElem? pictureElem;
+
+  /// 语音
   SoundElem? soundElem;
+
+  /// 视频
   VideoElem? videoElem;
+
+  /// 文件
   FileElem? fileElem;
+
+  /// @信息
   AtElem? atElem;
+
+  /// 位置
   LocationElem? locationElem;
+
+  /// 自定义
   CustomElem? customElem;
+
+  /// 引用
   QuoteElem? quoteElem;
+
+  /// 合并
   MergeElem? mergeElem;
+
+  /// 通知
   NotificationElem? notificationElem;
+
+  /// 自定义表情
   FaceElem? faceElem;
+
+  /// 附加信息
   AttachedInfoElem? attachedInfoElem;
 
   Message({
@@ -224,10 +289,18 @@ class Message {
   }
 }
 
+/// 图片消息内容
 class PictureElem {
+  /// 原路径
   String? sourcePath;
+
+  /// 原图对象
   PictureInfo? sourcePicture;
+
+  /// 大图对象
   PictureInfo? bigPicture;
+
+  /// 缩率图对象
   PictureInfo? snapshotPicture;
 
   PictureElem(
@@ -265,12 +338,24 @@ class PictureElem {
   }
 }
 
+/// 图片信息
 class PictureInfo {
+  /// id
   String? uuid;
+
+  /// 图片mime类型
   String? type;
+
+  /// 大小
   int? size;
+
+  /// 宽度
   int? width;
+
+  /// 长度
   int? height;
+
+  /// 图片URL地址
   String? url;
 
   PictureInfo(
@@ -297,11 +382,21 @@ class PictureInfo {
   }
 }
 
+/// 语音消息内容
 class SoundElem {
+  /// id
   String? uuid;
+
+  /// 原路径
   String? soundPath;
+
+  /// url地址
   String? sourceUrl;
+
+  /// 大小
   int? dataSize;
+
+  /// 时间s
   int? duration;
 
   SoundElem(
@@ -330,18 +425,42 @@ class SoundElem {
   }
 }
 
+/// 视频消息内容
 class VideoElem {
+  /// 视频路径
   String? videoPath;
+
+  /// uuid
   String? videoUUID;
+
+  /// 视频的url地址
   String? videoUrl;
+
+  /// mime类型
   String? videoType;
+
+  /// 大小
   int? videoSize;
+
+  /// 时长s
   int? duration;
+
+  /// 缩率图路径
   String? snapshotPath;
+
+  /// 缩率图uuid
   String? snapshotUUID;
+
+  /// 缩率图大小
   int? snapshotSize;
+
+  /// 缩率图URL地址
   String? snapshotUrl;
+
+  /// 缩率图宽度
   int? snapshotWidth;
+
+  /// 缩率图高度
   int? snapshotHeight;
 
   VideoElem(
@@ -391,11 +510,21 @@ class VideoElem {
   }
 }
 
+/// 文件消息内容
 class FileElem {
+  /// 文件路径
   String? filePath;
+
+  /// uuid
   String? uuid;
+
+  /// 文件URL地址
   String? sourceUrl;
+
+  /// 文件名
   String? fileName;
+
+  /// 文件大小
   int? fileSize;
 
   FileElem(
@@ -420,11 +549,21 @@ class FileElem {
   }
 }
 
+/// @消息内容
 class AtElem {
+  /// 消息内容
   String? text;
+
+  /// 被@的用户ID列表
   List<String>? atUserList;
+
+  /// 是否包含自己
   bool? isAtSelf;
+
+  /// 被@的用户ID跟昵称关系列表，用于将消息内容里的用户id替换为昵称显示
   List<AtUserInfo>? atUsersInfo;
+
+  /// 被回复的消息体，回复别人并@了人
   Message? quoteMessage;
 
   AtElem({
@@ -462,9 +601,15 @@ class AtElem {
   }
 }
 
+/// 位置消息内日
 class LocationElem {
+  /// 位置描述
   String? description;
+
+  /// 经度
   double? longitude;
+
+  /// 纬度
   double? latitude;
 
   LocationElem({this.description, this.longitude, this.latitude});
@@ -493,9 +638,15 @@ class LocationElem {
   }
 }
 
+/// 自定义消息
 class CustomElem {
+  /// 自定义数据
   String? data;
+
+  /// 扩展内容
   String? extension;
+
+  /// 描述内容
   String? description;
 
   CustomElem({this.data, this.extension, this.description});
@@ -515,8 +666,12 @@ class CustomElem {
   }
 }
 
+/// 引用消息（被回复的消息）
 class QuoteElem {
+  /// 回复内容内容
   String? text;
+
+  /// 被回复的消息体
   Message? quoteMessage;
 
   QuoteElem({this.text, this.quoteMessage});
@@ -536,9 +691,15 @@ class QuoteElem {
   }
 }
 
+/// 合并消息体
 class MergeElem {
+  /// 标题
   String? title;
+
+  /// 摘要
   List<String>? abstractList;
+
+  /// 具体选择合并的消息列表
   List<Message>? multiMessage;
 
   MergeElem({this.title, this.abstractList, this.multiMessage});
@@ -564,8 +725,12 @@ class MergeElem {
   }
 }
 
+/// 通知
 class NotificationElem {
+  /// 详情
   String? detail;
+
+  /// 提示
   String? defaultTips;
 
   NotificationElem({this.detail, this.defaultTips});
@@ -583,8 +748,12 @@ class NotificationElem {
   }
 }
 
+/// 表情
 class FaceElem {
+  /// 位置表情，用户端对端自定义内嵌的表情包
   int? index;
+
+  /// 其他表情，如URL表情直接返回url
   String? data;
 
   FaceElem({this.index, this.data});
@@ -602,12 +771,18 @@ class FaceElem {
   }
 }
 
+/// 附加信息
 class AttachedInfoElem {
+  /// 群消息已读信息
   GroupHasReadInfo? groupHasReadInfo;
 
-  /// 单聊有效
+  /// 是否为私聊消息（阅后即焚消息），单聊有效
   bool? isPrivateChat;
+
+  /// 已读时间
   int? hasReadTime;
+
+  /// 离线不发送推送
   bool? notSenderNotificationPush;
 
   AttachedInfoElem({
@@ -636,9 +811,15 @@ class AttachedInfoElem {
   }
 }
 
+/// 群消息已读信息
 class GroupHasReadInfo {
+  /// 已读的用户id列表
   List<String>? hasReadUserIDList;
+
+  /// 已读总数
   int? hasReadCount;
+
+  /// 发送此条消息时的群人数
   int? groupMemberCount;
 
   GroupHasReadInfo.fromJson(Map<String, dynamic> json) {
@@ -660,13 +841,27 @@ class GroupHasReadInfo {
   }
 }
 
+/// 消息已读回执信息
 class ReadReceiptInfo {
+  /// 发送者id
   String? userID;
+
+  /// 群id
   String? groupID;
+
+  /// 已读消息的clientMsgID集合
   List<String>? msgIDList;
+
+  /// 读时间
   int? readTime;
+
+  /// 消息来源
   int? msgFrom;
+
+  /// 消息类型[MessageType]
   int? contentType;
+
+  /// 会话类型[ConversationType]
   int? sessionType;
 
   ReadReceiptInfo(
@@ -702,11 +897,21 @@ class ReadReceiptInfo {
   }
 }
 
+/// 离线推送信息
 class OfflinePushInfo {
+  /// 通知标题
   String? title;
+
+  /// 通知描述
   String? desc;
+
+  /// 扩展内容
   String? ex;
+
+  /// 仅ios有效
   String? iOSPushSound;
+
+  /// 仅ios有效
   bool? iOSBadgeCount;
 
   OfflinePushInfo(
@@ -731,8 +936,12 @@ class OfflinePushInfo {
   }
 }
 
+/// @消息用户id跟昵称关系对象
 class AtUserInfo {
+  /// 被@的用户id
   String? atUserID;
+
+  /// 被@的用户昵称
   String? groupNickname;
 
   AtUserInfo({this.atUserID, this.groupNickname});

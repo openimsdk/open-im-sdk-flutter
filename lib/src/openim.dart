@@ -2,10 +2,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class OpenIM {
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_openim_sdk');
+  static const version = '2.1.0';
 
-  static IMManager iMManager = IMManager(_channel);
+  static const _channel = const MethodChannel('flutter_openim_sdk');
+
+  static final iMManager = IMManager(_channel);
 
   OpenIM._();
 }

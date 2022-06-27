@@ -289,23 +289,13 @@ class IMManager {
     });
   }
 
-  /// Initialize SDK
-  ///
-  /// [platform]  platform number  [IMPlatform]
-  /// [apiAddr]   api server ip address
-  /// [wsAddr]    webSocket ip address
-  /// [dataDir]   data storage directory
-  /// [objectStorage] storage object: cos/minio
-  /// [logLevel] log level: 1-not print
-  ///
   /// 初始化SDK
-  ///
   /// [platform]  平台编号[IMPlatform]
   /// [apiAddr]   SDK api地址
   /// [wsAddr]    SDK websocket地址
   /// [dataDir]   SDK数据库存储目录
   /// [objectStorage] 存储对象 cos/minio
-  /// [logLevel] 日志 1-不打印
+  /// [logLevel] 日志 1不打印
   Future<dynamic> initSDK({
     required int platform,
     required String apiAddr,
@@ -338,10 +328,9 @@ class IMManager {
     return _channel.invokeMethod('unInitSDK', _buildParam({}));
   }
 
-  /// Login sdk
   /// 登录
-  /// [uid]用户id
-  /// [token]登录token，从业务服务器上获取
+  /// [uid] 用户id
+  /// [token] 登录token，从业务服务器上获取
   Future<UserInfo> login({
     required String uid,
     required String token,
@@ -362,7 +351,6 @@ class IMManager {
     return uInfo;
   }
 
-  /// Logout sdk
   /// 登出
   Future<dynamic> logout({String? operationID}) async {
     var value = await _channel.invokeMethod(
@@ -375,19 +363,16 @@ class IMManager {
     return value;
   }
 
-  ///
+  /// 获取登录状态
   Future<int?> getLoginStatus() =>
       _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
 
-  /// Current user id
   /// 获取当前登录用户id
   Future<String> getLoginUserID() async => uid;
 
-  /// Current user info
   /// 获取当前登录用户信息
   Future<UserInfo> getLoginUserInfo() async => uInfo;
 
-  /// wakeup
   /// 从后台回到前台立刻唤醒
   Future wakeUp({String? operationID}) => _channel.invokeMethod(
       'wakeUp',
@@ -395,7 +380,6 @@ class IMManager {
         'operationID': Utils.checkOperationID(operationID),
       }));
 
-  /// upload image to server
   /// 上传图片到服务器
   /// [path]图片路径
   /// [token] im token

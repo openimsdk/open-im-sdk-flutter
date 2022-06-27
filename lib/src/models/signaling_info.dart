@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class SignalingInfo {
+  /// 操作者
   String? opUserID;
+
+  /// 邀请信息
   InvitationInfo? invitation;
+
+  /// 离线显示内容
   OfflinePushInfo? offlinePushInfo;
 
   SignalingInfo({
@@ -31,15 +38,32 @@ class SignalingInfo {
 }
 
 class InvitationInfo {
-  String? inviterUserID; //邀请者UserID
-  List<String>? inviteeUserIDList; //被邀请者UserID列表，如果是单聊只有一个元素
-  String? groupID; //如果是单聊，为""
-  String? roomID; //房间ID，必须唯一，可以不设置。
-  int? timeout; //邀请超时时间（秒）
+  /// 邀请者UserID
+  String? inviterUserID;
+
+  /// 被邀请者UserID列表，如果是单聊只有一个元素
+  List<String>? inviteeUserIDList;
+
+  /// 如果是单聊，为""
+  String? groupID;
+
+  /// 房间ID，必须唯一，可以不设置。
+  String? roomID;
+
+  /// 邀请超时时间（秒）
+  int? timeout;
+
+  /// 发起时间
   int? initiateTime;
-  String? mediaType; //video 或者audio
-  int? sessionType; //1为单聊，2为群聊
-  int? platformID; //和之前定义一致
+
+  /// video 或者 audio
+  String? mediaType;
+
+  /// [ConversationType]1为单聊，2为群聊
+  int? sessionType;
+
+  /// 平台[Platform]
+  int? platformID;
 
   InvitationInfo(
       {this.inviterUserID,
@@ -79,9 +103,15 @@ class InvitationInfo {
   }
 }
 
+/// 信令凭证
 class SignalingCertificate {
+  /// 登录token
   String? token;
+
+  /// 房间id
   String? roomID;
+
+  /// 服务器地址
   String? liveURL;
 
   SignalingCertificate({this.token, this.roomID, this.liveURL});

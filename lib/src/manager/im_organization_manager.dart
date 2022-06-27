@@ -7,15 +7,16 @@ class OrganizationManager {
 
   OrganizationManager(this._channel);
 
-  /// Observe organization info changes
   /// 组织架构发生变化回调
   Future setOrganizationListener(OnOrganizationListener listener) {
     this.listener = listener;
     return _channel.invokeMethod('setOrganizationListener', _buildParam({}));
   }
 
-  /// Query sub department
-  /// 获取子部门列表
+  /// 获取子部门列表，返回当前部门下的一级子部门
+  /// [departmentID] 当前部门id
+  /// [offset] 开始下标
+  /// [count] 每页大小
   Future<List<DeptInfo>> getSubDept({
     required String departmentID,
     int offset = 0,
@@ -33,8 +34,10 @@ class OrganizationManager {
               }))
           .then((value) => Utils.toList(value, (v) => DeptInfo.fromJson(v)));
 
-  /// Get member under a department
-  /// 获取部门下的成员列表
+  /// 获取部门下的成员列表，返回当前部门下的一级成员
+  /// [departmentID] 当前部门id
+  /// [offset] 开始下标
+  /// [count] 每页大小
   Future<List<DeptMemberInfo>> getDeptMember({
     required String departmentID,
     int offset = 0,
@@ -53,8 +56,8 @@ class OrganizationManager {
           .then((value) =>
               Utils.toList(value, (v) => DeptMemberInfo.fromJson(v)));
 
-  /// Get member's department
   /// 获取成员所在的部门
+  /// [userID] 成员ID
   Future<List<UserInDept>> getUserInDept({
     required String userID,
     String? operationID,
@@ -68,8 +71,8 @@ class OrganizationManager {
               }))
           .then((value) => Utils.toList(value, (v) => UserInDept.fromJson(v)));
 
-  /// Get the sub-departments and employees under the department
   /// 获取部门下的子部门跟员工
+  /// [departmentID] 当前部门id
   Future<DeptMemberAndSubDept> getDeptMemberAndSubDept({
     required String departmentID,
     // int departmentOffset = 0,
@@ -92,8 +95,8 @@ class OrganizationManager {
           .then((value) =>
               Utils.toObj(value, (v) => DeptMemberAndSubDept.fromJson(v)));
 
-  /// Query department info
   /// 查询部门信息
+  /// [departmentID] 部门ID
   Future<DeptInfo> getDeptInfo({
     required String departmentID,
     String? operationID,
@@ -107,8 +110,17 @@ class OrganizationManager {
               }))
           .then((value) => Utils.toObj(value, (v) => DeptInfo.fromJson(v)));
 
-  /// Search
   /// 搜索组织人员
+  /// [keyWord] 关键字
+  /// [isSearchUserName] 是否匹配用户名
+  /// [isSearchEnglishName] 是否匹配英文名
+  /// [isSearchPosition]  是否匹配职位
+  /// [isSearchUserID]  是否匹配用户ID
+  /// [isSearchMobile]  是否匹配手机号
+  /// [isSearchEmail] 是否匹配邮箱号
+  /// [isSearchTelephone] 是否匹配电话号码
+  /// [offset]  开始下标
+  /// [count] 分页大小
   Future<OrganizationSearchResult> searchOrganization({
     required String keyWord,
     bool isSearchUserName = false,

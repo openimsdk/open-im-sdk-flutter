@@ -5,31 +5,52 @@
 /// Not a friend is not on the blacklist
 /// 不是好友不在黑名单
 class UserInfo {
+  /// 用户id
   String? userID;
+
+  /// 用户昵称
   String? nickname;
+
+  /// 头像
   String? faceURL;
+
+  /// 性别
   int? gender;
+
+  /// 手机号
   String? phoneNumber;
+
+  /// 出生时间
   int? birth;
+
+  /// 邮箱
   String? email;
+
+  /// 扩展字段
   String? ex;
+
+  /// 创建时间
   int? createTime;
+
+  /// 备注
   String? remark;
 
-  /// User's public profile（用户公开的资料）
+  /// 用户公开的资料
   PublicUserInfo? publicInfo;
 
-  /// Only friends can view information（好友才能查看的资料）
+  /// 好友才能查看的资料
   FriendInfo? friendInfo;
 
-  /// blacklist information（黑名单资料）
+  /// 黑名单资料
   BlacklistInfo? blackInfo;
 
+  /// 是否好友关系
   bool? isFriendship;
 
+  /// 是否黑名单
   bool? isBlacklist;
 
-  /// 全局免打扰
+  /// 全局免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   int? globalRecvMsgOpt;
 
   UserInfo({
@@ -165,12 +186,24 @@ class UserInfo {
   int get hashCode => userID.hashCode;
 }
 
+/// 公开的资料
 class PublicUserInfo {
+  /// 用户id
   String? userID;
+
+  /// 昵称
   String? nickname;
+
+  /// 头像
   String? faceURL;
+
+  /// 性别
   int? gender;
+
+  ///
   int? appMangerLevel;
+
+  /// 扩展信息
   String? ex;
 
   PublicUserInfo({
@@ -203,18 +236,42 @@ class PublicUserInfo {
   }
 }
 
+/// 好友信息
 class FriendInfo {
+  /// 用户id
   String? userID;
+
+  /// 昵称
   String? nickname;
+
+  /// 头像
   String? faceURL;
+
+  /// 性别
   int? gender;
+
+  /// 手机号
   String? phoneNumber;
+
+  /// 出生日期
   int? birth;
+
+  /// 邮箱
   String? email;
+
+  /// 备注
   String? remark;
+
+  /// 扩展字段
   String? ex;
+
+  /// 创建时间
   int? createTime;
+
+  /// 添加方式
   int? addSource;
+
+  /// 操作者id
   String? operatorUserID;
 
   FriendInfo({
@@ -267,14 +324,30 @@ class FriendInfo {
   }
 }
 
+/// 黑名单信息
 class BlacklistInfo {
+  /// 用户id
   String? userID;
+
+  /// 昵称
   String? nickname;
+
+  /// 头像
   String? faceURL;
+
+  /// 性别
   int? gender;
+
+  /// 创建时间
   int? createTime;
+
+  /// 添加方式
   int? addSource;
+
+  /// 操作者
   String? operatorUserID;
+
+  /// 扩展信息
   String? ex;
 
   BlacklistInfo({
@@ -313,10 +386,11 @@ class BlacklistInfo {
   }
 }
 
+/// 关系
 class FriendshipInfo {
+  /// 用户id
   String? userID;
 
-  /// 1 means friend (and not blacklist)
   /// 1表示好友（并且不是黑名单）
   int? result;
 
@@ -335,21 +409,51 @@ class FriendshipInfo {
   }
 }
 
+/// 好友申请信息
 class FriendApplicationInfo {
+  /// 发起者用户id
   String? fromUserID;
+
+  /// 发起者用户昵称
   String? fromNickname;
+
+  /// 发起者用户头像
   String? fromFaceURL;
+
+  /// 发起者性别
   int? fromGender;
+
+  /// 接收者用户id
   String? toUserID;
+
+  /// 接收者用户昵称
   String? toNickname;
+
+  /// 接收者头像
   String? toFaceURL;
+
+  /// 接收者性别
   int? toGender;
+
+  /// 处理结果
   int? handleResult;
+
+  /// 请求消息
   String? reqMsg;
+
+  /// 创建时间
   int? createTime;
+
+  /// 处理者id
   String? handlerUserID;
+
+  /// 处理备注
   String? handleMsg;
+
+  ///  处理时间
   int? handleTime;
+
+  /// 扩展字段
   String? ex;
 
   FriendApplicationInfo(
@@ -407,12 +511,12 @@ class FriendApplicationInfo {
     return data;
   }
 
-  /// friend application waiting handle
+  /// 等待处理
   bool get isWaitingHandle => handleResult == 0;
 
-  /// friend application agreed
+  /// 已同意
   bool get isAgreed => handleResult == 1;
 
-  /// friend application rejected
+  /// 已拒绝
   bool get isRejected => handleResult == -1;
 }

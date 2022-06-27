@@ -1,18 +1,45 @@
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+
+/// 群信息
 class GroupInfo {
+  /// 群ID
   String groupID;
+
+  /// 群名
   String? groupName;
+
+  /// 群公告
   String? notification;
+
+  /// 群简介
   String? introduction;
+
+  /// 群头像
   String? faceURL;
+
+  /// 拥有者ID
   String? ownerUserID;
+
+  /// 创建时间
   int? createTime;
+
+  /// 群成员数
   int? memberCount;
 
-  /// ok = 0 blocked = 1 Dismissed = 2 Muted  = 3
+  /// 群状态：0正常，1被封，2解散，3禁言
   int? status;
+
+  /// 创建者ID
   String? creatorUserID;
+
+  /// 群类型
   int? groupType;
+
+  /// 扩展字段
   String? ex;
+
+  /// 进群验证方式[GroupVerification]
+  int? needVerification;
 
   GroupInfo({
     required this.groupID,
@@ -27,6 +54,7 @@ class GroupInfo {
     this.creatorUserID,
     this.groupType,
     this.ex,
+    this.needVerification,
   });
 
   GroupInfo.fromJson(Map<String, dynamic> json) : groupID = json['groupID'] {
@@ -42,6 +70,7 @@ class GroupInfo {
     creatorUserID = json['creatorUserID'];
     groupType = json['groupType'];
     ex = json['ex'];
+    needVerification = json['needVerification'];
   }
 
   Map<String, dynamic> toJson() {
@@ -58,20 +87,41 @@ class GroupInfo {
     data['creatorUserID'] = this.creatorUserID;
     data['groupType'] = this.groupType;
     data['ex'] = this.ex;
+    data['needVerification'] = this.needVerification;
     return data;
   }
 }
 
+/// 群成员信息
 class GroupMembersInfo {
+  /// 群id
   String? groupID;
+
+  /// 用户id
   String? userID;
+
+  /// 昵称
   String? nickname;
+
+  /// 头像
   String? faceURL;
+
+  /// 角色[GroupRoleLevel]
   int? roleLevel;
+
+  /// 加入时间
   int? joinTime;
+
+  /// 入群方式
   int? joinSource;
+
+  /// 操作者id
   String? operatorUserID;
-  String? ext;
+
+  /// 扩展字段
+  String? ex;
+
+  /// 禁言时间s
   int? muteEndTime;
   int? appMangerLevel;
 
@@ -82,7 +132,7 @@ class GroupMembersInfo {
     this.joinTime,
     this.nickname,
     this.faceURL,
-    this.ext,
+    this.ex,
     this.joinSource,
     this.operatorUserID,
     this.muteEndTime,
@@ -96,7 +146,7 @@ class GroupMembersInfo {
     joinTime = json['joinTime'];
     nickname = json['nickname'];
     faceURL = json['faceURL'];
-    ext = json['ext'];
+    ex = json['ex'];
     joinSource = json['joinSource'];
     operatorUserID = json['operatorUserID'];
     muteEndTime = json['muteEndTime'];
@@ -111,7 +161,7 @@ class GroupMembersInfo {
     data['joinTime'] = this.joinTime;
     data['nickname'] = this.nickname;
     data['faceURL'] = this.faceURL;
-    data['ext'] = this.ext;
+    data['ex'] = this.ex;
     data['joinSource'] = this.joinSource;
     data['operatorUserID'] = this.operatorUserID;
     data['muteEndTime'] = this.muteEndTime;
@@ -120,11 +170,12 @@ class GroupMembersInfo {
   }
 }
 
+/// 群成员角色
 class GroupMemberRole {
+  /// 用户ID
   String? userID;
 
-  /// 1 ordinary member, 2 group owners, 3 administrators
-  /// 1普通成员, 2群主，3管理员
+  /// [GroupRoleLevel] 1普通成员, 2群主，3管理员
   int? roleLevel;
 
   GroupMemberRole({this.userID, this.roleLevel = 1});
@@ -142,31 +193,72 @@ class GroupMemberRole {
   }
 }
 
+/// 群申请信息
 class GroupApplicationInfo {
+  /// 群ID
   String? groupID;
+
+  /// 群昵称
   String? groupName;
+
+  /// 群公告
   String? notification;
+
+  /// 群介绍
   String? introduction;
+
+  /// 群头像
   String? groupFaceURL;
+
+  /// 群创建时间
   int? createTime;
+
+  /// 群状态
   int? status;
+
+  /// 创建者id
   String? creatorUserID;
+
+  /// 群类型
   int? groupType;
+
+  /// 拥有者id
   String? ownerUserID;
+
+  /// 成员数量
   int? memberCount;
+
+  /// 发起入群申请的用户id
   String? userID;
+
+  /// 发起入群申请的用户昵称
   String? nickname;
+
+  /// 发起入群申请的用户头像
   String? userFaceURL;
+
+  /// 发起入群申请的用户性别
   int? gender;
 
-  /// REFUSE = -1, AGREE = 1
-  /// -1：拒绝，1：同意
+  /// 处理结果：-1：拒绝，1：同意
   int? handleResult;
+
+  /// 请求说明
   String? reqMsg;
+
+  /// 处理结果说明
   String? handledMsg;
+
+  /// 请求时间
   int? reqTime;
+
+  /// 处理者用户ID
   String? handleUserID;
+
+  /// 处理时间
   int? handledTime;
+
+  /// 扩展信息
   String? ex;
 
   GroupApplicationInfo({

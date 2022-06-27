@@ -7,15 +7,14 @@ class UserManager {
 
   UserManager(this._channel);
 
-  /// Observe user info changes
   /// 用户资料改变监听
   Future setUserListener(OnUserListener listener) {
     this.listener = listener;
     return _channel.invokeMethod('setUserListener', _buildParam({}));
   }
 
-  /// Query user information
   /// 获取用户资料
+  /// [uidList] 用户ID列表
   Future<List<UserInfo>> getUsersInfo({
     required List<String> uidList,
     String? operationID,
@@ -29,7 +28,6 @@ class UserManager {
               }))
           .then((value) => Utils.toList(value, (v) => UserInfo.fromJson(v)));
 
-  /// Get the information of the currently logged in user
   /// 获取当前登录用户的信息
   Future<UserInfo> getSelfUserInfo({
     String? operationID,
@@ -42,8 +40,15 @@ class UserManager {
               }))
           .then((value) => Utils.toObj(value, (map) => UserInfo.fromJson(map)));
 
-  /// Modify current user info
   /// 修改当前登录用户资料
+  /// [nickname] 昵称
+  /// [faceURL] 头像
+  /// [gender] 性别
+  /// [appMangerLevel]
+  /// [phoneNumber] 手机号
+  /// [birth] 出生日期
+  /// [email] 邮箱
+  /// [ex] 扩展字段
   Future<String?> setSelfInfo({
     String? nickname,
     String? faceURL,

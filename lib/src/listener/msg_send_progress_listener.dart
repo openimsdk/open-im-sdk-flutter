@@ -1,3 +1,4 @@
+/// 消息发送进度监听
 class OnMsgSendProgressListener {
   Function(String clientMsgID, int progress)? onProgress;
 

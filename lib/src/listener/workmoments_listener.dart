@@ -3,6 +3,7 @@ class OnWorkMomentsListener {
 
   OnWorkMomentsListener({this.onRecvNewNotification});
 
+  /// 朋友圈信息发送改变
   void recvNewNotification() {
     onRecvNewNotification?.call();
   }

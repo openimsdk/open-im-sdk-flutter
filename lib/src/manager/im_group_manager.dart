@@ -7,15 +7,15 @@ class GroupManager {
 
   GroupManager(this._channel);
 
-  /// Set up group relationship monitoring
   /// 组关系监听
   Future setGroupListener(OnGroupListener listener) {
     this.listener = listener;
     return _channel.invokeMethod('setGroupListener', _buildParam({}));
   }
 
-  /// Invite friends into the group
   /// 邀请进组，直接进组无需同意。
+  /// [groupId] 组ID
+  /// [uidList] 用户ID列表
   Future<List<GroupInviteResult>> inviteUserToGroup({
     required String groupId,
     required List<String> uidList,
@@ -34,8 +34,10 @@ class GroupManager {
           .then((value) =>
               Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
 
-  /// Remove member from group
   /// 移除组成员
+  /// [groupId] 组ID
+  /// [uidList] 用户ID列表
+  /// [reason]  备注说明
   Future<List<GroupInviteResult>> kickGroupMember({
     required String groupId,
     required List<String> uidList,
@@ -54,8 +56,9 @@ class GroupManager {
           .then((value) =>
               Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
 
-  /// Get group member's info
   /// 查询组成员资料
+  /// [groupId] 组ID
+  /// [uidList] 用户ID列表
   Future<List<GroupMembersInfo>> getGroupMembersInfo({
     required String groupId,
     required List<String> uidList,
@@ -72,10 +75,9 @@ class GroupManager {
           .then((value) =>
               Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
-  /// Get the list of group members
   /// 分页获取组成员列表
   /// [groupId] 群ID
-  /// [filter] 过滤成员 1普通成员, 2群主，3管理员，0所有
+  /// [filter] 过滤成员 1普通成员, 2群主，3管理员，0 所有
   /// [offset] 开始下标
   /// [count] 总数
   Future<List<GroupMembersInfo>> getGroupMemberList({
@@ -98,7 +100,6 @@ class GroupManager {
           .then((value) =>
               Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
-  /// Get the list of group members
   /// 分页获取组成员列表
   /// [groupId] 群ID
   /// [filter] 过滤成员 1普通成员, 2群主，3管理员，0所有
@@ -123,7 +124,6 @@ class GroupManager {
               }))
           .then((value) => Utils.toListMap(value));
 
-  /// Find all groups you have joined
   /// 查询已加入的组列表
   Future<List<GroupInfo>> getJoinedGroupList({String? operationID}) => _channel
       .invokeMethod(
@@ -133,7 +133,6 @@ class GroupManager {
           }))
       .then((value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
-  /// Find all groups you have joined
   /// 查询已加入的组列表
   Future<List<dynamic>> getJoinedGroupListMap({String? operationID}) => _channel
       .invokeMethod(
@@ -143,8 +142,8 @@ class GroupManager {
           }))
       .then((value) => Utils.toListMap(value));
 
-  /// Check if you are a member of the group
   /// 检查是否已加入组
+  /// [gid] 组ID
   Future<bool> isJoinedGroup({
     required String gid,
     String? operationID,
@@ -153,14 +152,14 @@ class GroupManager {
         operationID: Utils.checkOperationID(operationID),
       ).then((list) => list.where((e) => e.groupID == gid).length > 0);
 
-  /// Create a group
   /// 创建一个组
   /// [groupName] 群名
   /// [notification] 公告
   /// [introduction] 群介绍
   /// [faceUrl] 群头像
+  /// [groupType] 组类型
   /// [ex] 额外信息
-  /// [list] 初创群成员以及其角色
+  /// [list] 初创群成员以及其角色列表，角色参考[GroupRoleLevel]类
   Future<GroupInfo> createGroup({
     String? groupName,
     String? notification,
@@ -189,7 +188,6 @@ class GroupManager {
           .then(
               (value) => Utils.toObj(value, (map) => GroupInfo.fromJson(map)));
 
-  /// Edit group information
   /// 编辑组资料
   /// [groupID] 被编辑的群ID
   /// [groupName] 新的群名
@@ -197,6 +195,7 @@ class GroupManager {
   /// [introduction] 新的群介绍
   /// [faceUrl] 新的群头像
   /// [ex] 新的额外信息
+  /// [needVerification] 进群设置，参考[GroupVerification]类
   Future<dynamic> setGroupInfo({
     required String groupID,
     String? groupName,
@@ -204,6 +203,7 @@ class GroupManager {
     String? introduction,
     String? faceUrl,
     String? ex,
+    int needVerification = 0,
     String? operationID,
   }) =>
       _channel.invokeMethod(
@@ -217,12 +217,13 @@ class GroupManager {
               "introduction": introduction,
               "faceURL": faceUrl,
               "ex": ex,
+              "needVerification": needVerification,
             },
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Find group information by group id
   /// 查询组信息
+  /// [gidList] 组ID列表
   Future<List<GroupInfo>> getGroupsInfo({
     required List<String> gidList,
     String? operationID,
@@ -237,7 +238,6 @@ class GroupManager {
           .then(
               (value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
-  /// Apply to join the group
   /// 申请加入组，需要通过管理员/群组同意。
   Future<dynamic> joinGroup({
     required String gid,
@@ -252,7 +252,6 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Leave group
   /// 退出组
   Future<dynamic> quitGroup({
     required String gid,
@@ -265,8 +264,9 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Give group permissions to others
   /// 转移组拥有者权限
+  /// [gid] 组ID
+  /// [uid] 新拥有者ID
   Future<dynamic> transferGroupOwner({
     required String gid,
     required String uid,
@@ -280,7 +280,6 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// As the group owner or administrator, the group member's application to join the group received
   /// 作为群主或者管理员，收到的群成员入群申请
   Future<List<GroupApplicationInfo>> getRecvGroupApplicationList(
           {String? operationID}) =>
@@ -293,7 +292,6 @@ class GroupManager {
           .then((value) =>
               Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
 
-  /// Get the record of the group membership application issued by yourself
   /// 获取自己发出的入群申请记录
   Future<List<GroupApplicationInfo>> getSendGroupApplicationList(
           {String? operationID}) =>
@@ -306,9 +304,10 @@ class GroupManager {
           .then((value) =>
               Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
 
-  /// Accept group application
   /// 管理员或者群主同意某人进入某群
   /// 注：主动申请入群需要通过管理员/群组处理，被别人拉入群不需要管理员/群组处理
+  /// [gid] 组id
+  /// [uid] 申请者用户ID
   Future<dynamic> acceptGroupApplication({
     required String gid,
     required String uid,
@@ -324,9 +323,11 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Refuse group application
   /// 管理员或者群主拒绝某人进入某群
   /// 注：主动申请入群需要通过管理员/群组处理，被别人拉入群不需要管理员/群组处理
+  /// [gid] 组id
+  /// [uid] 申请者用户ID
+  /// [handleMsg] 说明
   Future<dynamic> refuseGroupApplication({
     required String gid,
     required String uid,
@@ -342,8 +343,8 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Dissmiss group
   /// 解散群
+  /// [groupID] 群ID
   Future<dynamic> dismissGroup({
     required String groupID,
     String? operationID,
@@ -355,7 +356,6 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Enable group mute
   /// 开启群禁言，所有群成员禁止发言
   /// [groupID] 将开启群禁言的组ID
   /// [mute] true：开启，false：关闭
@@ -372,11 +372,10 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Mute group members
   /// 禁言群成员
   /// [groupID] 群ID
   /// [userID] 将被禁言的成员ID
-  /// [seconds] 被禁言的时间s，设置为0则为接触禁言
+  /// [seconds] 被禁言的时间s，设置为0则为解除禁言
   Future<dynamic> changeGroupMemberMute({
     required String groupID,
     required String userID,
@@ -392,7 +391,6 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Set group user nickname
   /// 设置群成员昵称
   /// [groupID] 群ID
   /// [userID] 群成员的用户ID
@@ -412,7 +410,6 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Search group
   /// 查询群
   /// [keywordList] 搜索关键词，目前仅支持一个关键词搜索，不能为空
   /// [isSearchGroupID] 是否以关键词搜索群ID(注：两个不可以同时为false)，为空默认false
@@ -437,11 +434,10 @@ class GroupManager {
           .then(
               (value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
-  /// Set group user role
   /// 设置群成员权限
   /// [groupID] 群ID
   /// [userID] 群成员的用户ID
-  /// [roleLevel] 角色等级
+  /// [roleLevel] 角色等级，参考[GroupRoleLevel]
   Future<dynamic> setGroupMemberRoleLevel({
     required String groupID,
     required String userID,
@@ -457,8 +453,7 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// Get the list of group members
-  /// 分页获取组成员列表
+  /// 根据加入时间分页获取组成员列表
   /// [groupID] 群ID
   /// [joinTimeBegin] 加入开始时间
   /// [joinTimeEnd] 加入结束时间

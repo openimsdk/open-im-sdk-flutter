@@ -10,7 +10,6 @@ class MessageManager {
 
   MessageManager(this._channel);
 
-  /// Set a message listener
   /// 消息监听
   Future setAdvancedMsgListener(OnAdvancedMsgListener listener) {
     this.msgListener = listener;
@@ -22,18 +21,16 @@ class MessageManager {
         }));
   }
 
-  /// Set up message sending progress monitoring
   /// 消息发送进度监听
   void setMsgSendProgressListener(OnMsgSendProgressListener listener) {
     msgSendProgressListener = listener;
   }
 
-  /// Send a message to user or to group
-  /// [userID] receiver's user ID
   /// 发送消息
-  /// [userID]接收消息的用户id
-  /// [groupID]接收消息的组id
-  /// [offlinePushInfo]离线消息显示内容
+  /// [message] 消息体
+  /// [userID] 接收消息的用户id
+  /// [groupID] 接收消息的组id
+  /// [offlinePushInfo] 离线消息显示内容
   Future<Message> sendMessage({
     required Message message,
     required OfflinePushInfo offlinePushInfo,
@@ -53,7 +50,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Find all history message
   /// 获取聊天记录(以startMsg为节点，以前的聊天记录)
   /// [userID] 接收消息的用户id
   /// [conversationID] 会话id，查询通知时可用
@@ -81,8 +77,8 @@ class MessageManager {
               }))
           .then((value) => Utils.toList(value, (map) => Message.fromJson(map)));
 
-  /// Revoke the sent information
   /// 撤回消息
+  /// [message] 被撤回的消息体
   Future revokeMessage({
     required Message message,
     String? operationID,
@@ -94,8 +90,8 @@ class MessageManager {
               "operationID": Utils.checkOperationID(operationID),
             })));
 
-  /// Delete message
   /// 删除本地消息
+  /// [message] 被删除的消息体
   Future deleteMessageFromLocalStorage({
     required Message message,
     String? operationID,
@@ -107,12 +103,10 @@ class MessageManager {
               "operationID": Utils.checkOperationID(operationID),
             })));
 
-  ///
-  // Future deleteMessages({required List<Message> msgList}) =>
-  //     _channel.invokeMethod('deleteMessages',
-  //         _buildParam({"msgList": msgList.map((e) => e.toJson()).toList()}));
-
   /// 插入单聊消息到本地
+  /// [receiverID] 接收者id
+  /// [senderID] 发送者id
+  /// [message] 消息体
   Future<Message> insertSingleMessageToLocalStorage({
     String? receiverID,
     String? senderID,
@@ -131,6 +125,9 @@ class MessageManager {
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
   /// 插入群聊消息到本地
+  /// [groupID] 群id
+  /// [senderID] 发送者id
+  /// [message] 消息体
   Future<Message> insertGroupMessageToLocalStorage({
     String? groupID,
     String? senderID,
@@ -148,8 +145,9 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Mark c2c message as read
-  /// 标记c2c消息已读
+  /// 标记c2c单条消息已读
+  /// [userID] 消息来源的userID
+  /// [messageIDList] 消息clientMsgID集合
   Future markC2CMessageAsRead({
     required String userID,
     required List<String> messageIDList,
@@ -163,8 +161,9 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Mark group message as read
   /// 标记群聊消息已读
+  /// [groupID] 群id
+  /// [messageIDList] 消息clientMsgID集合
   Future markGroupMessageAsRead({
     required String groupID,
     required List<String> messageIDList,
@@ -178,7 +177,6 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Typing
   /// 正在输入提示
   /// [msgTip] 自定义内容
   Future typingStatusUpdate({
@@ -194,7 +192,6 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Create text message
   /// 创建文本消息
   Future<Message> createTextMessage({
     required String text,
@@ -209,7 +206,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create @ message
   /// 创建@消息
   /// [text] 输入内容
   /// [atUserIDList] 被@到的userID集合
@@ -235,8 +231,8 @@ class MessageManager {
           )
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create picture message
   /// 创建图片消息
+  /// [imagePath] 路径
   Future<Message> createImageMessage({
     required String imagePath,
     String? operationID,
@@ -251,7 +247,6 @@ class MessageManager {
           )
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create picture message
   /// 创建图片消息
   /// [imagePath] 路径
   Future<Message> createImageMessageFromFullPath({
@@ -268,8 +263,9 @@ class MessageManager {
           )
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create sound message
   /// 创建语音消息
+  /// [soundPath] 路径
+  /// [duration] 时长s
   Future<Message> createSoundMessage({
     required String soundPath,
     required int duration,
@@ -286,7 +282,6 @@ class MessageManager {
           )
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create sound message
   /// 创建语音消息
   /// [soundPath] 路径
   /// [duration] 时长s
@@ -306,8 +301,11 @@ class MessageManager {
           )
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create video message
   /// 创建视频消息
+  /// [videoPath] 路径
+  /// [videoType] 视频mime类型
+  /// [duration] 时长s
+  /// [snapshotPath] 默认站位图路径
   Future<Message> createVideoMessage({
     required String videoPath,
     required String videoType,
@@ -327,7 +325,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create video message
   /// 创建视频消息
   /// [videoPath] 路径
   /// [videoType] 视频mime类型
@@ -352,8 +349,9 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create file message
   /// 创建文件消息
+  /// [filePath] 路径
+  /// [fileName] 文件名
   Future<Message> createFileMessage({
     required String filePath,
     required String fileName,
@@ -370,7 +368,6 @@ class MessageManager {
         .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
   }
 
-  /// Create file message
   /// 创建文件消息
   /// [filePath] 路径
   /// [fileName] 文件名
@@ -389,7 +386,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create merger message
   /// 创建合并消息
   /// [messageList] 被选中的消息
   /// [title] 摘要标题
@@ -411,7 +407,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create forward message
   /// 创建转发消息
   /// [message] 被转发的消息
   Future<Message> createForwardMessage({
@@ -428,7 +423,6 @@ class MessageManager {
         .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
   }
 
-  /// Create location message
   /// 创建位置消息
   /// [latitude] 纬度
   /// [longitude] 经度
@@ -450,8 +444,10 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create custom message
   /// 创建自定义消息
+  /// [data] 自定义数据
+  /// [extension] 自定义扩展内容
+  /// [description] 自定义描述内容
   Future<Message> createCustomMessage({
     required String data,
     required String extension,
@@ -469,7 +465,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create quote message
   /// 创建引用消息
   /// [text] 回复的内容
   /// [quoteMsg] 被回复的消息
@@ -488,8 +483,8 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create card message
   /// 创建卡片消息
+  /// [data] 自定义数据
   Future<Message> createCardMessage({
     required Map<String, dynamic> data,
     String? operationID,
@@ -503,9 +498,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Create custom emoji message
-  /// [index] The position of the emoji, such as the position emoji
-  /// [data] Other data, such as url expressions
   /// 创建自定义表情消息
   /// [index] 位置表情，根据index匹配
   /// [data] url表情，直接使用url显示
@@ -524,8 +516,8 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// Clear all c2c history message
   /// 清空单聊消息记录
+  /// [uid] 单聊对象id
   Future<dynamic> clearC2CHistoryMessage({
     required String uid,
     String? operationID,
@@ -537,8 +529,8 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Clear all group history
   /// 清空组消息记录
+  /// [gid] 组id
   Future<dynamic> clearGroupHistoryMessage({
     required String gid,
     String? operationID,
@@ -550,17 +542,16 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Search local message
   /// 搜索消息
   /// [conversationID] 根据会话查询，如果是全局搜索传null
-  /// [keywordList]搜索关键词列表，目前仅支持一个关键词搜索
-  /// [keywordListMatchType]关键词匹配模式，1代表与，2代表或，暂时未用
-  /// [senderUserIDList]指定消息发送的uid列表 暂时未用
-  /// [messageTypeList]消息类型列表
-  /// [searchTimePosition]搜索的起始时间点。默认为0即代表从现在开始搜索。UTC 时间戳，单位：秒
-  /// [searchTimePeriod]从起始时间点开始的过去时间范围，单位秒。默认为0即代表不限制时间范围，传24x60x60代表过去一天
-  /// [pageIndex]当前页数
-  /// [count]每页数量
+  /// [keywordList] 搜索关键词列表，目前仅支持一个关键词搜索
+  /// [keywordListMatchType] 关键词匹配模式，1代表与，2代表或，暂时未用
+  /// [senderUserIDList] 指定消息发送的uid列表 暂时未用
+  /// [messageTypeList] 消息类型列表
+  /// [searchTimePosition] 搜索的起始时间点。默认为0即代表从现在开始搜索。UTC 时间戳，单位：秒
+  /// [searchTimePeriod] 从起始时间点开始的过去时间范围，单位秒。默认为0即代表不限制时间范围，传24x60x60代表过去一天
+  /// [pageIndex] 当前页数
+  /// [count] 每页数量
   Future<SearchResult> searchLocalMessages({
     String? conversationID,
     List<String> keywordList = const [],
@@ -593,8 +584,8 @@ class MessageManager {
           .then((value) =>
               Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
-  /// Delete message from local and service
   /// 删除本地跟服务器的指定的消息
+  /// [message] 被删除的消息
   Future<dynamic> deleteMessageFromLocalAndSvr({
     required Message message,
     String? operationID,
@@ -606,7 +597,6 @@ class MessageManager {
               "operationID": Utils.checkOperationID(operationID),
             })));
 
-  /// Delete all message from local
   /// 删除本地所有聊天记录
   Future<dynamic> deleteAllMsgFromLocal({
     String? operationID,
@@ -617,7 +607,6 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Delete all message from service
   /// 删除本地跟服务器所有聊天记录
   Future<dynamic> deleteAllMsgFromLocalAndSvr({
     String? operationID,
@@ -628,7 +617,6 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Mark conversation message as read
   /// 标记消息已读
   /// [conversationID] 会话ID
   /// [messageIDList] 被标记的消息clientMsgID
@@ -645,8 +633,8 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Clear all c2c history message
   /// 删除本地跟服务器的单聊聊天记录
+  /// [uid] 聊天对象的userID
   Future<dynamic> clearC2CHistoryMessageFromLocalAndSvr({
     required String uid,
     String? operationID,
@@ -658,8 +646,8 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Clear all group history
   /// 删除本地跟服务器的群聊天记录
+  /// [gid] 组id
   Future<dynamic> clearGroupHistoryMessageFromLocalAndSvr({
     required String gid,
     String? operationID,
@@ -671,7 +659,6 @@ class MessageManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Find all history message
   /// 获取聊天记录(以startMsg为节点，新收到的聊天记录)，用在全局搜索定位某一条消息，然后此条消息后新增的消息
   /// [userID] 接收消息的用户id
   /// [conversationID] 会话id，查询通知时可用

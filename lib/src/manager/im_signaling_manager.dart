@@ -15,6 +15,7 @@ class SignalingManager {
   }
 
   /// 邀请个人加入音视频
+  /// [info] 信令对象[SignalingInfo]
   Future<SignalingCertificate> signalingInvite({
     required SignalingInfo info,
     String? operationID,
@@ -30,6 +31,7 @@ class SignalingManager {
               Utils.toObj(value, (map) => SignalingCertificate.fromJson(map)));
 
   /// 邀请群里某些人加入音视频
+  /// [info] 信令对象[SignalingInfo]
   Future<SignalingCertificate> signalingInviteInGroup({
     required SignalingInfo info,
     String? operationID,
@@ -45,6 +47,7 @@ class SignalingManager {
               Utils.toObj(value, (map) => SignalingCertificate.fromJson(map)));
 
   /// 同意某人音视频邀请
+  /// [info] 信令对象[SignalingInfo]
   Future<SignalingCertificate> signalingAccept({
     required SignalingInfo info,
     String? operationID,
@@ -60,6 +63,7 @@ class SignalingManager {
               Utils.toObj(value, (map) => SignalingCertificate.fromJson(map)));
 
   /// 拒绝某人音视频邀请
+  /// [info] 信令对象[SignalingInfo]
   Future<dynamic> signalingReject({
     required SignalingInfo info,
     String? operationID,
@@ -72,6 +76,7 @@ class SignalingManager {
           }));
 
   /// 邀请者取消音视频通话
+  /// [info] 信令对象[SignalingInfo]
   Future<dynamic> signalingCancel({
     required SignalingInfo info,
     String? operationID,
@@ -84,6 +89,7 @@ class SignalingManager {
           }));
 
   /// 挂断
+  /// [info] 信令对象[SignalingInfo]
   Future<dynamic> signalingHungUp({
     required SignalingInfo info,
     String? operationID,

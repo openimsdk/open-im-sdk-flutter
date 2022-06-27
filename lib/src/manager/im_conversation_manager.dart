@@ -7,14 +7,12 @@ class ConversationManager {
 
   ConversationManager(this._channel);
 
-  /// Observe conversation changes
   /// 会话监听
   Future setConversationListener(OnConversationListener listener) {
     this.listener = listener;
     return _channel.invokeMethod('setConversationListener', _buildParam({}));
   }
 
-  /// Get all conversations
   /// 获取所有会话
   Future<List<ConversationInfo>> getAllConversationList(
           {String? operationID}) =>
@@ -27,8 +25,9 @@ class ConversationManager {
           .then((value) =>
               Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
-  /// Paging to get conversation
   /// 分页获取会话
+  /// [offset] 开始下标
+  /// [count] 每页数量
   Future<List<ConversationInfo>> getConversationListSplit({
     int offset = 0,
     int count = 20,
@@ -45,12 +44,9 @@ class ConversationManager {
           .then((value) =>
               Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
-  /// Get a conversation, if it doesn't exist it will be created automatically
-  /// [sourceID] if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
-  /// [sessionType] if it is a single chat, it value is 1. if it is a group chat, it value is 2
-  /// 获取一个会话，如果不存在会自动创建
-  /// [sourceID] 如果是单聊值传用户ID，如果是群聊值传组ID
-  /// [sessionType] 如果是单聊值传1，如果是群聊值传2
+  /// 查询会话，如果会话不存在会自动生成一个
+  /// [sourceID] 如果是单聊会话传userID，如果是群聊会话传GroupID
+  /// [sessionType] 如果是单聊会话传1，如果是群聊会话传2
   Future<ConversationInfo> getOneConversation({
     required String sourceID,
     required int sessionType,
@@ -67,8 +63,8 @@ class ConversationManager {
           .then((value) =>
               Utils.toObj(value, (map) => ConversationInfo.fromJson(map)));
 
-  /// Get conversation list by id list
-  /// 获取多个会话
+  /// 根据会话id获取多个会话
+  /// [conversationIDList] 会话id列表
   Future<List<ConversationInfo>> getMultipleConversation({
     required List<String> conversationIDList,
     String? operationID,
@@ -83,8 +79,8 @@ class ConversationManager {
           .then((value) =>
               Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
-  /// Delete conversation by id
-  /// 删除会话
+  /// 通过会话id删除指定会话
+  /// [conversationID] 被删除的会话的id
   Future deleteConversation({
     required String conversationID,
     String? operationID,
@@ -96,8 +92,9 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Set draft
   /// 设置会话草稿
+  /// [conversationID] 会话id
+  /// [draftText] 草稿
   Future setConversationDraft({
     required String conversationID,
     required String draftText,
@@ -111,8 +108,9 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Pinned conversation
   /// 置顶会话
+  /// [conversationID] 会话id
+  /// [isPinned] true：置顶，false：取消置顶
   Future pinConversation({
     required String conversationID,
     required bool isPinned,
@@ -126,12 +124,8 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  // Future<dynamic> markSingleMessageHasRead({required String userID}) =>
-  //     _channel.invokeMethod(
-  //         'markSingleMessageHasRead', _buildParam({'userID': userID}));
-
-  /// Mark group chat all messages as read
   /// 标记群聊会话已读
+  /// [groupID] 群id
   Future<dynamic> markGroupMessageHasRead({
     required String groupID,
     String? operationID,
@@ -143,7 +137,6 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Get the total number of unread messages
   /// 获取未读消息总数
   Future<dynamic> getTotalUnreadMsgCount({
     String? operationID,
@@ -154,9 +147,6 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Query conversation id
-  /// [sourceID] if it is a single chat, Its value is userID. if it is a group chat, Its value is groupID
-  /// [sessionType] if it is a single chat, it value is 1. if it is a group chat, it value is 2
   /// 查询会话id
   /// [sourceID] 如果是单聊值传用户ID，如果是群聊值传组ID
   /// [sessionType] 如果是单聊值传1，如果是群聊值传2
@@ -171,9 +161,8 @@ class ConversationManager {
             "sessionType": sessionType,
           }));
 
-  /// Message Do Not Disturb
-  /// [status] 0: Normal. 1: Do not receive messages. 2: Do not notify when messages are received.
   /// 消息免打扰设置
+  /// [conversationIDList] 会话id列表
   /// [status] 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   Future<dynamic> setConversationRecvMessageOpt({
     required List<String> conversationIDList,
@@ -188,9 +177,9 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Message Do Not Disturb
-  /// [{"conversationId":"single_13922222222","result":0}]
   /// 查询免打扰状态
+  /// [conversationIDList] 会话id列表
+  /// 返回：[{"conversationId":"single_13922222222","result":0}]，result值：0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   Future<List<dynamic>> getConversationRecvMessageOpt({
     required List<String> conversationIDList,
     String? operationID,
@@ -204,8 +193,9 @@ class ConversationManager {
               }))
           .then((value) => Utils.toListMap(value));
 
-  /// burn after reading
   /// 阅后即焚
+  /// [conversationID] 会话id
+  /// [isPrivate] true：开启，false：关闭
   Future<dynamic> setOneConversationPrivateChat({
     required String conversationID,
     required bool isPrivate,
@@ -219,8 +209,8 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Delete conversation from local and service
-  /// 删除会话
+  /// 删除本地以及服务器的会话
+  /// [conversationID] 会话ID
   Future<dynamic> deleteConversationFromLocalAndSvr({
     required String conversationID,
     String? operationID,
@@ -232,8 +222,7 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Delete conversation from local
-  /// 删除会话
+  /// 删除所有本地会话
   Future<dynamic> deleteAllConversationFromLocal({
     String? operationID,
   }) =>
@@ -243,8 +232,8 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Reset group converstaion at type
-  /// 重置at标准位
+  /// 重置强提醒标识[GroupAtType]
+  /// [conversationID] 会话id
   Future<dynamic> resetConversationGroupAtType({
     required String conversationID,
     String? operationID,
@@ -256,13 +245,10 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Get @ all member tag
-  /// 查询at所有人标识
+  /// 查询@所有人标识
   Future<dynamic> getAtAllTag() =>
       _channel.invokeMethod('getAtAllTag', _buildParam({}));
 
-  /// Global Do Not Disturb
-  /// [status] 0: Normal. 1: Do not receive messages. 2: Do not notify when messages are received.
   /// 全局免打扰
   /// [status] 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   Future<dynamic> setGlobalRecvMessageOpt({
@@ -276,7 +262,6 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Custom sort for conversation list
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list
     ..sort((a, b) {
