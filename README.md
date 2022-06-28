@@ -5,7 +5,7 @@
 
 A flutter im plugin for android and ios.
 
-#### [文档](README.zh-cn.md) | [demo(体验app源代码)](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git) | [widget(聊天UI库)](https://github.com/hrxiang/flutter_openim_widget.git)
+####  [demo源代码](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git) | [UI库源代码](https://github.com/hrxiang/flutter_openim_widget.git)
 
 扫描下方二维码即可体验SDK调用示例 Demo
 
