@@ -211,4 +211,12 @@ public class GroupManager extends BaseManager {
                 jsonValue(methodCall, "excludeUserIDList")
         );
     }
+
+    public void setGroupVerification(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setGroupVerification(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID"),
+                value(methodCall, "needVerification")
+        );
+    }
 }

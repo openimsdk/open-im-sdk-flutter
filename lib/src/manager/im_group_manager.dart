@@ -195,7 +195,6 @@ class GroupManager {
   /// [introduction] 新的群介绍
   /// [faceUrl] 新的群头像
   /// [ex] 新的额外信息
-  /// [needVerification] 进群设置，参考[GroupVerification]类
   Future<dynamic> setGroupInfo({
     required String groupID,
     String? groupName,
@@ -203,7 +202,6 @@ class GroupManager {
     String? introduction,
     String? faceUrl,
     String? ex,
-    int needVerification = 0,
     String? operationID,
   }) =>
       _channel.invokeMethod(
@@ -217,7 +215,6 @@ class GroupManager {
               "introduction": introduction,
               "faceURL": faceUrl,
               "ex": ex,
-              "needVerification": needVerification,
             },
             'operationID': Utils.checkOperationID(operationID),
           }));
@@ -482,6 +479,22 @@ class GroupManager {
               }))
           .then((value) =>
               Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+
+  /// 设置群成员权限
+  /// [groupID] 群ID
+  /// [needVerification] 进群设置，参考[GroupVerification]类
+  Future<dynamic> setGroupVerification({
+    required String groupID,
+    required int needVerification,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setGroupVerification',
+          _buildParam({
+            'groupID': groupID,
+            'needVerification': needVerification,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";

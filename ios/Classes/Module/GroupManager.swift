@@ -28,6 +28,7 @@ public class GroupManager: BaseServiceManager {
         self["searchGroups"] = searchGroups
         self["setGroupMemberRoleLevel"] = setGroupMemberRoleLevel
         self["getGroupMemberListByJoinTimeFilter"] = getGroupMemberListByJoinTimeFilter
+        self["setGroupVerification"] = setGroupVerification
     }
 
     func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -124,6 +125,10 @@ public class GroupManager: BaseServiceManager {
     
     func getGroupMemberListByJoinTimeFilter(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetGroupMemberListByJoinTimeFilter(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[int32: "offset"], methodCall[int32: "count"], methodCall[int64: "joinTimeBegin"], methodCall[int64: "joinTimeEnd"], methodCall[jsonString: "excludeUserIDList"])
+    }
+    
+    func setGroupVerification(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetGroupVerification(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[int32:"needVerification"])
     }
 }
 

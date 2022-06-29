@@ -1,6 +1,6 @@
 ## 2.1.0+1
 
-1.Add join group verification set </br>
+1.Add setGroupVerification method </br>
 
 ## 2.1.0
 
