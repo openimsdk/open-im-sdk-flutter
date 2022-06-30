@@ -456,6 +456,7 @@ class GroupManager {
   /// [joinTimeEnd] 加入结束时间
   /// [offset] 开始下标
   /// [count] 总数
+  /// [excludeUserIDList] 排除的用户
   Future<List<GroupMembersInfo>> getGroupMemberListByJoinTime({
     required String groupID,
     int offset = 0,
