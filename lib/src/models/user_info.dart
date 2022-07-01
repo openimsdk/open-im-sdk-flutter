@@ -200,7 +200,7 @@ class PublicUserInfo {
   /// 性别
   int? gender;
 
-  ///
+  /// AppOrdinaryUsers = 1  AppAdmin = 2
   int? appMangerLevel;
 
   /// 扩展信息

@@ -125,7 +125,7 @@ class DeptMemberInfo {
   /// 职位
   String? position;
 
-  ///
+  /// 是否是领导
   int? leader;
 
   /// 状态
