@@ -1,3 +1,7 @@
+## 2.2.0
+
+1.Fix bug </br>
+
 ## 2.1.0+1
 
 1.Add setGroupVerification method </br>
