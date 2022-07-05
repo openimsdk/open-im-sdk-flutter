@@ -157,9 +157,9 @@ class GroupManager {
   /// [notification] 公告
   /// [introduction] 群介绍
   /// [faceUrl] 群头像
-  /// [groupType] 组类型
+  /// [groupType] 组类型 [GroupType]
   /// [ex] 额外信息
-  /// [list] 初创群成员以及其角色列表，角色参考[GroupRoleLevel]类
+  /// [list] 初创群成员以及其角色列表[GroupMemberRole]
   Future<GroupInfo> createGroup({
     String? groupName,
     String? notification,
@@ -481,7 +481,7 @@ class GroupManager {
           .then((value) =>
               Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
-  /// 设置群成员权限
+  /// 进群验证设置
   /// [groupID] 群ID
   /// [needVerification] 进群设置，参考[GroupVerification]类
   Future<dynamic> setGroupVerification({
