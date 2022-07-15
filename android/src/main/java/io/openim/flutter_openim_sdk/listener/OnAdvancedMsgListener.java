@@ -14,6 +14,14 @@ public class OnAdvancedMsgListener implements open_im_sdk_callback.OnAdvancedMsg
     }
 
     @Override
+    public void onNewRecvMessageRevoked(String s) {
+        final Map<String, String> values = new ArrayMap<>();
+        values.put("id", id);
+        values.put("revokedMessageV2", s);
+        CommonUtil.emitEvent("advancedMsgListener", "onNewRecvMessageRevoked", values);
+    }
+
+    @Override
     public void onRecvC2CReadReceipt(String s) {
         final Map<String, String> values = new ArrayMap<>();
         values.put("id", id);

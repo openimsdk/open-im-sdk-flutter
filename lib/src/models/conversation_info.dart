@@ -118,9 +118,16 @@ class ConversationInfo {
     return data;
   }
 
+  /// 是单聊
   bool get isSingleChat => conversationType == ConversationType.single;
 
-  bool get isGroupChat => conversationType == ConversationType.group;
+  /// 是群聊
+  bool get isGroupChat =>
+      conversationType == ConversationType.group ||
+      conversationType == ConversationType.superGroup;
+
+  /// 是有效的
+  bool get isValid => isSingleChat || isGroupChat && !isNotInGroup!;
 
   @override
   bool operator ==(Object other) =>

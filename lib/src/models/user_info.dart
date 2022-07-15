@@ -322,6 +322,13 @@ class FriendInfo {
     data['ex'] = this.ex;
     return data;
   }
+
+  String getShowName() => _isNull(remark) ?? _isNull(nickname) ?? userID!;
+
+  static String? _isNull(String? value) {
+    if (value == null || value.trim().isEmpty) return null;
+    return value;
+  }
 }
 
 /// 黑名单信息

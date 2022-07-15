@@ -77,8 +77,9 @@ class MessageManager {
               }))
           .then((value) => Utils.toList(value, (map) => Message.fromJson(map)));
 
-  /// 撤回消息
+  /// 撤回消息[revokeMessageV2]
   /// [message] 被撤回的消息体
+  @deprecated
   Future revokeMessage({
     required Message message,
     String? operationID,
@@ -685,6 +686,19 @@ class MessageManager {
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toList(value, (map) => Message.fromJson(map)));
+
+  /// 撤回消息
+  /// [message] 被撤回的消息体
+  Future revokeMessageV2({
+    required Message message,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'newRevokeMessage',
+          _buildParam(message.toJson()
+            ..addAll({
+              "operationID": Utils.checkOperationID(operationID),
+            })));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";

@@ -236,16 +236,19 @@ class GroupManager {
               (value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
   /// 申请加入组，需要通过管理员/群组同意。
+  /// [joinSource] 2：通过邀请  3：通过搜索  4：通过二维码
   Future<dynamic> joinGroup({
     required String gid,
     String? reason,
     String? operationID,
+    int joinSource = 3,
   }) =>
       _channel.invokeMethod(
           'joinGroup',
           _buildParam({
             'gid': gid,
             'reason': reason,
+            'joinSource': joinSource,
             'operationID': Utils.checkOperationID(operationID),
           }));
 
@@ -496,6 +499,54 @@ class GroupManager {
             'needVerification': needVerification,
             'operationID': Utils.checkOperationID(operationID),
           }));
+
+  /// 不允许通过群获取成员资料
+  /// [groupID] 群ID
+  /// [status] 0：关闭，1：打开
+  Future<dynamic> setGroupLookMemberInfo({
+    required String groupID,
+    required int status,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setGroupLookMemberInfo',
+          _buildParam({
+            'groupID': groupID,
+            'status': status,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  /// 不允许通过群添加好友
+  /// [groupID] 群ID
+  /// [status] 0：关闭，1：打开
+  Future<dynamic> setGroupApplyMemberFriend({
+    required String groupID,
+    required int status,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setGroupApplyMemberFriend',
+          _buildParam({
+            'groupID': groupID,
+            'status': status,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  /// 获取群拥有者，管理员
+  /// [groupId] 群ID
+  Future<List<GroupMembersInfo>> getGroupOwnerAndAdmin({
+    required String groupID,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getGroupMemberOwnerAndAdmin',
+              _buildParam({
+                'groupID': groupID,
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";

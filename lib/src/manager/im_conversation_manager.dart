@@ -46,7 +46,7 @@ class ConversationManager {
 
   /// 查询会话，如果会话不存在会自动生成一个
   /// [sourceID] 如果是单聊会话传userID，如果是群聊会话传GroupID
-  /// [sessionType] 如果是单聊会话传1，如果是群聊会话传2
+  /// [sessionType] 参考[ConversationType]
   Future<ConversationInfo> getOneConversation({
     required String sourceID,
     required int sessionType,
@@ -149,7 +149,7 @@ class ConversationManager {
 
   /// 查询会话id
   /// [sourceID] 如果是单聊值传用户ID，如果是群聊值传组ID
-  /// [sessionType] 如果是单聊值传1，如果是群聊值传2
+  /// [sessionType] 参考[ConversationType]
   Future<dynamic> getConversationIDBySessionType({
     required String sourceID,
     required int sessionType,

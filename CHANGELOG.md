@@ -1,3 +1,20 @@
+## 2.3.0
+
+1.Fix bug </br>
+2.Add super group type </br>
+3.Add setGroupLookMemberInfo method </br>
+4.Add setGroupApplyMemberFriend method </br>
+5.Add lookMemberInfo field </br>
+6.Add applyMemberFriend field</br>
+7.Add inviterUserID field</br>
+8.Add notificationUpdateTime field</br>
+9.Add notificationUserID field</br>
+10.Add joinSource field for joinGroup method </br>
+11.Add advanced revoke type</br>
+12.Add recvMessageRevokedV2 callback</br>
+13.Add revokeMessageV2 method </br>
+14.Add getGroupOwnerAndAdmin method</br>
+
 ## 2.2.0
 
 1.Fix bug </br>

@@ -44,6 +44,7 @@ public class MessageManager: BaseServiceManager {
         self["clearC2CHistoryMessageFromLocalAndSvr"] = clearC2CHistoryMessageFromLocalAndSvr
         self["clearGroupHistoryMessageFromLocalAndSvr"] = clearGroupHistoryMessageFromLocalAndSvr
         self["getHistoryMessageListReverse"] = getHistoryMessageListReverse
+        self["newRevokeMessage"] = newRevokeMessage
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -214,70 +215,82 @@ public class MessageManager: BaseServiceManager {
         Open_im_sdkGetHistoryMessageListReverse(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
-    public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
-        private let channel: FlutterMethodChannel
-        private let result: FlutterResult
-        private let call: FlutterMethodCall
-        
-        init(channel: FlutterMethodChannel, result: @escaping FlutterResult, methodCall: FlutterMethodCall) {
-            self.channel = channel
-            self.result = result
-            self.call = methodCall
-        }
-        
-        public func onError(_ errCode: Int32, errMsg: String?) {
-            DispatchQueue.main.async { self.result(FlutterError(code: "\(errCode)", message: errMsg, details: nil)) }
-        }
-        
-        public func onProgress(_ progress: Int) {
-            var values: [String: Any] = [:]
-            let message = call[dict: "message"]
-            values["clientMsgID"] = message["clientMsgID"]
-            values["progress"] = progress
-            CommonUtil.emitEvent(channel: channel, method: "msgSendProgressListener", type: "onProgress", errCode: nil, errMsg: nil, data: values)
-        }
-        
-        public func onSuccess(_ data: String?) {
-            DispatchQueue.main.async { self.result(data) }
-        }
-        
+    func newRevokeMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkNewRevokeMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
-    public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgListenerProtocol {
-        private let channel: FlutterMethodChannel
-        private let id: String
-        
-        init(channel: FlutterMethodChannel, id: String) {
-            self.channel = channel
-            self.id = id
-        }
-        
-        public func onRecvC2CReadReceipt(_ msgReceiptList: String?) {
-            var values: [String: Any] = [:]
-            values["id"] = id
-            values["c2cMessageReadReceipt"] = msgReceiptList
-            CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvC2CReadReceipt", errCode: nil, errMsg: nil, data: values)
-        }
-        
-        public func onRecvGroupReadReceipt(_ groupMsgReceiptList: String?) {
-            var values: [String: Any] = [:]
-            values["id"] = id
-            values["groupMessageReadReceipt"] = groupMsgReceiptList
-            CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvGroupReadReceipt", errCode: nil, errMsg: nil, data: values)
-        }
-        
-        public func onRecvMessageRevoked(_ msgId: String?) {
-            var values: [String: Any] = [:]
-            values["id"] = id
-            values["revokedMessage"] = msgId
-            CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
-        }
-        
-        public func onRecvNewMessage(_ message: String?) {
-            var values: [String: Any] = [:]
-            values["id"] = id
-            values["newMessage"] = message
-            CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvNewMessage", errCode: nil, errMsg: nil, data: values)
-        }
+}
+
+public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
+    private let channel: FlutterMethodChannel
+    private let result: FlutterResult
+    private let call: FlutterMethodCall
+    
+    init(channel: FlutterMethodChannel, result: @escaping FlutterResult, methodCall: FlutterMethodCall) {
+        self.channel = channel
+        self.result = result
+        self.call = methodCall
+    }
+    
+    public func onError(_ errCode: Int32, errMsg: String?) {
+        DispatchQueue.main.async { self.result(FlutterError(code: "\(errCode)", message: errMsg, details: nil)) }
+    }
+    
+    public func onProgress(_ progress: Int) {
+        var values: [String: Any] = [:]
+        let message = call[dict: "message"]
+        values["clientMsgID"] = message["clientMsgID"]
+        values["progress"] = progress
+        CommonUtil.emitEvent(channel: channel, method: "msgSendProgressListener", type: "onProgress", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func onSuccess(_ data: String?) {
+        DispatchQueue.main.async { self.result(data) }
+    }
+    
+}
+
+public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgListenerProtocol {
+    private let channel: FlutterMethodChannel
+    private let id: String
+    
+    init(channel: FlutterMethodChannel, id: String) {
+        self.channel = channel
+        self.id = id
+    }
+    
+    public func onRecvC2CReadReceipt(_ msgReceiptList: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["c2cMessageReadReceipt"] = msgReceiptList
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvC2CReadReceipt", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func onRecvGroupReadReceipt(_ groupMsgReceiptList: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["groupMessageReadReceipt"] = groupMsgReceiptList
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvGroupReadReceipt", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func onRecvMessageRevoked(_ msgId: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["revokedMessage"] = msgId
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func onRecvNewMessage(_ message: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["newMessage"] = message
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvNewMessage", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func onNewRecvMessageRevoked(_ messageRevoked: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["revokedMessageV2"] = messageRevoked
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onNewRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
     }
 }

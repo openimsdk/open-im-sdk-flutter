@@ -32,7 +32,7 @@ class GroupInfo {
   /// 创建者ID
   String? creatorUserID;
 
-  /// 群类型
+  /// 群类型[GroupType]
   int? groupType;
 
   /// 扩展字段
@@ -40,6 +40,18 @@ class GroupInfo {
 
   /// 进群验证方式[GroupVerification]
   int? needVerification;
+
+  /// 不允许通过群获取成员资料 0：关闭，1：打开
+  int? lookMemberInfo;
+
+  /// 不允许通过群添加好友 0：关闭，1：打开
+  int? applyMemberFriend;
+
+  /// 通知更新时间
+  int? notificationUpdateTime;
+
+  /// 通知发起人
+  String? notificationUserID;
 
   GroupInfo({
     required this.groupID,
@@ -55,6 +67,10 @@ class GroupInfo {
     this.groupType,
     this.ex,
     this.needVerification,
+    this.lookMemberInfo,
+    this.applyMemberFriend,
+    this.notificationUpdateTime,
+    this.notificationUserID,
   });
 
   GroupInfo.fromJson(Map<String, dynamic> json) : groupID = json['groupID'] {
@@ -71,6 +87,10 @@ class GroupInfo {
     groupType = json['groupType'];
     ex = json['ex'];
     needVerification = json['needVerification'];
+    lookMemberInfo = json['lookMemberInfo'];
+    applyMemberFriend = json['applyMemberFriend'];
+    notificationUpdateTime = json['notificationUpdateTime'];
+    notificationUserID = json['notificationUserID'];
   }
 
   Map<String, dynamic> toJson() {
@@ -88,8 +108,17 @@ class GroupInfo {
     data['groupType'] = this.groupType;
     data['ex'] = this.ex;
     data['needVerification'] = this.needVerification;
+    data['lookMemberInfo'] = this.lookMemberInfo;
+    data['applyMemberFriend'] = this.applyMemberFriend;
+    data['notificationUpdateTime'] = this.notificationUpdateTime;
+    data['notificationUserID'] = this.notificationUserID;
     return data;
   }
+
+  /// 群类型对应的会话类型
+  int get sessionType => groupType == GroupType.general
+      ? ConversationType.group
+      : ConversationType.superGroup;
 }
 
 /// 群成员信息
@@ -112,7 +141,7 @@ class GroupMembersInfo {
   /// 加入时间
   int? joinTime;
 
-  /// 入群方式
+  /// 入群方式 2：邀请加入 3：搜索加入 4：通过二维码加入
   int? joinSource;
 
   /// 操作者id
@@ -123,7 +152,12 @@ class GroupMembersInfo {
 
   /// 禁言时间s
   int? muteEndTime;
+
+  ///
   int? appMangerLevel;
+
+  /// 邀请人id
+  String? inviterUserID;
 
   GroupMembersInfo({
     this.groupID,
@@ -137,6 +171,7 @@ class GroupMembersInfo {
     this.operatorUserID,
     this.muteEndTime,
     this.appMangerLevel,
+    this.inviterUserID,
   });
 
   GroupMembersInfo.fromJson(Map<String, dynamic> json) {
@@ -151,6 +186,7 @@ class GroupMembersInfo {
     operatorUserID = json['operatorUserID'];
     muteEndTime = json['muteEndTime'];
     appMangerLevel = json['appMangerLevel'];
+    inviterUserID = json['inviterUserID'];
   }
 
   Map<String, dynamic> toJson() {
@@ -166,6 +202,7 @@ class GroupMembersInfo {
     data['operatorUserID'] = this.operatorUserID;
     data['muteEndTime'] = this.muteEndTime;
     data['appMangerLevel'] = this.appMangerLevel;
+    data['inviterUserID'] = this.inviterUserID;
     return data;
   }
 }

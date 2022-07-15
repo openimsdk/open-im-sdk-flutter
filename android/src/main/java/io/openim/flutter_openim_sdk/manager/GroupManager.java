@@ -91,7 +91,8 @@ public class GroupManager extends BaseManager {
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "gid"),
-                value(methodCall, "reason")
+                value(methodCall, "reason"),
+                value(methodCall, "joinSource")
         );
     }
 
@@ -217,6 +218,29 @@ public class GroupManager extends BaseManager {
                 value(methodCall, "operationID"),
                 value(methodCall, "groupID"),
                 value(methodCall, "needVerification")
+        );
+    }
+
+    public void setGroupLookMemberInfo(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setGroupLookMemberInfo(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID"),
+                value(methodCall, "status")
+        );
+    }
+
+    public void setGroupApplyMemberFriend(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setGroupApplyMemberFriend(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID"),
+                value(methodCall, "status")
+        );
+    }
+
+    public void getGroupMemberOwnerAndAdmin(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getGroupMemberOwnerAndAdmin(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID")
         );
     }
 }

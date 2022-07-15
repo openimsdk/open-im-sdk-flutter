@@ -45,6 +45,9 @@ class MessageType {
   /// 自定义表情
   static const custom_face = 115;
 
+  /// 高级撤回
+  static const advancedRevoke = 118;
+
   /// 通知类型
   static const notificationBegin = 1000;
 

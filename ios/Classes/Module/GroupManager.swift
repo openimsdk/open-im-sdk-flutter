@@ -29,6 +29,9 @@ public class GroupManager: BaseServiceManager {
         self["setGroupMemberRoleLevel"] = setGroupMemberRoleLevel
         self["getGroupMemberListByJoinTimeFilter"] = getGroupMemberListByJoinTimeFilter
         self["setGroupVerification"] = setGroupVerification
+        self["setGroupLookMemberInfo"] = setGroupLookMemberInfo
+        self["setGroupApplyMemberFriend"] = setGroupApplyMemberFriend
+        self["getGroupMemberOwnerAndAdmin"] = getGroupMemberOwnerAndAdmin
     }
 
     func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -72,7 +75,7 @@ public class GroupManager: BaseServiceManager {
     }
     
     func joinGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkJoinGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "reason"])
+        Open_im_sdkJoinGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "gid"], methodCall[string: "reason"], methodCall[int32: "joinSource"])
     }
     
     func quitGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -129,6 +132,18 @@ public class GroupManager: BaseServiceManager {
     
     func setGroupVerification(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSetGroupVerification(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[int32:"needVerification"])
+    }
+    
+    func setGroupLookMemberInfo(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetGroupLookMemberInfo(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[int32:"status"])
+    }
+    
+    func setGroupApplyMemberFriend(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetGroupApplyMemberFriend(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[int32:"status"])
+    }
+    
+    func getGroupMemberOwnerAndAdmin(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetGroupMemberOwnerAndAdmin(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
     }
 }
 

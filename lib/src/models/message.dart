@@ -287,6 +287,14 @@ class Message {
     faceElem = message.faceElem;
     attachedInfoElem = message.attachedInfoElem;
   }
+
+  /// 单聊消息
+  bool get isSingleChat => sessionType == ConversationType.single;
+
+  /// 群聊消息
+  bool get isGroupChat =>
+      sessionType == ConversationType.group ||
+      sessionType == ConversationType.superGroup;
 }
 
 /// 图片消息内容
@@ -955,6 +963,74 @@ class AtUserInfo {
     final data = Map<String, dynamic>();
     data['atUserID'] = this.atUserID;
     data['groupNickname'] = this.groupNickname;
+    return data;
+  }
+}
+
+/// 消息撤回具体信息
+class RevokedInfo {
+  /// 撤回者ID
+  String? revokerID;
+
+  /// 撤回者群角色 [GroupRoleLevel]
+  int? revokerRole;
+
+  /// 撤回者昵称
+  String? revokerNickname;
+
+  /// 消息id
+  String? clientMsgID;
+
+  /// 撤回时间
+  int? revokeTime;
+
+  /// 消息发送时间
+  int? sourceMessageSendTime;
+
+  /// 消息发送者
+  String? sourceMessageSendID;
+
+  /// 消息发送者昵称
+  String? sourceMessageSenderNickname;
+
+  /// 会话类型 [ConversationType]
+  int? sessionType;
+
+  RevokedInfo({
+    this.revokerID,
+    this.revokerRole,
+    this.revokerNickname,
+    this.clientMsgID,
+    this.revokeTime,
+    this.sourceMessageSendTime,
+    this.sourceMessageSendID,
+    this.sourceMessageSenderNickname,
+    this.sessionType,
+  });
+
+  RevokedInfo.fromJson(Map<String, dynamic> json) {
+    revokerID = json['revokerID'];
+    revokerRole = json['revokerRole'];
+    revokerNickname = json['revokerNickname'];
+    clientMsgID = json['clientMsgID'];
+    revokeTime = json['revokeTime'];
+    sourceMessageSendTime = json['sourceMessageSendTime'];
+    sourceMessageSendID = json['sourceMessageSendID'];
+    sourceMessageSenderNickname = json['sourceMessageSenderNickname'];
+    sessionType = json['sessionType'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['revokerID'] = this.revokerID;
+    data['revokerRole'] = this.revokerRole;
+    data['revokerNickname'] = this.revokerNickname;
+    data['clientMsgID'] = this.clientMsgID;
+    data['revokeTime'] = this.revokeTime;
+    data['sourceMessageSendTime'] = this.sourceMessageSendTime;
+    data['sourceMessageSendID'] = this.sourceMessageSendID;
+    data['sourceMessageSenderNickname'] = this.sourceMessageSenderNickname;
+    data['sessionType'] = this.sessionType;
     return data;
   }
 }

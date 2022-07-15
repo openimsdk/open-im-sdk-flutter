@@ -147,6 +147,11 @@ class IMManager {
                   Utils.toList(value, (map) => ReadReceiptInfo.fromJson(map));
               messageManager.msgListener.recvGroupMessageReadReceipt(list);
               break;
+            case 'onNewRecvMessageRevoked':
+              var value = call.arguments['data']['revokedMessageV2'];
+              var info = Utils.toObj(value, (map) => RevokedInfo.fromJson(map));
+              messageManager.msgListener.recvMessageRevokedV2(info);
+              break;
           }
         } else if (call.method == ListenerType.msgSendProgressListener) {
           String type = call.arguments['type'];
