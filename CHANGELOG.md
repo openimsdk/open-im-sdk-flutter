@@ -8,9 +8,9 @@
 - Add revokeMessageV2 method for MessageManager
 - Add lookMemberInfo field for GroupInfo
 - Add applyMemberFriend field for GroupInfo
-- Add inviterUserID field for GroupMembersInfo
 - Add notificationUpdateTime field for GroupInfo
 - Add notificationUserID field for GroupInfo
+- Add inviterUserID field for GroupMembersInfo
 - Add joinSource field for joinGroup method
 - Add advanced revoke type
 - Add recvMessageRevokedV2 callback for OnAdvancedMsgListener
