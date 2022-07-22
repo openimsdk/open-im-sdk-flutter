@@ -1034,3 +1034,41 @@ class RevokedInfo {
     return data;
   }
 }
+
+class AdvancedMessage {
+  List<Message>? messageList;
+  bool? isEnd;
+  int? errCode;
+  String? errMsg;
+  int? lastMinSeq;
+
+  AdvancedMessage({
+    this.messageList,
+    this.isEnd,
+    this.errCode,
+    this.errMsg,
+    this.lastMinSeq,
+  });
+
+  AdvancedMessage.fromJson(Map<String, dynamic> json) {
+    messageList = json['messageList'] == null
+        ? null
+        : (json['messageList'] as List)
+            .map((e) => Message.fromJson(e))
+            .toList();
+    isEnd = json['isEnd'];
+    errCode = json['errCode'];
+    errMsg = json['errMsg'];
+    lastMinSeq = json['lastMinSeq'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['messageList'] = this.messageList?.map((e) => e.toJson()).toList();
+    data['isEnd'] = this.isEnd;
+    data['errCode'] = this.errCode;
+    data['errMsg'] = this.errMsg;
+    data['lastMinSeq'] = this.lastMinSeq;
+    return data;
+  }
+}

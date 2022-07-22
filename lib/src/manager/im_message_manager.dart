@@ -700,6 +700,37 @@ class MessageManager {
               "operationID": Utils.checkOperationID(operationID),
             })));
 
+  /// 获取聊天记录(以startMsg为节点，以前的聊天记录)
+  /// [userID] 接收消息的用户id
+  /// [conversationID] 会话id，查询通知时可用
+  /// [groupID] 接收消息的组id
+  /// [startMsg] 从这条消息开始查询[count]条，获取的列表index==length-1为最新消息，所以获取下一页历史记录startMsg=list.first
+  /// [count] 一次拉取的总数
+  /// [lastMinSeq] 第一页消息不用传，获取第二页开始必传 跟[startMsg]一样
+  Future<AdvancedMessage> getAdvancedHistoryMessageList({
+    String? userID,
+    String? groupID,
+    String? conversationID,
+    int? lastMinSeq,
+    Message? startMsg,
+    int? count,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getAdvancedHistoryMessageList',
+              _buildParam({
+                'userID': userID ?? '',
+                'groupID': groupID ?? '',
+                'conversationID': conversationID ?? '',
+                'startClientMsgID': startMsg?.clientMsgID ?? '',
+                'count': count ?? 40,
+                'lastMinSeq': lastMinSeq ?? 0,
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;

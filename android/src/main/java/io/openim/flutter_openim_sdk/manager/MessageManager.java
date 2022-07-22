@@ -397,4 +397,13 @@ public class MessageManager extends BaseManager {
                 jsonValue(methodCall)
         );
     }
+
+    public void getAdvancedHistoryMessageList(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getAdvancedHistoryMessageList(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall)
+        );
+    }
+
 }
