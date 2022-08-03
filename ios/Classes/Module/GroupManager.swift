@@ -32,6 +32,7 @@ public class GroupManager: BaseServiceManager {
         self["setGroupLookMemberInfo"] = setGroupLookMemberInfo
         self["setGroupApplyMemberFriend"] = setGroupApplyMemberFriend
         self["getGroupMemberOwnerAndAdmin"] = getGroupMemberOwnerAndAdmin
+        self["searchGroupMembers"] = searchGroupMembers
     }
 
     func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -144,6 +145,10 @@ public class GroupManager: BaseServiceManager {
     
     func getGroupMemberOwnerAndAdmin(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetGroupMemberOwnerAndAdmin(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
+    }
+    
+    func searchGroupMembers(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSearchGroupMembers(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParam"])
     }
 }
 

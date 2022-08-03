@@ -243,4 +243,11 @@ public class GroupManager extends BaseManager {
                 value(methodCall, "groupID")
         );
     }
+
+    public void searchGroupMembers(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchGroupMembers(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "searchParam")
+        );
+    }
 }

@@ -77,7 +77,7 @@ class GroupManager {
 
   /// 分页获取组成员列表
   /// [groupId] 群ID
-  /// [filter] 过滤成员 1普通成员, 2群主，3管理员，0 所有
+  /// [filter] 过滤成员 0所有，1普通成员, 2群主，3管理员，4管理员+普通成员
   /// [offset] 开始下标
   /// [count] 总数
   Future<List<GroupMembersInfo>> getGroupMemberList({
@@ -102,7 +102,7 @@ class GroupManager {
 
   /// 分页获取组成员列表
   /// [groupId] 群ID
-  /// [filter] 过滤成员 1普通成员, 2群主，3管理员，0所有
+  /// [filter] 过滤成员 0所有，1普通成员, 2群主，3管理员，4管理员+普通成员
   /// [offset] 开始下标
   /// [count] 总数
   Future<List<dynamic>> getGroupMemberListMap({
@@ -547,6 +547,71 @@ class GroupManager {
               }))
           .then((value) =>
               Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+
+  /// 查询群
+  /// [groupID] 群id
+  /// [keywordList] 搜索关键词，目前仅支持一个关键词搜索，不能为空
+  /// [isSearchUserID] 是否以关键词搜成员id
+  /// [isSearchMemberNickname] 是否以关键词搜索成员昵称
+  /// [offset] 开始index
+  /// [count] 每次获取的总数
+  Future<List<GroupMembersInfo>> searchGroupMembers({
+    required String groupID,
+    List<String> keywordList = const [],
+    bool isSearchUserID = false,
+    bool isSearchMemberNickname = false,
+    int offset = 0,
+    int count = 40,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'searchGroupMembers',
+              _buildParam({
+                'searchParam': {
+                  'groupID': groupID,
+                  'keywordList': keywordList,
+                  'isSearchUserID': isSearchUserID,
+                  'isSearchMemberNickname': isSearchMemberNickname,
+                  'offset': offset,
+                  'count': count,
+                },
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+
+  /// 查询群
+  /// [groupID] 群id
+  /// [keywordList] 搜索关键词，目前仅支持一个关键词搜索，不能为空
+  /// [isSearchUserID] 是否以关键词搜成员id
+  /// [isSearchMemberNickname] 是否以关键词搜索成员昵称
+  /// [offset] 开始index
+  /// [count] 每次获取的总数
+  Future<List<dynamic>> searchGroupMembersListMap({
+    required String groupID,
+    List<String> keywordList = const [],
+    bool isSearchUserID = false,
+    bool isSearchMemberNickname = false,
+    int offset = 0,
+    int count = 40,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'searchGroupMembers',
+              _buildParam({
+                'searchParam': {
+                  'groupID': groupID,
+                  'keywordList': keywordList,
+                  'isSearchUserID': isSearchUserID,
+                  'isSearchMemberNickname': isSearchMemberNickname,
+                  'offset': offset,
+                  'count': count,
+                },
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toListMap(value));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";

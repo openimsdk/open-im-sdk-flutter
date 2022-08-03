@@ -205,6 +205,16 @@ class GroupMembersInfo {
     data['inviterUserID'] = this.inviterUserID;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GroupMembersInfo &&
+          runtimeType == other.runtimeType &&
+          userID == other.userID;
+
+  @override
+  int get hashCode => userID.hashCode;
 }
 
 /// 群成员角色

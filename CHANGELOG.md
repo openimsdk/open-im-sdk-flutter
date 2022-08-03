@@ -17,6 +17,7 @@
 - Add joinSource field for GroupApplicationInfo
 - Add inviterUserID field for GroupApplicationInfo
 - Add getAdvancedHistoryMessageList method for MessageManager
+- Add searchGroupMembers method for GroupManager
 
 ## 2.2.0
 

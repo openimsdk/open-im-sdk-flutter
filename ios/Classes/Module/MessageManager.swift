@@ -45,6 +45,7 @@ public class MessageManager: BaseServiceManager {
         self["clearGroupHistoryMessageFromLocalAndSvr"] = clearGroupHistoryMessageFromLocalAndSvr
         self["getHistoryMessageListReverse"] = getHistoryMessageListReverse
         self["newRevokeMessage"] = newRevokeMessage
+        self["getAdvancedHistoryMessageList"] = getAdvancedHistoryMessageList
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -219,6 +220,9 @@ public class MessageManager: BaseServiceManager {
         Open_im_sdkNewRevokeMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
     
+    func getAdvancedHistoryMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetAdvancedHistoryMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
+    }
 }
 
 public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {

@@ -138,7 +138,7 @@ class OrganizationManager {
           .invokeMethod(
               'searchOrganization',
               _buildParam({
-                'searchParams': {
+                'searchParam': {
                   'keyWord': keyWord,
                   'isSearchUserName': isSearchUserName,
                   'isSearchEnglishName': isSearchEnglishName,

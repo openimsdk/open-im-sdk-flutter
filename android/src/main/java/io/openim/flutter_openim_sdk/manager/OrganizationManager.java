@@ -60,7 +60,7 @@ public class OrganizationManager extends BaseManager {
         Open_im_sdk.searchOrganization(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                jsonValue(methodCall, "searchParams"),
+                jsonValue(methodCall, "searchParam"),
                 int2long(methodCall, "offset"),
                 int2long(methodCall, "count")
         );

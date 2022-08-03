@@ -40,7 +40,7 @@ public class OrganizationManager: BaseServiceManager {
     }
     
     func searchOrganization(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkSearchOrganization(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParams"], methodCall[int: "offset"], methodCall[int: "count"])
+        Open_im_sdkSearchOrganization(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParam"], methodCall[int: "offset"], methodCall[int: "count"])
     }
 }
 
