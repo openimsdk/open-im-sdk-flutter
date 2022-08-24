@@ -731,6 +731,27 @@ class MessageManager {
           .then((value) =>
               Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
 
+  /// 查找消息详细
+  /// [conversationID] 会话id
+  /// [clientMsgIDList] 消息id列表
+  Future<SearchResult> findMessageList({
+    required String conversationID,
+    required List<String> clientMsgIDList,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'findMessageList',
+              _buildParam({
+                'options': {
+                  "conversationID": conversationID,
+                  "clientMsgIDList": clientMsgIDList,
+                },
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toObj(value, (map) => SearchResult.fromJson(value)));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;

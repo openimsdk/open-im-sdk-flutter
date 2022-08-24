@@ -309,6 +309,7 @@ class IMManager {
     required OnConnectListener listener,
     int logLevel = 6,
     String objectStorage = 'cos',
+    String? encryptionKey,
     String? operationID,
   }) {
     this._connectListener = listener;
@@ -323,6 +324,7 @@ class IMManager {
             "data_dir": dataDir,
             "log_level": logLevel,
             "object_storage": objectStorage,
+            "encryption_key": encryptionKey,
             "operationID": Utils.checkOperationID(operationID),
           },
         ));
@@ -401,6 +403,19 @@ class IMManager {
             'path': path,
             'token': token ?? this.token,
             'obj': objectStorage ?? this._objectStorage,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  /// 更新firebase客户端注册token
+  /// [fcmToken] firebase token
+  Future updateFcmToken({
+    required String fcmToken,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'updateFcmToken',
+          _buildParam({
+            'fcmToken': fcmToken,
             'operationID': Utils.checkOperationID(operationID),
           }));
 

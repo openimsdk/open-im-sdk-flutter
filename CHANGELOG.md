@@ -1,3 +1,12 @@
+## 2.3.0+1
+
+- Fix bug
+- enum class MessageType new add customMsgNotTriggerConversation
+- enum class MessageType new add customMsgOnlineOnly
+- class IMManager new add updateFcmToken method
+- class MessageManager new add findMessageList method
+- initSDK method add encryptionKey param
+
 ## 2.3.0
 
 - Fix bug

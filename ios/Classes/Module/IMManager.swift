@@ -10,6 +10,8 @@ public class IMMananger: BaseServiceManager {
         self["logout"] = logout
         self["getLoginStatus"] = getLoginStatus
         self["wakeUp"] = wakeUp
+        self["uploadImage"] = uploadImage
+        self["updateFcmToken"] = updateFcmToken
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -34,6 +36,10 @@ public class IMMananger: BaseServiceManager {
     
     func uploadImage(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkUploadImage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "path"], methodCall[string: "token"], methodCall[string: "obj"])
+    }
+    
+    func updateFcmToken(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkUpdateFcmToken(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "fcmToken"])
     }
 }
 

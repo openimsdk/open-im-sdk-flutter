@@ -406,4 +406,11 @@ public class MessageManager extends BaseManager {
         );
     }
 
+    public void findMessageList(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.findMessageList(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "options")
+        );
+    }
 }

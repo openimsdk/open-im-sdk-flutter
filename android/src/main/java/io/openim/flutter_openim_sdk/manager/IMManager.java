@@ -53,4 +53,12 @@ public class IMManager extends BaseManager {
                 value(methodCall, "obj")
         );
     }
+
+    public void updateFcmToken(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.updateFcmToken(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "fcmToken")
+        );
+    }
 }

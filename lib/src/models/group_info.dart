@@ -119,6 +119,16 @@ class GroupInfo {
   int get sessionType => groupType == GroupType.general
       ? ConversationType.group
       : ConversationType.superGroup;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GroupInfo &&
+          runtimeType == other.runtimeType &&
+          groupID == other.groupID;
+
+  @override
+  int get hashCode => groupID.hashCode;
 }
 
 /// 群成员信息
@@ -209,12 +219,13 @@ class GroupMembersInfo {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is GroupMembersInfo &&
+          other is GroupMembersInfo &&
           runtimeType == other.runtimeType &&
+          groupID == other.groupID &&
           userID == other.userID;
 
   @override
-  int get hashCode => userID.hashCode;
+  int get hashCode => groupID.hashCode ^ userID.hashCode;
 }
 
 /// 群成员角色

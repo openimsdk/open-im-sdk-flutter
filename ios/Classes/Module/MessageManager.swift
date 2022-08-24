@@ -46,6 +46,7 @@ public class MessageManager: BaseServiceManager {
         self["getHistoryMessageListReverse"] = getHistoryMessageListReverse
         self["newRevokeMessage"] = newRevokeMessage
         self["getAdvancedHistoryMessageList"] = getAdvancedHistoryMessageList
+        self["findMessageList"] = findMessageList
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -222,6 +223,10 @@ public class MessageManager: BaseServiceManager {
     
     func getAdvancedHistoryMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetAdvancedHistoryMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
+    }
+    
+    func findMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkFindMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "options"])
     }
 }
 
