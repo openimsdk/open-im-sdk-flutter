@@ -45,6 +45,12 @@ class MessageType {
   /// 自定义表情
   static const custom_face = 115;
 
+  /// 群消息已读回执
+  static const groupHasReadReceipt = 116;
+
+  /// 富文本消息
+  static const advancedText = 117;
+
   /// 高级撤回
   static const advancedRevoke = 118;
 

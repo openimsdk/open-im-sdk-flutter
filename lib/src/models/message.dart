@@ -1072,3 +1072,37 @@ class AdvancedMessage {
     return data;
   }
 }
+
+class RichMessageInfo {
+  String? type;
+  int? offset;
+  int? length;
+  String? url;
+  String? info;
+
+  RichMessageInfo({
+    this.type,
+    this.offset,
+    this.length,
+    this.url,
+    this.info,
+  });
+
+  RichMessageInfo.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    offset = json['offset'];
+    length = json['length'];
+    url = json['url'];
+    info = json['info'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['type'] = this.type;
+    data['offset'] = this.offset;
+    data['length'] = this.length;
+    data['url'] = this.url;
+    data['info'] = this.info;
+    return data;
+  }
+}

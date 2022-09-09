@@ -752,6 +752,46 @@ class MessageManager {
           .then((value) =>
               Utils.toObj(value, (map) => SearchResult.fromJson(value)));
 
+  /// 富文本消息
+  /// [text] 输入内容
+  /// [list] 富文本消息具体详细
+  Future<Message> createAdvancedTextMessage({
+    required String text,
+    List<RichMessageInfo> list = const [],
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+            'createAdvancedTextMessage',
+            _buildParam({
+              'text': text,
+              'richMessageInfoList': list.map((e) => e.toJson()).toList(),
+              "operationID": Utils.checkOperationID(operationID),
+            }),
+          )
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
+  /// 富文本消息
+  /// [text] 回复的内容
+  /// [quoteMsg] 被回复的消息
+  /// [list] 富文本消息具体详细
+  Future<Message> createAdvancedQuoteMessage({
+    required String text,
+    required Message quoteMsg,
+    List<RichMessageInfo> list = const [],
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'createAdvancedQuoteMessage',
+              _buildParam({
+                'quoteText': text,
+                'quoteMessage': quoteMsg.toJson(),
+                'richMessageInfoList': list.map((e) => e.toJson()).toList(),
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;

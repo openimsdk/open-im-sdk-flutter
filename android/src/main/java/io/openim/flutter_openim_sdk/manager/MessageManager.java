@@ -11,6 +11,7 @@ import open_im_sdk.Open_im_sdk;
 
 public class MessageManager extends BaseManager {
     private final static String KEY_ID = "id";
+
     //    private final static Map<String, OnAdvancedMsgListener> listeners = new HashMap<>();
  /*   private static boolean initializedListener = false;
     private final static Map<String, AdvancedMsgListener> listeners = new ConcurrentHashMap<>();
@@ -201,6 +202,7 @@ public class MessageManager extends BaseManager {
                         value(methodCall, "operationID"),
                         value(methodCall, "imagePath")));
     }
+
     public void createSoundMessage(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result,
                 Open_im_sdk.createSoundMessage(
@@ -412,5 +414,24 @@ public class MessageManager extends BaseManager {
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "options")
         );
+    }
+
+    public void createAdvancedTextMessage(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createAdvancedTextMessage(
+                        value(methodCall, "operationID"),
+                        value(methodCall, "text"),
+                        jsonValue(methodCall, "richMessageInfoList")
+                ));
+    }
+
+    public void createAdvancedQuoteMessage(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createAdvancedQuoteMessage(
+                        value(methodCall, "operationID"),
+                        value(methodCall, "quoteText"),
+                        jsonValue(methodCall, "quoteMessage"),
+                        jsonValue(methodCall, "richMessageInfoList")
+                ));
     }
 }

@@ -219,7 +219,7 @@ class GroupMembersInfo {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is GroupMembersInfo &&
+      other is GroupMembersInfo &&
           runtimeType == other.runtimeType &&
           groupID == other.groupID &&
           userID == other.userID;
