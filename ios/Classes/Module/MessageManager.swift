@@ -47,6 +47,8 @@ public class MessageManager: BaseServiceManager {
         self["newRevokeMessage"] = newRevokeMessage
         self["getAdvancedHistoryMessageList"] = getAdvancedHistoryMessageList
         self["findMessageList"] = findMessageList
+        self["createAdvancedTextMessage"] = createAdvancedTextMessage
+        self["createAdvancedQuoteMessage"] = createAdvancedQuoteMessage
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -175,6 +177,16 @@ public class MessageManager: BaseServiceManager {
     
     func createFaceMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         callBack(result, Open_im_sdkCreateFaceMessage(methodCall[string: "operationID"], methodCall[int: "index"], methodCall[string: "data"]))
+    }
+
+    func createAdvancedTextMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        let prama = Open_im_sdkCreateAdvancedTextMessage(methodCall[string: "operationID"], methodCall[string: "text"], methodCall[jsonString: "richMessageInfoList"])
+        callBack(result, prama)
+    }
+    
+    func createAdvancedQuoteMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        let prama = Open_im_sdkCreateAdvancedQuoteMessage(methodCall[string: "operationID"], methodCall[string: "quoteText"], methodCall[jsonString: "quoteMessage"], methodCall[jsonString: "richMessageInfoList"])
+        callBack(result, prama)
     }
     
     func clearC2CHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
