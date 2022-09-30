@@ -101,6 +101,22 @@ class SignalingManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  /// 获取当前群通话信息
+  /// [groupID] 当前群ID
+  Future<RoomCallingInfo> signalingGetRoomByGroupID({
+    required String groupID,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'signalingGetRoomByGroupID',
+              _buildParam({
+                'groupID': groupID,
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toObj(value, (map) => RoomCallingInfo.fromJson(map)));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "signalingManager";
     return param;

@@ -53,4 +53,11 @@ public class SignalingManager extends BaseManager {
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "signalingInfo"));
     }
+
+    public void signalingGetRoomByGroupID(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.signalingGetRoomByGroupID(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID"));
+    }
 }

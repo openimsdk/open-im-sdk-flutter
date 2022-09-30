@@ -41,5 +41,5 @@ android {
     }
 }
 dependencies {
-    implementation 'io.openim:core-sdk:2.3.3@aar'
+    implementation 'io.openim:core-sdk:2.3.4@aar'
 }

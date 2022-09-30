@@ -40,6 +40,16 @@ public class OnSignalingListener implements open_im_sdk_callback.OnSignalingList
     }
 
     @Override
+    public void onRoomParticipantConnected(String s) {
+        CommonUtil.emitEvent("signalingListener", "onRoomParticipantConnected", s);
+    }
+
+    @Override
+    public void onRoomParticipantDisconnected(String s) {
+        CommonUtil.emitEvent("signalingListener", "onRoomParticipantDisconnected", s);
+    }
+
+    @Override
     public void onHangUp(String s) {
         CommonUtil.emitEvent("signalingListener", "onHangUp", s);
     }

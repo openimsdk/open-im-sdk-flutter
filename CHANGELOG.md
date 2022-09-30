@@ -1,3 +1,12 @@
+## 2.3.4
+
+- Fix bug
+- Add signalGetRoomByGroupID method for SignalingManager
+- Add class RoomCallingInfo
+- Add onRoomParticipantConnected listener for OnSignalingListener
+- Add onRoomParticipantDisconnected listener for OnSignalingListener
+- Add busyLineUserIDList field for SignalingCertificate
+
 ## 2.3.3
 
 - Fix bug

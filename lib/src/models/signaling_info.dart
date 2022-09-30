@@ -114,12 +114,21 @@ class SignalingCertificate {
   /// 服务器地址
   String? liveURL;
 
-  SignalingCertificate({this.token, this.roomID, this.liveURL});
+  /// 占线列表
+  List<String>? busyLineUserIDList;
+
+  SignalingCertificate({
+    this.token,
+    this.roomID,
+    this.liveURL,
+    this.busyLineUserIDList,
+  });
 
   SignalingCertificate.fromJson(Map<String, dynamic> json) {
     token = json['token'];
     roomID = json['roomID'];
     liveURL = json['liveURL'];
+    busyLineUserIDList = json['busyLineUserIDList'];
   }
 
   Map<String, dynamic> toJson() {
@@ -127,6 +136,89 @@ class SignalingCertificate {
     data['token'] = this.token;
     data['roomID'] = this.roomID;
     data['liveURL'] = this.liveURL;
+    data['busyLineUserIDList'] = this.busyLineUserIDList;
+    return data;
+  }
+}
+
+class RoomCallingInfo {
+  InvitationInfo? invitation;
+  List<Participant>? participant;
+  String? token;
+  String? roomID;
+  String? liveURL;
+  String? groupID;
+
+  RoomCallingInfo({
+    this.invitation,
+    this.participant,
+    this.token,
+    this.roomID,
+    this.liveURL,
+    this.groupID,
+  });
+
+  RoomCallingInfo.fromJson(Map<String, dynamic> json) {
+    invitation = json['invitation'] != null
+        ? InvitationInfo.fromJson(json['invitation'])
+        : null;
+    if (json['participant'] != null) {
+      participant = <Participant>[];
+      json['participant'].forEach((v) {
+        participant!.add(Participant.fromJson(v));
+      });
+    }
+    token = json['token'];
+    roomID = json['roomID'] ?? invitation?.roomID;
+    liveURL = json['liveURL'];
+    groupID = json['groupID'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    if (this.invitation != null) {
+      data['invitation'] = this.invitation!.toJson();
+    }
+    if (this.participant != null) {
+      data['participant'] = this.participant!.map((v) => v.toJson()).toList();
+    }
+    data['token'] = this.token;
+    data['roomID'] = this.roomID;
+    data['liveURL'] = this.liveURL;
+    data['groupID'] = this.groupID;
+    return data;
+  }
+}
+
+class Participant {
+  GroupInfo? groupInfo;
+  GroupMembersInfo? groupMemberInfo;
+  UserInfo? userInfo;
+
+  Participant({this.groupInfo, this.groupMemberInfo, this.userInfo});
+
+  Participant.fromJson(Map<String, dynamic> json) {
+    groupInfo = json['groupInfo'] != null
+        ? GroupInfo.fromJson(json['groupInfo'])
+        : null;
+    groupMemberInfo = json['groupMemberInfo'] != null
+        ? GroupMembersInfo.fromJson(json['groupMemberInfo'])
+        : null;
+    userInfo =
+        json['userInfo'] != null ? UserInfo.fromJson(json['userInfo']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    if (this.groupInfo != null) {
+      data['groupInfo'] = this.groupInfo!.toJson();
+    }
+    if (this.groupMemberInfo != null) {
+      data['groupMemberInfo'] = this.groupMemberInfo!.toJson();
+    }
+    if (this.userInfo != null) {
+      data['userInfo'] = this.userInfo!.toJson();
+    }
     return data;
   }
 }

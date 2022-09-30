@@ -12,6 +12,7 @@ public class SignalingManager: BaseServiceManager {
         self["signalingReject"] = signalingReject
         self["signalingCancel"] = signalingCancel
         self["signalingHungUp"] = signalingHungUp
+        self["signalingGetRoomByGroupID"] = signalingGetRoomByGroupID
     }
 
     func setSignalingListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -41,6 +42,10 @@ public class SignalingManager: BaseServiceManager {
 
     func signalingHungUp(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSignalingHungUp(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "signalingInfo"])
+    }
+    
+    func signalingGetRoomByGroupID(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSignalingGetRoomByGroupID(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
     }
 }
 public class SignalingListener: NSObject, Open_im_sdk_callbackOnSignalingListenerProtocol {
@@ -83,4 +88,11 @@ public class SignalingListener: NSObject, Open_im_sdk_callbackOnSignalingListene
         CommonUtil.emitEvent(channel: channel, method: "signalingListener", type: "onHangUp", errCode: nil, errMsg: nil, data: s)
     }
     
+    public func onRoomParticipantConnected(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "signalingListener", type: "onRoomParticipantConnected", errCode: nil, errMsg: nil, data: s)
+    }
+    
+    public func onRoomParticipantDisconnected(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "signalingListener", type: "onRoomParticipantDisconnected", errCode: nil, errMsg: nil, data: s)
+    }
 }

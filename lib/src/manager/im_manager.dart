@@ -244,31 +244,46 @@ class IMManager {
         } else if (call.method == ListenerType.signalingListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
-          final u = Utils.toObj(data, (map) => SignalingInfo.fromJson(map));
+          dynamic info;
+          switch (type) {
+            case 'onRoomParticipantConnected':
+            case 'onRoomParticipantDisconnected':
+              info = Utils.toObj(data, (map) => RoomCallingInfo.fromJson(map));
+              break;
+            default:
+              info = Utils.toObj(data, (map) => SignalingInfo.fromJson(map));
+              break;
+          }
           switch (type) {
             case 'onInvitationCancelled':
-              signalingManager.listener.invitationCancelled(u);
+              signalingManager.listener.invitationCancelled(info);
               break;
             case 'onInvitationTimeout':
-              signalingManager.listener.invitationTimeout(u);
+              signalingManager.listener.invitationTimeout(info);
               break;
             case 'onInviteeAccepted':
-              signalingManager.listener.inviteeAccepted(u);
+              signalingManager.listener.inviteeAccepted(info);
               break;
             case 'onInviteeRejected':
-              signalingManager.listener.inviteeRejected(u);
+              signalingManager.listener.inviteeRejected(info);
               break;
             case 'onReceiveNewInvitation':
-              signalingManager.listener.receiveNewInvitation(u);
+              signalingManager.listener.receiveNewInvitation(info);
               break;
             case 'onInviteeAcceptedByOtherDevice':
-              signalingManager.listener.inviteeAcceptedByOtherDevice(u);
+              signalingManager.listener.inviteeAcceptedByOtherDevice(info);
               break;
             case 'onInviteeRejectedByOtherDevice':
-              signalingManager.listener.inviteeRejectedByOtherDevice(u);
+              signalingManager.listener.inviteeRejectedByOtherDevice(info);
               break;
             case 'onHangUp':
-              signalingManager.listener.hangup(u);
+              signalingManager.listener.hangup(info);
+              break;
+            case 'onRoomParticipantConnected':
+              signalingManager.listener.roomParticipantConnected(info);
+              break;
+            case 'onRoomParticipantDisconnected':
+              signalingManager.listener.roomParticipantDisconnected(info);
               break;
           }
         } else if (call.method == ListenerType.workMomentsListener) {
