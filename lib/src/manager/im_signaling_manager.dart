@@ -117,6 +117,24 @@ class SignalingManager {
           .then((value) =>
               Utils.toObj(value, (map) => RoomCallingInfo.fromJson(map)));
 
+  /// 获取进入房间的信息
+  /// [roomID] 当前房间ID
+  Future<SignalingCertificate> signalingGetTokenByRoomID({
+    required String roomID,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'signalingGetTokenByRoomID',
+              _buildParam({
+                'roomID': roomID,
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(
+              value,
+              (map) => SignalingCertificate.fromJson(
+                  map..addAll({'roomID': roomID}))));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "signalingManager";
     return param;

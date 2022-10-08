@@ -1,3 +1,7 @@
+## 2.3.4+1
+
+- Add signalingGetTokenByRoomID method for SignalingManager
+
 ## 2.3.4
 
 - Fix bug

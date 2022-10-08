@@ -60,4 +60,11 @@ public class SignalingManager extends BaseManager {
                 value(methodCall, "operationID"),
                 value(methodCall, "groupID"));
     }
+
+    public void signalingGetTokenByRoomID(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.signalingGetTokenByRoomID(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "roomID"));
+    }
 }
