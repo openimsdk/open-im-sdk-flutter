@@ -13,6 +13,7 @@ public class SignalingManager: BaseServiceManager {
         self["signalingCancel"] = signalingCancel
         self["signalingHungUp"] = signalingHungUp
         self["signalingGetRoomByGroupID"] = signalingGetRoomByGroupID
+        self["signalingGetTokenByRoomID"] = signalingGetTokenByRoomID
     }
 
     func setSignalingListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -46,6 +47,10 @@ public class SignalingManager: BaseServiceManager {
     
     func signalingGetRoomByGroupID(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSignalingGetRoomByGroupID(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
+    }
+    
+    func signalingGetTokenByRoomID(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSignalingGetTokenByRoomID(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "roomID"])
     }
 }
 public class SignalingListener: NSObject, Open_im_sdk_callbackOnSignalingListenerProtocol {
