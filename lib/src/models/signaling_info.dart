@@ -65,15 +65,16 @@ class InvitationInfo {
   /// 平台[Platform]
   int? platformID;
 
-  InvitationInfo({this.inviterUserID,
-    this.inviteeUserIDList,
-    this.groupID,
-    this.roomID,
-    this.timeout,
-    this.initiateTime,
-    this.mediaType,
-    this.sessionType,
-    this.platformID});
+  InvitationInfo(
+      {this.inviterUserID,
+      this.inviteeUserIDList,
+      this.groupID,
+      this.roomID,
+      this.timeout,
+      this.initiateTime,
+      this.mediaType,
+      this.sessionType,
+      this.platformID});
 
   InvitationInfo.fromJson(Map<String, dynamic> json) {
     inviterUserID = json['inviterUserID'];
@@ -127,9 +128,9 @@ class SignalingCertificate {
     token = json['token'];
     roomID = json['roomID'];
     liveURL = json['liveURL'];
-    busyLineUserIDList =
-    null == json['busyLineUserIDList'] ? null : json['busyLineUserIDList'].cast<
-        String>();
+    busyLineUserIDList = null == json['busyLineUserIDList']
+        ? null
+        : json['busyLineUserIDList'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -206,7 +207,7 @@ class Participant {
         ? GroupMembersInfo.fromJson(json['groupMemberInfo'])
         : null;
     userInfo =
-    json['userInfo'] != null ? UserInfo.fromJson(json['userInfo']) : null;
+        json['userInfo'] != null ? UserInfo.fromJson(json['userInfo']) : null;
   }
 
   Map<String, dynamic> toJson() {
