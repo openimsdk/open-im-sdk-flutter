@@ -735,18 +735,14 @@ class MessageManager {
   /// [conversationID] 会话id
   /// [clientMsgIDList] 消息id列表
   Future<SearchResult> findMessageList({
-    required String conversationID,
-    required List<String> clientMsgIDList,
+    required List<SearchParams> searchParams,
     String? operationID,
   }) =>
       _channel
           .invokeMethod(
               'findMessageList',
               _buildParam({
-                'options': {
-                  "conversationID": conversationID,
-                  "clientMsgIDList": clientMsgIDList,
-                },
+                'searchParams': searchParams.map((e) => e.toJson()),
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) =>
@@ -788,6 +784,92 @@ class MessageManager {
                 'quoteText': text,
                 'quoteMessage': quoteMsg.toJson(),
                 'richMessageInfoList': list.map((e) => e.toJson()).toList(),
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
+  /// 发送消息
+  /// [message] 消息体 [createImageMessageByURL],[createSoundMessageByURL],[createVideoMessageByURL],[createFileMessageByURL]
+  /// [userID] 接收消息的用户id
+  /// [groupID] 接收消息的组id
+  /// [offlinePushInfo] 离线消息显示内容
+  Future<Message> sendMessageNotOss({
+    required Message message,
+    required OfflinePushInfo offlinePushInfo,
+    String? userID,
+    String? groupID,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'sendMessageNotOss',
+              _buildParam({
+                'message': message.toJson(),
+                'offlinePushInfo': offlinePushInfo.toJson(),
+                'userID': userID ?? '',
+                'groupID': groupID ?? '',
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
+  /// 创建图片消息
+  Future<Message> createImageMessageByURL({
+    required PictureInfo sourcePicture,
+    required PictureInfo bigPicture,
+    required PictureInfo snapshotPicture,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+            'createImageMessageByURL',
+            _buildParam({
+              'sourcePicture': sourcePicture,
+              'bigPicture': bigPicture,
+              'snapshotPicture': snapshotPicture,
+              "operationID": Utils.checkOperationID(operationID),
+            }),
+          )
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
+  /// 创建语音消息
+  Future<Message> createSoundMessageByURL({
+    required SoundElem soundElem,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+            'createSoundMessageByURL',
+            _buildParam({
+              'soundElem': soundElem,
+              "operationID": Utils.checkOperationID(operationID),
+            }),
+          )
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
+  /// 创建视频消息
+  Future<Message> createVideoMessageByURL({
+    required VideoElem videoElem,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'createVideoMessageByURL',
+              _buildParam({
+                'videoElem': videoElem,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
+  /// 创建视频消息
+  Future<Message> createFileMessageByURL({
+    required FileElem fileElem,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'createFileMessageByURL',
+              _buildParam({
+                'fileElem': fileElem,
                 "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));

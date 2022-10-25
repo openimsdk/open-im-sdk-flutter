@@ -250,6 +250,10 @@ class IMManager {
             case 'onRoomParticipantDisconnected':
               info = Utils.toObj(data, (map) => RoomCallingInfo.fromJson(map));
               break;
+            case 'onStreamChange':
+              info =
+                  Utils.toObj(data, (map) => MeetingStreamEvent.fromJson(map));
+              break;
             default:
               info = Utils.toObj(data, (map) => SignalingInfo.fromJson(map));
               break;
@@ -284,6 +288,9 @@ class IMManager {
               break;
             case 'onRoomParticipantDisconnected':
               signalingManager.listener.roomParticipantDisconnected(info);
+              break;
+            case 'onStreamChange':
+              signalingManager.listener.streamChangedEvent(info);
               break;
           }
         } else if (call.method == ListenerType.workMomentsListener) {

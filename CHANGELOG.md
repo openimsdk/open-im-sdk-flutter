@@ -1,3 +1,19 @@
+## 2.3.4+2
+
+- Add streamChangedEvent listener for OnSignalingListener
+- Add signalingJoinMeeting method for SignalingManager
+- Add signalingCreateMeeting method for SignalingManager
+- Add signalingOperateStream method for SignalingManager
+- Add signalingGetMeetings method for SignalingManager
+- Add signalingCloseRoom method for SignalingManager
+- Add signalingUpdateMeetingInfo method for SignalingManager
+- Update findMessageList method
+- Add sendMessageNotOss method for MessageManager
+- Add createImageMessageByURL method for MessageManager
+- Add createSoundMessageByURL method for MessageManager
+- Add createVideoMessageByURL method for MessageManager
+- Add createFileMessageByURL method for MessageManager
+
 ## 2.3.4+1
 
 - Add signalingGetTokenByRoomID method for SignalingManager

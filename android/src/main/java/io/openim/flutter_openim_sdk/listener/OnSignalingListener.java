@@ -50,6 +50,11 @@ public class OnSignalingListener implements open_im_sdk_callback.OnSignalingList
     }
 
     @Override
+    public void onStreamChange(String s) {
+        CommonUtil.emitEvent("signalingListener", "onStreamChange", s);
+    }
+
+    @Override
     public void onHangUp(String s) {
         CommonUtil.emitEvent("signalingListener", "onHangUp", s);
     }

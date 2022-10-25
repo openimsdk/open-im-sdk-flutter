@@ -31,6 +31,7 @@ export 'src/manager/im_user_manager.dart';
 export 'src/manager/im_workmoments_manager.dart';
 export 'src/models/conversation_info.dart';
 export 'src/models/group_info.dart';
+export 'src/models/meeting_info.dart';
 export 'src/models/message.dart';
 export 'src/models/notification_info.dart';
 export 'src/models/organization_info.dart';

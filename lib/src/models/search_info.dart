@@ -78,3 +78,27 @@ class SearchResultItems {
     return data;
   }
 }
+
+class SearchParams {
+  String? conversationID;
+  List<String>? clientMsgIDList;
+
+  SearchParams({
+    this.conversationID,
+    this.clientMsgIDList,
+  });
+
+  SearchParams.fromJson(Map<String, dynamic> json) {
+    conversationID = json['conversationID'];
+    if (json['clientMsgIDList'] != null) {
+      clientMsgIDList = json['clientMsgIDList'].cast<String>();
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['conversationID'] = this.conversationID;
+    data['messageCount'] = this.clientMsgIDList;
+    return data;
+  }
+}

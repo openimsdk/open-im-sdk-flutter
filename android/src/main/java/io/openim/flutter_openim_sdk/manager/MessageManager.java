@@ -412,7 +412,7 @@ public class MessageManager extends BaseManager {
         Open_im_sdk.findMessageList(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                jsonValue(methodCall, "options")
+                jsonValue(methodCall, "searchParams")
         );
     }
 
@@ -433,5 +433,46 @@ public class MessageManager extends BaseManager {
                         jsonValue(methodCall, "quoteMessage"),
                         jsonValue(methodCall, "richMessageInfoList")
                 ));
+    }
+
+    public void sendMessageNotOss(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.sendMessageNotOss(
+                new OnMsgSendListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "message"),
+                value(methodCall, "userID"),
+                value(methodCall, "groupID"),
+                jsonValue(methodCall, "offlinePushInfo")
+        );
+    }
+
+    public void createImageMessageByURL(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createImageMessageByURL(
+                        value(methodCall, "operationID"),
+                        jsonValue(methodCall, "sourcePicture"),
+                        jsonValue(methodCall, "bigPicture"),
+                        jsonValue(methodCall, "snapshotPicture")));
+    }
+
+    public void createSoundMessageByURL(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createSoundMessageByURL(
+                        value(methodCall, "operationID"),
+                        jsonValue(methodCall, "soundElem")));
+    }
+
+    public void createVideoMessageByURL(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createVideoMessageByURL(
+                        value(methodCall, "operationID"),
+                        jsonValue(methodCall, "videoElem")));
+    }
+
+    public void createFileMessageByURL(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result,
+                Open_im_sdk.createFileMessageByURL(
+                        value(methodCall, "operationID"),
+                        jsonValue(methodCall, "fileElem")));
     }
 }

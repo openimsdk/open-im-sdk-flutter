@@ -49,6 +49,11 @@ public class MessageManager: BaseServiceManager {
         self["findMessageList"] = findMessageList
         self["createAdvancedTextMessage"] = createAdvancedTextMessage
         self["createAdvancedQuoteMessage"] = createAdvancedQuoteMessage
+        self["sendMessageNotOss"] = sendMessageNotOss
+        self["createImageMessageByURL"] = createImageMessageByURL
+        self["createSoundMessageByURL"] = createSoundMessageByURL
+        self["createVideoMessageByURL"] = createVideoMessageByURL
+        self["createFileMessageByURL"] = createFileMessageByURL
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -238,7 +243,29 @@ public class MessageManager: BaseServiceManager {
     }
     
     func findMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkFindMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "options"])
+        Open_im_sdkFindMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParams"])
+    }
+    
+    func sendMessageNotOss(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        let sendMsgProgressListener: SendMsgProgressListener = SendMsgProgressListener(channel: channel,result: result,methodCall: methodCall)
+        Open_im_sdkSendMessageNotOss(sendMsgProgressListener, methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[string: "userID"],
+                               methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"])
+    }
+    
+    func createImageMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        callBack(result, Open_im_sdkCreateImageMessageByURL(methodCall[string: "operationID"], methodCall[jsonString: "sourcePicture"], methodCall[jsonString: "bigPicture"], methodCall[jsonString: "snapshotPicture"]))
+    }
+    
+    func createSoundMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        callBack(result, Open_im_sdkCreateSoundMessageByURL(methodCall[string: "operationID"], methodCall[jsonString: "soundElem"]))
+    }
+    
+    func createVideoMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        callBack(result, Open_im_sdkCreateVideoMessageByURL(methodCall[string: "operationID"], methodCall[jsonString: "videoElem"]))
+    }
+    
+    func createFileMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        callBack(result, Open_im_sdkCreateFileMessageByURL(methodCall[string: "operationID"], methodCall[jsonString: "fileElem"]))
     }
 }
 
