@@ -7,6 +7,8 @@ class SearchResult {
   /// 搜索到的具体内容
   List<SearchResultItems>? searchResultItems;
 
+  List<SearchResultItems>? findResultItems;
+
   SearchResult({this.totalCount, this.searchResultItems});
 
   SearchResult.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,12 @@ class SearchResult {
         searchResultItems!.add(SearchResultItems.fromJson(v));
       });
     }
+    if (json['findResultItems'] != null) {
+      findResultItems = <SearchResultItems>[];
+      json['findResultItems'].forEach((v) {
+        findResultItems!.add(SearchResultItems.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -25,6 +33,10 @@ class SearchResult {
     if (this.searchResultItems != null) {
       data['searchResultItems'] =
           this.searchResultItems!.map((v) => v.toJson()).toList();
+    }
+    if (this.findResultItems != null) {
+      data['findResultItems'] =
+          this.findResultItems!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -98,7 +110,7 @@ class SearchParams {
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
     data['conversationID'] = this.conversationID;
-    data['messageCount'] = this.clientMsgIDList;
+    data['clientMsgIDList'] = this.clientMsgIDList;
     return data;
   }
 }

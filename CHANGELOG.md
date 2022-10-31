@@ -1,3 +1,7 @@
+## 2.3.4+3
+
+- Fix bug
+
 ## 2.3.4+2
 
 - Add streamChangedEvent listener for OnSignalingListener

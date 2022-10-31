@@ -742,11 +742,11 @@ class MessageManager {
           .invokeMethod(
               'findMessageList',
               _buildParam({
-                'searchParams': searchParams.map((e) => e.toJson()),
+                'searchParams': searchParams.map((e) => e.toJson()).toList(),
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) =>
-              Utils.toObj(value, (map) => SearchResult.fromJson(value)));
+              Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
   /// 富文本消息
   /// [text] 输入内容
