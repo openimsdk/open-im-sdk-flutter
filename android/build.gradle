@@ -4,8 +4,7 @@ version '1.0'
 buildscript {
     repositories {
         maven {
-            url 'http://121.37.25.71:8081/repository/maven2/'
-            allowInsecureProtocol = true
+            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
         }
         google()
         mavenCentral()
@@ -19,8 +18,7 @@ buildscript {
 rootProject.allprojects {
     repositories {
         maven {
-            url 'http://121.37.25.71:8081/repository/maven2/'
-            allowInsecureProtocol = true
+            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
         }
         google()
         mavenCentral()
@@ -41,5 +39,5 @@ android {
     }
 }
 dependencies {
-    implementation 'io.openim:core-sdk:2.3.4-rc0@aar'
+    implementation 'io.openim:core-sdk:2.3.4-rc2@aar'
 }

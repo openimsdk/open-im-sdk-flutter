@@ -1,3 +1,8 @@
+## 2.3.4+4
+
+- Fix bug
+- Replace maven repository address
+
 ## 2.3.4+3
 
 - Fix bug

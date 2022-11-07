@@ -33,6 +33,8 @@ class DeptInfo {
   /// 附加信息
   String? attachedInfo;
 
+  String? relatedGroupID;
+
   DeptInfo(
       {this.departmentID,
       this.faceURL,
@@ -44,7 +46,8 @@ class DeptInfo {
       this.subDepartmentNum,
       this.memberNum,
       this.ex,
-      this.attachedInfo});
+      this.attachedInfo,
+      this.relatedGroupID});
 
   DeptInfo.fromJson(Map<String, dynamic> json) {
     departmentID = json['departmentID'];
@@ -58,6 +61,7 @@ class DeptInfo {
     memberNum = json['memberNum'];
     ex = json['ex'];
     attachedInfo = json['attachedInfo'];
+    relatedGroupID = json['relatedGroupID'];
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +77,7 @@ class DeptInfo {
     data['memberNum'] = this.memberNum;
     data['ex'] = this.ex;
     data['attachedInfo'] = this.attachedInfo;
+    data['relatedGroupID'] = this.relatedGroupID;
     return data;
   }
 
@@ -134,6 +139,12 @@ class DeptMemberInfo {
   /// 创建时间
   int? createTime;
 
+  /// 入职时间
+  int? entryTime;
+
+  /// 离职时间
+  int? terminationTime;
+
   /// 扩展字段
   String? ex;
 
@@ -145,6 +156,9 @@ class DeptMemberInfo {
 
   /// 所在部门的所有上级部门
   List<DeptInfo>? parentDepartmentList;
+
+  /// 当前部门信息
+  DeptInfo? department;
 
   DeptMemberInfo({
     this.userID,
@@ -166,6 +180,7 @@ class DeptMemberInfo {
     this.attachedInfo,
     this.departmentName,
     this.parentDepartmentList,
+    this.department,
   });
 
   DeptMemberInfo.fromJson(Map<String, dynamic> json) {
@@ -193,6 +208,9 @@ class DeptMemberInfo {
         parentDepartmentList!.add(DeptInfo.fromJson(v));
       });
     }
+    department = json['department'] == null
+        ? null
+        : DeptInfo.fromJson(json['department']);
   }
 
   Map<String, dynamic> toJson() {
@@ -219,6 +237,7 @@ class DeptMemberInfo {
       data['parentDepartmentList'] =
           this.parentDepartmentList!.map((v) => v.toJson()).toList();
     }
+    data['department'] = this.department?.toJson();
     return data;
   }
 
@@ -263,7 +282,7 @@ class UserInDept {
   }
 }
 
-/// 部门下的子部门跟员工
+/// 部门下的一级子部门跟员工
 class DeptMemberAndSubDept {
   /// 一级子部门
   List<DeptInfo>? departmentList;
