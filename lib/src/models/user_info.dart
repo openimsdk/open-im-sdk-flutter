@@ -53,6 +53,9 @@ class UserInfo {
   /// 全局免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   int? globalRecvMsgOpt;
 
+  /// 是允许添加为好友
+  bool? isAllowAddFriend;
+
   UserInfo({
     this.publicInfo,
     this.friendInfo,
@@ -71,6 +74,7 @@ class UserInfo {
     this.createTime,
     this.remark,
     this.globalRecvMsgOpt,
+    this.isAllowAddFriend,
   });
 
   // UserInfo.self(Map<String, dynamic> json) {
@@ -110,6 +114,7 @@ class UserInfo {
     ex = json['ex'] ?? _ex;
     createTime = json['createTime'];
     globalRecvMsgOpt = json['globalRecvMsgOpt'];
+    isAllowAddFriend = json['isAllowAddFriend'];
   }
 
   Map<String, dynamic> toJson() {
@@ -131,6 +136,7 @@ class UserInfo {
     data['createTime'] = this.createTime;
     data['remark'] = this.remark;
     data['globalRecvMsgOpt'] = this.globalRecvMsgOpt;
+    data['isAllowAddFriend'] = this.isAllowAddFriend;
     return data;
   }
 
