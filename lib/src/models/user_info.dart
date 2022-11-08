@@ -53,8 +53,14 @@ class UserInfo {
   /// 全局免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   int? globalRecvMsgOpt;
 
-  /// 是允许添加为好友
-  bool? isAllowAddFriend;
+  /// 是允许添加为好友  1：允许，2：否
+  int? allowAddFriend;
+
+  /// 新消息铃声   1：允许，2：否
+  int? allowBeep;
+
+  /// 新消息震动   1：允许，2：否
+  int? allowVibration;
 
   UserInfo({
     this.publicInfo,
@@ -74,7 +80,9 @@ class UserInfo {
     this.createTime,
     this.remark,
     this.globalRecvMsgOpt,
-    this.isAllowAddFriend,
+    this.allowAddFriend,
+    this.allowBeep,
+    this.allowVibration,
   });
 
   // UserInfo.self(Map<String, dynamic> json) {
@@ -114,7 +122,9 @@ class UserInfo {
     ex = json['ex'] ?? _ex;
     createTime = json['createTime'];
     globalRecvMsgOpt = json['globalRecvMsgOpt'];
-    isAllowAddFriend = json['isAllowAddFriend'];
+    allowAddFriend = json['allowAddFriend'];
+    allowBeep = json['allowBeep'];
+    allowVibration = json['allowVibration'];
   }
 
   Map<String, dynamic> toJson() {
@@ -136,7 +146,9 @@ class UserInfo {
     data['createTime'] = this.createTime;
     data['remark'] = this.remark;
     data['globalRecvMsgOpt'] = this.globalRecvMsgOpt;
-    data['isAllowAddFriend'] = this.isAllowAddFriend;
+    data['allowAddFriend'] = this.allowAddFriend;
+    data['allowBeep'] = this.allowBeep;
+    data['allowVibration'] = this.allowVibration;
     return data;
   }
 
