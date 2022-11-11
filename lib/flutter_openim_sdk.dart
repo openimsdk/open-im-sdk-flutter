@@ -9,6 +9,7 @@ export 'src/enum/im_platform.dart';
 export 'src/enum/listener_type.dart';
 export 'src/enum/message_status.dart';
 export 'src/enum/message_type.dart';
+export 'src/enum/sdk_error_code.dart';
 export 'src/listener/advanced_msg_listener.dart';
 export 'src/listener/connect_listener.dart';
 export 'src/listener/conversation_listener.dart';
