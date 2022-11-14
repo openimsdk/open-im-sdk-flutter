@@ -62,6 +62,9 @@ class UserInfo {
   /// 新消息震动   1：允许，2：否
   int? allowVibration;
 
+  /// 禁止登录
+  int? forbidden;
+
   UserInfo({
     this.publicInfo,
     this.friendInfo,
@@ -83,6 +86,7 @@ class UserInfo {
     this.allowAddFriend,
     this.allowBeep,
     this.allowVibration,
+    this.forbidden,
   });
 
   // UserInfo.self(Map<String, dynamic> json) {
@@ -125,6 +129,7 @@ class UserInfo {
     allowAddFriend = json['allowAddFriend'];
     allowBeep = json['allowBeep'];
     allowVibration = json['allowVibration'];
+    forbidden = json['forbidden'];
   }
 
   Map<String, dynamic> toJson() {
@@ -149,6 +154,7 @@ class UserInfo {
     data['allowAddFriend'] = this.allowAddFriend;
     data['allowBeep'] = this.allowBeep;
     data['allowVibration'] = this.allowVibration;
+    data['forbidden'] = this.forbidden;
     return data;
   }
 
