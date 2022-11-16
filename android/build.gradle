@@ -3,9 +3,6 @@ version '1.0'
 
 buildscript {
     repositories {
-        maven {
-            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
-        }
         google()
         mavenCentral()
     }
@@ -17,9 +14,7 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
-        maven {
-            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
-        }
+        maven { url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/' }
         google()
         mavenCentral()
     }
@@ -39,5 +34,5 @@ android {
     }
 }
 dependencies {
-    implementation 'io.openim:core-sdk:2.3.4-rc3@aar'
+    api 'io.openim:core-sdk:2.3.4-rc4@aar'
 }

@@ -1,6 +1,9 @@
 ## 2.3.4+5
 
 - Fix bug
+- Add setOneConversationBurnDuration method for ConversationManager
+- Add burnDuration field for ConversationInfo
+- Add burnDuration field for AttachedInfoElem
 
 ## 2.3.4+4
 

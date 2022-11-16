@@ -48,6 +48,9 @@ class ConversationInfo {
   /// 是否开启了私聊（阅后即焚）
   bool? isPrivateChat;
 
+  /// 可阅读期限 s
+  int? burnDuration;
+
   /// 附加内容
   String? ext;
 
@@ -68,6 +71,7 @@ class ConversationInfo {
     this.draftText,
     this.draftTextTime,
     this.isPrivateChat,
+    this.burnDuration,
     this.isPinned,
     this.isNotInGroup,
   });
@@ -93,6 +97,7 @@ class ConversationInfo {
     draftTextTime = json['draftTextTime'];
     isPinned = json['isPinned'];
     isPrivateChat = json['isPrivateChat'];
+    burnDuration = json['burnDuration'];
     isNotInGroup = json['isNotInGroup'];
     groupAtType = json['groupAtType'];
   }
@@ -113,6 +118,7 @@ class ConversationInfo {
     data['draftTextTime'] = this.draftTextTime;
     data['isPinned'] = this.isPinned;
     data['isPrivateChat'] = this.isPrivateChat;
+    data['burnDuration'] = this.burnDuration;
     data['isNotInGroup'] = this.isNotInGroup;
     data['groupAtType'] = this.groupAtType;
     return data;

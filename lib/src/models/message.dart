@@ -790,6 +790,9 @@ class AttachedInfoElem {
   /// 已读时间
   int? hasReadTime;
 
+  /// 私聊消息保留时长
+  int? burnDuration;
+
   /// 离线不发送推送
   bool? notSenderNotificationPush;
 
@@ -797,6 +800,7 @@ class AttachedInfoElem {
     this.groupHasReadInfo,
     this.isPrivateChat,
     this.hasReadTime,
+    this.burnDuration,
     this.notSenderNotificationPush,
   });
 
@@ -806,6 +810,7 @@ class AttachedInfoElem {
         : GroupHasReadInfo.fromJson(json['groupHasReadInfo']);
     isPrivateChat = json['isPrivateChat'];
     hasReadTime = json['hasReadTime'];
+    burnDuration = json['burnDuration'];
     notSenderNotificationPush = json['notSenderNotificationPush'];
   }
 
@@ -814,6 +819,7 @@ class AttachedInfoElem {
     data['groupHasReadInfo'] = this.groupHasReadInfo?.toJson();
     data['isPrivateChat'] = this.isPrivateChat;
     data['hasReadTime'] = this.hasReadTime;
+    data['burnDuration'] = this.burnDuration;
     data['notSenderNotificationPush'] = this.notSenderNotificationPush;
     return data;
   }

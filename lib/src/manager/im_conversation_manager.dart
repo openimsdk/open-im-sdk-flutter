@@ -262,6 +262,22 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// 设置阅后即焚时长
+  /// [conversationID] 会话id
+  /// [burnDuration] 时长s，默认30s
+  Future<dynamic> setOneConversationBurnDuration({
+    required String conversationID,
+    int burnDuration = 30,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setOneConversationBurnDuration',
+          _buildParam({
+            "conversationID": conversationID,
+            "burnDuration": burnDuration,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list
     ..sort((a, b) {
