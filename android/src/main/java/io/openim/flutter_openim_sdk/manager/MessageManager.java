@@ -83,6 +83,8 @@ public class MessageManager extends BaseManager {
     public void setAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
         String key = methodCall.argument(KEY_ID);
         Open_im_sdk.setAdvancedMsgListener(new OnAdvancedMsgListener(key));
+
+        result.success(null);
     }
 
     public void sendMessage(MethodCall methodCall, MethodChannel.Result result) {

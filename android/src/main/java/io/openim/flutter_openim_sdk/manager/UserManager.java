@@ -10,6 +10,8 @@ public class UserManager extends BaseManager {
 
     public void setUserListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setUserListener(new OnUserListener());
+
+        result.success(null);
     }
 
     public void getUsersInfo(MethodCall methodCall, MethodChannel.Result result) {

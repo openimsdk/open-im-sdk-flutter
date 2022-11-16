@@ -10,6 +10,8 @@ public class WorkMomentsManager extends BaseManager {
 
     public void setWorkMomentsListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setWorkMomentsListener(new OnWorkMomentsListener());
+
+        result.success(null);
     }
 
     public void getWorkMomentsUnReadCount(MethodCall methodCall, MethodChannel.Result result) {

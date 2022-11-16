@@ -11,6 +11,8 @@ public class FriendshipManager extends BaseManager {
 
     public void setFriendListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setFriendListener(new OnFriendshipListener());
+
+        result.success(null);
     }
 
     public void getFriendsInfo(MethodCall methodCall, MethodChannel.Result result) {
