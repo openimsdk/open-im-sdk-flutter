@@ -10,6 +10,8 @@ public class OrganizationManager extends BaseManager {
 
     public void setOrganizationListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setOrganizationListener(new OnOrganizationListener());
+
+        result.success(null);
     }
 
     public void getSubDepartment(MethodCall methodCall, MethodChannel.Result result) {

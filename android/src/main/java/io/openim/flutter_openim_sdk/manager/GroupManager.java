@@ -10,6 +10,8 @@ public class GroupManager extends BaseManager {
 
     public void setGroupListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setGroupListener(new OnGroupListener());
+
+        result.success(null);
     }
 
     public void inviteUserToGroup(MethodCall methodCall, MethodChannel.Result result) {

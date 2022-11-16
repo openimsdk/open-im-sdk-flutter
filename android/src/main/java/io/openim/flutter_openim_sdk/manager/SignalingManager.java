@@ -10,6 +10,8 @@ public class SignalingManager extends BaseManager {
 
     public void setSignalingListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setSignalingListener(new OnSignalingListener());
+
+        result.success(null);
     }
 
     public void signalingInvite(MethodCall methodCall, MethodChannel.Result result) {

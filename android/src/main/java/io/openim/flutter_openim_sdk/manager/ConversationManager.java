@@ -11,6 +11,8 @@ public class ConversationManager extends BaseManager {
 
     public void setConversationListener(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setConversationListener(new OnConversationListener());
+
+        result.success(null);
     }
 
 
