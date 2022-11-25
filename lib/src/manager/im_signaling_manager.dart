@@ -281,6 +281,22 @@ class SignalingManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  /// 自定义信令
+  /// [roomID] 会议ID
+  /// [customInfo] 自定义信令
+  Future<dynamic> signalingSendCustomSignal({
+    required String roomID,
+    required String customInfo,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'signalingSendCustomSignal',
+          _buildParam({
+            'roomID': roomID,
+            'customInfo': customInfo,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "signalingManager";
     return param;

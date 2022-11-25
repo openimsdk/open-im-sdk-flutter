@@ -254,6 +254,9 @@ class IMManager {
               info =
                   Utils.toObj(data, (map) => MeetingStreamEvent.fromJson(map));
               break;
+            case 'onReceiveCustomSignal':
+              info = Utils.toObj(data, (map) => CustomSignaling.fromJson(map));
+              break;
             default:
               info = Utils.toObj(data, (map) => SignalingInfo.fromJson(map));
               break;
@@ -291,6 +294,9 @@ class IMManager {
               break;
             case 'onStreamChange':
               signalingManager.listener.streamChangedEvent(info);
+              break;
+            case 'onReceiveCustomSignal':
+              signalingManager.listener.receiveCustomSignal(info);
               break;
           }
         } else if (call.method == ListenerType.workMomentsListener) {
@@ -332,6 +338,7 @@ class IMManager {
     int logLevel = 6,
     String objectStorage = 'cos',
     String? encryptionKey,
+    bool enabledEncryption = false,
     String? operationID,
   }) {
     this._connectListener = listener;
@@ -347,6 +354,7 @@ class IMManager {
             "log_level": logLevel,
             "object_storage": objectStorage,
             "encryption_key": encryptionKey,
+            "is_need_encryption": enabledEncryption,
             "operationID": Utils.checkOperationID(operationID),
           },
         ));

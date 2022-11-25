@@ -823,9 +823,9 @@ class MessageManager {
           .invokeMethod(
             'createImageMessageByURL',
             _buildParam({
-              'sourcePicture': sourcePicture,
-              'bigPicture': bigPicture,
-              'snapshotPicture': snapshotPicture,
+              'sourcePicture': sourcePicture.toJson(),
+              'bigPicture': bigPicture.toJson(),
+              'snapshotPicture': snapshotPicture.toJson(),
               "operationID": Utils.checkOperationID(operationID),
             }),
           )
@@ -840,7 +840,7 @@ class MessageManager {
           .invokeMethod(
             'createSoundMessageByURL',
             _buildParam({
-              'soundElem': soundElem,
+              'soundElem': soundElem.toJson(),
               "operationID": Utils.checkOperationID(operationID),
             }),
           )
@@ -855,7 +855,7 @@ class MessageManager {
           .invokeMethod(
               'createVideoMessageByURL',
               _buildParam({
-                'videoElem': videoElem,
+                'videoElem': videoElem.toJson(),
                 "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
@@ -869,7 +869,7 @@ class MessageManager {
           .invokeMethod(
               'createFileMessageByURL',
               _buildParam({
-                'fileElem': fileElem,
+                'fileElem': fileElem.toJson(),
                 "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));

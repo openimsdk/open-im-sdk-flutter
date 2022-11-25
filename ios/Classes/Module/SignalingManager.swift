@@ -20,6 +20,7 @@ public class SignalingManager: BaseServiceManager {
         self["signalingOperateStream"] = signalingOperateStream
         self["signalingGetMeetings"] = signalingGetMeetings
         self["signalingCloseRoom"] = signalingCloseRoom
+        self["signalingSendCustomSignal"] = signalingSendCustomSignal
     }
 
     func setSignalingListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -82,8 +83,13 @@ public class SignalingManager: BaseServiceManager {
     func signalingCloseRoom(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSignalingCloseRoom(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "roomID"])
     }
+    
+    func signalingSendCustomSignal(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSignalingSendCustomSignal(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "customInfo"], methodCall[string: "roomID"])
+    }
 }
 public class SignalingListener: NSObject, Open_im_sdk_callbackOnSignalingListenerProtocol {
+ 
   
     private let channel:FlutterMethodChannel
     
@@ -133,6 +139,10 @@ public class SignalingListener: NSObject, Open_im_sdk_callbackOnSignalingListene
     
     public func onStreamChange(_ s: String?) {
         CommonUtil.emitEvent(channel: channel, method: "signalingListener", type: "onStreamChange", errCode: nil, errMsg: nil, data: s)
+    }
+    
+    public func onReceiveCustomSignal(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "signalingListener", type: "onReceiveCustomSignal", errCode: nil, errMsg: nil, data: s)
     }
     
 }

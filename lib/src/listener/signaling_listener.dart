@@ -13,6 +13,7 @@ class OnSignalingListener {
   final Function(RoomCallingInfo info)? onRoomParticipantConnected;
   final Function(RoomCallingInfo info)? onRoomParticipantDisconnected;
   final Function(MeetingStreamEvent event)? onMeetingStreamChanged;
+  final Function(CustomSignaling info)? onReceiveCustomSignal;
 
   OnSignalingListener({
     this.onInvitationCancelled,
@@ -26,6 +27,7 @@ class OnSignalingListener {
     this.onRoomParticipantConnected,
     this.onRoomParticipantDisconnected,
     this.onMeetingStreamChanged,
+    this.onReceiveCustomSignal,
   });
 
   /// 被邀请者收到：邀请者取消音视频通话
@@ -78,5 +80,9 @@ class OnSignalingListener {
 
   void streamChangedEvent(MeetingStreamEvent event) {
     onMeetingStreamChanged?.call(event);
+  }
+
+  void receiveCustomSignal(CustomSignaling info) {
+    onReceiveCustomSignal?.call(info);
   }
 }

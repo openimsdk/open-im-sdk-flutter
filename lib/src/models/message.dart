@@ -790,7 +790,8 @@ class AttachedInfoElem {
   /// 已读时间
   int? hasReadTime;
 
-  /// 私聊消息保留时长
+  /// 阅读时长 s
+  /// 即从hasReadTime时间算起，超过了burnDuration秒触发销毁
   int? burnDuration;
 
   /// 离线不发送推送

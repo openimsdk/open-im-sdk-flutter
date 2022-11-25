@@ -25,6 +25,7 @@ public class ConversationManager: BaseServiceManager {
         self["resetConversationGroupAtType"] = resetConversationGroupAtType
         self["getAtAllTag"] = getAtAllTag
         self["setGlobalRecvMessageOpt"] = setGlobalRecvMessageOpt
+        self["setOneConversationBurnDuration"] = setOneConversationBurnDuration
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -107,6 +108,10 @@ public class ConversationManager: BaseServiceManager {
     
     func setGlobalRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSetGlobalRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int: "status"])
+    }
+    
+    func setOneConversationBurnDuration(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetOneConversationBurnDuration(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[int32: "burnDuration"])
     }
 }
 

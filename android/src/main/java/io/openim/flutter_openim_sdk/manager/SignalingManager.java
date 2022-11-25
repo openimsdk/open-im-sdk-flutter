@@ -114,4 +114,12 @@ public class SignalingManager extends BaseManager {
                 value(methodCall, "operationID"),
                 value(methodCall, "roomID"));
     }
+
+    public void signalingSendCustomSignal(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.signalingSendCustomSignal(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "customInfo"),
+                value(methodCall, "roomID"));
+    }
 }

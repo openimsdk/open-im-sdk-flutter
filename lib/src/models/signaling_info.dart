@@ -224,3 +224,22 @@ class Participant {
     return data;
   }
 }
+
+class CustomSignaling {
+  String? roomID;
+  String? customInfo;
+
+  CustomSignaling({this.roomID, this.customInfo});
+
+  CustomSignaling.fromJson(Map<String, dynamic> json) {
+    roomID = json['roomID'];
+    customInfo = json['customInfo'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['roomID'] = roomID;
+    data['customInfo'] = customInfo;
+    return data;
+  }
+}

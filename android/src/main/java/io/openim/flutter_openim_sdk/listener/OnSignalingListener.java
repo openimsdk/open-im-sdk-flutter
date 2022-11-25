@@ -35,6 +35,11 @@ public class OnSignalingListener implements open_im_sdk_callback.OnSignalingList
     }
 
     @Override
+    public void onReceiveCustomSignal(String s) {
+        CommonUtil.emitEvent("signalingListener", "onReceiveCustomSignal", s);
+    }
+
+    @Override
     public void onReceiveNewInvitation(String s) {
         CommonUtil.emitEvent("signalingListener", "onReceiveNewInvitation", s);
     }

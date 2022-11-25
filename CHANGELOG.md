@@ -2,6 +2,8 @@
 
 - Fix bug
 - Add setOneConversationBurnDuration method for ConversationManager
+- Add signalingSendCustomSignal method for SignalingManager
+- Add onReceiveCustomSignal listener for OnSignalingListener
 - Add burnDuration field for ConversationInfo
 - Add burnDuration field for AttachedInfoElem
 
