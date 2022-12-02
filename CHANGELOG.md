@@ -1,3 +1,7 @@
+## 2.3.4+6
+
+- Add setAppBackgroundStatus method for IMManager
+
 ## 2.3.4+5
 
 - Fix bug

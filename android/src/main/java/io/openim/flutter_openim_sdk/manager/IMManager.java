@@ -61,4 +61,13 @@ public class IMManager extends BaseManager {
                 value(methodCall, "fcmToken")
         );
     }
+
+
+    public void setAppBackgroundStatus(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setAppBackgroundStatus(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "isBackground")
+        );
+    }
 }

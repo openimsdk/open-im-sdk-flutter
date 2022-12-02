@@ -34,5 +34,5 @@ android {
     }
 }
 dependencies {
-    api 'io.openim:core-sdk:2.3.4-rc6@aar'
+    api 'io.openim:core-sdk:2.3.4-rc7@aar'
 }

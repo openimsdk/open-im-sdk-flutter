@@ -449,6 +449,18 @@ class IMManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  /// 标记app处于后台
+  Future setAppBackgroundStatus({
+    required bool isBackground,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setAppBackgroundStatus',
+          _buildParam({
+            'isBackground': isBackground,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "imManager";
     return param;
