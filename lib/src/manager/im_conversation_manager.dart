@@ -138,14 +138,16 @@ class ConversationManager {
           }));
 
   /// 获取未读消息总数
-  Future<dynamic> getTotalUnreadMsgCount({
+  Future<String> getTotalUnreadMsgCount({
     String? operationID,
   }) =>
-      _channel.invokeMethod(
-          'getTotalUnreadMsgCount',
-          _buildParam({
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+      _channel
+          .invokeMethod<String>(
+              'getTotalUnreadMsgCount',
+              _buildParam({
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => value ?? '0');
 
   /// 查询会话id
   /// [sourceID] 如果是单聊值传用户ID，如果是群聊值传组ID
