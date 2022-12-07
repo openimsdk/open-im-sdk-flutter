@@ -314,9 +314,9 @@ class IMManager {
               break;
           }
         }
-      } catch (err) {
+      } catch (err, stacktrace) {
         print(
-            "回调失败了。$err ${call.method} ${call.arguments['type']} ${call.arguments['data']}");
+            "回调失败了。$err ${call.method} ${call.arguments['type']} ${call.arguments['data']}, 调用路径: $stacktrace");
       }
       return Future.value(null);
     });
