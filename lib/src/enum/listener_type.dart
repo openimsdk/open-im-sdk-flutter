@@ -11,4 +11,5 @@ class ListenerType {
   static final msgSendProgressListener = "msgSendProgressListener";
   static final workMomentsListener = "workMomentsListener";
   static final organizationListener = "organizationListener";
+  static final customBusinessListener = "customBusinessListener";
 }

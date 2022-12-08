@@ -313,6 +313,15 @@ class IMManager {
               organizationManager.listener.organizationUpdated();
               break;
           }
+        } else if (call.method == ListenerType.customBusinessListener) {
+          String type = call.arguments['type'];
+          String data = call.arguments['data'];
+          switch (type) {
+            case 'onRecvCustomBusinessMessage':
+              messageManager.customBusinessListener?.onRecvCustomBusinessMessage
+                  ?.call(data);
+              break;
+          }
         }
       } catch (err) {
         print(
@@ -329,6 +338,8 @@ class IMManager {
   /// [dataDir]   SDK数据库存储目录
   /// [objectStorage] 存储对象 cos/minio
   /// [logLevel] 日志 1不打印
+  /// [enabledEncryption] true：加密
+  /// [enabledCompression] true：压缩
   Future<dynamic> initSDK({
     required int platform,
     required String apiAddr,
@@ -339,6 +350,7 @@ class IMManager {
     String objectStorage = 'cos',
     String? encryptionKey,
     bool enabledEncryption = false,
+    bool enabledCompression = false,
     String? operationID,
   }) {
     this._connectListener = listener;
@@ -355,6 +367,7 @@ class IMManager {
             "object_storage": objectStorage,
             "encryption_key": encryptionKey,
             "is_need_encryption": enabledEncryption,
+            "is_compression ": enabledCompression,
             "operationID": Utils.checkOperationID(operationID),
           },
         ));

@@ -1,3 +1,10 @@
+## 2.3.5
+
+- Add setCustomBusinessListener method for MessageManager
+- Add OnCustomBusinessListener listener
+- Add message encryption config
+- Add message compression config
+
 ## 2.3.4+6
 
 - Add setAppBackgroundStatus method for IMManager

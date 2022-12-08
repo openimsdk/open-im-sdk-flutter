@@ -4,6 +4,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.listener.OnAdvancedMsgListener;
 import io.openim.flutter_openim_sdk.listener.OnBaseListener;
+import io.openim.flutter_openim_sdk.listener.OnCustomBusinessListener;
 import io.openim.flutter_openim_sdk.listener.OnMsgSendListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
@@ -476,5 +477,11 @@ public class MessageManager extends BaseManager {
                 Open_im_sdk.createFileMessageByURL(
                         value(methodCall, "operationID"),
                         jsonValue(methodCall, "fileElem")));
+    }
+
+    public void setCustomBusinessListener(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setCustomBusinessListener(new OnCustomBusinessListener());
+
+        result.success(null);
     }
 }
