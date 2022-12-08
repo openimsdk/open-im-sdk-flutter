@@ -54,6 +54,7 @@ public class MessageManager: BaseServiceManager {
         self["createSoundMessageByURL"] = createSoundMessageByURL
         self["createVideoMessageByURL"] = createVideoMessageByURL
         self["createFileMessageByURL"] = createFileMessageByURL
+        self["setCustomBusinessListener"] = setCustomBusinessListener
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -267,6 +268,12 @@ public class MessageManager: BaseServiceManager {
     func createFileMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         callBack(result, Open_im_sdkCreateFileMessageByURL(methodCall[string: "operationID"], methodCall[jsonString: "fileElem"]))
     }
+    
+    func setCustomBusinessListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetCustomBusinessListener(CustomBusinessListener(channel: channel))
+        callBack(result)
+    }
+    
 }
 
 public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
@@ -340,5 +347,17 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
         values["id"] = id
         values["revokedMessageV2"] = messageRevoked
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onNewRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
+    }
+}
+
+public class CustomBusinessListener: NSObject, Open_im_sdk_callbackOnCustomBusinessListenerProtocol {
+    private let channel: FlutterMethodChannel
+    
+    init(channel: FlutterMethodChannel) {
+        self.channel = channel
+    }
+    
+    public func onRecvCustomBusinessMessage(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "customBusinessListener", type: "onRecvCustomBusinessMessage", errCode: nil, errMsg: nil, data: s)
     }
 }

@@ -7,6 +7,7 @@ class MessageManager {
   // List<AdvancedMsgListener> advancedMsgListeners = List.empty(growable: true);
   OnMsgSendProgressListener? msgSendProgressListener;
   late OnAdvancedMsgListener msgListener;
+  OnCustomBusinessListener? customBusinessListener;
 
   MessageManager(this._channel);
 
@@ -873,6 +874,12 @@ class MessageManager {
                 "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
+
+  /// 用户资料改变监听
+  Future setCustomBusinessListener(OnCustomBusinessListener listener) {
+    this.customBusinessListener = listener;
+    return _channel.invokeMethod('setCustomBusinessListener', _buildParam({}));
+  }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
