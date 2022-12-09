@@ -252,4 +252,11 @@ public class GroupManager extends BaseManager {
                 jsonValue(methodCall, "searchParam")
         );
     }
+
+    public void setGroupMemberInfo(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setGroupMemberInfo(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "info")
+        );
+    }
 }

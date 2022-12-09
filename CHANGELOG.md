@@ -8,6 +8,7 @@
 - Add OnCustomBusinessListener listener
 - Add message encryption config
 - Add message compression config
+- Add setGroupMemberInfo for GroupManager
 
 ## 2.3.4+6
 
