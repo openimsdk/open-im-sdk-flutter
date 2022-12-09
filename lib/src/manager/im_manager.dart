@@ -474,6 +474,8 @@ class IMManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  MethodChannel get channel => _channel;
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "imManager";
     return param;
