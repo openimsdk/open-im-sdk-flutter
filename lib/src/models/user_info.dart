@@ -20,8 +20,11 @@ class UserInfo {
   /// 手机号
   String? phoneNumber;
 
-  /// 出生时间
+  @deprecated
   int? birth;
+
+  /// 出生时间
+  String? birthTime;
 
   /// 邮箱
   String? email;
@@ -77,6 +80,7 @@ class UserInfo {
     this.faceURL,
     this.phoneNumber,
     this.birth,
+    this.birthTime,
     this.gender,
     this.email,
     this.ex,
@@ -121,6 +125,7 @@ class UserInfo {
     gender = json['gender'] ?? _gender;
     phoneNumber = json['phoneNumber'] ?? _phoneNumber;
     birth = json['birth'] ?? _birth;
+    birthTime = json['birthTime'] ?? _birthTime;
     email = json['email'] ?? _email;
     remark = json['remark'] ?? _remark;
     ex = json['ex'] ?? _ex;
@@ -146,6 +151,7 @@ class UserInfo {
     data['gender'] = this.gender;
     data['phoneNumber'] = this.phoneNumber;
     data['birth'] = this.birth;
+    data['birthTime'] = this.birthTime;
     data['email'] = this.email;
     data['ex'] = this.ex;
     data['createTime'] = this.createTime;
@@ -187,6 +193,8 @@ class UserInfo {
   String? get _phoneNumber => friendInfo?.phoneNumber;
 
   int? get _birth => friendInfo?.birth;
+
+  String? get _birthTime => friendInfo?.birthTime;
 
   String? get _email => friendInfo?.email;
 
@@ -278,6 +286,9 @@ class FriendInfo {
   String? phoneNumber;
 
   /// 出生日期
+  String? birthTime;
+
+  @deprecated
   int? birth;
 
   /// 邮箱
@@ -305,6 +316,7 @@ class FriendInfo {
     this.gender,
     this.phoneNumber,
     this.birth,
+    this.birthTime,
     this.email,
     this.remark,
     this.ex,
@@ -325,6 +337,7 @@ class FriendInfo {
     gender = json['gender'];
     phoneNumber = json['phoneNumber'];
     birth = json['birth'];
+    birthTime = json['birthTime'];
     email = json['email'];
     ex = json['ex'];
   }
@@ -342,6 +355,7 @@ class FriendInfo {
     data['gender'] = this.gender;
     data['phoneNumber'] = this.phoneNumber;
     data['birth'] = this.birth;
+    data['birthTime'] = this.birthTime;
     data['email'] = this.email;
     data['ex'] = this.ex;
     return data;
