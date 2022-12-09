@@ -613,6 +613,24 @@ class GroupManager {
               }))
           .then((value) => Utils.toListMap(value));
 
+  /// 修改GroupMemberInfo ex字段
+  Future<dynamic> setGroupMemberInfo({
+    required String groupID,
+    required String userID,
+    String? ex,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setGroupMemberInfo',
+          _buildParam({
+            'info': {
+              'groupID': groupID,
+              'userID': userID,
+              'ex': ex,
+            },
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";
     return param;

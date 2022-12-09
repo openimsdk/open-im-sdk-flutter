@@ -1,9 +1,14 @@
+## 2.3.5+1
+
+- Add birthTime for UserInfo
+
 ## 2.3.5
 
 - Add setCustomBusinessListener method for MessageManager
 - Add OnCustomBusinessListener listener
 - Add message encryption config
 - Add message compression config
+- Add setGroupMemberInfo for GroupManager
 
 ## 2.3.4+6
 
