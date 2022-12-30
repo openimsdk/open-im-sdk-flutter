@@ -1,6 +1,19 @@
 ## 2.3.5+1
 
 - Add birthTime for UserInfo
+- Add setMessageKvInfoListener method for MessageManager
+- Add setMessageReactionExtensions method for MessageManager
+- Add deleteMessageReactionExtensions method for MessageManager
+- Add getMessageListReactionExtensions method for MessageManager
+- Add onRecvMessageExtensionsChanged method for OnAdvancedMsgListener
+- Add onRecvMessageExtensionsDeleted method for OnAdvancedMsgListener
+- Add OnMessageKvInfoListener listener
+- Add class KeyValue
+- Add class UserExInfo
+- Add class SingleTypeKeyInfoSum
+- Add class MessageKv
+- Add class TypeKeySetResult
+- Add class MessageTypeKeyMapping
 
 ## 2.3.5
 

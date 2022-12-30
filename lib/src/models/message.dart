@@ -1113,3 +1113,173 @@ class RichMessageInfo {
     return data;
   }
 }
+
+///////////////////// 消息修改相关/////////////////////
+////////////////////////////////////////////////////
+
+class KeyValue {
+  String? typeKey;
+  String? value;
+  int? latestUpdateTime;
+
+  KeyValue({this.typeKey, this.value, this.latestUpdateTime});
+
+  KeyValue.fromJson(Map<String, dynamic> json) {
+    typeKey = json['typeKey'];
+    value = json['value'];
+    latestUpdateTime = json['latestUpdateTime'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['typeKey'] = this.typeKey;
+    data['value'] = this.value;
+    data['latestUpdateTime'] = this.latestUpdateTime;
+    return data;
+  }
+}
+
+class UserExInfo {
+  String? userID;
+  String? ex;
+
+  UserExInfo({this.userID, this.ex});
+
+  UserExInfo.fromJson(Map<String, dynamic> json) {
+    userID = json['userID'];
+    ex = json['ex'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['userID'] = this.userID;
+    data['ex'] = this.ex;
+    return data;
+  }
+}
+
+class SingleTypeKeyInfoSum {
+  String? typeKey;
+  int? counter;
+  List<UserExInfo>? infoList;
+  bool? isContainSelf;
+
+  SingleTypeKeyInfoSum({
+    this.typeKey,
+    this.counter,
+    this.infoList,
+    this.isContainSelf,
+  });
+
+  SingleTypeKeyInfoSum.fromJson(Map<String, dynamic> json) {
+    typeKey = json['typeKey'];
+    counter = json['counter'];
+    infoList = json['infoList'] == null
+        ? null
+        : (json['infoList'] as List)
+            .map((e) => UserExInfo.fromJson(e))
+            .toList();
+    isContainSelf = json['isContainSelf'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['typeKey'] = this.typeKey;
+    data['counter'] = this.counter;
+    data['infoList'] = this.infoList?.map((e) => e.toJson()).toList();
+    data['isContainSelf'] = this.isContainSelf;
+    return data;
+  }
+}
+
+class MessageKv {
+  String? clientMsgID;
+  List<SingleTypeKeyInfoSum>? changedKvList;
+
+  MessageKv({this.clientMsgID, this.changedKvList});
+
+  MessageKv.fromJson(Map<String, dynamic> json) {
+    clientMsgID = json['clientMsgID'];
+    changedKvList = json['changedKvList'] == null
+        ? null
+        : (json['changedKvList'] as List)
+            .map((e) => SingleTypeKeyInfoSum.fromJson(e))
+            .toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['clientMsgID'] = this.clientMsgID;
+    data['changedKvList'] = this.changedKvList?.map((e) => e.toJson()).toList();
+    return data;
+  }
+}
+
+class TypeKeySetResult {
+  int? errCode;
+  String? errMsg;
+  String? typeKey;
+  int? latestUpdateTime;
+  String? value;
+
+  TypeKeySetResult(
+      {this.errCode,
+      this.errMsg,
+      this.typeKey,
+      this.latestUpdateTime,
+      this.value});
+
+  TypeKeySetResult.fromJson(Map<String, dynamic> json) {
+    errCode = json['errCode'];
+    errMsg = json['errMsg'];
+    typeKey = json['typeKey'];
+    latestUpdateTime = json['latestUpdateTime'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['errCode'] = this.errCode;
+    data['errMsg'] = this.errMsg;
+    data['typeKey'] = this.typeKey;
+    data['latestUpdateTime'] = this.latestUpdateTime;
+    data['value'] = this.value;
+    return data;
+  }
+}
+
+class MessageTypeKeyMapping {
+  int? errCode;
+  String? errMsg;
+  Map<String, KeyValue>? reactionExtensionList;
+  String? clientMsgID;
+
+  MessageTypeKeyMapping(
+      {this.errCode,
+      this.errMsg,
+      this.reactionExtensionList,
+      this.clientMsgID});
+
+  MessageTypeKeyMapping.fromJson(Map<String, dynamic> json) {
+    errCode = json['errCode'];
+    errMsg = json['errMsg'];
+    reactionExtensionList = json['reactionExtensionList'] != null
+        ? (json['reactionExtensionList'] as Map)
+            .map((key, value) => MapEntry(key, KeyValue.fromJson(value)))
+        : null;
+    clientMsgID = json['clientMsgID'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['errCode'] = this.errCode;
+    data['errMsg'] = this.errMsg;
+    if (this.reactionExtensionList != null) {
+      data['reactionExtensionList'] = this
+          .reactionExtensionList!
+          .map((key, value) => MapEntry(key, value.toJson()));
+    }
+    data['clientMsgID'] = this.clientMsgID;
+    return data;
+  }
+}

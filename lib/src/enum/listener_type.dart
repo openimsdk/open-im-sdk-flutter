@@ -12,4 +12,5 @@ class ListenerType {
   static final workMomentsListener = "workMomentsListener";
   static final organizationListener = "organizationListener";
   static final customBusinessListener = "customBusinessListener";
+  static final messageKvInfoListener = "messageKvInfoListener";
 }

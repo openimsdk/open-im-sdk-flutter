@@ -152,6 +152,20 @@ class IMManager {
               var info = Utils.toObj(value, (map) => RevokedInfo.fromJson(map));
               messageManager.msgListener.recvMessageRevokedV2(info);
               break;
+            case 'onRecvMessageExtensionsChanged':
+              var msgID = call.arguments['data']['msgID'];
+              var value = call.arguments['data']['list'];
+              var list = Utils.toList(value, (map) => KeyValue.fromJson(map));
+              messageManager.msgListener
+                  .recvMessageExtensionsChanged(msgID, list);
+              break;
+            case 'onRecvMessageExtensionsDeleted':
+              var msgID = call.arguments['data']['msgID'];
+              var value = call.arguments['data']['list'];
+              var list = Utils.toList(value, (map) => '$map');
+              messageManager.msgListener
+                  .recvMessageExtensionsDeleted(msgID, list);
+              break;
           }
         } else if (call.method == ListenerType.msgSendProgressListener) {
           String type = call.arguments['type'];
@@ -318,8 +332,18 @@ class IMManager {
           String data = call.arguments['data'];
           switch (type) {
             case 'onRecvCustomBusinessMessage':
-              messageManager.customBusinessListener?.onRecvCustomBusinessMessage
-                  ?.call(data);
+              messageManager.customBusinessListener
+                  ?.recvCustomBusinessMessage(data);
+              break;
+          }
+        } else if (call.method == ListenerType.messageKvInfoListener) {
+          String type = call.arguments['type'];
+          String data = call.arguments['data'];
+          switch (type) {
+            case 'onMessageKvInfoChanged':
+              final list =
+                  Utils.toList(data, (map) => MessageKv.fromJson(map)).toList();
+              messageManager.messageKvInfoListener?.messageKvInfoChanged(list);
               break;
           }
         }

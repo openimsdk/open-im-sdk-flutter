@@ -8,6 +8,7 @@ class MessageManager {
   OnMsgSendProgressListener? msgSendProgressListener;
   late OnAdvancedMsgListener msgListener;
   OnCustomBusinessListener? customBusinessListener;
+  OnMessageKvInfoListener? messageKvInfoListener;
 
   MessageManager(this._channel);
 
@@ -880,6 +881,58 @@ class MessageManager {
     this.customBusinessListener = listener;
     return _channel.invokeMethod('setCustomBusinessListener', _buildParam({}));
   }
+
+  ///
+  Future setMessageKvInfoListener(OnMessageKvInfoListener listener) {
+    this.messageKvInfoListener = listener;
+    return _channel.invokeMethod('setMessageKvInfoListener', _buildParam({}));
+  }
+
+  Future<List<TypeKeySetResult>> setMessageReactionExtensions({
+    required Message message,
+    List<KeyValue> list = const [],
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'setMessageReactionExtensions',
+              _buildParam({
+                'message': message.toJson(),
+                'list': list.map((e) => e.toJson()).toList(),
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
+
+  Future<List<TypeKeySetResult>> deleteMessageReactionExtensions({
+    required Message message,
+    List<String> list = const [],
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'deleteMessageReactionExtensions',
+              _buildParam({
+                'message': message.toJson(),
+                'list': list,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
+
+  Future<List<MessageTypeKeyMapping>> getMessageListReactionExtensions({
+    List<Message> messageList = const [],
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getMessageListReactionExtensions',
+              _buildParam({
+                'messageList': messageList.map((e) => e.toJson()).toList(),
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toList(
+              value, (map) => MessageTypeKeyMapping.fromJson(map)));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
