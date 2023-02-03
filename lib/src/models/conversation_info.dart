@@ -54,6 +54,9 @@ class ConversationInfo {
   /// 附加内容
   String? ext;
 
+  /// 附加内容
+  String? ex;
+
   /// 是否还在组内，如果退群返回true
   bool? isNotInGroup;
 
@@ -74,6 +77,8 @@ class ConversationInfo {
     this.burnDuration,
     this.isPinned,
     this.isNotInGroup,
+    this.ex,
+    this.ext,
   });
 
   ConversationInfo.fromJson(Map<String, dynamic> json)
@@ -100,6 +105,8 @@ class ConversationInfo {
     burnDuration = json['burnDuration'];
     isNotInGroup = json['isNotInGroup'];
     groupAtType = json['groupAtType'];
+    ex = json['ex'];
+    ext = json['ext'];
   }
 
   Map<String, dynamic> toJson() {
@@ -121,6 +128,8 @@ class ConversationInfo {
     data['burnDuration'] = this.burnDuration;
     data['isNotInGroup'] = this.isNotInGroup;
     data['groupAtType'] = this.groupAtType;
+    data['ex'] = this.ex;
+    data['ext'] = this.ext;
     return data;
   }
 

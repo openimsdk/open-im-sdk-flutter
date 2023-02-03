@@ -5,6 +5,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.listener.OnAdvancedMsgListener;
 import io.openim.flutter_openim_sdk.listener.OnBaseListener;
 import io.openim.flutter_openim_sdk.listener.OnCustomBusinessListener;
+import io.openim.flutter_openim_sdk.listener.OnMessageKvInfoListener;
 import io.openim.flutter_openim_sdk.listener.OnMsgSendListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
@@ -483,5 +484,37 @@ public class MessageManager extends BaseManager {
         Open_im_sdk.setCustomBusinessListener(new OnCustomBusinessListener());
 
         result.success(null);
+    }
+
+    public void setMessageKvInfoListener(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setMessageKvInfoListener(new OnMessageKvInfoListener());
+
+        result.success(null);
+    }
+
+    public void setMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setMessageReactionExtensions(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "message"),
+                jsonValue(methodCall, "list")
+        );
+    }
+
+    public void deleteMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteMessageReactionExtensions(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "message"),
+                jsonValue(methodCall, "list")
+        );
+    }
+
+    public void getMessageListReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getMessageListReactionExtensions(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "messageList")
+        );
     }
 }

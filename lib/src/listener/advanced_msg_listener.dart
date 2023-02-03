@@ -7,6 +7,8 @@ class OnAdvancedMsgListener {
   Function(String msgId)? onRecvMessageRevoked;
   Function(Message msg)? onRecvNewMessage;
   Function(RevokedInfo info)? onRecvMessageRevokedV2;
+  Function(String msgID, List<KeyValue> list)? onRecvMessageExtensionsChanged;
+  Function(String msgID, List<String> list)? onRecvMessageExtensionsDeleted;
 
   /// Uniquely identifies
   String id;
@@ -17,6 +19,8 @@ class OnAdvancedMsgListener {
     @deprecated this.onRecvMessageRevoked,
     this.onRecvNewMessage,
     this.onRecvMessageRevokedV2,
+    this.onRecvMessageExtensionsChanged,
+    this.onRecvMessageExtensionsDeleted,
   }) : id = "id_${DateTime.now().microsecondsSinceEpoch}";
 
   /// C2C消息已读回执
@@ -42,5 +46,16 @@ class OnAdvancedMsgListener {
   /// 消息被撤回
   void recvMessageRevokedV2(RevokedInfo info) {
     onRecvMessageRevokedV2?.call(info);
+  }
+
+  /// 收到拓展消息kv改变
+  void recvMessageExtensionsChanged(String msgID, List<KeyValue> list) {
+    onRecvMessageExtensionsChanged?.call(msgID, list);
+  }
+
+  /// 收到扩展消息被删除
+  /// [list] 被删除的TypeKey
+  void recvMessageExtensionsDeleted(String msgID, List<String> list) {
+    onRecvMessageExtensionsDeleted?.call(msgID, list);
   }
 }

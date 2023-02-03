@@ -55,6 +55,10 @@ public class MessageManager: BaseServiceManager {
         self["createVideoMessageByURL"] = createVideoMessageByURL
         self["createFileMessageByURL"] = createFileMessageByURL
         self["setCustomBusinessListener"] = setCustomBusinessListener
+        self["setMessageKvInfoListener"] = setMessageKvInfoListener
+        self["setMessageReactionExtensions"] = setMessageReactionExtensions
+        self["deleteMessageReactionExtensions"] = deleteMessageReactionExtensions
+        self["getMessageListReactionExtensions"] = getMessageListReactionExtensions
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -274,6 +278,22 @@ public class MessageManager: BaseServiceManager {
         callBack(result)
     }
     
+    func setMessageKvInfoListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetMessageKvInfoListener(MessageKvInfoListener(channel: channel))
+        callBack(result)
+    }
+    
+    func setMessageReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetMessageReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[jsonString: "list"])
+    }
+    
+    func deleteMessageReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkDeleteMessageReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[jsonString: "list"])
+    }
+    
+    func getMessageListReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetMessageListReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "messageList"])
+    }
 }
 
 public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
@@ -306,6 +326,7 @@ public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallB
 }
 
 public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgListenerProtocol {
+ 
     private let channel: FlutterMethodChannel
     private let id: String
     
@@ -348,6 +369,23 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
         values["revokedMessageV2"] = messageRevoked
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onNewRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
     }
+    
+    public func onRecvMessageExtensionsChanged(_ msgID: String?, reactionExtensionList: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["msgID"] = msgID
+        values["list"] = reactionExtensionList
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsChanged", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func onRecvMessageExtensionsDeleted(_ msgID: String?, reactionExtensionKeyList: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["msgID"] = msgID
+        values["list"] = reactionExtensionKeyList
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsDeleted", errCode: nil, errMsg: nil, data: values)
+    }
+    
 }
 
 public class CustomBusinessListener: NSObject, Open_im_sdk_callbackOnCustomBusinessListenerProtocol {
@@ -360,4 +398,20 @@ public class CustomBusinessListener: NSObject, Open_im_sdk_callbackOnCustomBusin
     public func onRecvCustomBusinessMessage(_ s: String?) {
         CommonUtil.emitEvent(channel: channel, method: "customBusinessListener", type: "onRecvCustomBusinessMessage", errCode: nil, errMsg: nil, data: s)
     }
+}
+
+
+public class MessageKvInfoListener: NSObject, Open_im_sdk_callbackOnMessageKvInfoListenerProtocol {
+  
+    
+    private let channel: FlutterMethodChannel
+    
+    init(channel: FlutterMethodChannel) {
+        self.channel = channel
+    }
+    
+    public func onMessageKvInfoChanged(_ s: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "messageKvInfoListener", type: "onMessageKvInfoChanged", errCode: nil, errMsg: nil, data: s)
+    }
+
 }
