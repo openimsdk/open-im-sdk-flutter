@@ -38,6 +38,15 @@ public class OnAdvancedMsgListener implements open_im_sdk_callback.OnAdvancedMsg
     }
 
     @Override
+    public void onRecvMessageExtensionsAdded(String s, String s1) {
+        final Map<String, String> values = new ArrayMap<>();
+        values.put("id", id);
+        values.put("msgID", s);
+        values.put("list", s1);
+        CommonUtil.emitEvent("advancedMsgListener", "onRecvMessageExtensionsAdded", values);
+    }
+
+    @Override
     public void onRecvMessageExtensionsChanged(String s, String s1) {
         final Map<String, String> values = new ArrayMap<>();
         values.put("id", id);

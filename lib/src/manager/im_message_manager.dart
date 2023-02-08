@@ -934,6 +934,38 @@ class MessageManager {
           .then((value) => Utils.toList(
               value, (map) => MessageTypeKeyMapping.fromJson(map)));
 
+  Future<List<TypeKeySetResult>> addMessageReactionExtensions({
+    required Message message,
+    List<KeyValue> list = const [],
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'addMessageReactionExtensions',
+              _buildParam({
+                'message': message.toJson(),
+                'list': list.map((e) => e.toJson()).toList(),
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
+
+  Future<List<MessageTypeKeyMapping>> getMessageListSomeReactionExtensions({
+    List<Message> messageList = const [],
+    List<KeyValue> kvList = const [],
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getMessageListSomeReactionExtensions',
+              _buildParam({
+                'messageList': messageList.map((e) => e.toJson()).toList(),
+                'list': kvList.map((e) => e.toJson()).toList(),
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toList(
+              value, (map) => MessageTypeKeyMapping.fromJson(map)));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;

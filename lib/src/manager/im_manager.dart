@@ -166,6 +166,13 @@ class IMManager {
               messageManager.msgListener
                   .recvMessageExtensionsDeleted(msgID, list);
               break;
+            case 'onRecvMessageExtensionsAdded':
+              var msgID = call.arguments['data']['msgID'];
+              var value = call.arguments['data']['list'];
+              var list = Utils.toList(value, (map) => KeyValue.fromJson(map));
+              messageManager.msgListener
+                  .recvMessageExtensionsAdded(msgID, list);
+              break;
           }
         } else if (call.method == ListenerType.msgSendProgressListener) {
           String type = call.arguments['type'];
