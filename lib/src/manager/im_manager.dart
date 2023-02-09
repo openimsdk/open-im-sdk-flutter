@@ -382,6 +382,7 @@ class IMManager {
     String? encryptionKey,
     bool enabledEncryption = false,
     bool enabledCompression = false,
+    bool isExternalExtensions = false,
     String? operationID,
   }) {
     this._connectListener = listener;
@@ -399,6 +400,7 @@ class IMManager {
             "encryption_key": encryptionKey,
             "is_need_encryption": enabledEncryption,
             "is_compression ": enabledCompression,
+            "is_external_extensions": isExternalExtensions,
             "operationID": Utils.checkOperationID(operationID),
           },
         ));

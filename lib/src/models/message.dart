@@ -105,6 +105,10 @@ class Message {
   /// 附加信息
   AttachedInfoElem? attachedInfoElem;
 
+  bool? isReact;
+
+  bool? isExternal;
+
   Message({
     this.clientMsgID,
     this.serverMsgID,
@@ -140,6 +144,8 @@ class Message {
     this.notificationElem,
     this.faceElem,
     this.attachedInfoElem,
+    this.isExternal,
+    this.isReact,
   });
 
   Message.fromJson(Map<String, dynamic> json) {
@@ -200,6 +206,8 @@ class Message {
         ? AttachedInfoElem.fromJson(json['attachedInfoElem'])
         : null;
     hasReadTime = json['hasReadTime'] ?? attachedInfoElem?.hasReadTime;
+    isExternal = json['isExternal'];
+    isReact = json['isReact'];
   }
 
   Map<String, dynamic> toJson() {
@@ -238,6 +246,8 @@ class Message {
     data['notificationElem'] = this.notificationElem?.toJson();
     data['faceElem'] = this.faceElem?.toJson();
     data['attachedInfoElem'] = this.attachedInfoElem?.toJson();
+    data['isExternal'] = this.isExternal;
+    data['isReact'] = this.isReact;
     return data;
   }
 
