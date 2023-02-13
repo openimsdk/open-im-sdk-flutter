@@ -59,6 +59,8 @@ public class MessageManager: BaseServiceManager {
         self["setMessageReactionExtensions"] = setMessageReactionExtensions
         self["deleteMessageReactionExtensions"] = deleteMessageReactionExtensions
         self["getMessageListReactionExtensions"] = getMessageListReactionExtensions
+        self["addMessageReactionExtensions"] = addMessageReactionExtensions
+        self["getMessageListSomeReactionExtensions"] = getMessageListSomeReactionExtensions
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -294,6 +296,14 @@ public class MessageManager: BaseServiceManager {
     func getMessageListReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetMessageListReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "messageList"])
     }
+    
+    func addMessageReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkAddMessageReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[jsonString: "list"])
+    }
+    
+    func getMessageListSomeReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetMessageListSomeReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "messageList"], methodCall[jsonString: "list"])
+    }
 }
 
 public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
@@ -384,6 +394,14 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
         values["msgID"] = msgID
         values["list"] = reactionExtensionKeyList
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsDeleted", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func onRecvMessageExtensionsAdded(_ msgID: String?, reactionExtensionList: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["msgID"] = msgID
+        values["list"] = reactionExtensionList
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsAdded", errCode: nil, errMsg: nil, data: values)
     }
     
 }

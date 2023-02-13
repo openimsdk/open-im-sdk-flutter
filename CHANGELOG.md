@@ -1,3 +1,12 @@
+## 2.3.5+2
+
+- Add onRecvMessageExtensionsAdded method for OnAdvancedMsgListener
+- Add addMessageReactionExtensions method for MessageManager
+- Add getMessageListSomeReactionExtensions method for MessageManager
+- Add isExternal field for MessageManager
+- Add isReact method field MessageManager
+- Add params isExternalExtensions for initSDK
+
 ## 2.3.5+1
 
 - Add birthTime for UserInfo
