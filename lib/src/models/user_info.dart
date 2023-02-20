@@ -20,7 +20,7 @@ class UserInfo {
   /// 手机号
   String? phoneNumber;
 
-  @deprecated
+  /// 使用[birthTime]
   int? birth;
 
   /// 出生时间
@@ -288,7 +288,7 @@ class FriendInfo {
   /// 出生日期
   String? birthTime;
 
-  @deprecated
+  /// 使用[birthTime]
   int? birth;
 
   /// 邮箱

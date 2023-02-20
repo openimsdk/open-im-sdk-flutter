@@ -354,9 +354,8 @@ class IMManager {
               break;
           }
         }
-      } catch (err) {
-        print(
-            "回调失败了。$err ${call.method} ${call.arguments['type']} ${call.arguments['data']}");
+      } catch (error, stackTrace) {
+        log("回调失败了。$error ${call.method} ${call.arguments['type']} ${call.arguments['data']} $stackTrace");
       }
       return Future.value(null);
     });
@@ -414,10 +413,12 @@ class IMManager {
   /// 登录
   /// [uid] 用户id
   /// [token] 登录token，从业务服务器上获取
+  /// [defaultValue] 获取失败后使用的默认值
   Future<UserInfo> login({
     required String uid,
     required String token,
     String? operationID,
+    Future<UserInfo> Function()? defaultValue,
   }) async {
     await _channel.invokeMethod(
       'login',
@@ -430,8 +431,16 @@ class IMManager {
     this.isLogined = true;
     this.uid = uid;
     this.token = token;
-    this.uInfo = await userManager.getSelfUserInfo();
-    return uInfo;
+    try {
+      return this.uInfo = await userManager.getSelfUserInfo();
+    } catch (error, stackTrace) {
+      log('login e: $error  s: $stackTrace');
+      if (null != defaultValue) {
+        return this.uInfo = await (defaultValue.call());
+      }
+      return Future.error(error, stackTrace);
+    }
+    // return uInfo;
   }
 
   /// 登出
