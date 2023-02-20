@@ -20,29 +20,28 @@ class OnConversationListener {
 
   /// 会话发生改变
   void conversationChanged(List<ConversationInfo> list) {
-    if (onConversationChanged != null) onConversationChanged!(list);
+    onConversationChanged?.call(list);
   }
 
   /// 有新会话产生
   void newConversation(List<ConversationInfo> list) {
-    if (onNewConversation != null) onNewConversation!(list);
+    onNewConversation?.call(list);
   }
 
   /// 未读消息总数发送改变
   void totalUnreadMessageCountChanged(int i) {
-    if (onTotalUnreadMessageCountChanged != null)
-      onTotalUnreadMessageCountChanged!(i);
+    onTotalUnreadMessageCountChanged?.call(i);
   }
 
   void syncServerFailed() {
-    if (onSyncServerFailed != null) onSyncServerFailed!();
+    onSyncServerFailed?.call();
   }
 
   void syncServerFinish() {
-    if (onSyncServerFinish != null) onSyncServerFinish!();
+    onSyncServerFinish?.call();
   }
 
   void syncServerStart() {
-    if (onSyncServerStart != null) onSyncServerStart!();
+    onSyncServerStart?.call();
   }
 }

@@ -6,6 +6,6 @@ class OnMsgSendProgressListener {
 
   /// 消息发送进度
   void progress(String clientMsgID, int progress) {
-    if (null != onProgress) onProgress!(clientMsgID, progress);
+    onProgress?.call(clientMsgID, progress);
   }
 }

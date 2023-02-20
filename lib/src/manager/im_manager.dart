@@ -57,8 +57,8 @@ class IMManager {
             case 'onKickedOffline':
               _connectListener.kickedOffline();
               break;
-            case 'onUserSigExpired':
-              _connectListener.userSigExpired();
+            case 'onUserTokenExpired':
+              _connectListener.userTokenExpired();
               break;
           }
         } else if (call.method == ListenerType.userListener) {
