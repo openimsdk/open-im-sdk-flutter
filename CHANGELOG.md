@@ -1,5 +1,9 @@
 ## 2.3.5+2
 
+- Fix bug for signaling
+
+## 2.3.5+2
+
 - Add onRecvMessageExtensionsAdded method for OnAdvancedMsgListener
 - Add addMessageReactionExtensions method for MessageManager
 - Add getMessageListSomeReactionExtensions method for MessageManager
