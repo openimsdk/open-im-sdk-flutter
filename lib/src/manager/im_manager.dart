@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+import 'package:flutter_openim_sdk/src/logger.dart';
 
 class IMManager {
   MethodChannel _channel;
@@ -17,6 +18,7 @@ class IMManager {
   late OrganizationManager organizationManager;
 
   late OnConnectListener _connectListener;
+  OnListenerForService? _listenerForService;
   late String uid;
   late UserInfo uInfo;
   bool isLogined = false;
@@ -39,7 +41,7 @@ class IMManager {
   void _addNativeCallback(MethodChannel _channel) {
     _channel.setMethodCallHandler((call) {
       try {
-        log('Flutter : $call');
+        Logger.print('Flutter : $call');
         if (call.method == ListenerType.connectListener) {
           String type = call.arguments['type'];
           switch (type) {
@@ -353,9 +355,39 @@ class IMManager {
               messageManager.messageKvInfoListener?.messageKvInfoChanged(list);
               break;
           }
+        } else if (call.method == ListenerType.listenerForService) {
+          String type = call.arguments['type'];
+          String data = call.arguments['data'];
+          switch (type) {
+            case 'onFriendApplicationAccepted':
+              final u = Utils.toObj(
+                  data, (map) => FriendApplicationInfo.fromJson(map));
+              _listenerForService?.friendApplicationAccepted(u);
+              break;
+            case 'onFriendApplicationAdded':
+              final u = Utils.toObj(
+                  data, (map) => FriendApplicationInfo.fromJson(map));
+              _listenerForService?.friendApplicationAdded(u);
+              break;
+            case 'onGroupApplicationAccepted':
+              final i = Utils.toObj(
+                  data, (map) => GroupApplicationInfo.fromJson(map));
+              _listenerForService?.groupApplicationAccepted(i);
+              break;
+            case 'onGroupApplicationAdded':
+              final i = Utils.toObj(
+                  data, (map) => GroupApplicationInfo.fromJson(map));
+              _listenerForService?.groupApplicationAdded(i);
+              break;
+            case 'onRecvNewMessage':
+              final msg = Utils.toObj(data, (map) => Message.fromJson(map));
+              _listenerForService?.recvNewMessage(msg);
+              break;
+          }
         }
       } catch (error, stackTrace) {
-        log("回调失败了。$error ${call.method} ${call.arguments['type']} ${call.arguments['data']} $stackTrace");
+        Logger.print(
+            "回调失败了。${call.method} ${call.arguments['type']} ${call.arguments['data']} $error $stackTrace");
       }
       return Future.value(null);
     });
@@ -515,6 +547,21 @@ class IMManager {
             'isBackground': isBackground,
             'operationID': Utils.checkOperationID(operationID),
           }));
+
+  /// 网络改变
+  Future networkChanged({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'networkChanged',
+          _buildParam({
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  Future setListenerForService(OnListenerForService listener) {
+    this._listenerForService = listener;
+    return _channel.invokeMethod('setListenerForService', _buildParam({}));
+  }
 
   MethodChannel get channel => _channel;
 

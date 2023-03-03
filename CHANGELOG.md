@@ -1,6 +1,8 @@
-## 2.3.5+2
+## 2.3.5+3
 
 - Fix bug for signaling
+- Add networkChanged method
+- Add setListenerForService method
 
 ## 2.3.5+2
 

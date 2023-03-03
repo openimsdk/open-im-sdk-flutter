@@ -16,6 +16,7 @@ export 'src/listener/conversation_listener.dart';
 export 'src/listener/custom_business_listener.dart';
 export 'src/listener/friendship_listener.dart';
 export 'src/listener/group_listener.dart';
+export 'src/listener/listener_for_service.dart';
 export 'src/listener/message_kv_info_listener.dart';
 export 'src/listener/msg_send_progress_listener.dart';
 export 'src/listener/organization_listener.dart';

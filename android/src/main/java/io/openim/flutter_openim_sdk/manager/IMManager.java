@@ -4,6 +4,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.listener.OnBaseListener;
 import io.openim.flutter_openim_sdk.listener.OnConnListener;
+import io.openim.flutter_openim_sdk.listener.OnListenerForService;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
 
@@ -70,4 +71,18 @@ public class IMManager extends BaseManager {
                 value(methodCall, "isBackground")
         );
     }
+
+    public void networkChanged(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.networkChanged(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID")
+        );
+    }
+
+    public void setListenerForService(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setListenerForService(new OnListenerForService());
+
+        result.success(null);
+    }
+
 }
