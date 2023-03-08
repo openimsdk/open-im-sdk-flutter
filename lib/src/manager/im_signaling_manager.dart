@@ -163,6 +163,9 @@ class SignalingManager {
     required Map info,
     String? operationID,
   }) {
+    if (info['meetingID'] != null) {
+      info['roomID'] = info['meetingID'];
+    }
     assert(info['roomID'] != null);
     return _channel.invokeMethod(
         'signalingUpdateMeetingInfo',
