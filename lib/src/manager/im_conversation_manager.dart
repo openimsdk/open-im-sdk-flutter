@@ -124,19 +124,6 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// 标记群聊会话已读
-  /// [groupID] 群id
-  Future<dynamic> markGroupMessageHasRead({
-    required String groupID,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'markGroupMessageHasRead',
-          _buildParam({
-            'groupID': groupID,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
   /// 获取未读消息总数
   Future<dynamic> getTotalUnreadMsgCount({
     String? operationID,
