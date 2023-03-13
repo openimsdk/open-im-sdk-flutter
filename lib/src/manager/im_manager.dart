@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -558,9 +559,14 @@ class IMManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  ///
   Future setListenerForService(OnListenerForService listener) {
-    this._listenerForService = listener;
-    return _channel.invokeMethod('setListenerForService', _buildParam({}));
+    if (Platform.isAndroid) {
+      this._listenerForService = listener;
+      return _channel.invokeMethod('setListenerForService', _buildParam({}));
+    } else {
+      throw UnsupportedError("only supprot android platform");
+    }
   }
 
   MethodChannel get channel => _channel;
