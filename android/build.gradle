@@ -52,5 +52,5 @@ android {
 dependencies {
     // 本地依赖，现将aar复制到libs/io/openim/core-sdk/0.0.1/ 下，命名core-sdk-0.0.1.aar
 //    implementation 'io.openim:core-sdk:0.0.1@aar'
-    api 'io.openim:core-sdk:2.3.5-t34@aar'
+    api 'io.openim:core-sdk:2.3.5-t44@aar'
 }

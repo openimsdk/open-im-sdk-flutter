@@ -13,6 +13,7 @@ public class IMMananger: BaseServiceManager {
         self["uploadImage"] = uploadImage
         self["updateFcmToken"] = updateFcmToken
         self["setAppBackgroundStatus"] = setAppBackgroundStatus
+        self["networkChanged"] = networkChanged
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -47,6 +48,9 @@ public class IMMananger: BaseServiceManager {
         Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[bool: "isBackground"])
     }
     
+    func networkChanged(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkNetworkChanged(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
 }
 
 public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol {

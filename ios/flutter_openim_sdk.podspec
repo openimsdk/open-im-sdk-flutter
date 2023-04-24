@@ -15,9 +15,9 @@ A new Flutter project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '11.0'
 
-  s.dependency 'OpenIMSDKCore','2.3.5-b3'
+  s.dependency 'OpenIMSDKCore','2.3.6'
   s.static_framework = true
   # s.vendored_frameworks = 'Framework/*.framework'
   # Flutter.framework does not contain a i386 slice.
