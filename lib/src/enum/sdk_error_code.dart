@@ -5,6 +5,10 @@ class MessageFailedCode {
 
   /// 被对方删除
   static const int deletedByFriend = 601;
+
+  /// 已被移除群聊/群已解散
+  static const int notInGroup = 302;
+
 }
 
 /// 添加好友失败

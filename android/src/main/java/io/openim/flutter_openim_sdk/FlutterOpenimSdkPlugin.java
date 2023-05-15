@@ -1,5 +1,6 @@
 package io.openim.flutter_openim_sdk;
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,8 @@ import java.lang.reflect.Method;
 
 import io.flutter.Log;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -27,12 +30,12 @@ import io.openim.flutter_openim_sdk.manager.WorkMomentsManager;
 /**
  * FlutterOpenimSdkPlugin
  */
-public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler {
+public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
-
+    private static final String CHANNEL_NAME = "flutter_openim_sdk";
     public static MethodChannel channel;
     private static IMManager imManager;
     private static UserManager userManager;
@@ -43,11 +46,11 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler 
     private static SignalingManager signalingManager;
     private static WorkMomentsManager workMomentsManager;
     private static OrganizationManager organizationManager;
+    private static Activity activity;
+    private static Context context;
+
 
     public FlutterOpenimSdkPlugin() {
-    }
-
-    private FlutterOpenimSdkPlugin(Context context) {
         FlutterOpenimSdkPlugin.imManager = new IMManager();
         FlutterOpenimSdkPlugin.userManager = new UserManager();
         FlutterOpenimSdkPlugin.friendshipManager = new FriendshipManager();
@@ -59,11 +62,12 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler 
         FlutterOpenimSdkPlugin.organizationManager = new OrganizationManager();
     }
 
+
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        FlutterOpenimSdkPlugin.channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_openim_sdk");
-        FlutterOpenimSdkPlugin.channel.setMethodCallHandler(new FlutterOpenimSdkPlugin(flutterPluginBinding.getApplicationContext()));
-//        channel.setMethodCallHandler(this);
+        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_NAME);
+        context = flutterPluginBinding.getApplicationContext();
+        channel.setMethodCallHandler(this);
     }
 
     @Override
@@ -75,6 +79,28 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler 
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         FlutterOpenimSdkPlugin.channel.setMethodCallHandler(null);
     }
+
+
+    @Override
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+        activity = binding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+        activity = null;
+    }
+
+    @Override
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+        activity = binding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivity() {
+        activity = null;
+    }
+
 
     void parse(@NonNull MethodCall call, @NonNull Result result) {
         try {
