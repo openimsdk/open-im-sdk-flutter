@@ -431,7 +431,7 @@ class IMManager {
             "object_storage": objectStorage,
             "encryption_key": encryptionKey,
             "is_need_encryption": enabledEncryption,
-            "is_compression ": enabledCompression,
+            "is_compression": enabledCompression,
             "is_external_extensions": isExternalExtensions,
             "operationID": Utils.checkOperationID(operationID),
           },
