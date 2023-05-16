@@ -34,10 +34,10 @@ public class OnSignalingListener implements open_im_sdk_callback.OnSignalingList
         CommonUtil.emitEvent("signalingListener", "onInviteeRejectedByOtherDevice", s);
     }
 
-    @Override
-    public void onReceiveCustomSignal(String s) {
-        CommonUtil.emitEvent("signalingListener", "onReceiveCustomSignal", s);
-    }
+//    @Override
+//    public void onReceiveCustomSignal(String s) {
+//        CommonUtil.emitEvent("signalingListener", "onReceiveCustomSignal", s);
+//    }
 
     @Override
     public void onReceiveNewInvitation(String s) {
@@ -54,10 +54,10 @@ public class OnSignalingListener implements open_im_sdk_callback.OnSignalingList
         CommonUtil.emitEvent("signalingListener", "onRoomParticipantDisconnected", s);
     }
 
-    @Override
-    public void onStreamChange(String s) {
-        CommonUtil.emitEvent("signalingListener", "onStreamChange", s);
-    }
+//    @Override
+//    public void onStreamChange(String s) {
+//        CommonUtil.emitEvent("signalingListener", "onStreamChange", s);
+//    }
 
     @Override
     public void onHangUp(String s) {

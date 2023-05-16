@@ -34,9 +34,9 @@ public class IMManager extends BaseManager {
         );
     }
 
-    public void getLoginStatus(MethodCall methodCall, MethodChannel.Result result) {
-        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getLoginStatus());
-    }
+//    public void getLoginStatus(MethodCall methodCall, MethodChannel.Result result) {
+//        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getLoginStatus());
+//    }
 
     public void wakeUp(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.wakeUp(

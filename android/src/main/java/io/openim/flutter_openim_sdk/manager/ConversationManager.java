@@ -98,11 +98,11 @@ public class ConversationManager extends BaseManager {
         );
     }
 
-    public void getConversationIDBySessionType(MethodCall methodCall, MethodChannel.Result result) {
-        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getConversationIDBySessionType(
-                value(methodCall, "sourceID"),
-                int2long(methodCall, "sessionType")));
-    }
+//    public void getConversationIDBySessionType(MethodCall methodCall, MethodChannel.Result result) {
+//        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getConversationIDBySessionType(
+//                value(methodCall, "sourceID"),
+//                int2long(methodCall, "sessionType")));
+//    }
 
     public void setConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setConversationRecvMessageOpt(
@@ -153,9 +153,9 @@ public class ConversationManager extends BaseManager {
         );
     }
 
-    public void getAtAllTag(MethodCall methodCall, MethodChannel.Result result) {
-        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getAtAllTag());
-    }
+//    public void getAtAllTag(MethodCall methodCall, MethodChannel.Result result) {
+//        CommonUtil.runMainThreadReturn(result, Open_im_sdk.getAtAllTag());
+//    }
 
     public void setGlobalRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setGlobalRecvMessageOpt(

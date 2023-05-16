@@ -492,47 +492,47 @@ public class MessageManager extends BaseManager {
         result.success(null);
     }
 
-    public void setMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setMessageReactionExtensions(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "message"),
-                jsonValue(methodCall, "list")
-        );
-    }
-
-    public void deleteMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteMessageReactionExtensions(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "message"),
-                jsonValue(methodCall, "list")
-        );
-    }
-
-    public void getMessageListReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getMessageListReactionExtensions(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "messageList")
-        );
-    }
-
-    public void addMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.addMessageReactionExtensions(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "message"),
-                jsonValue(methodCall, "list")
-        );
-    }
-
-    public void getMessageListSomeReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getMessageListSomeReactionExtensions(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "messageList"),
-                jsonValue(methodCall, "list")
-        );
-    }
+//    public void setMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.setMessageReactionExtensions(
+//                new OnBaseListener(result, methodCall),
+//                value(methodCall, "operationID"),
+//                jsonValue(methodCall, "message"),
+//                jsonValue(methodCall, "list")
+//        );
+//    }
+//
+//    public void deleteMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.deleteMessageReactionExtensions(
+//                new OnBaseListener(result, methodCall),
+//                value(methodCall, "operationID"),
+//                jsonValue(methodCall, "message"),
+//                jsonValue(methodCall, "list")
+//        );
+//    }
+//
+//    public void getMessageListReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.getMessageListReactionExtensions(
+//                new OnBaseListener(result, methodCall),
+//                value(methodCall, "operationID"),
+//                jsonValue(methodCall, "messageList")
+//        );
+//    }
+//
+//    public void addMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.addMessageReactionExtensions(
+//                new OnBaseListener(result, methodCall),
+//                value(methodCall, "operationID"),
+//                jsonValue(methodCall, "message"),
+//                jsonValue(methodCall, "list")
+//        );
+//    }
+//
+//    public void getMessageListSomeReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
+//        Open_im_sdk.getMessageListSomeReactionExtensions(
+//                new OnBaseListener(result, methodCall),
+//                value(methodCall, "operationID"),
+//                jsonValue(methodCall, "messageList"),
+//                jsonValue(methodCall, "list")
+//        );
+//    }
 }
