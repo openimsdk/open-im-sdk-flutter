@@ -32,6 +32,8 @@ flutter:
         pluginClass: FlutterOpenimSdkPlugin
       ios:
         pluginClass: FlutterOpenimSdkPlugin
+      macos:
+        pluginClass: FlutterOpenimSdkPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

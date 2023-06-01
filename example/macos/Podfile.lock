@@ -1,0 +1,22 @@
+PODS:
+  - flutter_openim_sdk (0.0.1):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+
+DEPENDENCIES:
+  - flutter_openim_sdk (from `Flutter/ephemeral/.symlinks/plugins/flutter_openim_sdk/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+
+EXTERNAL SOURCES:
+  flutter_openim_sdk:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_openim_sdk/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+
+SPEC CHECKSUMS:
+  flutter_openim_sdk: a2b7b0556563251844dbe6f1eb88bf9081b1da3c
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+
+PODFILE CHECKSUM: 236401fc2c932af29a9fcf0e97baeeb2d750d367
+
+COCOAPODS: 1.12.1
