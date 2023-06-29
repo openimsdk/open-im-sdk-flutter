@@ -3,6 +3,8 @@ import OpenIMCore
 
 public class IMMananger: BaseServiceManager {
     
+    let reachability = try? Reachability()
+    
     public override func registerHandlers() {
         super.registerHandlers()
         self["initSDK"] = initSDK
@@ -15,8 +17,50 @@ public class IMMananger: BaseServiceManager {
         self["networkStatusChanged"] = networkStatusChanged
     }
     
+    fileprivate func addObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(applicationWillEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+                
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(applicationDidEnterBackground),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil)
+        
+        if let reachability {
+            do {
+                try reachability.startNotifier()
+            } catch (let e) {
+                print("reachability: \(e)")
+            }
+            
+            reachability.whenReachable = { _ in
+                Open_im_sdkNetworkStatusChanged(BaseCallback(result: { _ in
+                }), UUID().uuidString)
+            }
+            reachability.whenUnreachable = { _ in
+                Open_im_sdkNetworkStatusChanged(BaseCallback(result: { _ in
+                }), UUID().uuidString)
+            }
+        }
+    }
+    
+    @objc
+    fileprivate func applicationDidEnterBackground() {
+        Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
+        }), UUID().uuidString, true)
+    }
+
+    @objc
+    fileprivate func applicationWillEnterForeground() {
+        Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
+        }), UUID().uuidString, false)
+    }
+    
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         callBack(result,Open_im_sdkInitSDK(ConnListener(channel: self.channel), methodCall[string: "operationID"], methodCall.toJsonString()))
+        addObservers()
     }
     
     func login(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {

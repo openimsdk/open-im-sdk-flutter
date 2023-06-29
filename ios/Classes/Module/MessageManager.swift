@@ -293,7 +293,7 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
         var values: [String: Any] = [:]
         values["id"] = id
         values["message"] = message
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onMsgDeleted", errCode: nil, errMsg: nil, data: values);<#code#>
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onMsgDeleted", errCode: nil, errMsg: nil, data: values);
     }
     
     public func onNewRecvMessageRevoked(_ messageRevoked: String?) {
@@ -353,7 +353,7 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
           var values: [String: Any] = [:]
           values["id"] = id
           values["messageList"] = messageList
-          CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOfflineNewMessages", errCode: nil, errMsg: nil, data: values);<#code#>
+          CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOfflineNewMessages", errCode: nil, errMsg: nil, data: values);
       }
       
 }

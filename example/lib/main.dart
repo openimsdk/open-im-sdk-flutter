@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +14,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    OpenIM.iMManager.initSDK(
+        platformID: 1,
+        apiAddr: '',
+        wsAddr: '',
+        dataDir: '/',
+        objectStorage: 'minio',
+        listener: OnConnectListener());
   }
 
   @override
