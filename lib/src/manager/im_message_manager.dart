@@ -52,59 +52,56 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// 获取聊天记录(以startMsg为节点，以前的聊天记录)
-  /// [userID] 接收消息的用户id
-  /// [conversationID] 会话id，查询通知时可用
-  /// [groupID] 接收消息的组id
-  /// [startMsg] 从这条消息开始查询[count]条，获取的列表index==length-1为最新消息，所以获取下一页历史记录startMsg=list.first
-  /// [count] 一次拉取的总数
-  Future<List<Message>> getHistoryMessageList({
-    String? userID,
-    String? groupID,
-    String? conversationID,
-    Message? startMsg,
-    int? count,
-    String? operationID,
-  }) =>
-      _channel
-          .invokeMethod(
-              'getHistoryMessageList',
-              _buildParam({
-                'userID': userID ?? '',
-                'groupID': groupID ?? '',
-                'conversationID': conversationID ?? '',
-                'startClientMsgID': startMsg?.clientMsgID ?? '',
-                'count': count ?? 10,
-                'operationID': Utils.checkOperationID(operationID),
-              }))
-          .then((value) => Utils.toList(value, (map) => Message.fromJson(map)));
-
-  /// 撤回消息[revokeMessageV2]
-  /// [message] 被撤回的消息体
-  @deprecated
-  Future revokeMessage({
-    required Message message,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'revokeMessage',
-          _buildParam(message.toJson()
-            ..addAll({
-              "operationID": Utils.checkOperationID(operationID),
-            })));
-
   /// 删除本地消息
   /// [message] 被删除的消息体
   Future deleteMessageFromLocalStorage({
-    required Message message,
+    required String conversationID,
+    required String clientMsgID,
     String? operationID,
   }) =>
       _channel.invokeMethod(
           'deleteMessageFromLocalStorage',
-          _buildParam(message.toJson()
-            ..addAll({
-              "operationID": Utils.checkOperationID(operationID),
-            })));
+          _buildParam({
+            "conversationID": conversationID,
+            "clientMsgID": clientMsgID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// core-sdk: DeleteMessage
+  /// 删除本地跟服务器的指定的消息
+  /// [message] 被删除的消息
+  Future<dynamic> deleteMessageFromLocalAndSvr({
+    required String conversationID,
+    required String clientMsgID,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteMessageFromLocalAndSvr',
+          _buildParam({
+            "conversationID": conversationID,
+            "clientMsgID": clientMsgID,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// 删除本地所有聊天记录
+  Future<dynamic> deleteAllMsgFromLocal({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteAllMsgFromLocal',
+          _buildParam({
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// 删除本地跟服务器所有聊天记录
+  Future<dynamic> deleteAllMsgFromLocalAndSvr({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'deleteAllMsgFromLocalAndSvr',
+          _buildParam({
+            "operationID": Utils.checkOperationID(operationID),
+          }));
 
   /// 插入单聊消息到本地
   /// [receiverID] 接收者id
@@ -148,37 +145,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// 标记c2c单条消息已读
-  /// [userID] 消息来源的userID
-  /// [messageIDList] 消息clientMsgID集合
-  Future markC2CMessageAsRead({
-    required String userID,
-    required List<String> messageIDList,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'markC2CMessageAsRead',
-          _buildParam({
-            "messageIDList": messageIDList,
-            "userID": userID,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
-  /// 标记群聊消息已读
-  /// [groupID] 群id
-  /// [messageIDList] 消息clientMsgID集合
-  Future markGroupMessageAsRead({
-    required String groupID,
-    required List<String> messageIDList,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'markGroupMessageAsRead',
-          _buildParam({
-            "messageIDList": messageIDList,
-            "groupID": groupID,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
 
   /// 正在输入提示
   /// [msgTip] 自定义内容
@@ -489,14 +455,22 @@ class MessageManager {
   /// 创建卡片消息
   /// [data] 自定义数据
   Future<Message> createCardMessage({
-    required Map<String, dynamic> data,
+    required String userID,
+    required String nickname,
+    String? faceURL,
+    String? ex,
     String? operationID,
   }) =>
       _channel
           .invokeMethod(
               'createCardMessage',
               _buildParam({
-                'cardMessage': data,
+                'cardMessage': {
+                  'userID': userID,
+                  'nickname': nickname,
+                  'faceURL': faceURL,
+                  'ex': ex,
+                },
                 "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
@@ -518,32 +492,6 @@ class MessageManager {
                 "operationID": Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
-
-  /// 清空单聊消息记录
-  /// [uid] 单聊对象id
-  Future<dynamic> clearC2CHistoryMessage({
-    required String uid,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'clearC2CHistoryMessage',
-          _buildParam({
-            "userID": uid,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
-  /// 清空组消息记录
-  /// [gid] 组id
-  Future<dynamic> clearGroupHistoryMessage({
-    required String gid,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'clearGroupHistoryMessage',
-          _buildParam({
-            "groupID": gid,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
 
   /// 搜索消息
   /// [conversationID] 根据会话查询，如果是全局搜索传null
@@ -587,134 +535,46 @@ class MessageManager {
           .then((value) =>
               Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
-  /// 删除本地跟服务器的指定的消息
-  /// [message] 被删除的消息
-  Future<dynamic> deleteMessageFromLocalAndSvr({
-    required Message message,
+  /// 撤回消息
+  /// [message] 被撤回的消息体
+  Future revokeMessage({
+    required String conversationID,
+    required String clientMsgID,
     String? operationID,
   }) =>
       _channel.invokeMethod(
-          'deleteMessageFromLocalAndSvr',
-          _buildParam(message.toJson()
-            ..addAll({
-              "operationID": Utils.checkOperationID(operationID),
-            })));
-
-  /// 删除本地所有聊天记录
-  Future<dynamic> deleteAllMsgFromLocal({
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'deleteAllMsgFromLocal',
+          'revokeMessage',
           _buildParam({
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
-  /// 删除本地跟服务器所有聊天记录
-  Future<dynamic> deleteAllMsgFromLocalAndSvr({
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'deleteAllMsgFromLocalAndSvr',
-          _buildParam({
+            'conversationID': conversationID,
+            'clientMsgID': clientMsgID,
             "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// 标记消息已读
   /// [conversationID] 会话ID
   /// [messageIDList] 被标记的消息clientMsgID
-  Future markMessageAsReadByConID({
+  Future markMessagesAsReadByMsgID({
     required String conversationID,
     required List<String> messageIDList,
     String? operationID,
   }) =>
       _channel.invokeMethod(
-          'markMessageAsReadByConID',
+          'markMessagesAsReadByMsgID',
           _buildParam({
-            "messageIDList": messageIDList,
             "conversationID": conversationID,
+            "messageIDList": messageIDList,
             "operationID": Utils.checkOperationID(operationID),
           }));
-
-  /// 删除本地跟服务器的单聊聊天记录
-  /// [uid] 聊天对象的userID
-  Future<dynamic> clearC2CHistoryMessageFromLocalAndSvr({
-    required String uid,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'clearC2CHistoryMessageFromLocalAndSvr',
-          _buildParam({
-            "userID": uid,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
-  /// 删除本地跟服务器的群聊天记录
-  /// [gid] 组id
-  Future<dynamic> clearGroupHistoryMessageFromLocalAndSvr({
-    required String gid,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'clearGroupHistoryMessageFromLocalAndSvr',
-          _buildParam({
-            "groupID": gid,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
-  /// 获取聊天记录(以startMsg为节点，新收到的聊天记录)，用在全局搜索定位某一条消息，然后此条消息后新增的消息
-  /// [userID] 接收消息的用户id
-  /// [conversationID] 会话id，查询通知时可用
-  /// [groupID] 接收消息的组id
-  /// [startMsg] 从这条消息开始查询[count]条，获取的列表index==length-1为最新消息，所以获取下一页历史记录startMsg=list.last
-  /// [count] 一次拉取的总数
-  Future<List<Message>> getHistoryMessageListReverse({
-    String? userID,
-    String? groupID,
-    String? conversationID,
-    Message? startMsg,
-    int? count,
-    String? operationID,
-  }) =>
-      _channel
-          .invokeMethod(
-              'getHistoryMessageListReverse',
-              _buildParam({
-                'userID': userID ?? '',
-                'groupID': groupID ?? '',
-                'conversationID': conversationID ?? '',
-                'startClientMsgID': startMsg?.clientMsgID ?? '',
-                'count': count ?? 10,
-                'operationID': Utils.checkOperationID(operationID),
-              }))
-          .then((value) => Utils.toList(value, (map) => Message.fromJson(map)));
-
-  /// 撤回消息
-  /// [message] 被撤回的消息体
-  Future revokeMessageV2({
-    required Message message,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'newRevokeMessage',
-          _buildParam(message.toJson()
-            ..addAll({
-              "operationID": Utils.checkOperationID(operationID),
-            })));
 
   /// 获取聊天记录(以startMsg为节点，以前的聊天记录)
-  /// [userID] 接收消息的用户id
   /// [conversationID] 会话id，查询通知时可用
-  /// [groupID] 接收消息的组id
   /// [startMsg] 从这条消息开始查询[count]条，获取的列表index==length-1为最新消息，所以获取下一页历史记录startMsg=list.first
   /// [count] 一次拉取的总数
   /// [lastMinSeq] 第一页消息不用传，获取第二页开始必传 跟[startMsg]一样
   Future<AdvancedMessage> getAdvancedHistoryMessageList({
-    String? userID,
-    String? groupID,
     String? conversationID,
-    int? lastMinSeq,
     Message? startMsg,
+    int? lastMinSeq,
     int? count,
     String? operationID,
   }) =>
@@ -722,8 +582,30 @@ class MessageManager {
           .invokeMethod(
               'getAdvancedHistoryMessageList',
               _buildParam({
-                'userID': userID ?? '',
-                'groupID': groupID ?? '',
+                'conversationID': conversationID ?? '',
+                'startClientMsgID': startMsg?.clientMsgID ?? '',
+                'count': count ?? 40,
+                'lastMinSeq': lastMinSeq ?? 0,
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
+
+  /// 获取聊天记录(以startMsg为节点，新收到的聊天记录)，用在全局搜索定位某一条消息，然后此条消息后新增的消息
+  /// [conversationID] 会话id，查询通知时可用
+  /// [startMsg] 从这条消息开始查询[count]条，获取的列表index==length-1为最新消息，所以获取下一页历史记录startMsg=list.last
+  /// [count] 一次拉取的总数
+  Future<AdvancedMessage> getAdvancedHistoryMessageListReverse({
+    String? conversationID,
+    Message? startMsg,
+    int? lastMinSeq,
+    int? count,
+    String? operationID,
+  }) =>
+      _channel
+          .invokeMethod(
+              'getAdvancedHistoryMessageListReverse',
+              _buildParam({
                 'conversationID': conversationID ?? '',
                 'startClientMsgID': startMsg?.clientMsgID ?? '',
                 'count': count ?? 40,
@@ -876,7 +758,7 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-  /// 用户资料改变监听
+  ///
   Future setCustomBusinessListener(OnCustomBusinessListener listener) {
     this.customBusinessListener = listener;
     return _channel.invokeMethod('setCustomBusinessListener', _buildParam({}));

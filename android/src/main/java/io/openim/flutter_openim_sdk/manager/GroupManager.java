@@ -18,9 +18,9 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.inviteUserToGroup(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
+                value(methodCall, "groupID"),
                 value(methodCall, "reason"),
-                jsonValue(methodCall, "uidList")
+                jsonValue(methodCall, "userIDList")
         );
     }
 
@@ -28,18 +28,18 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.kickGroupMember(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
+                value(methodCall, "groupID"),
                 value(methodCall, "reason"),
-                jsonValue(methodCall, "uidList")
+                jsonValue(methodCall, "userIDList")
         );
     }
 
     public void getGroupMembersInfo(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getGroupMembersInfo(
+        Open_im_sdk.getSpecifiedGroupMembersInfo(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
-                jsonValue(methodCall, "uidList")
+                value(methodCall, "groupID"),
+                jsonValue(methodCall, "userIDList")
         );
     }
 
@@ -47,7 +47,7 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.getGroupMemberList(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
+                value(methodCall, "groupID"),
                 value(methodCall, "filter"),
                 value(methodCall, "offset"),
                 value(methodCall, "count")
@@ -66,8 +66,7 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.createGroup(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                jsonValue(methodCall, "gInfo"),
-                jsonValue(methodCall, "memberList")
+                jsonValue(methodCall)
         );
     }
 
@@ -75,16 +74,15 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.setGroupInfo(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
-                jsonValue(methodCall, "gInfo")
+                jsonValue(methodCall, "groupInfo")
         );
     }
 
     public void getGroupsInfo(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getGroupsInfo(
+        Open_im_sdk.getSpecifiedGroupsInfo(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                jsonValue(methodCall, "gidList")
+                jsonValue(methodCall, "groupIDList")
         );
     }
 
@@ -92,7 +90,7 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.joinGroup(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
+                value(methodCall, "groupID"),
                 value(methodCall, "reason"),
                 value(methodCall, "joinSource")
         );
@@ -102,7 +100,7 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.quitGroup(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid")
+                value(methodCall, "groupID")
         );
     }
 
@@ -110,20 +108,20 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.transferGroupOwner(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
-                value(methodCall, "uid")
+                value(methodCall, "groupID"),
+                value(methodCall, "userID")
         );
     }
 
-    public void getRecvGroupApplicationList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getRecvGroupApplicationList(
+    public void getGroupApplicationListAsRecipient(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getGroupApplicationListAsRecipient(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
     }
 
-    public void getSendGroupApplicationList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getSendGroupApplicationList(
+    public void getGroupApplicationListAsApplicant(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getGroupApplicationListAsApplicant(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID")
         );
@@ -133,8 +131,8 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.acceptGroupApplication(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
-                value(methodCall, "uid"),
+                value(methodCall, "groupID"),
+                value(methodCall, "userID"),
                 value(methodCall, "handleMsg")
         );
 
@@ -144,8 +142,8 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.refuseGroupApplication(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
-                value(methodCall, "uid"),
+                value(methodCall, "groupID"),
+                value(methodCall, "userID"),
                 value(methodCall, "handleMsg")
         );
 
@@ -155,7 +153,7 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.dismissGroup(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid")
+                value(methodCall, "groupID")
         );
     }
 
@@ -163,7 +161,7 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.changeGroupMute(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
+                value(methodCall, "groupID"),
                 value(methodCall, "mute")
         );
     }
@@ -172,8 +170,8 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.changeGroupMemberMute(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
-                value(methodCall, "uid"),
+                value(methodCall, "groupID"),
+                value(methodCall, "userID"),
                 int2long(methodCall, "seconds")
         );
     }
@@ -181,8 +179,8 @@ public class GroupManager extends BaseManager {
     public void setGroupMemberNickname(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setGroupMemberNickname(new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "gid"),
-                value(methodCall, "uid"),
+                value(methodCall, "groupID"),
+                value(methodCall, "userID"),
                 value(methodCall, "groupNickname")
         );
     }
@@ -257,6 +255,13 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.setGroupMemberInfo(new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "info")
+        );
+    }
+
+    public void isJoinGroup(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.isJoinGroup(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID")
         );
     }
 }

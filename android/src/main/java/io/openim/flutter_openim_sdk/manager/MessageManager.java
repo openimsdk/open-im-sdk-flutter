@@ -100,19 +100,12 @@ public class MessageManager extends BaseManager {
         );
     }
 
-    public void getHistoryMessageList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getHistoryMessageList(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall)
-        );
-    }
-
     public void revokeMessage(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.revokeMessage(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                jsonValue(methodCall)
+                value(methodCall, "conversationID"),
+                value(methodCall, "clientMsgID")
         );
     }
 
@@ -120,13 +113,33 @@ public class MessageManager extends BaseManager {
         Open_im_sdk.deleteMessageFromLocalStorage(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                jsonValue(methodCall)
+                value(methodCall, "conversationID"),
+                value(methodCall, "clientMsgID")
         );
     }
 
-//    public void deleteMessages(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.deleteMessages(new OnBaseListener(result, methodCall), CommonUtil.getSDKJsonParam(methodCall));
-//    }
+    public void deleteMessageFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteMessage(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                value(methodCall, "clientMsgID")
+        );
+    }
+
+    public void deleteAllMsgFromLocal(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteAllMsgFromLocal(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID")
+        );
+    }
+
+    public void deleteAllMsgFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.deleteAllMsgFromLocalAndSvr(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID")
+        );
+    }
 
     public void insertSingleMessageToLocalStorage(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.insertSingleMessageToLocalStorage(
@@ -148,20 +161,11 @@ public class MessageManager extends BaseManager {
         );
     }
 
-    public void markC2CMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.markC2CMessageAsRead(
+    public void markMessagesAsReadByMsgID(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.markMessagesAsReadByMsgID(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "userID"),
-                jsonValue(methodCall, "messageIDList")
-        );
-    }
-
-    public void markGroupMessageAsRead(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.markGroupMessageAsRead(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "groupID"),
+                value(methodCall, "conversationID"),
                 jsonValue(methodCall, "messageIDList")
         );
     }
@@ -317,109 +321,6 @@ public class MessageManager extends BaseManager {
         ));
     }
 
-    public void clearC2CHistoryMessage(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.clearC2CHistoryMessage(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "userID")
-        );
-    }
-
-    public void clearGroupHistoryMessage(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.clearGroupHistoryMessage(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "groupID")
-        );
-    }
-
-    public void searchLocalMessages(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.searchLocalMessages(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "filter")
-        );
-    }
-
-    public void deleteMessageFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteMessageFromLocalAndSvr(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall)
-        );
-    }
-
-    public void deleteAllMsgFromLocal(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteAllMsgFromLocal(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID")
-        );
-    }
-
-    public void deleteAllMsgFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteAllMsgFromLocalAndSvr(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID")
-        );
-    }
-
-    public void markMessageAsReadByConID(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.markMessageAsReadByConID(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID"),
-                jsonValue(methodCall, "messageIDList")
-        );
-    }
-
-    public void clearC2CHistoryMessageFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.clearC2CHistoryMessageFromLocalAndSvr(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "userID")
-        );
-    }
-
-    public void clearGroupHistoryMessageFromLocalAndSvr(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.clearGroupHistoryMessageFromLocalAndSvr(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "groupID")
-        );
-    }
-
-    public void getHistoryMessageListReverse(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getHistoryMessageListReverse(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall)
-        );
-    }
-
-    public void newRevokeMessage(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.newRevokeMessage(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall)
-        );
-    }
-
-    public void getAdvancedHistoryMessageList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getAdvancedHistoryMessageList(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall)
-        );
-    }
-
-    public void findMessageList(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.findMessageList(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "searchParams")
-        );
-    }
-
     public void createAdvancedTextMessage(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result,
                 Open_im_sdk.createAdvancedTextMessage(
@@ -438,6 +339,49 @@ public class MessageManager extends BaseManager {
                         jsonValue(methodCall, "richMessageInfoList")
                 ));
     }
+
+    public void searchLocalMessages(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchLocalMessages(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "filter")
+        );
+    }
+
+
+    public void clearConversationAndDeleteAllMsg(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.clearConversationAndDeleteAllMsg(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID")
+        );
+    }
+
+
+    public void getAdvancedHistoryMessageList(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getAdvancedHistoryMessageList(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall)
+        );
+    }
+
+    public void getAdvancedHistoryMessageListReverse(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getAdvancedHistoryMessageListReverse(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall)
+        );
+    }
+
+    public void findMessageList(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.findMessageList(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "searchParams")
+        );
+    }
+
 
     public void sendMessageNotOss(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.sendMessageNotOss(

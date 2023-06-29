@@ -9,13 +9,14 @@ public class MessageManager: BaseServiceManager {
         super.registerHandlers()
         self["setAdvancedMsgListener"] = setAdvancedMsgListener
         self["sendMessage"] = sendMessage
-        self["getHistoryMessageList"] = getHistoryMessageList
         self["revokeMessage"] = revokeMessage
         self["deleteMessageFromLocalStorage"] = deleteMessageFromLocalStorage
+        self["deleteMessageFromLocalAndSvr"] = deleteMessageFromLocalAndSvr
+        self["deleteAllMsgFromLocal"] = deleteAllMsgFromLocal
+        self["deleteAllMsgFromLocalAndSvr"] = deleteAllMsgFromLocalAndSvr
         self["insertSingleMessageToLocalStorage"] = insertSingleMessageToLocalStorage
         self["insertGroupMessageToLocalStorage"] = insertGroupMessageToLocalStorage
-        self["markC2CMessageAsRead"] = markC2CMessageAsRead
-        self["markGroupMessageAsRead"] = markGroupMessageAsRead
+        self["markMessagesAsReadByMsgID"] = markMessagesAsReadByMsgID
         self["typingStatusUpdate"] = typingStatusUpdate
         self["createTextMessage"] = createTextMessage
         self["createTextAtMessage"] = createTextAtMessage
@@ -34,21 +35,17 @@ public class MessageManager: BaseServiceManager {
         self["createQuoteMessage"] = createQuoteMessage
         self["createCardMessage"] = createCardMessage
         self["createFaceMessage"] = createFaceMessage
-        self["clearC2CHistoryMessage"] = clearC2CHistoryMessage
-        self["clearGroupHistoryMessage"] = clearGroupHistoryMessage
-        self["searchLocalMessages"] = searchLocalMessages
-        self["deleteMessageFromLocalAndSvr"] = deleteMessageFromLocalAndSvr
-        self["deleteAllMsgFromLocal"] = deleteAllMsgFromLocal
-        self["deleteAllMsgFromLocalAndSvr"] = deleteAllMsgFromLocalAndSvr
-        self["markMessageAsReadByConID"] = markMessageAsReadByConID
-        self["clearC2CHistoryMessageFromLocalAndSvr"] = clearC2CHistoryMessageFromLocalAndSvr
-        self["clearGroupHistoryMessageFromLocalAndSvr"] = clearGroupHistoryMessageFromLocalAndSvr
-        self["getHistoryMessageListReverse"] = getHistoryMessageListReverse
-        self["newRevokeMessage"] = newRevokeMessage
-        self["getAdvancedHistoryMessageList"] = getAdvancedHistoryMessageList
-        self["findMessageList"] = findMessageList
         self["createAdvancedTextMessage"] = createAdvancedTextMessage
         self["createAdvancedQuoteMessage"] = createAdvancedQuoteMessage
+
+        self["searchLocalMessages"] = searchLocalMessages
+        self["clearConversationAndDeleteAllMsg"] = clearConversationAndDeleteAllMsg
+    
+        self["getAdvancedHistoryMessageList"] = getAdvancedHistoryMessageList
+        self["getAdvancedHistoryMessageListReverse"] = getAdvancedHistoryMessageListReverse
+
+        self["findMessageList"] = findMessageList
+   
         self["sendMessageNotOss"] = sendMessageNotOss
         self["createImageMessageByURL"] = createImageMessageByURL
         self["createSoundMessageByURL"] = createSoundMessageByURL
@@ -56,11 +53,7 @@ public class MessageManager: BaseServiceManager {
         self["createFileMessageByURL"] = createFileMessageByURL
         self["setCustomBusinessListener"] = setCustomBusinessListener
         self["setMessageKvInfoListener"] = setMessageKvInfoListener
-        self["setMessageReactionExtensions"] = setMessageReactionExtensions
-        self["deleteMessageReactionExtensions"] = deleteMessageReactionExtensions
-        self["getMessageListReactionExtensions"] = getMessageListReactionExtensions
-        self["addMessageReactionExtensions"] = addMessageReactionExtensions
-        self["getMessageListSomeReactionExtensions"] = getMessageListSomeReactionExtensions
+
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -76,18 +69,25 @@ public class MessageManager: BaseServiceManager {
                                methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"])
     }
     
-    func getHistoryMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetHistoryMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
-    }
-    
     func revokeMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkRevokeMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
+        Open_im_sdkRevokeMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"],methodCall[string: "clientMsgID"])
     }
     
     func deleteMessageFromLocalStorage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteMessageFromLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
+        Open_im_sdkDeleteMessageFromLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"],methodCall[string: "clientMsgID"])
     }
     
+    func deleteMessageFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkDeleteMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"],methodCall[string: "clientMsgID"])
+    }
+    
+    func deleteAllMsgFromLocal(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkDeleteAllMsgFromLocal(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
+    
+    func deleteAllMsgFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkDeleteAllMsgFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
     
     func insertSingleMessageToLocalStorage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkInsertSingleMessageToLocalStorage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"],
@@ -99,12 +99,8 @@ public class MessageManager: BaseServiceManager {
                                                      methodCall[string: "groupID"], methodCall[string: "senderID"])
     }
     
-    func markC2CMessageAsRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkMarkC2CMessageAsRead(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"], methodCall[jsonString: "messageIDList"])
-    }
-
-    func markGroupMessageAsRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkMarkGroupMessageAsRead(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[jsonString: "messageIDList"])
+    func markMessagesAsReadByMsgID(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkMarkMessagesAsReadByMsgID(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[jsonString: "messageIDList"])
     }
 
     func typingStatusUpdate(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -201,53 +197,22 @@ public class MessageManager: BaseServiceManager {
         callBack(result, prama)
     }
     
-    func clearC2CHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkClearC2CHistoryMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"])
-    }
-    
-    func clearGroupHistoryMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkClearGroupHistoryMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
-    }
-    
     func searchLocalMessages(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSearchLocalMessages(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "filter"])
     }
     
-    func deleteMessageFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkDeleteMessageFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
-    }
-
-    func deleteAllMsgFromLocal(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkDeleteAllMsgFromLocal(BaseCallback(result: result), methodCall[string: "operationID"])
-    }
-
-    func deleteAllMsgFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkDeleteAllMsgFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"])
-    }
-
-    func markMessageAsReadByConID(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkMarkMessageAsReadByConID(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[jsonString: "messageIDList"])
-    }
-    
-    func clearC2CHistoryMessageFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkClearC2CHistoryMessageFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"])
-    }
-    
-    func clearGroupHistoryMessageFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkClearGroupHistoryMessageFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
-    }
-    
-    func getHistoryMessageListReverse(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetHistoryMessageListReverse(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
-    }
-    
-    func newRevokeMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkNewRevokeMessage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
+    func clearConversationAndDeleteAllMsg(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkClearConversationAndDeleteAllMsg(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
     }
     
     func getAdvancedHistoryMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetAdvancedHistoryMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
+    
+    func getAdvancedHistoryMessageListReverse(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetAdvancedHistoryMessageListReverse(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
+    }
+   
     
     func findMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkFindMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParams"])
@@ -284,26 +249,6 @@ public class MessageManager: BaseServiceManager {
         Open_im_sdkSetMessageKvInfoListener(MessageKvInfoListener(channel: channel))
         callBack(result)
     }
-    
-    func setMessageReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetMessageReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[jsonString: "list"])
-    }
-    
-    func deleteMessageReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteMessageReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[jsonString: "list"])
-    }
-    
-    func getMessageListReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetMessageListReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "messageList"])
-    }
-    
-    func addMessageReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAddMessageReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[jsonString: "list"])
-    }
-    
-    func getMessageListSomeReactionExtensions(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetMessageListSomeReactionExtensions(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "messageList"], methodCall[jsonString: "list"])
-    }
 }
 
 public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
@@ -336,7 +281,6 @@ public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallB
 }
 
 public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgListenerProtocol {
- 
     private let channel: FlutterMethodChannel
     private let id: String
     
@@ -345,46 +289,47 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
         self.id = id
     }
     
+    public func onMsgDeleted(_ message: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["message"] = message
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onMsgDeleted", errCode: nil, errMsg: nil, data: values);<#code#>
+    }
+    
+    public func onNewRecvMessageRevoked(_ messageRevoked: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["messageRevoked"] = messageRevoked
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onNewRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
+    }
+    
     public func onRecvC2CReadReceipt(_ msgReceiptList: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
-        values["c2cMessageReadReceipt"] = msgReceiptList
+        values["msgReceiptList"] = msgReceiptList
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvC2CReadReceipt", errCode: nil, errMsg: nil, data: values)
     }
     
     public func onRecvGroupReadReceipt(_ groupMsgReceiptList: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
-        values["groupMessageReadReceipt"] = groupMsgReceiptList
+        values["groupMsgReceiptList"] = groupMsgReceiptList
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvGroupReadReceipt", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onRecvMessageRevoked(_ msgId: String?) {
+    public func onRecvMessageExtensionsAdded(_ msgID: String?, reactionExtensionList: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
-        values["revokedMessage"] = msgId
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
-    }
-    
-    public func onRecvNewMessage(_ message: String?) {
-        var values: [String: Any] = [:]
-        values["id"] = id
-        values["newMessage"] = message
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvNewMessage", errCode: nil, errMsg: nil, data: values)
-    }
-    
-    public func onNewRecvMessageRevoked(_ messageRevoked: String?) {
-        var values: [String: Any] = [:]
-        values["id"] = id
-        values["revokedMessageV2"] = messageRevoked
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onNewRecvMessageRevoked", errCode: nil, errMsg: nil, data: values)
+        values["msgID"] = msgID
+        values["reactionExtensionList"] = reactionExtensionList
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsAdded", errCode: nil, errMsg: nil, data: values)
     }
     
     public func onRecvMessageExtensionsChanged(_ msgID: String?, reactionExtensionList: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["msgID"] = msgID
-        values["list"] = reactionExtensionList
+        values["reactionExtensionList"] = reactionExtensionList
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsChanged", errCode: nil, errMsg: nil, data: values)
     }
     
@@ -392,18 +337,25 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
         var values: [String: Any] = [:]
         values["id"] = id
         values["msgID"] = msgID
-        values["list"] = reactionExtensionKeyList
+        values["reactionExtensionKeyList"] = reactionExtensionKeyList
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsDeleted", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onRecvMessageExtensionsAdded(_ msgID: String?, reactionExtensionList: String?) {
+    public func onRecvNewMessage(_ message: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
-        values["msgID"] = msgID
-        values["list"] = reactionExtensionList
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsAdded", errCode: nil, errMsg: nil, data: values)
+        values["message"] = message
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvNewMessage", errCode: nil, errMsg: nil, data: values)
     }
+
     
+      public func onRecvOfflineNewMessages(_ messageList: String?) {
+          var values: [String: Any] = [:]
+          values["id"] = id
+          values["messageList"] = messageList
+          CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOfflineNewMessages", errCode: nil, errMsg: nil, data: values);<#code#>
+      }
+      
 }
 
 public class CustomBusinessListener: NSObject, Open_im_sdk_callbackOnCustomBusinessListenerProtocol {

@@ -2,19 +2,19 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 /// 好友关系监听
 class OnFriendshipListener {
+  Function(BlacklistInfo i)? onBlackAdded;
+  Function(BlacklistInfo i)? onBlackDeleted;
+  Function(FriendInfo i)? onFriendAdded;
+  Function(FriendApplicationInfo i)? onFriendApplicationAccepted;
   Function(FriendApplicationInfo i)? onFriendApplicationAdded;
   Function(FriendApplicationInfo i)? onFriendApplicationDeleted;
-  Function(FriendApplicationInfo i)? onFriendApplicationAccepted;
   Function(FriendApplicationInfo i)? onFriendApplicationRejected;
-  Function(FriendInfo i)? onFriendAdded;
   Function(FriendInfo i)? onFriendDeleted;
   Function(FriendInfo i)? onFriendInfoChanged;
-  Function(BlacklistInfo i)? onBlacklistAdded;
-  Function(BlacklistInfo i)? onBlacklistDeleted;
 
   OnFriendshipListener({
-    this.onBlacklistAdded,
-    this.onBlacklistDeleted,
+    this.onBlackAdded,
+    this.onBlackDeleted,
     this.onFriendAdded,
     this.onFriendApplicationAccepted,
     this.onFriendApplicationAdded,
@@ -25,13 +25,13 @@ class OnFriendshipListener {
   });
 
   /// 已被加入黑名单
-  void blacklistAdded(BlacklistInfo u) {
-    onBlacklistAdded?.call(u);
+  void blackAdded(BlacklistInfo u) {
+    onBlackAdded?.call(u);
   }
 
   /// 已从黑名单移除
-  void blacklistDeleted(BlacklistInfo u) {
-    onBlacklistDeleted?.call(u);
+  void blackDeleted(BlacklistInfo u) {
+    onBlackDeleted?.call(u);
   }
 
   /// 好友已添加

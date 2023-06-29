@@ -1,13 +1,13 @@
-package io.openim.flutter_openim_sdk.manager;
-
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.openim.flutter_openim_sdk.listener.OnBaseListener;
-import io.openim.flutter_openim_sdk.listener.OnOrganizationListener;
-import open_im_sdk.Open_im_sdk;
-
-public class OrganizationManager extends BaseManager {
-
+//package io.openim.flutter_openim_sdk.manager;
+//
+//import io.flutter.plugin.common.MethodCall;
+//import io.flutter.plugin.common.MethodChannel;
+//import io.openim.flutter_openim_sdk.listener.OnBaseListener;
+//import io.openim.flutter_openim_sdk.listener.OnOrganizationListener;
+//import open_im_sdk.Open_im_sdk;
+//
+//public class OrganizationManager extends BaseManager {
+//
 //    public void setOrganizationListener(MethodCall methodCall, MethodChannel.Result result) {
 //        Open_im_sdk.setOrganizationListener(new OnOrganizationListener());
 //
@@ -67,4 +67,4 @@ public class OrganizationManager extends BaseManager {
 //                int2long(methodCall, "count")
 //        );
 //    }
-}
+//}

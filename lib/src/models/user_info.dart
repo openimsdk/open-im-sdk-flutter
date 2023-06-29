@@ -20,11 +20,8 @@ class UserInfo {
   /// 手机号
   String? phoneNumber;
 
-  /// 使用[birthTime]
-  int? birth;
-
   /// 出生时间
-  String? birthTime;
+  int? birth;
 
   /// 邮箱
   String? email;
@@ -37,21 +34,6 @@ class UserInfo {
 
   /// 备注
   String? remark;
-
-  /// 用户公开的资料
-  PublicUserInfo? publicInfo;
-
-  /// 好友才能查看的资料
-  FriendInfo? friendInfo;
-
-  /// 黑名单资料
-  BlacklistInfo? blackInfo;
-
-  /// 是否好友关系
-  bool? isFriendship;
-
-  /// 是否黑名单
-  bool? isBlacklist;
 
   /// 全局免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   int? globalRecvMsgOpt;
@@ -68,6 +50,21 @@ class UserInfo {
   /// 禁止登录
   int? forbidden;
 
+  /// 用户公开的资料
+  PublicUserInfo? publicInfo;
+
+  /// 好友才能查看的资料
+  FriendInfo? friendInfo;
+
+  /// 黑名单资料
+  BlacklistInfo? blackInfo;
+
+  /// 是否好友关系
+  bool? isFriendship;
+
+  /// 是否黑名单
+  bool? isBlacklist;
+
   UserInfo({
     this.publicInfo,
     this.friendInfo,
@@ -80,7 +77,6 @@ class UserInfo {
     this.faceURL,
     this.phoneNumber,
     this.birth,
-    this.birthTime,
     this.gender,
     this.email,
     this.ex,
@@ -125,7 +121,6 @@ class UserInfo {
     gender = json['gender'] ?? _gender;
     phoneNumber = json['phoneNumber'] ?? _phoneNumber;
     birth = json['birth'] ?? _birth;
-    birthTime = json['birthTime'] ?? _birthTime;
     email = json['email'] ?? _email;
     remark = json['remark'] ?? _remark;
     ex = json['ex'] ?? _ex;
@@ -151,7 +146,6 @@ class UserInfo {
     data['gender'] = this.gender;
     data['phoneNumber'] = this.phoneNumber;
     data['birth'] = this.birth;
-    data['birthTime'] = this.birthTime;
     data['email'] = this.email;
     data['ex'] = this.ex;
     data['createTime'] = this.createTime;

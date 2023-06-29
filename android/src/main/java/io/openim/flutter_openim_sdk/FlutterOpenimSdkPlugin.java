@@ -16,15 +16,14 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import io.openim.flutter_openim_sdk.connectivity.ConnectivityListener;
+import io.openim.flutter_openim_sdk.connectivity.VisibilityListener;
 import io.openim.flutter_openim_sdk.manager.ConversationManager;
 import io.openim.flutter_openim_sdk.manager.FriendshipManager;
 import io.openim.flutter_openim_sdk.manager.GroupManager;
 import io.openim.flutter_openim_sdk.manager.IMManager;
 import io.openim.flutter_openim_sdk.manager.MessageManager;
-import io.openim.flutter_openim_sdk.manager.OrganizationManager;
-import io.openim.flutter_openim_sdk.manager.SignalingManager;
 import io.openim.flutter_openim_sdk.manager.UserManager;
-import io.openim.flutter_openim_sdk.manager.WorkMomentsManager;
 
 
 /**
@@ -43,12 +42,14 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
     private static MessageManager messageManager;
     private static ConversationManager conversationManager;
     private static GroupManager groupManager;
-    private static SignalingManager signalingManager;
-    private static WorkMomentsManager workMomentsManager;
-    private static OrganizationManager organizationManager;
+//    private static SignalingManager signalingManager;
+//    private static WorkMomentsManager workMomentsManager;
+//    private static OrganizationManager organizationManager;
     private static Activity activity;
     private static Context context;
-
+    private ConnectivityListener connectivityListener;
+    private VisibilityListener visibilityListener;
+    public static boolean isInitialized;
 
     public FlutterOpenimSdkPlugin() {
         FlutterOpenimSdkPlugin.imManager = new IMManager();
@@ -57,9 +58,9 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
         FlutterOpenimSdkPlugin.messageManager = new MessageManager();
         FlutterOpenimSdkPlugin.conversationManager = new ConversationManager();
         FlutterOpenimSdkPlugin.groupManager = new GroupManager();
-        FlutterOpenimSdkPlugin.signalingManager = new SignalingManager();
-        FlutterOpenimSdkPlugin.workMomentsManager = new WorkMomentsManager();
-        FlutterOpenimSdkPlugin.organizationManager = new OrganizationManager();
+//        FlutterOpenimSdkPlugin.signalingManager = new SignalingManager();
+//        FlutterOpenimSdkPlugin.workMomentsManager = new WorkMomentsManager();
+//        FlutterOpenimSdkPlugin.organizationManager = new OrganizationManager();
     }
 
 
@@ -68,6 +69,9 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_NAME);
         context = flutterPluginBinding.getApplicationContext();
         channel.setMethodCallHandler(this);
+        connectivityListener = new ConnectivityListener(context);
+        visibilityListener = new VisibilityListener();
+        connectivityListener.register();
     }
 
     @Override
@@ -78,29 +82,31 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         FlutterOpenimSdkPlugin.channel.setMethodCallHandler(null);
+        connectivityListener.unregisterReceiver();
     }
 
 
     @Override
     public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
-        activity = binding.getActivity();
+        visibilityListener.register(activity = binding.getActivity());
     }
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
+        visibilityListener.unregisterReceiver(activity);
         activity = null;
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
-        activity = binding.getActivity();
+        visibilityListener.register(activity = binding.getActivity());
     }
 
     @Override
     public void onDetachedFromActivity() {
+        visibilityListener.unregisterReceiver(activity);
         activity = null;
     }
-
 
     void parse(@NonNull MethodCall call, @NonNull Result result) {
         try {

@@ -10,22 +10,22 @@ public class ConversationManager: BaseServiceManager {
         self["getConversationListSplit"] = getConversationListSplit
         self["getOneConversation"] = getOneConversation
         self["getMultipleConversation"] = getMultipleConversation
-        self["deleteConversation"] = deleteConversation
         self["setConversationDraft"] = setConversationDraft
         self["pinConversation"] = pinConversation
-        // self["markSingleMessageHasRead"] = markSingleMessageHasRead
-        self["markGroupMessageHasRead"] = markGroupMessageHasRead
+        self["hideConversation"] = hideConversation
+        self["markConversationMessageAsRead"] = markConversationMessageAsRead
         self["getTotalUnreadMsgCount"] = getTotalUnreadMsgCount
         self["getConversationIDBySessionType"] = getConversationIDBySessionType
         self["setConversationRecvMessageOpt"] = setConversationRecvMessageOpt
         self["getConversationRecvMessageOpt"] = getConversationRecvMessageOpt
-        self["setOneConversationPrivateChat"] = setOneConversationPrivateChat
-        self["deleteConversationFromLocalAndSvr"] = deleteConversationFromLocalAndSvr
+        self["setConversationPrivateChat"] = setConversationPrivateChat
+        self["clearConversationAndDeleteAllMsg"] = clearConversationAndDeleteAllMsg
+        self["deleteConversationAndDeleteAllMsg"] = deleteConversationAndDeleteAllMsg
         self["deleteAllConversationFromLocal"] = deleteAllConversationFromLocal
         self["resetConversationGroupAtType"] = resetConversationGroupAtType
         self["getAtAllTag"] = getAtAllTag
         self["setGlobalRecvMessageOpt"] = setGlobalRecvMessageOpt
-        self["setOneConversationBurnDuration"] = setOneConversationBurnDuration
+        self["setConversationBurnDuration"] = setConversationBurnDuration
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -42,15 +42,11 @@ public class ConversationManager: BaseServiceManager {
     }
 
     func getOneConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetOneConversation(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int: "sessionType"], methodCall[string: "sourceID"])
+        Open_im_sdkGetOneConversation(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int32: "sessionType"], methodCall[string: "sourceID"])
     }
     
     func getMultipleConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetMultipleConversation(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "conversationIDList"])
-    }
-    
-    func deleteConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteConversation(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
     }
     
     func setConversationDraft(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -61,12 +57,12 @@ public class ConversationManager: BaseServiceManager {
         Open_im_sdkPinConversation(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[bool: "isPinned"])
     }
     
-    // func markSingleMessageHasRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-    //     Open_im_sdkMarkSingleMessageHasRead(BaseCallback(result: result), methodCall[string: "userID"])
-    // }
+    func hideConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkHideConversation(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
+    }
     
-    func markGroupMessageHasRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkMarkGroupMessageHasRead(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
+    func markConversationMessageAsRead(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkMarkConversationMessageAsRead(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
     }
     
     func getTotalUnreadMsgCount(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -74,24 +70,28 @@ public class ConversationManager: BaseServiceManager {
     }
     
     func getConversationIDBySessionType(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        let conversationID = Open_im_sdkGetConversationIDBySessionType(methodCall[string: "sourceID"], methodCall[int: "sessionType"])
+        let conversationID = Open_im_sdkGetConversationIDBySessionType( methodCall[string: "operationID"],methodCall[string: "sourceID"], methodCall[int: "sessionType"])
         callBack(result, conversationID)
     }
 
     func setConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "conversationIDList"], methodCall[int: "status"])
+        Open_im_sdkSetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "conversationID"], methodCall[int: "status"])
     }
 
     func getConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "conversationIDList"])
     }
     
-    func setOneConversationPrivateChat(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetOneConversationPrivateChat(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"],methodCall[bool: "isPrivate"])
+    func setConversationPrivateChat(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetConversationPrivateChat(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"],methodCall[bool: "isPrivate"])
     }
     
-    func deleteConversationFromLocalAndSvr(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteConversationFromLocalAndSvr(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
+    func clearConversationAndDeleteAllMsg(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkClearConversationAndDeleteAllMsg(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
+    }
+    
+    func deleteConversationAndDeleteAllMsg(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkDeleteConversationAndDeleteAllMsg(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"])
     }
     
     func deleteAllConversationFromLocal(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -103,15 +103,15 @@ public class ConversationManager: BaseServiceManager {
     }
     
     func getAtAllTag(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkGetAtAllTag())
+        callBack(result, Open_im_sdkGetAtAllTag(methodCall[string: "operationID"]))
     }
     
     func setGlobalRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSetGlobalRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int: "status"])
     }
     
-    func setOneConversationBurnDuration(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetOneConversationBurnDuration(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[int32: "burnDuration"])
+    func setConversationBurnDuration(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetConversationBurnDuration(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[int: "burnDuration"])
     }
 }
 

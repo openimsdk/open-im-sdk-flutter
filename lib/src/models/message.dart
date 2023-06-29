@@ -43,7 +43,7 @@ class Message {
   String? groupID;
 
   /// 消息内容
-  String? content;
+  // String? content;
 
   /// 消息的seq
   int? seq;
@@ -57,6 +57,10 @@ class Message {
   /// 消息发送状态[MessageStatus]
   int? status;
 
+  bool? isReact;
+
+  bool? isExternalExtensions;
+
   /// 离线显示内容
   OfflinePushInfo? offlinePush;
 
@@ -67,7 +71,7 @@ class Message {
   String? ex;
 
   /// 自定义扩展信息，目前用于客服端处理消息时间分段
-  dynamic ext;
+  Map<String, dynamic> exMap = {};
 
   /// 图片
   PictureElem? pictureElem;
@@ -82,7 +86,7 @@ class Message {
   FileElem? fileElem;
 
   /// @信息
-  AtElem? atElem;
+  AtTextElem? atTextElem;
 
   /// 位置
   LocationElem? locationElem;
@@ -105,9 +109,17 @@ class Message {
   /// 附加信息
   AttachedInfoElem? attachedInfoElem;
 
-  bool? isReact;
+  /// 文本内容
+  TextElem? textElem;
 
-  bool? isExternal;
+  /// 个人名片
+  CardElem? cardElem;
+
+  ///
+  AdvancedTextElem? advancedTextElem;
+
+  ///
+  TypingElem? typingElem;
 
   Message({
     this.clientMsgID,
@@ -123,7 +135,7 @@ class Message {
     this.senderNickname,
     this.senderFaceUrl,
     this.groupID,
-    this.content,
+    // this.content,
     this.seq,
     this.isRead,
     this.hasReadTime,
@@ -131,12 +143,12 @@ class Message {
     this.offlinePush,
     this.attachedInfo,
     this.ex,
-    this.ext,
+    this.exMap = const <String, dynamic>{},
     this.pictureElem,
     this.soundElem,
     this.videoElem,
     this.fileElem,
-    this.atElem,
+    this.atTextElem,
     this.locationElem,
     this.customElem,
     this.quoteElem,
@@ -144,8 +156,12 @@ class Message {
     this.notificationElem,
     this.faceElem,
     this.attachedInfoElem,
-    this.isExternal,
+    this.isExternalExtensions,
     this.isReact,
+    this.textElem,
+    this.cardElem,
+    this.advancedTextElem,
+    this.typingElem,
   });
 
   Message.fromJson(Map<String, dynamic> json) {
@@ -161,7 +177,7 @@ class Message {
     senderNickname = json['senderNickname'];
     senderFaceUrl = json['senderFaceUrl'];
     groupID = json['groupID'];
-    content = json['content'];
+    // content = json['content'];
     seq = json['seq'];
     isRead = json['isRead'];
     status = json['status'];
@@ -170,7 +186,7 @@ class Message {
         : null;
     attachedInfo = json['attachedInfo'];
     ex = json['ex'];
-    ext = json['ext'];
+    exMap = json['exMap'] ?? {};
     sessionType = json['sessionType'];
     pictureElem = json['pictureElem'] != null
         ? PictureElem.fromJson(json['pictureElem'])
@@ -183,7 +199,9 @@ class Message {
         : null;
     fileElem =
         json['fileElem'] != null ? FileElem.fromJson(json['fileElem']) : null;
-    atElem = json['atElem'] != null ? AtElem.fromJson(json['atElem']) : null;
+    atTextElem = json['atTextElem'] != null
+        ? AtTextElem.fromJson(json['atTextElem'])
+        : null;
     locationElem = json['locationElem'] != null
         ? LocationElem.fromJson(json['locationElem'])
         : null;
@@ -206,8 +224,18 @@ class Message {
         ? AttachedInfoElem.fromJson(json['attachedInfoElem'])
         : null;
     hasReadTime = json['hasReadTime'] ?? attachedInfoElem?.hasReadTime;
-    isExternal = json['isExternal'];
+    isExternalExtensions = json['isExternalExtensions'];
     isReact = json['isReact'];
+    textElem =
+        json['textElem'] != null ? TextElem.fromJson(json['textElem']) : null;
+    cardElem =
+        json['cardElem'] != null ? CardElem.fromJson(json['cardElem']) : null;
+    advancedTextElem = json['advancedTextElem'] != null
+        ? AdvancedTextElem.fromJson(json['advancedTextElem'])
+        : null;
+    typingElem = json['typingElem'] != null
+        ? TypingElem.fromJson(json['typingElem'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -224,7 +252,7 @@ class Message {
     data['senderNickname'] = this.senderNickname;
     data['senderFaceUrl'] = this.senderFaceUrl;
     data['groupID'] = this.groupID;
-    data['content'] = this.content;
+    // data['content'] = this.content;
     data['seq'] = this.seq;
     data['isRead'] = this.isRead;
     data['hasReadTime'] = this.hasReadTime;
@@ -232,13 +260,13 @@ class Message {
     data['offlinePush'] = this.offlinePush?.toJson();
     data['attachedInfo'] = this.attachedInfo;
     data['ex'] = this.ex;
-    data['ext'] = this.ext;
+    data['exMap'] = this.exMap;
     data['sessionType'] = this.sessionType;
     data['pictureElem'] = this.pictureElem?.toJson();
     data['soundElem'] = this.soundElem?.toJson();
     data['videoElem'] = this.videoElem?.toJson();
     data['fileElem'] = this.fileElem?.toJson();
-    data['atElem'] = this.atElem?.toJson();
+    data['atTextElem'] = this.atTextElem?.toJson();
     data['locationElem'] = this.locationElem?.toJson();
     data['customElem'] = this.customElem?.toJson();
     data['quoteElem'] = this.quoteElem?.toJson();
@@ -246,8 +274,12 @@ class Message {
     data['notificationElem'] = this.notificationElem?.toJson();
     data['faceElem'] = this.faceElem?.toJson();
     data['attachedInfoElem'] = this.attachedInfoElem?.toJson();
-    data['isExternal'] = this.isExternal;
+    data['isExternalExtensions'] = this.isExternalExtensions;
     data['isReact'] = this.isReact;
+    data['textElem'] = this.textElem?.toJson();
+    data['cardElem'] = this.cardElem?.toJson();
+    data['advancedTextElem'] = this.advancedTextElem?.toJson();
+    data['typingElem'] = this.typingElem?.toJson();
     return data;
   }
 
@@ -274,7 +306,7 @@ class Message {
     senderNickname = message.senderNickname;
     senderFaceUrl = message.senderFaceUrl;
     groupID = message.groupID;
-    content = message.content;
+    // content = message.content;
     seq = message.seq;
     isRead = message.isRead;
     hasReadTime = message.hasReadTime;
@@ -282,13 +314,13 @@ class Message {
     offlinePush = message.offlinePush;
     attachedInfo = message.attachedInfo;
     ex = message.ex;
-    ext = message.ext;
+    exMap = message.exMap;
     sessionType = message.sessionType;
     pictureElem = message.pictureElem;
     soundElem = message.soundElem;
     videoElem = message.videoElem;
     fileElem = message.fileElem;
-    atElem = message.atElem;
+    atTextElem = message.atTextElem;
     locationElem = message.locationElem;
     customElem = message.customElem;
     quoteElem = message.quoteElem;
@@ -296,6 +328,10 @@ class Message {
     notificationElem = message.notificationElem;
     faceElem = message.faceElem;
     attachedInfoElem = message.attachedInfoElem;
+    textElem = message.textElem;
+    cardElem = message.cardElem;
+    advancedTextElem = message.advancedTextElem;
+    typingElem = message.typingElem;
   }
 
   /// 单聊消息
@@ -568,7 +604,7 @@ class FileElem {
 }
 
 /// @消息内容
-class AtElem {
+class AtTextElem {
   /// 消息内容
   String? text;
 
@@ -584,7 +620,7 @@ class AtElem {
   /// 被回复的消息体，回复别人并@了人
   Message? quoteMessage;
 
-  AtElem({
+  AtTextElem({
     this.text,
     this.atUserList,
     this.isAtSelf,
@@ -592,7 +628,7 @@ class AtElem {
     this.quoteMessage,
   });
 
-  AtElem.fromJson(Map<String, dynamic> json) {
+  AtTextElem.fromJson(Map<String, dynamic> json) {
     text = json['text'];
     if (json['atUserList'] is List) {
       atUserList = (json['atUserList'] as List).map((e) => '$e').toList();
@@ -832,6 +868,115 @@ class AttachedInfoElem {
     data['hasReadTime'] = this.hasReadTime;
     data['burnDuration'] = this.burnDuration;
     data['notSenderNotificationPush'] = this.notSenderNotificationPush;
+    return data;
+  }
+}
+
+class TextElem {
+  String? content;
+
+  TextElem({this.content});
+
+  TextElem.fromJson(Map<String, dynamic> json) {
+    content = json['content'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['content'] = content;
+    return data;
+  }
+}
+
+class CardElem {
+  String? userID;
+  String? nickname;
+  String? faceURL;
+  String? ex;
+
+  CardElem({this.userID, this.nickname, this.faceURL, this.ex});
+
+  CardElem.fromJson(Map<String, dynamic> json) {
+    userID = json['userID'];
+    nickname = json['nickname'];
+    faceURL = json['faceURL'];
+    ex = json['ex'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['userID'] = userID;
+    data['nickname'] = nickname;
+    data['faceURL'] = faceURL;
+    data['ex'] = ex;
+    return data;
+  }
+}
+
+class TypingElem {
+  String? msgTips;
+
+  TypingElem({this.msgTips});
+
+  TypingElem.fromJson(Map<String, dynamic> json) {
+    msgTips = json['msgTips'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['msgTips'] = msgTips;
+    return data;
+  }
+}
+
+class AdvancedTextElem {
+  String? text;
+  List<MessageEntity>? messageEntityList;
+
+  AdvancedTextElem({this.text, this.messageEntityList});
+
+  AdvancedTextElem.fromJson(Map<String, dynamic> json) {
+    text = json['text'];
+    messageEntityList = json['messageEntityList'] == null
+        ? null
+        : (json['messageEntityList'] as List)
+            .map((e) => MessageEntity.fromJson(e))
+            .toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['text'] = text;
+    data['messageEntityList'] =
+        messageEntityList?.map((e) => e.toJson()).toList();
+    return data;
+  }
+}
+
+class MessageEntity {
+  String? type;
+  int? offset;
+  int? length;
+  String? url;
+  String? ex;
+
+  MessageEntity({this.type, this.offset, this.length, this.url, this.ex});
+
+  MessageEntity.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    offset = json['offset'];
+    length = json['length'];
+    url = json['url'];
+    ex = json['ex'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['type'] = type;
+    data['offset'] = offset;
+    data['length'] = length;
+    data['url'] = url;
+    data['ex'] = ex;
     return data;
   }
 }

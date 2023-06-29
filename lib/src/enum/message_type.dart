@@ -30,9 +30,6 @@ class MessageType {
   /// 自定义
   static const custom = 110;
 
-  /// 撤回
-  static const revoke = 111;
-
   /// 已读回执
   static const has_read_receipt = 112;
 
@@ -50,9 +47,6 @@ class MessageType {
 
   /// 富文本消息
   static const advancedText = 117;
-
-  /// 高级撤回
-  static const advancedRevoke = 118;
 
   static const customMsgNotTriggerConversation = 119;
 
@@ -154,6 +148,12 @@ class MessageType {
   /// 群成员信息改变
   static const groupMemberInfoChangedNotification = 1516;
 
+  /// 群公告修改
+  static const groupNoticeChangedNotification = 1519;
+
+  /// 群名字修改
+  static const groupNameChangedNotification = 1520;
+
   static const signalingNotificationBegin = 1600;
 
   /// 信令
@@ -165,4 +165,7 @@ class MessageType {
   static const burnAfterReadingNotification = 1701;
 
   static const notificationEnd = 2000;
+
+  /// 撤回消息
+  static const revokeMessageNotification = 2101;
 }

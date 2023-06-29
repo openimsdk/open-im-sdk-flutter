@@ -9,11 +9,10 @@ public class IMMananger: BaseServiceManager {
         self["login"] = login
         self["logout"] = logout
         self["getLoginStatus"] = getLoginStatus
-        self["wakeUp"] = wakeUp
-        self["uploadImage"] = uploadImage
+        self["putFile"] = putFile
         self["updateFcmToken"] = updateFcmToken
         self["setAppBackgroundStatus"] = setAppBackgroundStatus
-        self["networkChanged"] = networkChanged
+        self["networkStatusChanged"] = networkStatusChanged
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -21,7 +20,7 @@ public class IMMananger: BaseServiceManager {
     }
     
     func login(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkLogin(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "uid"], methodCall[string: "token"])
+        Open_im_sdkLogin(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"], methodCall[string: "token"])
     }
     
     func logout(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -32,12 +31,8 @@ public class IMMananger: BaseServiceManager {
         callBack(result, Open_im_sdkGetLoginStatus())
     }
     
-    func wakeUp(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkWakeUp(BaseCallback(result: result), methodCall[string: "operationID"])
-    }
-    
-    func uploadImage(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkUploadImage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "path"], methodCall[string: "token"], methodCall[string: "obj"])
+    func putFile(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkPutFile(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString(),PutFileListener(channel: self.channel,putID: methodCall[string: "putID"]))
     }
     
     func updateFcmToken(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -48,8 +43,8 @@ public class IMMananger: BaseServiceManager {
         Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[bool: "isBackground"])
     }
     
-    func networkChanged(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkNetworkChanged(BaseCallback(result: result), methodCall[string: "operationID"])
+    func networkStatusChanged(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkNetworkStatusChanged(BaseCallback(result: result), methodCall[string: "operationID"])
     }
 }
 
@@ -78,5 +73,63 @@ public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol 
     
     public func onUserTokenExpired() {
         CommonUtil.emitEvent(channel: self.channel, method: "connectListener", type: "onUserTokenExpired", errCode: nil, errMsg: nil, data: nil)
+    }
+}
+
+public class PutFileListener: NSObject, Open_im_sdk_callbackPutFileCallbackProtocol {
+    private let channel:FlutterMethodChannel
+    private let putID: String
+    
+    init(channel:FlutterMethodChannel, putID: String) {
+        self.channel = channel
+        self.putID = putID
+    }
+    
+    public func hashComplete(_ hash: String?, total: Int64) {
+        var values: [String: Any] = [:]
+        values["putID"] = putID
+        values["hash"] = hash
+        values["total"] = total
+        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "hashComplete", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func hashProgress(_ current: Int64, total: Int64) {
+        var values: [String: Any] = [:]
+        values["putID"] = putID
+        values["current"] = current
+        values["total"] = total
+        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "hashProgress", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func open(_ size: Int64) {
+        var values: [String: Any] = [:]
+        values["putID"] = putID
+        values["size"] = size
+        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "open", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func putComplete(_ total: Int64, putType: Int) {
+        var values: [String: Any] = [:]
+        values["putID"] = putID
+        values["putType"] = putType
+        values["total"] = total
+        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "putComplete", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func putProgress(_ save: Int64, current: Int64, total: Int64) {
+        var values: [String: Any] = [:]
+        values["putID"] = putID
+        values["save"] = save
+        values["current"] = current
+        values["total"] = total
+        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "putProgress", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func putStart(_ current: Int64, total: Int64) {
+        var values: [String: Any] = [:]
+        values["putID"] = putID
+        values["current"] = current
+        values["total"] = total
+        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "putStart", errCode: nil, errMsg: nil, data: values)
     }
 }

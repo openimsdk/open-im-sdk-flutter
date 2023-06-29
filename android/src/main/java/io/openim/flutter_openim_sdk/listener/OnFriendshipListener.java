@@ -6,12 +6,12 @@ public class OnFriendshipListener implements open_im_sdk_callback.OnFriendshipLi
 
     @Override
     public void onBlackAdded(String s) {
-        CommonUtil.emitEvent("friendListener", "onBlacklistAdded", s);
+        CommonUtil.emitEvent("friendListener", "onBlackAdded", s);
     }
 
     @Override
     public void onBlackDeleted(String s) {
-        CommonUtil.emitEvent("friendListener", "onBlacklistDeleted", s);
+        CommonUtil.emitEvent("friendListener", "onBlackDeleted", s);
     }
 
     @Override
