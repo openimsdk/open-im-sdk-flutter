@@ -184,10 +184,10 @@ class IMManager {
               final msg = Utils.toObj(value, (map) => Message.fromJson(map));
               messageManager.msgListener.recvNewMessage(msg);
               break;
-            case 'onRecvOfflineNewMessages':
-              var value = call.arguments['data']['messageList'];
-              final list = Utils.toList(value, (map) => Message.fromJson(map));
-              messageManager.msgListener.recvOfflineNewMessages(list);
+            case 'onRecvOfflineNewMessage':
+              var value = call.arguments['data']['message'];
+              final msg = Utils.toObj(value, (map) => Message.fromJson(map));
+              messageManager.msgListener.recvOfflineNewMessage(msg);
               break;
           }
         } else if (call.method == ListenerType.msgSendProgressListener) {
