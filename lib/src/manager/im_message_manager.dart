@@ -145,7 +145,6 @@ class MessageManager {
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
 
-
   /// 正在输入提示
   /// [msgTip] 自定义内容
   Future typingStatusUpdate({

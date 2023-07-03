@@ -73,13 +73,13 @@ class ConversationManager {
   }) =>
       _channel
           .invokeMethod(
-          'getMultipleConversation',
-          _buildParam({
-            "conversationIDList": conversationIDList,
-            "operationID": Utils.checkOperationID(operationID),
-          }))
+              'getMultipleConversation',
+              _buildParam({
+                "conversationIDList": conversationIDList,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
           .then((value) =>
-          Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// 设置会话草稿
   /// [conversationID] 会话id
@@ -314,20 +314,20 @@ class ConversationManager {
             : a.latestMsgSendTime!;
         int bCompare = b.draftTextTime! > b.latestMsgSendTime!
             ? b.draftTextTime!
-                : b.latestMsgSendTime!;
-            if (aCompare > bCompare) {
-              return -1;
-            } else if (aCompare < bCompare) {
-              return 1;
-            } else {
-              return 0;
-            }
-          } else if (a.isPinned == true && b.isPinned != true) {
-            return -1;
-          } else {
-            return 1;
-          }
-        });
+            : b.latestMsgSendTime!;
+        if (aCompare > bCompare) {
+          return -1;
+        } else if (aCompare < bCompare) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } else if (a.isPinned == true && b.isPinned != true) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "conversationManager";

@@ -467,10 +467,10 @@ class IMManager {
     required OnConnectListener listener,
     int logLevel = 6,
     String objectStorage = 'cos',
-    String? encryptionKey,
-    bool isNeedEncryption = false,
-    bool isCompression = false,
-    bool isExternalExtensions = false,
+    // String? encryptionKey,
+    // bool isNeedEncryption = false,
+    // bool isCompression = false,
+    // bool isExternalExtensions = false,
     bool isLogStandardOutput = true,
     String? logFilePath,
     String? operationID,
@@ -487,10 +487,10 @@ class IMManager {
             "dataDir": dataDir,
             "logLevel": logLevel,
             "objectStorage": objectStorage,
-            "encryptionKey": encryptionKey,
-            "isNeedEncryption": isNeedEncryption,
-            "isCompression": isCompression,
-            "isExternalExtensions": isExternalExtensions,
+            // "encryptionKey": encryptionKey,
+            // "isNeedEncryption": isNeedEncryption,
+            // "isCompression": isCompression,
+            // "isExternalExtensions": isExternalExtensions,
             "isLogStandardOutput": isLogStandardOutput,
             "logFilePath": logFilePath,
             "operationID": Utils.checkOperationID(operationID),
@@ -499,7 +499,7 @@ class IMManager {
   }
 
   /// 登录
-  /// [uid] 用户id
+  /// [userID] 用户id
   /// [token] 登录token，从业务服务器上获取
   /// [defaultValue] 获取失败后使用的默认值
   Future<UserInfo> login({
@@ -507,15 +507,23 @@ class IMManager {
     required String token,
     String? operationID,
     Future<UserInfo> Function()? defaultValue,
+    bool checkLoginStatus = true,
   }) async {
-    await _channel.invokeMethod(
-      'login',
-      _buildParam({
-        'userID': userID,
-        'token': token,
-        'operationID': Utils.checkOperationID(operationID),
-      }),
-    );
+    int? status;
+    if (checkLoginStatus) {
+      // 1: logout 2: logging  3:logged
+      status = await getLoginStatus();
+    }
+    if (status != LoginStatus.logging && status != LoginStatus.logged) {
+      await _channel.invokeMethod(
+        'login',
+        _buildParam({
+          'userID': userID,
+          'token': token,
+          'operationID': Utils.checkOperationID(operationID),
+        }),
+      );
+    }
     this.isLogined = true;
     this.userID = userID;
     this.token = token;
@@ -544,6 +552,7 @@ class IMManager {
   }
 
   /// 获取登录状态
+  /// 1: logout 2: logging  3:logged
   Future<int?> getLoginStatus() =>
       _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
 

@@ -8,7 +8,6 @@ class MessageFailedCode {
 
   /// 已被移除群聊/群已解散
   static const int notInGroup = 1205;
-
 }
 
 /// 添加好友失败
