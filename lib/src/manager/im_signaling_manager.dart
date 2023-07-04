@@ -300,6 +300,15 @@ class SignalingManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  Future<dynamic> getSignalingInvitationInfoStartApp({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'getSignalingInvitationInfoStartApp',
+          _buildParam({
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "signalingManager";
     return param;

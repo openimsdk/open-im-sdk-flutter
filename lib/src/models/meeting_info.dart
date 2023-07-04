@@ -23,7 +23,7 @@ class MeetingInfoList {
 }
 
 class MeetingInfo {
-  String? meetingID;
+  String? roomID;
   String? meetingName;
   String? ex;
   String? hostUserID;
@@ -46,7 +46,7 @@ class MeetingInfo {
   List<String>? beWatchedUserIDList; // 正在被观看用户列表
 
   MeetingInfo({
-    this.meetingID,
+    this.roomID,
     this.meetingName,
     this.ex,
     this.hostUserID,
@@ -70,7 +70,7 @@ class MeetingInfo {
   });
 
   MeetingInfo.fromJson(Map<String, dynamic> json) {
-    meetingID = json['meetingID'];
+    roomID = json['roomID'];
     meetingName = json['meetingName'];
     ex = json['ex'];
     hostUserID = json['hostUserID'];
@@ -107,7 +107,7 @@ class MeetingInfo {
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['meetingID'] = meetingID;
+    data['roomID'] = roomID;
     data['meetingName'] = meetingName;
     data['ex'] = ex;
     data['hostUserID'] = hostUserID;
@@ -133,21 +133,21 @@ class MeetingInfo {
 }
 
 class MeetingStreamEvent {
-  String? meetingID;
+  String? roomID;
   String? streamType;
   bool? mute;
 
-  MeetingStreamEvent({this.meetingID, this.streamType, this.mute});
+  MeetingStreamEvent({this.roomID, this.streamType, this.mute});
 
   MeetingStreamEvent.fromJson(Map<String, dynamic> json) {
-    meetingID = json['meetingID'];
+    roomID = json['roomID'];
     streamType = json['streamType'];
     mute = json['mute'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['meetingID'] = this.meetingID;
+    data['roomID'] = this.roomID;
     data['streamType'] = this.streamType;
     data['mute'] = this.mute;
     return data;
