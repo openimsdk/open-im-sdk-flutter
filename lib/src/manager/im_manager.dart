@@ -14,7 +14,7 @@ class IMManager {
   late UserManager userManager;
 
   // late OfflinePushManager offlinePushManager;
-  late SignalingManager signalingManager;
+  // late SignalingManager signalingManager;
 
   // late WorkMomentsManager workMomentsManager;
   // late OrganizationManager organizationManager;
@@ -35,7 +35,7 @@ class IMManager {
     groupManager = GroupManager(_channel);
     userManager = UserManager(_channel);
     // offlinePushManager = OfflinePushManager(_channel);
-    signalingManager = SignalingManager(_channel);
+    // signalingManager = SignalingManager(_channel);
     // workMomentsManager = WorkMomentsManager(_channel);
     // organizationManager = OrganizationManager(_channel);
     _addNativeCallback(_channel);
@@ -278,7 +278,8 @@ class IMManager {
               friendshipManager.listener.friendInfoChanged(u);
               break;
           }
-        } else if (call.method == ListenerType.signalingListener) {
+        }
+        /*else if (call.method == ListenerType.signalingListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
           dynamic info;
@@ -337,7 +338,7 @@ class IMManager {
               break;
           }
         }
-        /*else if (call.method == ListenerType.workMomentsListener) {
+        else if (call.method == ListenerType.workMomentsListener) {
           String type = call.arguments['type'];
           switch (type) {
             case 'OnRecvNewNotification':
