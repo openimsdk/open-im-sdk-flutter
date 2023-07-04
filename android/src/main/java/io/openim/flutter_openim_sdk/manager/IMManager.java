@@ -18,6 +18,11 @@ public class IMManager extends BaseManager {
         );
     }
 
+    public void unInitSDK(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.unInitSDK();
+        result.success(null);
+    }
+
     public void login(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.login(
                 new OnBaseListener(result, methodCall),
@@ -84,5 +89,4 @@ public class IMManager extends BaseManager {
 
         result.success(null);
     }
-
 }
