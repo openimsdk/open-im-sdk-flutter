@@ -12,12 +12,7 @@ class IMManager {
   late MessageManager messageManager;
   late GroupManager groupManager;
   late UserManager userManager;
-
-  // late OfflinePushManager offlinePushManager;
   late SignalingManager signalingManager;
-
-  // late WorkMomentsManager workMomentsManager;
-  // late OrganizationManager organizationManager;
 
   late OnConnectListener _connectListener;
   OnListenerForService? _listenerForService;
@@ -34,10 +29,7 @@ class IMManager {
     messageManager = MessageManager(_channel);
     groupManager = GroupManager(_channel);
     userManager = UserManager(_channel);
-    // offlinePushManager = OfflinePushManager(_channel);
     signalingManager = SignalingManager(_channel);
-    // workMomentsManager = WorkMomentsManager(_channel);
-    // organizationManager = OrganizationManager(_channel);
     _addNativeCallback(_channel);
   }
 
@@ -336,23 +328,7 @@ class IMManager {
               signalingManager.listener.receiveCustomSignal(info);
               break;
           }
-        }
-        /*else if (call.method == ListenerType.workMomentsListener) {
-          String type = call.arguments['type'];
-          switch (type) {
-            case 'OnRecvNewNotification':
-              workMomentsManager.listener.recvNewNotification();
-              break;
-          }
-        } else if (call.method == ListenerType.organizationListener) {
-          String type = call.arguments['type'];
-          switch (type) {
-            case 'onOrganizationUpdated':
-              organizationManager.listener.organizationUpdated();
-              break;
-          }
-        }*/
-        else if (call.method == ListenerType.customBusinessListener) {
+        } else if (call.method == ListenerType.customBusinessListener) {
           String type = call.arguments['type'];
           String data = call.arguments['data'];
           switch (type) {

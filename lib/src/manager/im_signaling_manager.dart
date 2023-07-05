@@ -209,11 +209,11 @@ class SignalingManager {
               Utils.toObj(value, (map) => SignalingCertificate.fromJson(map)));
 
   /// 加入会议室
-  /// [meetingID] 会议ID
+  /// [roomID] 会议ID
   /// [meetingName] 会议主题
   /// [participantNickname] 加入房间显示的名称
   Future<SignalingCertificate> signalingJoinMeeting({
-    required String meetingID,
+    required String roomID,
     String? meetingName,
     String? participantNickname,
     String? operationID,
@@ -223,7 +223,7 @@ class SignalingManager {
               'signalingJoinMeeting',
               _buildParam({
                 'info': {
-                  'meetingID': meetingID,
+                  'roomID': roomID,
                   'meetingName': meetingName,
                   'participantNickname': participantNickname,
                 },
@@ -300,14 +300,17 @@ class SignalingManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  Future<dynamic> getSignalingInvitationInfoStartApp({
+  Future<SignalingInfo> getSignalingInvitationInfoStartApp({
     String? operationID,
   }) =>
-      _channel.invokeMethod(
-          'getSignalingInvitationInfoStartApp',
-          _buildParam({
-            'operationID': Utils.checkOperationID(operationID),
-          }));
+      _channel
+          .invokeMethod(
+              'getSignalingInvitationInfoStartApp',
+              _buildParam({
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toObj(value, (map) => SignalingInfo.fromJson(map)));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "signalingManager";
