@@ -13,12 +13,6 @@ class IMManager {
   late GroupManager groupManager;
   late UserManager userManager;
 
-  // late OfflinePushManager offlinePushManager;
-  // late SignalingManager signalingManager;
-
-  // late WorkMomentsManager workMomentsManager;
-  // late OrganizationManager organizationManager;
-
   late OnConnectListener _connectListener;
   OnListenerForService? _listenerForService;
   OnPutFileListener? _putFileListener;
@@ -34,10 +28,6 @@ class IMManager {
     messageManager = MessageManager(_channel);
     groupManager = GroupManager(_channel);
     userManager = UserManager(_channel);
-    // offlinePushManager = OfflinePushManager(_channel);
-    // signalingManager = SignalingManager(_channel);
-    // workMomentsManager = WorkMomentsManager(_channel);
-    // organizationManager = OrganizationManager(_channel);
     _addNativeCallback(_channel);
   }
 
@@ -278,82 +268,7 @@ class IMManager {
               friendshipManager.listener.friendInfoChanged(u);
               break;
           }
-        }
-        /*else if (call.method == ListenerType.signalingListener) {
-          String type = call.arguments['type'];
-          dynamic data = call.arguments['data'];
-          dynamic info;
-          switch (type) {
-            case 'onRoomParticipantConnected':
-            case 'onRoomParticipantDisconnected':
-              info = Utils.toObj(data, (map) => RoomCallingInfo.fromJson(map));
-              break;
-            case 'onStreamChange':
-              info =
-                  Utils.toObj(data, (map) => MeetingStreamEvent.fromJson(map));
-              break;
-            case 'onReceiveCustomSignal':
-              info = Utils.toObj(data, (map) => CustomSignaling.fromJson(map));
-              break;
-            default:
-              info = Utils.toObj(data, (map) => SignalingInfo.fromJson(map));
-              break;
-          }
-          switch (type) {
-            case 'onInvitationCancelled':
-              signalingManager.listener.invitationCancelled(info);
-              break;
-            case 'onInvitationTimeout':
-              signalingManager.listener.invitationTimeout(info);
-              break;
-            case 'onInviteeAccepted':
-              signalingManager.listener.inviteeAccepted(info);
-              break;
-            case 'onInviteeRejected':
-              signalingManager.listener.inviteeRejected(info);
-              break;
-            case 'onReceiveNewInvitation':
-              signalingManager.listener.receiveNewInvitation(info);
-              break;
-            case 'onInviteeAcceptedByOtherDevice':
-              signalingManager.listener.inviteeAcceptedByOtherDevice(info);
-              break;
-            case 'onInviteeRejectedByOtherDevice':
-              signalingManager.listener.inviteeRejectedByOtherDevice(info);
-              break;
-            case 'onHangUp':
-              signalingManager.listener.hangup(info);
-              break;
-            case 'onRoomParticipantConnected':
-              signalingManager.listener.roomParticipantConnected(info);
-              break;
-            case 'onRoomParticipantDisconnected':
-              signalingManager.listener.roomParticipantDisconnected(info);
-              break;
-            case 'onStreamChange':
-              signalingManager.listener.streamChangedEvent(info);
-              break;
-            case 'onReceiveCustomSignal':
-              signalingManager.listener.receiveCustomSignal(info);
-              break;
-          }
-        }
-        else if (call.method == ListenerType.workMomentsListener) {
-          String type = call.arguments['type'];
-          switch (type) {
-            case 'OnRecvNewNotification':
-              workMomentsManager.listener.recvNewNotification();
-              break;
-          }
-        } else if (call.method == ListenerType.organizationListener) {
-          String type = call.arguments['type'];
-          switch (type) {
-            case 'onOrganizationUpdated':
-              organizationManager.listener.organizationUpdated();
-              break;
-          }
-        }*/
-        else if (call.method == ListenerType.customBusinessListener) {
+        } else if (call.method == ListenerType.customBusinessListener) {
           String type = call.arguments['type'];
           String data = call.arguments['data'];
           switch (type) {
@@ -554,8 +469,14 @@ class IMManager {
 
   /// 获取登录状态
   /// 1: logout 2: logging  3:logged
-  Future<int?> getLoginStatus() =>
-      _channel.invokeMethod<int>('getLoginStatus', _buildParam({}));
+  Future<int?> getLoginStatus({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod<int>(
+          'getLoginStatus',
+          _buildParam({
+            'operationID': Utils.checkOperationID(operationID),
+          }));
 
   /// 获取当前登录用户id
   Future<String> getLoginUserID() async => userID;

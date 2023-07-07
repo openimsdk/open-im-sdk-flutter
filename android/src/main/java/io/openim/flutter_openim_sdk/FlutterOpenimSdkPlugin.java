@@ -42,9 +42,6 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
     private static MessageManager messageManager;
     private static ConversationManager conversationManager;
     private static GroupManager groupManager;
-//    private static SignalingManager signalingManager;
-//    private static WorkMomentsManager workMomentsManager;
-//    private static OrganizationManager organizationManager;
     private static Activity activity;
     private static Context context;
     private ConnectivityListener connectivityListener;
@@ -58,9 +55,6 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
         FlutterOpenimSdkPlugin.messageManager = new MessageManager();
         FlutterOpenimSdkPlugin.conversationManager = new ConversationManager();
         FlutterOpenimSdkPlugin.groupManager = new GroupManager();
-//        FlutterOpenimSdkPlugin.signalingManager = new SignalingManager();
-//        FlutterOpenimSdkPlugin.workMomentsManager = new WorkMomentsManager();
-//        FlutterOpenimSdkPlugin.organizationManager = new OrganizationManager();
     }
 
 
