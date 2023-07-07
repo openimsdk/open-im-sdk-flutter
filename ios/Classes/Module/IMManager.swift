@@ -72,7 +72,7 @@ public class IMMananger: BaseServiceManager {
     }
     
     func getLoginStatus(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        callBack(result, Open_im_sdkGetLoginStatus())
+        callBack(result, Open_im_sdkGetLoginStatus(methodCall[string: "operationID"]))
     }
     
     func putFile(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
