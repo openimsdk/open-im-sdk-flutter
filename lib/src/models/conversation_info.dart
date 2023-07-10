@@ -51,8 +51,11 @@ class ConversationInfo {
   /// 可阅读期限 s
   int? burnDuration;
 
-  /// 附加内容
-  String? ext;
+  /// 是否开启定期销毁
+  bool? isMsgDestruct;
+
+  /// 定期销毁时间 s
+  int? msgDestructTime;
 
   /// 附加内容
   String? ex;
@@ -78,7 +81,9 @@ class ConversationInfo {
     this.isPinned,
     this.isNotInGroup,
     this.ex,
-    this.ext,
+    this.groupAtType,
+    this.isMsgDestruct,
+    this.msgDestructTime,
   });
 
   ConversationInfo.fromJson(Map<String, dynamic> json)
@@ -106,7 +111,8 @@ class ConversationInfo {
     isNotInGroup = json['isNotInGroup'];
     groupAtType = json['groupAtType'];
     ex = json['ex'];
-    ext = json['ext'];
+    isMsgDestruct = json['isMsgDestruct'];
+    msgDestructTime = json['msgDestructTime'];
   }
 
   Map<String, dynamic> toJson() {
@@ -129,7 +135,8 @@ class ConversationInfo {
     data['isNotInGroup'] = this.isNotInGroup;
     data['groupAtType'] = this.groupAtType;
     data['ex'] = this.ex;
-    data['ext'] = this.ext;
+    data['isMsgDestruct'] = this.isMsgDestruct;
+    data['msgDestructTime'] = this.msgDestructTime;
     return data;
   }
 
