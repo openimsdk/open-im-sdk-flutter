@@ -4,7 +4,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class SignalingInfo {
   /// 操作者
-  String? opUserID;
+  String? userID;
 
   /// 邀请信息
   InvitationInfo? invitation;
@@ -13,24 +13,24 @@ class SignalingInfo {
   OfflinePushInfo? offlinePushInfo;
 
   SignalingInfo({
-    this.opUserID,
+    this.userID,
     this.invitation,
     this.offlinePushInfo,
   });
 
   SignalingInfo.fromJson(Map<String, dynamic> json) {
-    opUserID = json['opUserID'];
     invitation = json['invitation'] == null
         ? null
         : InvitationInfo.fromJson(json['invitation']);
     offlinePushInfo = json['offlinePushInfo'] == null
         ? null
         : OfflinePushInfo.fromJson(json['offlinePushInfo']);
+    userID = json['userID'] ?? invitation?.inviterUserID;
   }
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
-    data['opUserID'] = this.opUserID;
+    data['userID'] = this.userID;
     data['invitation'] = this.invitation?.toJson();
     data['offlinePushInfo'] = this.offlinePushInfo?.toJson();
     return data;
@@ -78,7 +78,7 @@ class InvitationInfo {
 
   InvitationInfo.fromJson(Map<String, dynamic> json) {
     inviterUserID = json['inviterUserID'];
-    inviteeUserIDList = json['inviteeUserIDList'].cast<String>();
+    inviteeUserIDList = json['inviteeUserIDList']?.cast<String>();
     groupID = json['groupID'];
     roomID = json['roomID'];
     timeout = json['timeout'];

@@ -304,6 +304,36 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// 开启定期删除
+  /// [isMsgDestruct] true 开启
+  Future<dynamic> setConversationIsMsgDestruct({
+    required String conversationID,
+    bool isMsgDestruct = true,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setConversationIsMsgDestruct',
+          _buildParam({
+            "conversationID": conversationID,
+            "isMsgDestruct": isMsgDestruct,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
+  /// 定期删除聊天记录
+  /// [duration] 秒
+  Future<dynamic> setConversationMsgDestructTime({
+    required String conversationID,
+    int duration = 1 * 24 * 60 * 60,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'setConversationMsgDestructTime',
+          _buildParam({
+            "conversationID": conversationID,
+            "duration": duration,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
+
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list
     ..sort((a, b) {

@@ -175,4 +175,22 @@ public class ConversationManager extends BaseManager {
                 value(methodCall, "burnDuration")
         );
     }
+
+    public void setConversationIsMsgDestruct(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setConversationIsMsgDestruct(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                value(methodCall, "isMsgDestruct")
+        );
+    }
+
+    public void setConversationMsgDestructTime(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setConversationMsgDestructTime(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                int2long(methodCall, "duration")
+        );
+    }
 }
