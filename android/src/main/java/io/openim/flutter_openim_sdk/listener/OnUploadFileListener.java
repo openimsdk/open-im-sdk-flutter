@@ -82,7 +82,7 @@ public class OnUploadFileListener implements UploadFileCallback {
             values.put("fileSize", fileSize);
             values.put("streamSize", streamSize);
             values.put("storageSize", storageSize);
-            CommonUtil.emitEvent("uploadFileListener", "uploadComplete", values);
+            CommonUtil.emitEvent("uploadFileListener", "uploadProgress", values);
         }
     }
 

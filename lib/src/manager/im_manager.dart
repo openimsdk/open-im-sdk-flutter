@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-import 'package:flutter_openim_sdk/src/listener/upload_file_listener.dart';
 import 'package:flutter_openim_sdk/src/logger.dart';
 
 class IMManager {
@@ -352,12 +351,12 @@ class IMManager {
               int num = data['num'];
               _uploadFileListener?.partSize(id, partSize, num);
               break;
-            case 'uploadComplete':
+            case 'uploadProgress':
               String id = data['id'];
               int fileSize = data['fileSize'];
               int streamSize = data['streamSize'];
               int storageSize = data['storageSize'];
-              _uploadFileListener?.uploadComplete(
+              _uploadFileListener?.uploadProgress(
                   id, fileSize, streamSize, storageSize);
               break;
             case 'uploadID':

@@ -5,7 +5,7 @@ class OnUploadFileListener {
   Function(String id, int size)? onOpen;
   Function(String id, int partSize, int num)? onPartSize;
   Function(String id, int fileSize, int streamSize, int storageSize)?
-      onUploadComplete;
+      onUploadProgress;
   Function(String id, String uploadID)? onUploadID;
   Function(String id, int index, int partSize, String partHash)?
       onUploadPartComplete;
@@ -30,9 +30,9 @@ class OnUploadFileListener {
     onPartSize?.call(id, partSize, num);
   }
 
-  void uploadComplete(
+  void uploadProgress(
       String id, int fileSize, int streamSize, int storageSize) {
-    onUploadComplete?.call(id, fileSize, streamSize, storageSize);
+    onUploadProgress?.call(id, fileSize, streamSize, storageSize);
   }
 
   void uploadID(String id, String uploadID) {
