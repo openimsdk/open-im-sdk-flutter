@@ -5,7 +5,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.FlutterOpenimSdkPlugin;
 import io.openim.flutter_openim_sdk.listener.OnBaseListener;
 import io.openim.flutter_openim_sdk.listener.OnConnListener;
-import io.openim.flutter_openim_sdk.listener.OnPutFileListener;
+import io.openim.flutter_openim_sdk.listener.OnUploadFileListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
 
@@ -40,12 +40,12 @@ public class IMManager extends BaseManager {
         CommonUtil.runMainThreadReturn(result, Open_im_sdk.getLoginStatus(value(methodCall, "operationID")));
     }
 
-    public void putFile(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.putFile(
+    public void uploadFile(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.uploadFile(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall),
-                new OnPutFileListener(result, methodCall)
+                new OnUploadFileListener(result, methodCall)
         );
     }
 
