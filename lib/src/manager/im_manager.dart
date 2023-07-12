@@ -16,7 +16,7 @@ class IMManager {
 
   late OnConnectListener _connectListener;
   OnListenerForService? _listenerForService;
-  OnPutFileListener? _putFileListener;
+  OnUploadFileListener? _uploadFileListener;
   late String userID;
   late UserInfo userInfo;
   bool isLogined = false;
@@ -376,45 +376,61 @@ class IMManager {
               _listenerForService?.recvNewMessage(msg);
               break;
           }
-        } else if (call.method == ListenerType.putFileListener) {
+        } else if (call.method == ListenerType.uploadFileListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
           switch (type) {
-            case 'hashComplete':
-              String putID = data['putID'];
-              String hash = data['hash'];
-              int total = data['total'];
-              _putFileListener?.hashComplete(putID, hash, total);
+            case 'complete':
+              String id = data['id'];
+              int size = data['size'];
+              String url = data['url'];
+              int type = data['type'];
+              _uploadFileListener?.complete(id, size, url, type);
               break;
-            case 'hashProgress':
-              String putID = data['putID'];
-              int current = data['current'];
-              int total = data['total'];
-              _putFileListener?.hashProgress(putID, current, total);
+            case 'hashPartComplete':
+              String id = data['id'];
+              String partHash = data['partHash'];
+              String fileHash = data['fileHash'];
+              _uploadFileListener?.hashPartComplete(id, partHash, fileHash);
+              break;
+            case 'hashPartProgress':
+              String id = data['id'];
+              int index = data['index'];
+              int size = data['size'];
+              String partHash = data['partHash'];
+              _uploadFileListener?.hashPartProgress(id, index, size, partHash);
               break;
             case 'open':
-              String putID = data['putID'];
+              String id = data['id'];
               int size = data['size'];
-              _putFileListener?.open(putID, size);
+              _uploadFileListener?.open(id, size);
               break;
-            case 'putComplete':
-              String putID = data['putID'];
-              int putType = data['putType'];
-              int total = data['total'];
-              _putFileListener?.putComplete(putID, putType, total);
+            case 'partSize':
+              String id = data['id'];
+              int partSize = data['partSize'];
+              int num = data['num'];
+              _uploadFileListener?.partSize(id, partSize, num);
               break;
-            case 'putProgress':
-              String putID = data['putID'];
-              int save = data['save'];
-              int current = data['current'];
-              int total = data['total'];
-              _putFileListener?.putProgress(putID, save, current, total);
+            case 'uploadProgress':
+              String id = data['id'];
+              int fileSize = data['fileSize'];
+              int streamSize = data['streamSize'];
+              int storageSize = data['storageSize'];
+              _uploadFileListener?.uploadProgress(
+                  id, fileSize, streamSize, storageSize);
               break;
-            case 'putStart':
-              String putID = data['putID'];
-              int current = data['current'];
-              int total = data['total'];
-              _putFileListener?.putStart(putID, current, total);
+            case 'uploadID':
+              String id = data['id'];
+              String uploadID = data['uploadID'];
+              _uploadFileListener?.uploadID(id, uploadID);
+              break;
+            case 'uploadPartComplete':
+              String id = data['id'];
+              int index = data['index'];
+              int partSize = data['partSize'];
+              String partHash = data['partHash'];
+              _uploadFileListener?.uploadPartComplete(
+                  id, index, partSize, partHash);
               break;
           }
         }
@@ -529,7 +545,9 @@ class IMManager {
 
   /// 获取登录状态
   /// 1: logout 2: logging  3:logged
-  Future<int?> getLoginStatus({String? operationID}) =>
+  Future<int?> getLoginStatus({
+    String? operationID,
+  }) =>
       _channel.invokeMethod<int>(
           'getLoginStatus',
           _buildParam({
@@ -543,18 +561,22 @@ class IMManager {
   Future<UserInfo> getLoginUserInfo() async => userInfo;
 
   ///
-  Future putFile({
-    required String putID,
+  Future uploadFile({
+    required String id,
     required String filePath,
     required String fileName,
+    String? contentType,
+    String? cause,
     String? operationID,
   }) =>
       _channel.invokeMethod(
-          'putFile',
+          'uploadFile',
           _buildParam({
-            'putID': putID,
+            'id': id,
             'filePath': filePath,
             'name': fileName,
+            'contentType': contentType,
+            'cause': cause,
             'operationID': Utils.checkOperationID(operationID),
           }));
 
@@ -593,8 +615,8 @@ class IMManager {
   //           'operationID': Utils.checkOperationID(operationID),
   //         }));
 
-  void setPutFileListener(OnPutFileListener listener) {
-    _putFileListener = listener;
+  void setUploadFileListener(OnUploadFileListener listener) {
+    _uploadFileListener = listener;
   }
 
   ///
