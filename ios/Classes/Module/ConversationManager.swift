@@ -111,7 +111,7 @@ public class ConversationManager: BaseServiceManager {
     }
     
     func setConversationBurnDuration(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetConversationBurnDuration(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[int: "burnDuration"])
+        Open_im_sdkSetConversationBurnDuration(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[int32: "burnDuration"])
     }
 }
 

@@ -11,7 +11,7 @@ public class IMMananger: BaseServiceManager {
         self["login"] = login
         self["logout"] = logout
         self["getLoginStatus"] = getLoginStatus
-        self["putFile"] = putFile
+        self["uploadFile"] = uploadFile
         self["updateFcmToken"] = updateFcmToken
         self["setAppBackgroundStatus"] = setAppBackgroundStatus
         self["networkStatusChanged"] = networkStatusChanged
@@ -22,7 +22,7 @@ public class IMMananger: BaseServiceManager {
                                                selector: #selector(applicationWillEnterForeground),
                                                name: UIApplication.willEnterForegroundNotification,
                                                object: nil)
-                
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(applicationDidEnterBackground),
                                                name: UIApplication.didEnterBackgroundNotification,
@@ -51,7 +51,7 @@ public class IMMananger: BaseServiceManager {
         Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
         }), UUID().uuidString, true)
     }
-
+    
     @objc
     fileprivate func applicationWillEnterForeground() {
         Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
@@ -75,8 +75,8 @@ public class IMMananger: BaseServiceManager {
         callBack(result, Open_im_sdkGetLoginStatus(methodCall[string: "operationID"]))
     }
     
-    func putFile(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkPutFile(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString(),PutFileListener(channel: self.channel,putID: methodCall[string: "putID"]))
+    func uploadFile(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkUploadFile(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString(), UploadFileListener(channel: self.channel,id: methodCall[string: "id"]))
     }
     
     func updateFcmToken(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -102,7 +102,7 @@ public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol 
     public func onConnectFailed(_ errCode: Int32, errMsg: String?) {
         CommonUtil.emitEvent(channel: self.channel, method: "connectListener", type: "onConnectFailed", errCode: errCode, errMsg: errMsg, data: nil)
     }
-
+    
     public func onConnectSuccess() {
         CommonUtil.emitEvent(channel: self.channel, method: "connectListener", type: "onConnectSuccess", errCode: nil, errMsg: nil, data: nil)
     }
@@ -120,60 +120,79 @@ public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol 
     }
 }
 
-public class PutFileListener: NSObject, Open_im_sdk_callbackPutFileCallbackProtocol {
+public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbackProtocol {
+    
     private let channel:FlutterMethodChannel
-    private let putID: String
+    private let id: String
     
-    init(channel:FlutterMethodChannel, putID: String) {
+    init(channel:FlutterMethodChannel, id: String) {
         self.channel = channel
-        self.putID = putID
+        self.id = id
     }
     
-    public func hashComplete(_ hash: String?, total: Int64) {
+    public func complete(_ size: Int64, url: String?, typ: Int32) {
         var values: [String: Any] = [:]
-        values["putID"] = putID
-        values["hash"] = hash
-        values["total"] = total
-        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "hashComplete", errCode: nil, errMsg: nil, data: values)
+        values["id"] = id
+        values["size"] = size
+        values["url"] = url
+        values["type"] = typ
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "complete", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func hashProgress(_ current: Int64, total: Int64) {
+    public func hashPartComplete(_ partsHash: String?, fileHash: String?) {
         var values: [String: Any] = [:]
-        values["putID"] = putID
-        values["current"] = current
-        values["total"] = total
-        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "hashProgress", errCode: nil, errMsg: nil, data: values)
+        values["id"] = id
+        values["partHash"] = partsHash
+        values["fileHash"] = fileHash
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "hashPartComplete", errCode: nil, errMsg: nil, data: values);<#code#>
+    }
+    
+    public func hashPartProgress(_ index: Int32, size: Int64, partHash: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["index"] = index
+        values["size"] = size
+        values["partHash"] = partHash
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "hashPartProgress", errCode: nil, errMsg: nil, data: values)
     }
     
     public func open(_ size: Int64) {
         var values: [String: Any] = [:]
-        values["putID"] = putID
+        values["id"] = id
         values["size"] = size
-        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "open", errCode: nil, errMsg: nil, data: values)
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "open", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func putComplete(_ total: Int64, putType: Int) {
+    public func partSize(_ partSize: Int64, num: Int32) {
         var values: [String: Any] = [:]
-        values["putID"] = putID
-        values["putType"] = putType
-        values["total"] = total
-        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "putComplete", errCode: nil, errMsg: nil, data: values)
+        values["id"] = id
+        values["partSize"] = partSize
+        values["num"] = num
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "partSize", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func putProgress(_ save: Int64, current: Int64, total: Int64) {
+    public func uploadComplete(_ fileSize: Int64, streamSize: Int64, storageSize: Int64) {
         var values: [String: Any] = [:]
-        values["putID"] = putID
-        values["save"] = save
-        values["current"] = current
-        values["total"] = total
-        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "putProgress", errCode: nil, errMsg: nil, data: values)
+        values["id"] = id
+        values["fileSize"] = fileSize
+        values["streamSize"] = streamSize
+        values["storageSize"] = storageSize
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "uploadProgress", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func putStart(_ current: Int64, total: Int64) {
+    public func uploadID(_ uploadID: String?) {
         var values: [String: Any] = [:]
-        values["putID"] = putID
-        values["current"] = current
-        values["total"] = total
-        CommonUtil.emitEvent(channel: channel, method: "putFileListener", type: "putStart", errCode: nil, errMsg: nil, data: values)
+        values["id"] = id
+        values["uploadID"] = uploadID
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "uploadID", errCode: nil, errMsg: nil, data: values)
+    }
+    
+    public func uploadPartComplete(_ index: Int32, partSize: Int64, partHash: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["index"] = index
+        values["partSize"] = partSize
+        values["partHash"] = partHash
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "uploadPartComplete", errCode: nil, errMsg: nil, data: values);<#code#>
     }
 }

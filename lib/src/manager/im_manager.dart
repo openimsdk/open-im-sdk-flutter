@@ -500,7 +500,7 @@ class IMManager {
   /// 获取当前登录用户信息
   Future<UserInfo> getLoginUserInfo() async => userInfo;
 
-  ///
+  ///[id] 跟 [OnUploadFileListener] id一致，区分是哪个文件的回调
   Future uploadFile({
     required String id,
     required String filePath,
