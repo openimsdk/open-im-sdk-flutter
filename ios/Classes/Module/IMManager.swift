@@ -144,7 +144,7 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         values["id"] = id
         values["partHash"] = partsHash
         values["fileHash"] = fileHash
-        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "hashPartComplete", errCode: nil, errMsg: nil, data: values);<#code#>
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "hashPartComplete", errCode: nil, errMsg: nil, data: values)
     }
     
     public func hashPartProgress(_ index: Int32, size: Int64, partHash: String?) {
@@ -193,6 +193,6 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         values["index"] = index
         values["partSize"] = partSize
         values["partHash"] = partHash
-        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "uploadPartComplete", errCode: nil, errMsg: nil, data: values);<#code#>
+        CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "uploadPartComplete", errCode: nil, errMsg: nil, data: values)
     }
 }
