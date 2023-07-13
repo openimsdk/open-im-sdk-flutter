@@ -33,6 +33,7 @@ public class CommonUtil {
     }
 
     public synchronized static <T> void emitEvent(String method, String type, Object errCode, String errMsg, T data) {
+        String threadName = Thread.currentThread().getName();
         runMainThread(() -> {
             Map<String, Object> res = new ArrayMap<>();
             if (null != type) {
@@ -47,7 +48,7 @@ public class CommonUtil {
             if (null != errMsg) {
                 res.put("errMsg", errMsg);
             }
-            Log.i("F-OpenIMSDK(native call flutter)", "{ method:" + method + ",  type:" + type + " }");
+            Log.i("F-OpenIMSDK(native call flutter)", "thread: " + threadName + " { method:" + method + ",  type:" + type + " }");
             FlutterOpenimSdkPlugin.channel.invokeMethod(method, res);
         });
     }
