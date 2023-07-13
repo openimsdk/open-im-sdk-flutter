@@ -8,7 +8,7 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
     let messageManager: MessageManager
     let groupManager: GroupManager
     let userManger: UserManager
-//    let signalingManager: SignalingManager
+    let signalingManager: SignalingManager
 //    let workMomentsManager: WorkMomentsManager
 //    let organizationManager: OrganizationManager
     
@@ -19,7 +19,7 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
         self.messageManager = MessageManager(channel: channel)
         self.groupManager = GroupManager(channel: channel)
         self.userManger = UserManager(channel: channel)
-//        self.signalingManager = SignalingManager(channel: channel)
+        self.signalingManager = SignalingManager(channel: channel)
 //        self.workMomentsManager = WorkMomentsManager(channel: channel)
 //        self.organizationManager = OrganizationManager(channel: channel)
     }
@@ -45,8 +45,8 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
             groupManager.handleMethod(call: call, result: result)
         case "userManager":
             userManger.handleMethod(call: call, result: result)
-//        case "signalingManager":
-//            signalingManager.handleMethod(call: call, result: result)
+        case "signalingManager":
+            signalingManager.handleMethod(call: call, result: result)
 //        case "workMomentsManager":
 //            workMomentsManager.handleMethod(call: call, result: result)
 //        case "organizationManager":
