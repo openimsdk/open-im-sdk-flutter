@@ -37,6 +37,5 @@ export 'src/models/organization_info.dart';
 export 'src/models/search_info.dart';
 export 'src/models/signaling_info.dart';
 export 'src/models/user_info.dart';
-export 'src/models/workmoments_info.dart';
 export 'src/openim.dart';
 export 'src/utils.dart';
