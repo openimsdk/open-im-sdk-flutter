@@ -188,8 +188,6 @@ class UserInfo {
 
   int? get _birth => friendInfo?.birth;
 
-  String? get _birthTime => friendInfo?.birthTime;
-
   String? get _email => friendInfo?.email;
 
   String? get _remark => friendInfo?.remark;
@@ -280,9 +278,6 @@ class FriendInfo {
   String? phoneNumber;
 
   /// 出生日期
-  String? birthTime;
-
-  /// 使用[birthTime]
   int? birth;
 
   /// 邮箱
@@ -310,7 +305,6 @@ class FriendInfo {
     this.gender,
     this.phoneNumber,
     this.birth,
-    this.birthTime,
     this.email,
     this.remark,
     this.ex,
@@ -331,7 +325,6 @@ class FriendInfo {
     gender = json['gender'];
     phoneNumber = json['phoneNumber'];
     birth = json['birth'];
-    birthTime = json['birthTime'];
     email = json['email'];
     ex = json['ex'];
   }
@@ -349,7 +342,6 @@ class FriendInfo {
     data['gender'] = this.gender;
     data['phoneNumber'] = this.phoneNumber;
     data['birth'] = this.birth;
-    data['birthTime'] = this.birthTime;
     data['email'] = this.email;
     data['ex'] = this.ex;
     return data;

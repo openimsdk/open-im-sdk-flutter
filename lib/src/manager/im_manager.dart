@@ -20,7 +20,6 @@ class IMManager {
   late UserInfo userInfo;
   bool isLogined = false;
   String? token;
-  String? _objectStorage;
 
   IMManager(this._channel) {
     conversationManager = ConversationManager(_channel);
@@ -408,7 +407,6 @@ class IMManager {
     String? operationID,
   }) {
     this._connectListener = listener;
-    this._objectStorage = objectStorage;
     return _channel.invokeMethod(
         'initSDK',
         _buildParam(
