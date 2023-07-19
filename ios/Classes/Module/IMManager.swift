@@ -129,8 +129,7 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         self.channel = channel
         self.id = id
     }
-    
-    public func complete(_ size: Int64, url: String?, typ: Int32) {
+    public func complete(_ size: Int64, url: String?, typ: Int) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["size"] = size
@@ -147,7 +146,7 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "hashPartComplete", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func hashPartProgress(_ index: Int32, size: Int64, partHash: String?) {
+    public func hashPartProgress(_ index: Int, size: Int64, partHash: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["index"] = index
@@ -163,7 +162,7 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "open", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func partSize(_ partSize: Int64, num: Int32) {
+    public func partSize(_ partSize: Int64, num: Int) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["partSize"] = partSize
@@ -187,7 +186,7 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "uploadID", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func uploadPartComplete(_ index: Int32, partSize: Int64, partHash: String?) {
+    public func uploadPartComplete(_ index: Int, partSize: Int64, partHash: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["index"] = index
