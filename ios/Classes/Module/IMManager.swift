@@ -22,7 +22,7 @@ public class IMMananger: BaseServiceManager {
                                                selector: #selector(applicationWillEnterForeground),
                                                name: UIApplication.willEnterForegroundNotification,
                                                object: nil)
-
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(applicationDidEnterBackground),
                                                name: UIApplication.didEnterBackgroundNotification,
@@ -51,7 +51,7 @@ public class IMMananger: BaseServiceManager {
         Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
         }), UUID().uuidString, true)
     }
-
+    
     @objc
     fileprivate func applicationWillEnterForeground() {
         Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
@@ -102,7 +102,7 @@ public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol 
     public func onConnectFailed(_ errCode: Int32, errMsg: String?) {
         CommonUtil.emitEvent(channel: self.channel, method: "connectListener", type: "onConnectFailed", errCode: errCode, errMsg: errMsg, data: nil)
     }
-
+    
     public func onConnectSuccess() {
         CommonUtil.emitEvent(channel: self.channel, method: "connectListener", type: "onConnectSuccess", errCode: nil, errMsg: nil, data: nil)
     }
@@ -121,7 +121,7 @@ public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol 
 }
 
 public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbackProtocol {
-
+    
     private let channel:FlutterMethodChannel
     private let id: String
     
@@ -129,8 +129,7 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         self.channel = channel
         self.id = id
     }
-
-    public func complete(_ size: Int64, url: String?, typ: Int32) {
+    public func complete(_ size: Int64, url: String?, typ: Int) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["size"] = size
@@ -147,7 +146,7 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "hashPartComplete", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func hashPartProgress(_ index: Int32, size: Int64, partHash: String?) {
+    public func hashPartProgress(_ index: Int, size: Int64, partHash: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["index"] = index
@@ -163,7 +162,7 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "open", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func partSize(_ partSize: Int64, num: Int32) {
+    public func partSize(_ partSize: Int64, num: Int) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["partSize"] = partSize
@@ -186,8 +185,8 @@ public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbac
         values["uploadID"] = uploadID
         CommonUtil.emitEvent(channel: channel, method: "uploadFileListener", type: "uploadID", errCode: nil, errMsg: nil, data: values)
     }
-
-    public func uploadPartComplete(_ index: Int32, partSize: Int64, partHash: String?) {
+    
+    public func uploadPartComplete(_ index: Int, partSize: Int64, partHash: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
         values["index"] = index
