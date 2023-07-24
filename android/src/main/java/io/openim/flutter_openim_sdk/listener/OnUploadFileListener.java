@@ -19,7 +19,7 @@ public class OnUploadFileListener implements UploadFileCallback {
     }
 
     @Override
-    public void complete(long size, String url, int type) {
+    public void complete(long size, String url, long type) {
         if (null != id) {
             final Map<String, Object> values = new ArrayMap<>();
             values.put("id", id);
@@ -42,7 +42,7 @@ public class OnUploadFileListener implements UploadFileCallback {
     }
 
     @Override
-    public void hashPartProgress(int index, long size, String partHash) {
+    public void hashPartProgress(long index, long size, String partHash) {
         if (null != id) {
             final Map<String, Object> values = new ArrayMap<>();
             values.put("id", id);
@@ -64,7 +64,7 @@ public class OnUploadFileListener implements UploadFileCallback {
     }
 
     @Override
-    public void partSize(long partSize, int num) {
+    public void partSize(long partSize, long num) {
         if (null != id) {
             final Map<String, Object> values = new ArrayMap<>();
             values.put("id", id);
@@ -97,7 +97,7 @@ public class OnUploadFileListener implements UploadFileCallback {
     }
 
     @Override
-    public void uploadPartComplete(int index, long partSize, String partHash) {
+    public void uploadPartComplete(long index, long partSize, String partHash) {
         if (null != id) {
             final Map<String, Object> values = new ArrayMap<>();
             values.put("id", id);
