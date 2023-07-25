@@ -11,7 +11,7 @@ A flutter im plugin for android and ios.
 
 扫描下方二维码即可体验SDK调用示例 Demo
 
-![Android](https://www.pgyer.com/app/qrcode/OpenIM)
+![Android](https://www.pgyer.com/app/qrcode/OpenIM-Flutter)
 
 
 
