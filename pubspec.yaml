@@ -1,6 +1,6 @@
 name: flutter_openim_sdk
 description: An instant messaging plug-in that supports Android and IOS. And the server is also all open source.
-version: 3.0.0
+version: 3.1.0
 homepage: https://www.rentsoft.cn
 repository: https://github.com/OpenIMSDK/Open-IM-SDK-Flutter
 
