@@ -65,7 +65,7 @@ public class IMMananger: BaseServiceManager {
     }
 
     func unInitSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkUnInitSDK(methodCall[string: "operationID"]))
+        Open_im_sdkUnInitSDK(methodCall[string: "operationID"])
     }
     
     func login(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
