@@ -8,6 +8,7 @@ public class IMMananger: BaseServiceManager {
     public override func registerHandlers() {
         super.registerHandlers()
         self["initSDK"] = initSDK
+        self["unInitSDK"] = unInitSDK
         self["login"] = login
         self["logout"] = logout
         self["getLoginStatus"] = getLoginStatus
@@ -59,8 +60,12 @@ public class IMMananger: BaseServiceManager {
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result,Open_im_sdkInitSDK(ConnListener(channel: self.channel), methodCall[string: "operationID"], methodCall.toJsonString()))
+        callBack(result, Open_im_sdkInitSDK(ConnListener(channel: self.channel), methodCall[string: "operationID"], methodCall.toJsonString()))
         addObservers()
+    }
+
+    func unInitSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        callBack(result, Open_im_sdkUnInitSDK(methodCall[string: "operationID"]))
     }
     
     func login(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {

@@ -428,6 +428,11 @@ class IMManager {
         ));
   }
 
+    /// 反初始化SDK
+  Future<dynamic> unInitSDK() {
+    return _channel.invokeMethod('unInitSDK', _buildParam({}));
+  }
+
   /// 登录
   /// [userID] 用户id
   /// [token] 登录token，从业务服务器上获取
