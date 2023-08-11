@@ -17,7 +17,7 @@ A new Flutter project.
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
 
-  s.dependency 'OpenIMSDKCore','3.2.0'
+  s.dependency 'OpenIMSDKCore','3.2.0-alpha.0'
   s.static_framework = true
   # s.vendored_frameworks = 'Framework/*.framework'
   # Flutter.framework does not contain a i386 slice.
