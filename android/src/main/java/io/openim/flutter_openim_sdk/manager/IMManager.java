@@ -20,6 +20,10 @@ public class IMManager extends BaseManager {
         CommonUtil.runMainThreadReturn(result, initialized);
     }
 
+    public void unInitSDK(MethodCall methodCall, MethodChannel.Result result) {
+        CommonUtil.runMainThreadReturn(result, Open_im_sdk.unInitSDK(value(methodCall, "operationID")));
+    }
+
     public void login(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.login(
                 new OnBaseListener(result, methodCall),
