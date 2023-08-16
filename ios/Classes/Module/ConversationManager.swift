@@ -75,7 +75,7 @@ public class ConversationManager: BaseServiceManager {
     }
 
     func setConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "conversationID"], methodCall[int: "status"])
+        Open_im_sdkSetConversationRecvMessageOpt(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[int: "status"])
     }
 
     func getConversationRecvMessageOpt(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
