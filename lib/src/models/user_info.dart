@@ -551,3 +551,34 @@ class FriendApplicationInfo {
   /// 已拒绝
   bool get isRejected => handleResult == -1;
 }
+
+class UserStatusInfo {
+  /// 用户id
+  String? userID;
+
+  /// 状态
+  int? status;
+
+  /// 平台ID
+  List<int>? platformIDs;
+
+  UserStatusInfo({
+    this.userID,
+    this.status,
+    this.platformIDs,
+  });
+
+  UserStatusInfo.fromJson(Map<String, dynamic> json) {
+    userID = json['userID'];
+    status = json['status'];
+    platformIDs = json['platformIDs'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['userID'] = this.userID;
+    data['status'] = this.status;
+    data['platformIDs'] = this.platformIDs;
+    return data;
+  }
+}
