@@ -40,4 +40,9 @@ public class UserListener: NSObject, Open_im_sdk_callbackOnUserListenerProtocol 
     public func onSelfInfoUpdated(_ userInfo: String?) {
         CommonUtil.emitEvent(channel: self.channel, method: "userListener", type: "onSelfInfoUpdated", errCode: nil, errMsg: nil, data: userInfo)
     }
+    
+    public func onUserStatusChanged(_ userInfo: String?) {
+        CommonUtil.emitEvent(channel: self.channel, method: "userListener", type: "onUserStatusChanged", errCode: nil, errMsg: nil, data: userInfo)
+    }
+
 }
