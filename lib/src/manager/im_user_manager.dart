@@ -75,6 +75,76 @@ class UserManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
+  Future<List<UserStatusInfo>> subscribeUsersStatus(
+    List<String> userIDs, {
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'subscribeUsersStatus',
+            _buildParam({
+              'userIDs': userIDs,
+              'operationID': Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+  }
+
+  Future<List<UserStatusInfo>> unsubscribeUsersStatus(
+    List<String> userIDs, {
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'unsubscribeUsersStatus',
+            _buildParam({
+              'userIDs': userIDs,
+              'operationID': Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+  }
+
+  Future<List<UserStatusInfo>> getSubscribeUsersStatus({
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'getSubscribeUsersStatus',
+            _buildParam({
+              'operationID': Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+  }
+
+  Future<List<UserStatusInfo>> getUserStatus(
+    List<String> userIDs, {
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'getUserStatus',
+            _buildParam({
+              'userIDs': userIDs,
+              'operationID': Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+  }
+
+  Future<List<UserInfo>> getUsersInfoStranger(
+    List<String> userIDs,
+    String groupID, {
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'getUsersInfoStranger',
+            _buildParam({
+              'userIDs': userIDs,
+              'groupID': groupID,
+              'operationID': Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => UserInfo.fromJson(map)));
+  }
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "userManager";
     return param;

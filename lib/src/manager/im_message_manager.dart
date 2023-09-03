@@ -531,8 +531,7 @@ class MessageManager {
                 },
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => SearchResult.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
   /// 撤回消息
   /// [message] 被撤回的消息体
@@ -587,8 +586,7 @@ class MessageManager {
                 'lastMinSeq': lastMinSeq ?? 0,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
 
   /// 获取聊天记录(以startMsg为节点，新收到的聊天记录)，用在全局搜索定位某一条消息，然后此条消息后新增的消息
   /// [conversationID] 会话id，查询通知时可用
@@ -611,8 +609,7 @@ class MessageManager {
                 'lastMinSeq': lastMinSeq ?? 0,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
 
   /// 查找消息详细
   /// [conversationID] 会话id
@@ -628,8 +625,7 @@ class MessageManager {
                 'searchParams': searchParams.map((e) => e.toJson()).toList(),
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => SearchResult.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
   /// 富文本消息
   /// [text] 输入内容
@@ -763,6 +759,22 @@ class MessageManager {
     return _channel.invokeMethod('setCustomBusinessListener', _buildParam({}));
   }
 
+  Future setMessageLocalEx({
+    required String conversationID,
+    required String clientMsgID,
+    required String localEx,
+    String? operationID,
+  }) {
+    return _channel.invokeMethod(
+        'setMessageLocalEx',
+        _buildParam({
+          "conversationID": conversationID,
+          "clientMsgID": clientMsgID,
+          "localEx": localEx,
+          "operationID": Utils.checkOperationID(operationID),
+        }));
+  }
+
   ///
   Future setMessageKvInfoListener(OnMessageKvInfoListener listener) {
     this.messageKvInfoListener = listener;
@@ -782,8 +794,7 @@ class MessageManager {
                 'list': list.map((e) => e.toJson()).toList(),
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
+          .then((value) => Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
 
   Future<List<TypeKeySetResult>> deleteMessageReactionExtensions({
     required Message message,
@@ -798,8 +809,7 @@ class MessageManager {
                 'list': list,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
+          .then((value) => Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
 
   Future<List<MessageTypeKeyMapping>> getMessageListReactionExtensions({
     List<Message> messageList = const [],
@@ -812,8 +822,7 @@ class MessageManager {
                 'messageList': messageList.map((e) => e.toJson()).toList(),
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(
-              value, (map) => MessageTypeKeyMapping.fromJson(map)));
+          .then((value) => Utils.toList(value, (map) => MessageTypeKeyMapping.fromJson(map)));
 
   Future<List<TypeKeySetResult>> addMessageReactionExtensions({
     required Message message,
@@ -828,8 +837,7 @@ class MessageManager {
                 'list': list.map((e) => e.toJson()).toList(),
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
+          .then((value) => Utils.toList(value, (map) => TypeKeySetResult.fromJson(map)));
 
   Future<List<MessageTypeKeyMapping>> getMessageListSomeReactionExtensions({
     List<Message> messageList = const [],
@@ -844,8 +852,7 @@ class MessageManager {
                 'list': kvList.map((e) => e.toJson()).toList(),
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(
-              value, (map) => MessageTypeKeyMapping.fromJson(map)));
+          .then((value) => Utils.toList(value, (map) => MessageTypeKeyMapping.fromJson(map)));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";

@@ -34,4 +34,39 @@ public class UserManager extends BaseManager {
                 value(methodCall, "operationID")
         );
     }
+    public void subscribeUsersStatus(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.subscribeUsersStatus(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "userIDs"));
+    }
+
+    public void unsubscribeUsersStatus(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.unsubscribeUsersStatus(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "userIDs"));
+    }
+
+    public void getSubscribeUsersStatus(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getSubscribeUsersStatus(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID")
+        );
+    }
+
+    public void getUserStatus(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getUserStatus(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "userIDs"));
+    }
+
+    public void getUsersInfoStranger(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getUsersInfoStranger(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "userIDs"),
+                value(methodCall, "groupID"));
+    }
 }

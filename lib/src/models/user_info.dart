@@ -102,15 +102,9 @@ class UserInfo {
   // }
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    publicInfo = json['publicInfo'] != null
-        ? PublicUserInfo.fromJson(json['publicInfo'])
-        : null;
-    friendInfo = json['friendInfo'] != null
-        ? FriendInfo.fromJson(json['friendInfo'])
-        : null;
-    blackInfo = json['blackInfo'] != null
-        ? BlacklistInfo.fromJson(json['blackInfo'])
-        : null;
+    publicInfo = json['publicInfo'] != null ? PublicUserInfo.fromJson(json['publicInfo']) : null;
+    friendInfo = json['friendInfo'] != null ? FriendInfo.fromJson(json['friendInfo']) : null;
+    blackInfo = json['blackInfo'] != null ? BlacklistInfo.fromJson(json['blackInfo']) : null;
     //
     isFriendship = friendInfo != null;
     isBlacklist = blackInfo != null;
@@ -164,25 +158,17 @@ class UserInfo {
 
   bool get isMale => gender == 1;
 
-  String get _userID => isFriendship!
-      ? friendInfo!.userID!
-      : (isBlacklist! ? blackInfo!.userID! : publicInfo!.userID!);
+  String get _userID => isFriendship! ? friendInfo!.userID! : (isBlacklist! ? blackInfo!.userID! : publicInfo!.userID!);
 
-  String? get _nickname => isFriendship!
-      ? friendInfo?.nickname
-      : (isBlacklist! ? blackInfo?.nickname : publicInfo?.nickname);
+  String? get _nickname =>
+      isFriendship! ? friendInfo?.nickname : (isBlacklist! ? blackInfo?.nickname : publicInfo?.nickname);
 
-  String? get _faceUrl => isFriendship!
-      ? friendInfo?.faceURL
-      : (isBlacklist! ? blackInfo?.faceURL : publicInfo?.faceURL);
+  String? get _faceUrl =>
+      isFriendship! ? friendInfo?.faceURL : (isBlacklist! ? blackInfo?.faceURL : publicInfo?.faceURL);
 
-  int? get _gender => isFriendship!
-      ? friendInfo?.gender
-      : (isBlacklist! ? blackInfo?.gender : publicInfo?.gender);
+  int? get _gender => isFriendship! ? friendInfo?.gender : (isBlacklist! ? blackInfo?.gender : publicInfo?.gender);
 
-  String? get _ex => isFriendship!
-      ? friendInfo?.ex
-      : (isBlacklist! ? blackInfo?.ex : publicInfo?.ex);
+  String? get _ex => isFriendship! ? friendInfo?.ex : (isBlacklist! ? blackInfo?.ex : publicInfo?.ex);
 
   String? get _phoneNumber => friendInfo?.phoneNumber;
 
@@ -201,10 +187,7 @@ class UserInfo {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserInfo &&
-          runtimeType == other.runtimeType &&
-          userID == other.userID;
+      identical(this, other) || other is UserInfo && runtimeType == other.runtimeType && userID == other.userID;
 
   @override
   int get hashCode => userID.hashCode;
@@ -571,14 +554,14 @@ class UserStatusInfo {
   UserStatusInfo.fromJson(Map<String, dynamic> json) {
     userID = json['userID'];
     status = json['status'];
-    platformIDs = json['platformIDs'];
+    platformIDs = json["platformIDs"] == null ? [] : List<int>.from(json["platformIDs"].map((x) => x));
   }
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
     data['userID'] = this.userID;
     data['status'] = this.status;
-    data['platformIDs'] = this.platformIDs;
+    data['platformIDs'] = List<dynamic>.from(platformIDs!.map((x) => x));
     return data;
   }
 }

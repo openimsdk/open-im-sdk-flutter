@@ -65,7 +65,7 @@ class IMManager {
               break;
             case 'onUserStatusChanged':
               final status = Utils.toObj(data, (map) => UserStatusInfo.fromJson(map));
-              userManager.listener.userStatusChanged(status);
+              userManager.listener.userStatusChanged(status); 
               break;
           }
         } else if (call.method == ListenerType.groupListener) {

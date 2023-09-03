@@ -382,7 +382,15 @@ public class MessageManager extends BaseManager {
         );
     }
 
-
+    public void setMessageLocalEx(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setMessageLocalEx(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                value(methodCall, "clientMsgID"),
+                value(methodCall, "localEx")
+        );
+    }
     public void sendMessageNotOss(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.sendMessageNotOss(
                 new OnMsgSendListener(result, methodCall),

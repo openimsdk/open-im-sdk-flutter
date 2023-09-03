@@ -45,6 +45,7 @@ public class MessageManager: BaseServiceManager {
         self["getAdvancedHistoryMessageListReverse"] = getAdvancedHistoryMessageListReverse
 
         self["findMessageList"] = findMessageList
+        self["setMessageLocalEx"] = setMessageLocalEx
    
         self["sendMessageNotOss"] = sendMessageNotOss
         self["createImageMessageByURL"] = createImageMessageByURL
@@ -216,6 +217,10 @@ public class MessageManager: BaseServiceManager {
     
     func findMessageList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkFindMessageList(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParams"])
+    }
+
+    func setMessageLocalEx(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetMessageLocalEx(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[string: "clientMsgID"], methodCall[string: "localEx"])
     }
     
     func sendMessageNotOss(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

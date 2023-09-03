@@ -31,7 +31,7 @@ class Message {
   int? contentType;
 
   /// 平台[Platform]
-  int? platformID;
+  int? senderPlatformID;
 
   /// 发送者昵称
   String? senderNickname;
@@ -131,7 +131,7 @@ class Message {
     this.recvID,
     this.msgFrom,
     this.contentType,
-    this.platformID,
+    this.senderPlatformID,
     this.senderNickname,
     this.senderFaceUrl,
     this.groupID,
@@ -173,7 +173,7 @@ class Message {
     recvID = json['recvID'];
     msgFrom = json['msgFrom'];
     contentType = json['contentType'];
-    platformID = json['platformID'];
+    senderPlatformID = json['senderPlatformID'];
     senderNickname = json['senderNickname'];
     senderFaceUrl = json['senderFaceUrl'];
     groupID = json['groupID'];
@@ -248,7 +248,7 @@ class Message {
     data['recvID'] = this.recvID;
     data['msgFrom'] = this.msgFrom;
     data['contentType'] = this.contentType;
-    data['platformID'] = this.platformID;
+    data['senderPlatformID'] = this.senderPlatformID;
     data['senderNickname'] = this.senderNickname;
     data['senderFaceUrl'] = this.senderFaceUrl;
     data['groupID'] = this.groupID;
@@ -302,7 +302,7 @@ class Message {
     recvID = message.recvID;
     msgFrom = message.msgFrom;
     contentType = message.contentType;
-    platformID = message.platformID;
+    senderPlatformID = message.senderPlatformID;
     senderNickname = message.senderNickname;
     senderFaceUrl = message.senderFaceUrl;
     groupID = message.groupID;

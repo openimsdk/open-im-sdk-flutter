@@ -6,7 +6,7 @@ class OnUserListener {
   Function(UserInfo info)? onSelfInfoUpdated;
   Function(UserStatusInfo info)? onUserStatusChanged;
 
-  OnUserListener({this.onSelfInfoUpdated});
+  OnUserListener({this.onSelfInfoUpdated, this.onUserStatusChanged});
 
   /// 自身信息发送变化回调
   void selfInfoUpdated(UserInfo info) {
