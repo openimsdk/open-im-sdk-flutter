@@ -130,8 +130,8 @@ class UserManager {
   }
 
   Future<List<UserInfo>> getUsersInfoStranger(
-    List<String> userIDs,
-    String groupID, {
+    List<String> userIDs, {
+    String? groupID,
     String? operationID,
   }) {
     return _channel
