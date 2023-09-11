@@ -1,3 +1,7 @@
+## 3.3.0
+
+- [Bug fixes and performance enhancements.](https://github.com/OpenIMSDK/openim-sdk-core/releases/tag/v3.3.0)
+
 ## 3.0.0
 
 - The super update is not compatible with the previous version
