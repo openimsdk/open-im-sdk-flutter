@@ -7,7 +7,7 @@
 
 A flutter im plugin for android and ios.
 
-####  [demo open source code](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git) | [UI library source code](https://github.com/hrxiang/flutter_openim_widget.git)
+####  [demo open source code](https://github.com/OpenIMSDK/Open-IM-Flutter-Demo.git)
 
 Scan the QR code below to experience the SDK call example Demo
 
