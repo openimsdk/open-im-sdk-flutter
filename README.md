@@ -11,7 +11,7 @@ The underlying SDK core is implemented in [OpenIM SDK Core](https://github.com/o
 
 Visit [https://doc.rentsoft.cn/](https://doc.rentsoft.cn/) for detailed documentation and guides.
 
-For the SDK reference, see [https://doc.rentsoft.cn/sdks/quickstart/browser](https://doc.rentsoft.cn/sdks/quickstart/browser).
+For the SDK reference, see [https://doc.rentsoft.cn/sdks/quickstart/flutter](https://doc.rentsoft.cn/sdks/quickstart/flutter).
 
 ## Installation 💻
 ### Adding Dependencies
