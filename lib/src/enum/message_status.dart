@@ -1,14 +1,14 @@
-/// 消息发送状态
+/// Message Send Status
 class MessageStatus {
-  /// 发送中
+  /// Sending
   static const sending = 1;
 
-  /// 已发送成功
+  /// Successfully sent
   static const succeeded = 2;
 
-  ///  发送失败
+  /// Send failed
   static const failed = 3;
 
-  /// 已经删除
+  /// Already deleted
   static const deleted = 4;
 }

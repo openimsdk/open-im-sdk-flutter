@@ -7,14 +7,14 @@ class UserManager {
 
   UserManager(this._channel);
 
-  /// 用户资料改变监听
+  /// User profile change listener
   Future setUserListener(OnUserListener listener) {
     this.listener = listener;
     return _channel.invokeMethod('setUserListener', _buildParam({}));
   }
 
-  /// 获取用户资料
-  /// [userIDList] 用户ID列表
+  /// Get user information
+  /// [userIDList] List of user IDs
   Future<List<UserInfo>> getUsersInfo({
     required List<String> userIDList,
     String? operationID,
@@ -28,7 +28,7 @@ class UserManager {
               }))
           .then((value) => Utils.toList(value, (v) => UserInfo.fromJson(v)));
 
-  /// 获取当前登录用户的信息
+  /// Get information of the currently logged-in user
   Future<UserInfo> getSelfUserInfo({
     String? operationID,
   }) =>
@@ -40,20 +40,20 @@ class UserManager {
               }))
           .then((value) => Utils.toObj(value, (map) => UserInfo.fromJson(map)));
 
-  /// 修改当前登录用户资料
-  /// [nickname] 昵称
-  /// [faceURL] 头像
-  /// [gender] 性别
-  /// [appMangerLevel]
-  /// [phoneNumber] 手机号
-  /// [birth] 出生日期
-  /// [email] 邮箱
-  /// [ex] 扩展字段
+  /// Modify the profile of the currently logged-in user
+  /// [nickname] Nickname
+  /// [faceURL] Profile picture
+  /// [gender] Gender
+  /// [appManagerLevel]
+  /// [phoneNumber] Phone number
+  /// [birth] Date of birth
+  /// [email] Email
+  /// [ex] Additional fields
   Future<String?> setSelfInfo({
     String? nickname,
     String? faceURL,
     int? gender,
-    int? appMangerLevel,
+    int? appManagerLevel,
     String? phoneNumber,
     int? birth,
     String? email,
@@ -67,7 +67,7 @@ class UserManager {
             'nickname': nickname,
             'faceURL': faceURL,
             'gender': gender,
-            'appMangerLevel': appMangerLevel,
+            'appManagerLevel': appManagerLevel,
             'phoneNumber': phoneNumber,
             'birth': birth,
             'email': email,
@@ -86,7 +86,8 @@ class UserManager {
               'userIDs': userIDs,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) =>
+            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserStatusInfo>> unsubscribeUsersStatus(
@@ -100,7 +101,8 @@ class UserManager {
               'userIDs': userIDs,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) =>
+            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserStatusInfo>> getSubscribeUsersStatus({
@@ -112,7 +114,8 @@ class UserManager {
             _buildParam({
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) =>
+            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserStatusInfo>> getUserStatus(
@@ -126,7 +129,8 @@ class UserManager {
               'userIDs': userIDs,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) =>
+            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserInfo>> getUsersInfoStranger(

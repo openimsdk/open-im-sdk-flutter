@@ -1,6 +1,6 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-/// 会话监听
+/// Conversation Listener
 class OnConversationListener {
   Function(List<ConversationInfo> list)? onConversationChanged;
   Function(List<ConversationInfo> list)? onNewConversation;
@@ -18,19 +18,19 @@ class OnConversationListener {
     this.onSyncServerStart,
   });
 
-  /// 会话发生改变
+  /// Conversations have changed
   void conversationChanged(List<ConversationInfo> list) {
     onConversationChanged?.call(list);
   }
 
-  /// 有新会话产生
+  /// New conversations have been created
   void newConversation(List<ConversationInfo> list) {
     onNewConversation?.call(list);
   }
 
-  /// 未读消息总数发送改变
-  void totalUnreadMessageCountChanged(int i) {
-    onTotalUnreadMessageCountChanged?.call(i);
+  /// Total unread message count has changed
+  void totalUnreadMessageCountChanged(int count) {
+    onTotalUnreadMessageCountChanged?.call(count);
   }
 
   void syncServerFailed() {

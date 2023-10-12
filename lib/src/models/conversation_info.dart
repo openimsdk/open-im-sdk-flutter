@@ -3,66 +3,67 @@ import 'dart:convert';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class ConversationInfo {
-  /// 会话ID
+  // Unique identifier for the conversation
   String conversationID;
 
-  /// 会话类型[ConversationType]
+  // Type of the conversation (e.g., single, group, super group)
   int? conversationType;
 
-  /// 参与会话的userID
+  // User ID in case of a single chat
   String? userID;
 
-  /// 参与会话的groupID
+  // Group ID in case of a group chat
   String? groupID;
 
-  /// 昵称
+  // Display name or nickname
   String? showName;
 
-  /// 头像
+  // URL of the user's or group's profile picture
   String? faceURL;
 
-  /// 免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
+  // Message reception option (0: normal, 1: do not accept messages, 2: accept online messages but not offline messages)
   int? recvMsgOpt;
 
-  /// 未读消息数
+  // Number of unread messages in the conversation
   int? unreadCount;
 
-  /// 强制提示，[GroupAtType]包含@所有人，@个人以及公告提示
-  int? groupAtType;
-
-  /// 会话最新消息内容
+  // Latest message in the conversation
   Message? latestMsg;
 
-  /// 最新消息发送时间
+  // Timestamp of the latest message
   int? latestMsgSendTime;
 
-  /// 草稿
+  // Draft text for the conversation
   String? draftText;
 
-  /// 草稿生成时间
+  // Timestamp when the draft text was created
   int? draftTextTime;
 
-  /// 是否置顶
+  // Indicates whether the conversation is pinned
   bool? isPinned;
 
-  /// 是否开启了私聊（阅后即焚）
+  // Indicates whether the conversation is a private chat with features like self-destructing messages
   bool? isPrivateChat;
 
-  /// 可阅读期限 s
+  // Duration for which messages are readable (in seconds)
   int? burnDuration;
 
-  /// 是否开启定期销毁
+  // Indicates whether the conversation has self-destructing messages enabled
   bool? isMsgDestruct;
 
-  /// 定期销毁时间 s
+  // Timestamp for self-destructing messages (in seconds)
   int? msgDestructTime;
 
-  /// 附加内容
+  // Additional data or metadata
   String? ex;
 
-  /// 是否还在组内，如果退群返回true
+  // Indicates whether the user is no longer in the group (if applicable)
   bool? isNotInGroup;
 
+  // Group @ type, which includes @ all, @ individual, and announcement prompts
+  int? groupAtType;
+
+  // Constructor to create a ConversationInfo object
   ConversationInfo({
     required this.conversationID,
     this.conversationType,
@@ -115,6 +116,7 @@ class ConversationInfo {
     msgDestructTime = json['msgDestructTime'];
   }
 
+  // Method to convert the ConversationInfo object to a JSON map
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
     data['conversationID'] = this.conversationID;
@@ -140,16 +142,16 @@ class ConversationInfo {
     return data;
   }
 
-  /// 是单聊
+  // Check if it's a single chat
   bool get isSingleChat => conversationType == ConversationType.single;
 
-  /// 是群聊
+  // Check if it's a group chat
   bool get isGroupChat =>
       conversationType == ConversationType.group ||
       conversationType == ConversationType.superGroup;
 
-  /// 是有效的
-  bool get isValid => isSingleChat || isGroupChat && !isNotInGroup!;
+  // Check if it's a valid conversation (not in a group if isNotInGroup is true)
+  bool get isValid => isSingleChat || (isGroupChat && !isNotInGroup!);
 
   @override
   bool operator ==(Object other) =>

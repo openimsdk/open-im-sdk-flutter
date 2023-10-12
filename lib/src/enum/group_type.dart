@@ -1,8 +1,9 @@
-/// 组类型
+/// Group Types
 class GroupType {
-  /// 普通群
+  /// General group (Deprecated in v3)
+  @Deprecated('Use work instead')
   static const int general = 0;
 
-  /// 工作群
+  /// Work group
   static const int work = 2;
 }

@@ -1,11 +1,11 @@
-/// 群成员角色
+/// Group Member Roles
 class GroupRoleLevel {
-  /// 群主
+  /// Group owner
   static const owner = 100;
 
-  /// 管理员
+  /// Administrator
   static const admin = 60;
 
-  /// 普通成员
+  /// Regular member
   static const member = 20;
 }

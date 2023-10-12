@@ -1,6 +1,6 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-/// 好友关系监听
+/// Friend Relationship Listener
 class OnListenerForService {
   Function(FriendApplicationInfo i)? onFriendApplicationAdded;
   Function(FriendApplicationInfo i)? onFriendApplicationAccepted;

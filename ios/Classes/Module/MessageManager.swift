@@ -3,8 +3,7 @@ import OpenIMCore
 
 public class MessageManager: BaseServiceManager {
     private let KEY_ID: String = "id"
-    // private var listeners: [String: AdvancedMsgListener] = [:]
-    
+
     public override func registerHandlers() {
         super.registerHandlers()
         self["setAdvancedMsgListener"] = setAdvancedMsgListener
@@ -53,8 +52,6 @@ public class MessageManager: BaseServiceManager {
         self["createVideoMessageByURL"] = createVideoMessageByURL
         self["createFileMessageByURL"] = createFileMessageByURL
         self["setCustomBusinessListener"] = setCustomBusinessListener
-        self["setMessageKvInfoListener"] = setMessageKvInfoListener
-
     }
     
     func setAdvancedMsgListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -249,11 +246,6 @@ public class MessageManager: BaseServiceManager {
         Open_im_sdkSetCustomBusinessListener(CustomBusinessListener(channel: channel))
         callBack(result)
     }
-    
-    func setMessageKvInfoListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkSetMessageKvInfoListener(MessageKvInfoListener(channel: channel))
-        callBack(result)
-    }
 }
 
 public class SendMsgProgressListener: NSObject, Open_im_sdk_callbackSendMsgCallBackProtocol {
@@ -375,18 +367,3 @@ public class CustomBusinessListener: NSObject, Open_im_sdk_callbackOnCustomBusin
     }
 }
 
-
-public class MessageKvInfoListener: NSObject, Open_im_sdk_callbackOnMessageKvInfoListenerProtocol {
-  
-    
-    private let channel: FlutterMethodChannel
-    
-    init(channel: FlutterMethodChannel) {
-        self.channel = channel
-    }
-    
-    public func onMessageKvInfoChanged(_ s: String?) {
-        CommonUtil.emitEvent(channel: channel, method: "messageKvInfoListener", type: "onMessageKvInfoChanged", errCode: nil, errMsg: nil, data: s)
-    }
-
-}

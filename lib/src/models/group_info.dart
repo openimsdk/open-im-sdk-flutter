@@ -1,56 +1,56 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-/// 群信息
+/// Group Information
 class GroupInfo {
-  /// 群ID
+  /// Group ID
   String groupID;
 
-  /// 群名
+  /// Group Name
   String? groupName;
 
-  /// 群公告
+  /// Group Announcement
   String? notification;
 
-  /// 群简介
+  /// Group Introduction
   String? introduction;
 
-  /// 群头像
+  /// Group Avatar
   String? faceURL;
 
-  /// 拥有者ID
+  /// Owner's ID
   String? ownerUserID;
 
-  /// 创建时间
+  /// Creation Time
   int? createTime;
 
-  /// 群成员数
+  /// Number of Group Members
   int? memberCount;
 
-  /// 群状态：0正常，1被封，2解散，3禁言
+  /// Group Status: 0 - Normal, 1 - Blocked, 2 - Dissolved, 3 - Muted
   int? status;
 
-  /// 创建者ID
+  /// Creator's ID
   String? creatorUserID;
 
-  /// 群类型[GroupType]
+  /// Group Type [GroupType]
   int? groupType;
 
-  /// 扩展字段
+  /// Extra Information
   String? ex;
 
-  /// 进群验证方式[GroupVerification]
+  /// Entry Verification Method [GroupVerification]
   int? needVerification;
 
-  /// 不允许通过群获取成员资料 0：关闭，1：打开
+  /// Don't Allow Access to Member Information via the Group: 0 - Disabled, 1 - Enabled
   int? lookMemberInfo;
 
-  /// 不允许通过群添加好友 0：关闭，1：打开
+  /// Don't Allow Adding Friends via the Group: 0 - Disabled, 1 - Enabled
   int? applyMemberFriend;
 
-  /// 通知更新时间
+  /// Notification Update Time
   int? notificationUpdateTime;
 
-  /// 通知发起人
+  /// Notification Initiator
   String? notificationUserID;
 
   GroupInfo({
@@ -74,7 +74,6 @@ class GroupInfo {
   });
 
   GroupInfo.fromJson(Map<String, dynamic> json) : groupID = json['groupID'] {
-    /*groupID = json['groupID'];*/
     groupName = json['groupName'];
     notification = json['notification'];
     introduction = json['introduction'];
@@ -115,7 +114,7 @@ class GroupInfo {
     return data;
   }
 
-  /// 群类型对应的会话类型
+  /// Corresponding Conversation Type for Group Type
   int get sessionType => groupType == GroupType.general
       ? ConversationType.group
       : ConversationType.superGroup;
@@ -131,42 +130,42 @@ class GroupInfo {
   int get hashCode => groupID.hashCode;
 }
 
-/// 群成员信息
+/// Group Member Information
 class GroupMembersInfo {
-  /// 群id
+  /// Group ID
   String? groupID;
 
-  /// 用户id
+  /// User ID
   String? userID;
 
-  /// 昵称
+  /// Nickname
   String? nickname;
 
-  /// 头像
+  /// Avatar
   String? faceURL;
 
-  /// 角色[GroupRoleLevel]
+  /// Role [GroupRoleLevel]
   int? roleLevel;
 
-  /// 加入时间
+  /// Join Time
   int? joinTime;
 
-  /// 入群方式 2：邀请加入 3：搜索加入 4：通过二维码加入
+  /// Entry Source: 2 - Invited, 3 - Searched, 4 - QR Code
   int? joinSource;
 
-  /// 操作者id
+  /// Operator's ID
   String? operatorUserID;
 
-  /// 扩展字段
+  /// Extra Information
   String? ex;
 
-  /// 禁言时间s
+  /// Mute End Time (seconds)
   int? muteEndTime;
 
-  ///
-  int? appMangerLevel;
+  /// Application Manager Level
+  int? appManagerLevel;
 
-  /// 邀请人id
+  /// Inviter's User ID
   String? inviterUserID;
 
   GroupMembersInfo({
@@ -180,7 +179,7 @@ class GroupMembersInfo {
     this.joinSource,
     this.operatorUserID,
     this.muteEndTime,
-    this.appMangerLevel,
+    this.appManagerLevel,
     this.inviterUserID,
   });
 
@@ -195,7 +194,7 @@ class GroupMembersInfo {
     joinSource = json['joinSource'];
     operatorUserID = json['operatorUserID'];
     muteEndTime = json['muteEndTime'];
-    appMangerLevel = json['appMangerLevel'];
+    appManagerLevel = json['appManagerLevel'];
     inviterUserID = json['inviterUserID'];
   }
 
@@ -211,7 +210,7 @@ class GroupMembersInfo {
     data['joinSource'] = this.joinSource;
     data['operatorUserID'] = this.operatorUserID;
     data['muteEndTime'] = this.muteEndTime;
-    data['appMangerLevel'] = this.appMangerLevel;
+    data['appManagerLevel'] = this.appManagerLevel;
     data['inviterUserID'] = this.inviterUserID;
     return data;
   }
@@ -228,12 +227,12 @@ class GroupMembersInfo {
   int get hashCode => groupID.hashCode ^ userID.hashCode;
 }
 
-/// 群成员角色
+/// Group Member Role
 class GroupMemberRole {
-  /// 用户ID
+  /// User ID
   String? userID;
 
-  /// [GroupRoleLevel] 1普通成员, 2群主，3管理员
+  /// [GroupRoleLevel] 1: Normal Member, 2: Group Owner, 3: Administrator
   int? roleLevel;
 
   GroupMemberRole({this.userID, this.roleLevel = 1});
@@ -251,78 +250,78 @@ class GroupMemberRole {
   }
 }
 
-/// 群申请信息
+/// Group Application Information
 class GroupApplicationInfo {
-  /// 群ID
+  /// Group ID
   String? groupID;
 
-  /// 群昵称
+  /// Group Nickname
   String? groupName;
 
-  /// 群公告
+  /// Group Announcement
   String? notification;
 
-  /// 群介绍
+  /// Group Introduction
   String? introduction;
 
-  /// 群头像
+  /// Group Avatar
   String? groupFaceURL;
 
-  /// 群创建时间
+  /// Group Creation Time
   int? createTime;
 
-  /// 群状态
+  /// Group Status
   int? status;
 
-  /// 创建者id
+  /// Creator's ID
   String? creatorUserID;
 
-  /// 群类型
+  /// Group Type
   int? groupType;
 
-  /// 拥有者id
+  /// Owner's ID
   String? ownerUserID;
 
-  /// 成员数量
+  /// Member Count
   int? memberCount;
 
-  /// 发起入群申请的用户id
+  /// User ID Initiating the Group Join Request
   String? userID;
 
-  /// 发起入群申请的用户昵称
+  /// User's Nickname Initiating the Group Join Request
   String? nickname;
 
-  /// 发起入群申请的用户头像
+  /// User's Avatar Initiating the Group Join Request
   String? userFaceURL;
 
-  /// 发起入群申请的用户性别
+  /// User's Gender Initiating the Group Join Request
   int? gender;
 
-  /// 处理结果：-1：拒绝，1：同意
+  /// Handling Result: -1 - Rejected, 1 - Accepted
   int? handleResult;
 
-  /// 请求说明
+  /// Request Description
   String? reqMsg;
 
-  /// 处理结果说明
+  /// Handling Result Description
   String? handledMsg;
 
-  /// 请求时间
+  /// Request Time
   int? reqTime;
 
-  /// 处理者用户ID
+  /// Handler User ID
   String? handleUserID;
 
-  /// 处理时间
+  /// Handling Time
   int? handledTime;
 
-  /// 扩展信息
+  /// Extra Information
   String? ex;
 
-  /// 2：通过邀请  3：通过搜索  4：通过二维码
+  /// Join Source: 2 - Invited, 3 - Searched, 4 - QR Code
   int? joinSource;
 
-  /// 邀请进群用户ID
+  /// Inviting User's ID
   String? inviterUserID;
 
   GroupApplicationInfo({
@@ -409,6 +408,7 @@ class GroupApplicationInfo {
   }
 }
 
+/// Group Invitation Result
 class GroupInviteResult {
   String? userID;
   int? result;

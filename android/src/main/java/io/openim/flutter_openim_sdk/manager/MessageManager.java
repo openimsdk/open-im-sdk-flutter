@@ -5,7 +5,6 @@ import io.flutter.plugin.common.MethodChannel;
 import io.openim.flutter_openim_sdk.listener.OnAdvancedMsgListener;
 import io.openim.flutter_openim_sdk.listener.OnBaseListener;
 import io.openim.flutter_openim_sdk.listener.OnCustomBusinessListener;
-import io.openim.flutter_openim_sdk.listener.OnMessageKvInfoListener;
 import io.openim.flutter_openim_sdk.listener.OnMsgSendListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
@@ -14,74 +13,6 @@ import open_im_sdk.Open_im_sdk;
 public class MessageManager extends BaseManager {
     private final static String KEY_ID = "id";
 
-    //    private final static Map<String, OnAdvancedMsgListener> listeners = new HashMap<>();
- /*   private static boolean initializedListener = false;
-    private final static Map<String, AdvancedMsgListener> listeners = new ConcurrentHashMap<>();
-
-    protected void clearListeners() {
-        initializedListener = false;
-        listeners.clear();
-    }
-
-    private final static OnAdvancedMsgListener sdkMsgListener = new OnAdvancedMsgListener() {
-        @Override
-        public void onRecvC2CReadReceipt(String s) {
-            for (AdvancedMsgListener l : listeners.values()) {
-                l.onRecvC2CReadReceipt(s);
-            }
-        }
-
-        @Override
-        public void onRecvMessageRevoked(String s) {
-            for (AdvancedMsgListener l : listeners.values()) {
-                l.onRecvMessageRevoked(s);
-            }
-        }
-
-        @Override
-        public void onRecvNewMessage(String s) {
-            for (AdvancedMsgListener l : listeners.values()) {
-                l.onRecvNewMessage(s);
-            }
-        }
-    };
-
-    public void addAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
-        String key = methodCall.argument(KEY_ID);
-        Open_im_sdk.addAdvancedMsgListener(new AdvancedMsgListener(key));
-        listeners.put(key, new AdvancedMsgListener(key));
-        if (!initializedListener) {
-            initializedListener = true;
-            Open_im_sdk.addAdvancedMsgListener(sdkMsgListener);
-        }
-    }
-
-    public void removeAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
-        String key = methodCall.argument(KEY_ID);
-        listeners.remove(key);
-        if (listeners.isEmpty()) {
-            initializedListener = false;
-            Open_im_sdk.removeAdvancedMsgListener(sdkMsgListener);
-        }
-    }*/
-/*
-
-    public void addAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
-        String key = methodCall.argument(KEY_ID);
-        if (!listeners.containsKey(key)) {
-            AdvancedMsgListener listener = new AdvancedMsgListener(key);
-            listeners.put(methodCall.argument(KEY_ID), listener);
-            Open_im_sdk.addAdvancedMsgListener(listener);
-        }
-    }
-
-    public void removeAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
-        String key = methodCall.argument(KEY_ID);
-        OnAdvancedMsgListener listener = listeners.remove(key);
-        Open_im_sdk.removeAdvancedMsgListener(listener);
-    }
-
-*/
     public void setAdvancedMsgListener(MethodCall methodCall, MethodChannel.Result result) {
         String key = methodCall.argument(KEY_ID);
         Open_im_sdk.setAdvancedMsgListener(new OnAdvancedMsgListener(key));
@@ -437,54 +368,4 @@ public class MessageManager extends BaseManager {
 
         result.success(null);
     }
-
-    public void setMessageKvInfoListener(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setMessageKvInfoListener(new OnMessageKvInfoListener());
-
-        result.success(null);
-    }
-
-//    public void setMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.setMessageReactionExtensions(
-//                new OnBaseListener(result, methodCall),
-//                value(methodCall, "operationID"),
-//                jsonValue(methodCall, "message"),
-//                jsonValue(methodCall, "list")
-//        );
-//    }
-//
-//    public void deleteMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.deleteMessageReactionExtensions(
-//                new OnBaseListener(result, methodCall),
-//                value(methodCall, "operationID"),
-//                jsonValue(methodCall, "message"),
-//                jsonValue(methodCall, "list")
-//        );
-//    }
-//
-//    public void getMessageListReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.getMessageListReactionExtensions(
-//                new OnBaseListener(result, methodCall),
-//                value(methodCall, "operationID"),
-//                jsonValue(methodCall, "messageList")
-//        );
-//    }
-//
-//    public void addMessageReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.addMessageReactionExtensions(
-//                new OnBaseListener(result, methodCall),
-//                value(methodCall, "operationID"),
-//                jsonValue(methodCall, "message"),
-//                jsonValue(methodCall, "list")
-//        );
-//    }
-//
-//    public void getMessageListSomeReactionExtensions(MethodCall methodCall, MethodChannel.Result result) {
-//        Open_im_sdk.getMessageListSomeReactionExtensions(
-//                new OnBaseListener(result, methodCall),
-//                value(methodCall, "operationID"),
-//                jsonValue(methodCall, "messageList"),
-//                jsonValue(methodCall, "list")
-//        );
-//    }
 }

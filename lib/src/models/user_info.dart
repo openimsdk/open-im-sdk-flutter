@@ -1,68 +1,71 @@
-/// Is a friend not in the blacklist
-/// 是好友不在黑名单
-/// Not a friend on the blacklist
-/// 不是好友在黑名单
-/// Not a friend is not on the blacklist
-/// 不是好友不在黑名单
 class UserInfo {
-  /// 用户id
+  /// User ID
   String? userID;
 
-  /// 用户昵称
+  /// User nickname
   String? nickname;
 
-  /// 头像
+  /// Profile picture
   String? faceURL;
 
-  /// 性别
+  /// Gender
   int? gender;
 
-  /// 手机号
+  /// Phone number
   String? phoneNumber;
 
-  /// 出生时间
+  /// Date of birth
   int? birth;
 
-  /// 邮箱
+  /// Email
   String? email;
 
-  /// 扩展字段
+  /// Additional information
   String? ex;
 
-  /// 创建时间
+  /// Creation time
   int? createTime;
 
-  /// 备注
+  /// Remark
   String? remark;
 
-  /// 全局免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
+  /// Global do not disturb setting:
+  /// 0: Normal
+  /// 1: Do not accept messages
+  /// 2: Accept online messages but not offline messages
   int? globalRecvMsgOpt;
 
-  /// 是允许添加为好友  1：允许，2：否
+  /// Allow adding as a friend:
+  /// 1: Allowed
+  /// 2: Not allowed
   int? allowAddFriend;
 
-  /// 新消息铃声   1：允许，2：否
+  /// New message ringtone:
+  /// 1: Allowed
+  /// 2: Not allowed
   int? allowBeep;
 
-  /// 新消息震动   1：允许，2：否
+  /// New message vibration:
+  /// 1: Allowed
+  /// 2: Not allowed
   int? allowVibration;
 
-  /// 禁止登录
+  /// Prohibited from logging in
   int? forbidden;
 
-  /// 用户公开的资料
+  /// User's public information
   PublicUserInfo? publicInfo;
 
-  /// 好友才能查看的资料
+  /// Information visible only to friends
   FriendInfo? friendInfo;
 
-  /// 黑名单资料
+  /// Blacklist information
   BlacklistInfo? blackInfo;
 
-  /// 是否好友关系
+  /// Whether there is a friendship relationship
   bool? isFriendship;
 
-  /// 是否黑名单
+  /// Whether the user is in the blacklist
   bool? isBlacklist;
 
   UserInfo({
@@ -89,23 +92,17 @@ class UserInfo {
     this.forbidden,
   });
 
-  // UserInfo.self(Map<String, dynamic> json) {
-  //   userID = json['userID'];
-  //   nickname = json['nickname'];
-  //   faceURL = json['faceURL'];
-  //   gender = json['gender'];
-  //   phoneNumber = json['phoneNumber'];
-  //   birth = json['birth'];
-  //   email = json['email'];
-  //   ex = json['ex'];
-  //   createTime = json['createTime'];
-  // }
-
   UserInfo.fromJson(Map<String, dynamic> json) {
-    publicInfo = json['publicInfo'] != null ? PublicUserInfo.fromJson(json['publicInfo']) : null;
-    friendInfo = json['friendInfo'] != null ? FriendInfo.fromJson(json['friendInfo']) : null;
-    blackInfo = json['blackInfo'] != null ? BlacklistInfo.fromJson(json['blackInfo']) : null;
-    //
+    publicInfo = json['publicInfo'] != null
+        ? PublicUserInfo.fromJson(json['publicInfo'])
+        : null;
+    friendInfo = json['friendInfo'] != null
+        ? FriendInfo.fromJson(json['friendInfo'])
+        : null;
+    blackInfo = json['blackInfo'] != null
+        ? BlacklistInfo.fromJson(json['blackInfo'])
+        : null;
+
     isFriendship = friendInfo != null;
     isBlacklist = blackInfo != null;
 
@@ -152,23 +149,27 @@ class UserInfo {
     return data;
   }
 
-  // bool get isFriendship => null != friendInfo;
-  //
-  // bool get isBlacklist => null != blackInfo;
-
   bool get isMale => gender == 1;
 
-  String get _userID => isFriendship! ? friendInfo!.userID! : (isBlacklist! ? blackInfo!.userID! : publicInfo!.userID!);
+  String get _userID => isFriendship!
+      ? friendInfo!.userID!
+      : (isBlacklist! ? blackInfo!.userID! : publicInfo!.userID!);
 
-  String? get _nickname =>
-      isFriendship! ? friendInfo?.nickname : (isBlacklist! ? blackInfo?.nickname : publicInfo?.nickname);
+  String? get _nickname => isFriendship!
+      ? friendInfo?.nickname
+      : (isBlacklist! ? blackInfo?.nickname : publicInfo?.nickname);
 
-  String? get _faceUrl =>
-      isFriendship! ? friendInfo?.faceURL : (isBlacklist! ? blackInfo?.faceURL : publicInfo?.faceURL);
+  String? get _faceUrl => isFriendship!
+      ? friendInfo?.faceURL
+      : (isBlacklist! ? blackInfo?.faceURL : publicInfo?.faceURL);
 
-  int? get _gender => isFriendship! ? friendInfo?.gender : (isBlacklist! ? blackInfo?.gender : publicInfo?.gender);
+  int? get _gender => isFriendship!
+      ? friendInfo?.gender
+      : (isBlacklist! ? blackInfo?.gender : publicInfo?.gender);
 
-  String? get _ex => isFriendship! ? friendInfo?.ex : (isBlacklist! ? blackInfo?.ex : publicInfo?.ex);
+  String? get _ex => isFriendship!
+      ? friendInfo?.ex
+      : (isBlacklist! ? blackInfo?.ex : publicInfo?.ex);
 
   String? get _phoneNumber => friendInfo?.phoneNumber;
 
@@ -187,30 +188,34 @@ class UserInfo {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is UserInfo && runtimeType == other.runtimeType && userID == other.userID;
+      identical(this, other) ||
+      other is UserInfo &&
+          runtimeType == other.runtimeType &&
+          userID == other.userID;
 
   @override
   int get hashCode => userID.hashCode;
 }
 
-/// 公开的资料
 class PublicUserInfo {
-  /// 用户id
+  /// User ID
   String? userID;
 
-  /// 昵称
+  /// Nickname
   String? nickname;
 
-  /// 头像
+  /// Profile picture
   String? faceURL;
 
-  /// 性别
+  /// Gender
   int? gender;
 
-  /// AppOrdinaryUsers = 1  AppAdmin = 2
-  int? appMangerLevel;
+  /// App Manager Level:
+  /// 1: AppOrdinaryUsers
+  /// 2: AppAdmin
+  int? appManagerLevel;
 
-  /// 扩展信息
+  /// Additional information
   String? ex;
 
   PublicUserInfo({
@@ -218,7 +223,7 @@ class PublicUserInfo {
     this.nickname,
     this.faceURL,
     this.gender,
-    this.appMangerLevel,
+    this.appManagerLevel,
     this.ex,
   });
 
@@ -227,7 +232,7 @@ class PublicUserInfo {
     nickname = json['nickname'];
     faceURL = json['faceURL'];
     gender = json['gender'];
-    appMangerLevel = json['appMangerLevel'];
+    appManagerLevel = json['appManagerLevel'];
     ex = json['ex'];
   }
 
@@ -237,48 +242,47 @@ class PublicUserInfo {
     data['nickname'] = this.nickname;
     data['faceURL'] = this.faceURL;
     data['gender'] = this.gender;
-    data['appMangerLevel'] = this.appMangerLevel;
+    data['appMangerLevel'] = this.appManagerLevel;
     data['ex'] = this.ex;
     return data;
   }
 }
 
-/// 好友信息
 class FriendInfo {
-  /// 用户id
+  /// User ID
   String? userID;
 
-  /// 昵称
+  /// Nickname
   String? nickname;
 
-  /// 头像
+  /// Profile picture
   String? faceURL;
 
-  /// 性别
+  /// Gender
   int? gender;
 
-  /// 手机号
+  /// Phone number
   String? phoneNumber;
 
-  /// 出生日期
+  /// Date of birth
   int? birth;
 
-  /// 邮箱
+  /// Email
   String? email;
 
-  /// 备注
+  /// Remark
   String? remark;
 
-  /// 扩展字段
+  /// Additional information
   String? ex;
 
-  /// 创建时间
+  /// Creation time
   int? createTime;
 
-  /// 添加方式
+  /// Add source
   int? addSource;
 
-  /// 操作者id
+  /// Operator User ID
   String? operatorUserID;
 
   FriendInfo({
@@ -338,30 +342,29 @@ class FriendInfo {
   }
 }
 
-/// 黑名单信息
 class BlacklistInfo {
-  /// 用户id
+  /// User ID
   String? userID;
 
-  /// 昵称
+  /// Nickname
   String? nickname;
 
-  /// 头像
+  /// Profile picture
   String? faceURL;
 
-  /// 性别
+  /// Gender
   int? gender;
 
-  /// 创建时间
+  /// Creation time
   int? createTime;
 
-  /// 添加方式
+  /// Add source
   int? addSource;
 
-  /// 操作者
+  /// Operator User ID
   String? operatorUserID;
 
-  /// 扩展信息
+  /// Additional information
   String? ex;
 
   BlacklistInfo({
@@ -400,12 +403,11 @@ class BlacklistInfo {
   }
 }
 
-/// 关系
 class FriendshipInfo {
-  /// 用户id
+  /// User ID
   String? userID;
 
-  /// 1表示好友（并且不是黑名单）
+  /// 1 represents a friend (and not in the blacklist)
   int? result;
 
   FriendshipInfo({this.userID, this.result});
@@ -423,51 +425,50 @@ class FriendshipInfo {
   }
 }
 
-/// 好友申请信息
 class FriendApplicationInfo {
-  /// 发起者用户id
+  /// Initiator user ID
   String? fromUserID;
 
-  /// 发起者用户昵称
+  /// Initiator user nickname
   String? fromNickname;
 
-  /// 发起者用户头像
+  /// Initiator user profile picture
   String? fromFaceURL;
 
-  /// 发起者性别
+  /// Initiator user gender
   int? fromGender;
 
-  /// 接收者用户id
+  /// Recipient user ID
   String? toUserID;
 
-  /// 接收者用户昵称
+  /// Recipient user nickname
   String? toNickname;
 
-  /// 接收者头像
+  /// Recipient user profile picture
   String? toFaceURL;
 
-  /// 接收者性别
+  /// Recipient user gender
   int? toGender;
 
-  /// 处理结果
+  /// Handling result
   int? handleResult;
 
-  /// 请求消息
+  /// Request message
   String? reqMsg;
 
-  /// 创建时间
+  /// Creation time
   int? createTime;
 
-  /// 处理者id
+  /// Handler user ID
   String? handlerUserID;
 
-  /// 处理备注
+  /// Handling remark
   String? handleMsg;
 
-  ///  处理时间
+  /// Handling time
   int? handleTime;
 
-  /// 扩展字段
+  /// Additional information
   String? ex;
 
   FriendApplicationInfo(
@@ -525,24 +526,24 @@ class FriendApplicationInfo {
     return data;
   }
 
-  /// 等待处理
+  /// Waiting to be processed
   bool get isWaitingHandle => handleResult == 0;
 
-  /// 已同意
+  /// Already agreed
   bool get isAgreed => handleResult == 1;
 
-  /// 已拒绝
+  /// Already rejected
   bool get isRejected => handleResult == -1;
 }
 
 class UserStatusInfo {
-  /// 用户id
+  /// User ID
   String? userID;
 
-  /// 状态
+  /// Status
   int? status;
 
-  /// 平台ID
+  /// Platform IDs
   List<int>? platformIDs;
 
   UserStatusInfo({
@@ -554,7 +555,9 @@ class UserStatusInfo {
   UserStatusInfo.fromJson(Map<String, dynamic> json) {
     userID = json['userID'];
     status = json['status'];
-    platformIDs = json["platformIDs"] == null ? [] : List<int>.from(json["platformIDs"].map((x) => x));
+    platformIDs = json["platformIDs"] == null
+        ? []
+        : List<int>.from(json["platformIDs"].map((x) => x));
   }
 
   Map<String, dynamic> toJson() {

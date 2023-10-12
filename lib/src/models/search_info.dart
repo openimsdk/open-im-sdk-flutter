@@ -1,10 +1,10 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class SearchResult {
-  /// 获取到的总的消息数量
+  /// Total number of messages obtained
   int? totalCount;
 
-  /// 搜索到的具体内容
+  /// Specific search results
   List<SearchResultItems>? searchResultItems;
 
   List<SearchResultItems>? findResultItems;
@@ -43,22 +43,22 @@ class SearchResult {
 }
 
 class SearchResultItems {
-  /// 会话ID
+  /// Conversation ID
   String? conversationID;
 
-  /// 会话类型1单聊，2群聊，3，超级大群，4通知会话
+  /// Conversation type: 1 for single chat, 2 for group chat, 3 for supergroup, 4 for notification conversation
   int? conversationType;
 
-  /// 显示名
+  /// Display name
   String? showName;
 
-  /// 头像
+  /// Profile picture
   String? faceURL;
 
-  /// 搜索到的这个会话下的消息数量
+  /// Number of messages found in this conversation
   int? messageCount;
 
-  /// [Message]的列表
+  /// List of [Message]s
   List<Message>? messageList;
 
   SearchResultItems({this.conversationID, this.messageCount, this.messageList});

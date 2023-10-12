@@ -1,14 +1,15 @@
-/// 会话类型
+/// Conversation types
 class ConversationType {
-  /// 单聊
+  /// Single chat
   static const single = 1;
 
-  /// 群
+  /// Group (Deprecated in v3)
+  @Deprecated('Use superGroup instead')
   static const group = 2;
 
-  /// 大群
+  /// Super group chat
   static const superGroup = 3;
 
-  /// 通知
+  /// Notification
   static const notification = 4;
 }

@@ -1,16 +1,16 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-/// 好友关系监听
+/// Friendship Listener
 class OnFriendshipListener {
-  Function(BlacklistInfo i)? onBlackAdded;
-  Function(BlacklistInfo i)? onBlackDeleted;
-  Function(FriendInfo i)? onFriendAdded;
-  Function(FriendApplicationInfo i)? onFriendApplicationAccepted;
-  Function(FriendApplicationInfo i)? onFriendApplicationAdded;
-  Function(FriendApplicationInfo i)? onFriendApplicationDeleted;
-  Function(FriendApplicationInfo i)? onFriendApplicationRejected;
-  Function(FriendInfo i)? onFriendDeleted;
-  Function(FriendInfo i)? onFriendInfoChanged;
+  Function(BlacklistInfo info)? onBlackAdded;
+  Function(BlacklistInfo info)? onBlackDeleted;
+  Function(FriendInfo info)? onFriendAdded;
+  Function(FriendApplicationInfo info)? onFriendApplicationAccepted;
+  Function(FriendApplicationInfo info)? onFriendApplicationAdded;
+  Function(FriendApplicationInfo info)? onFriendApplicationDeleted;
+  Function(FriendApplicationInfo info)? onFriendApplicationRejected;
+  Function(FriendInfo info)? onFriendDeleted;
+  Function(FriendInfo info)? onFriendInfoChanged;
 
   OnFriendshipListener({
     this.onBlackAdded,
@@ -24,48 +24,48 @@ class OnFriendshipListener {
     this.onFriendInfoChanged,
   });
 
-  /// 已被加入黑名单
-  void blackAdded(BlacklistInfo u) {
-    onBlackAdded?.call(u);
+  /// Added to the blacklist
+  void blackAdded(BlacklistInfo info) {
+    onBlackAdded?.call(info);
   }
 
-  /// 已从黑名单移除
-  void blackDeleted(BlacklistInfo u) {
-    onBlackDeleted?.call(u);
+  /// Removed from the blacklist
+  void blackDeleted(BlacklistInfo info) {
+    onBlackDeleted?.call(info);
   }
 
-  /// 好友已添加
-  void friendAdded(FriendInfo u) {
-    onFriendAdded?.call(u);
+  /// Friend added
+  void friendAdded(FriendInfo info) {
+    onFriendAdded?.call(info);
   }
 
-  /// 好友申请已被接受
-  void friendApplicationAccepted(FriendApplicationInfo u) {
-    onFriendApplicationAccepted?.call(u);
+  /// Friend application accepted
+  void friendApplicationAccepted(FriendApplicationInfo info) {
+    onFriendApplicationAccepted?.call(info);
   }
 
-  /// 已添加新的好友申请
-  void friendApplicationAdded(FriendApplicationInfo u) {
-    onFriendApplicationAdded?.call(u);
+  /// New friend application added
+  void friendApplicationAdded(FriendApplicationInfo info) {
+    onFriendApplicationAdded?.call(info);
   }
 
-  /// 好友申请已被删除
-  void friendApplicationDeleted(FriendApplicationInfo u) {
-    onFriendApplicationDeleted?.call(u);
+  /// Friend application deleted
+  void friendApplicationDeleted(FriendApplicationInfo info) {
+    onFriendApplicationDeleted?.call(info);
   }
 
-  /// 好友申请已被拒绝
-  void friendApplicationRejected(FriendApplicationInfo u) {
-    onFriendApplicationRejected?.call(u);
+  /// Friend application rejected
+  void friendApplicationRejected(FriendApplicationInfo info) {
+    onFriendApplicationRejected?.call(info);
   }
 
-  /// 好友已被删除
-  void friendDeleted(FriendInfo u) {
-    onFriendDeleted?.call(u);
+  /// Friend deleted
+  void friendDeleted(FriendInfo info) {
+    onFriendDeleted?.call(info);
   }
 
-  ///  好友资料发生改变
-  void friendInfoChanged(FriendInfo u) {
-    onFriendInfoChanged?.call(u);
+  /// Friend information changed
+  void friendInfoChanged(FriendInfo info) {
+    onFriendInfoChanged?.call(info);
   }
 }

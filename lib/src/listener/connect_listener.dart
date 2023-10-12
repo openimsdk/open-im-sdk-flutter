@@ -1,4 +1,4 @@
-/// SDK 连接状态监听
+/// SDK Connection State Listener
 class OnConnectListener {
   Function(int? code, String? errorMsg)? onConnectFailed;
   Function()? onConnectSuccess;
@@ -14,27 +14,27 @@ class OnConnectListener {
     this.onUserTokenExpired,
   });
 
-  /// SDK连接服务器失败
+  /// SDK failed to connect to the server
   void connectFailed(int? code, String? errorMsg) {
     onConnectFailed?.call(code, errorMsg);
   }
 
-  /// SDK连接服务器成功
+  /// SDK successfully connected to the server
   void connectSuccess() {
     onConnectSuccess?.call();
   }
 
-  /// SDK正在连接服务器
+  /// SDK is currently connecting to the server
   void connecting() {
     onConnecting?.call();
   }
 
-  /// 账号已在其他地方登录，当前设备被踢下线
+  /// The account has been logged in from another location, and the current device has been kicked offline
   void kickedOffline() {
     onKickedOffline?.call();
   }
 
-  ///  登录凭证过期，需要重新登录
+  /// Login credentials have expired and require reauthentication
   void userTokenExpired() {
     onUserTokenExpired?.call();
   }

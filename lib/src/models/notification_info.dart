@@ -1,38 +1,41 @@
 import '../../flutter_openim_sdk.dart';
 
-/// oa 通知
+/// OA notification
 class OANotification {
-  /// 标题
+  /// Title
   String? notificationName;
 
-  /// 头像
+  /// Avatar
   String? notificationFaceURL;
 
-  /// 类型
+  /// Type
   int? notificationType;
 
-  /// 文本内容
+  /// Text content
   String? text;
 
-  /// 跳转链接
+  /// Redirect link
   String? externalUrl;
 
-  /// 0：纯文字通知 1：文字+图片通知 2：文字+视频通知 3：文字+文件通知
+  /// 0: Text-only notification
+  /// 1: Text + Image notification
+  /// 2: Text + Video notification
+  /// 3: Text + File notification
   int? mixType;
 
-  /// 图片信息
+  /// Image information
   PictureElem? pictureElem;
 
-  /// 语音信息
+  /// Sound information
   SoundElem? soundElem;
 
-  /// 视频信息
+  /// Video information
   VideoElem? videoElem;
 
-  /// 文件信息
+  /// File information
   FileElem? fileElem;
 
-  /// 扩展字段
+  /// Additional field
   String? ex;
 
   OANotification(

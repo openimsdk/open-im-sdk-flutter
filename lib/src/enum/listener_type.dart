@@ -1,4 +1,4 @@
-/// callback类型
+/// Callback Types
 class ListenerType {
   static const simpleMsgListener = 'simpleMsgListener';
   static const connectListener = 'connectListener';

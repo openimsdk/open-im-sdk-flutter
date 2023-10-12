@@ -1,11 +1,11 @@
-/// 进群验证设置选项
+/// Group Join Verification Settings
 class GroupVerification {
-  /// 申请需要同意 邀请直接进
+  /// Apply and invite directly for entry
   static const int applyNeedVerificationInviteDirectly = 0;
 
-  /// 所有人进群需要验证，除了群主管理员邀
+  /// Everyone needs verification to join, except for group owners and administrators who can invite directly
   static const int allNeedVerification = 1;
 
-  /// 直接进群
+  /// Directly join the group
   static const int directly = 2;
 }

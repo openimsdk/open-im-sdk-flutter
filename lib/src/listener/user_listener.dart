@@ -1,6 +1,6 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-/// 当前用户资料监听
+/// Current User Profile Listener
 class OnUserListener {
   /// The information of the logged-in user has been updated
   Function(UserInfo info)? onSelfInfoUpdated;
@@ -8,11 +8,12 @@ class OnUserListener {
 
   OnUserListener({this.onSelfInfoUpdated, this.onUserStatusChanged});
 
-  /// 自身信息发送变化回调
+  /// Callback for changes in user's own information
   void selfInfoUpdated(UserInfo info) {
     onSelfInfoUpdated?.call(info);
   }
 
+  /// Callback for changes in user status
   void userStatusChanged(UserStatusInfo info) {
     onUserStatusChanged?.call(info);
   }

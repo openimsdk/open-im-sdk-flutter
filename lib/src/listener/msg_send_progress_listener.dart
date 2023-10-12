@@ -1,10 +1,10 @@
-/// 消息发送进度监听
+/// Message Sending Progress Listener
 class OnMsgSendProgressListener {
   Function(String clientMsgID, int progress)? onProgress;
 
   OnMsgSendProgressListener({this.onProgress});
 
-  /// 消息发送进度
+  /// Message sending progress
   void progress(String clientMsgID, int progress) {
     onProgress?.call(clientMsgID, progress);
   }

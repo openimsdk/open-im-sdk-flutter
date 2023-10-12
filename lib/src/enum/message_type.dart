@@ -1,171 +1,179 @@
-/// 消息类型
+/// Message Types
 class MessageType {
-  /// 普通文本
+  /// Normal text
   static const text = 101;
 
-  /// 图片
+  /// Picture
   static const picture = 102;
 
-  /// 语音
+  /// Voice
   static const voice = 103;
 
-  /// 视频
+  /// Video
   static const video = 104;
 
-  /// 文件
+  /// File
   static const file = 105;
 
-  /// @消息
-  static const at_text = 106;
+  /// @ Message
+  static const atText = 106;
 
-  /// 合并
+  /// Merge
   static const merger = 107;
 
-  /// 名片
+  /// Business Card
   static const card = 108;
 
-  /// 位置
+  /// Location
   static const location = 109;
 
-  /// 自定义
+  /// Custom
   static const custom = 110;
 
-  /// 已读回执
-  static const has_read_receipt = 112;
+  /// Has Read Receipt
+  static const hasReadReceipt = 112;
 
-  /// 正字输入
+  /// Typing
   static const typing = 113;
 
-  /// 引用回复
+  /// Quote Reply
   static const quote = 114;
 
-  /// 自定义表情
-  static const custom_face = 115;
+  /// Custom Emoji
+  static const customFace = 115;
 
-  /// 群消息已读回执
+  /// Group Message Has Read Receipt (Deprecated in v3)
+  @Deprecated('Use GroupHasReadReceiptNotification instead')
   static const groupHasReadReceipt = 116;
 
-  /// 富文本消息
+  /// Rich Text Message
   static const advancedText = 117;
 
   static const customMsgNotTriggerConversation = 119;
 
   static const customMsgOnlineOnly = 120;
 
-  /// 通知类型
+  /// Notification Types
   static const notificationBegin = 1000;
 
   static const friendNotificationBegin = 1200;
 
-  /// 好友申请已接受
+  /// Friend Request Accepted
   static const friendApplicationApprovedNotification = 1201;
 
-  /// 好友申请已拒绝
+  /// Friend Request Rejected
   static const friendApplicationRejectedNotification = 1202;
 
-  /// 好友申请
+  /// Friend Request
   static const friendApplicationNotification = 1203;
 
-  /// 好友已添加
+  /// Friend Added
   static const friendAddedNotification = 1204;
 
-  /// 好友已删除
+  /// Friend Deleted
   static const friendDeletedNotification = 1205;
 
-  /// 设置好友备注
+  /// Set Friend Remark
   static const friendRemarkSetNotification = 1206;
 
-  /// 好友加入黑名单
+  /// Friend Added to Blacklist
   static const blackAddedNotification = 1207;
 
-  /// 已从黑名单移除
+  /// Removed from Blacklist
   static const blackDeletedNotification = 1208;
 
   static const friendNotificationEnd = 1299;
 
-  /// 会话改变
+  /// Conversation Change
   static const conversationChangeNotification = 1300;
 
   static const userNotificationBegin = 1301;
 
-  /// 用户信息改变
+  /// User Information Changed
   static const userInfoUpdatedNotification = 1303;
 
   static const userNotificationEnd = 1399;
 
-  /// OA通知
+  /// OA Notification
   static const oaNotification = 1400;
 
   static const groupNotificationBegin = 1500;
 
-  /// 群已被创建
+  /// Group Created
   static const groupCreatedNotification = 1501;
 
-  /// 群资料改变
+  /// Group Info Set
   static const groupInfoSetNotification = 1502;
 
-  /// 进群申请
+  /// Join Group Application
   static const joinGroupApplicationNotification = 1503;
 
-  /// 群成员退出
+  /// Group Member Quit
   static const memberQuitNotification = 1504;
 
-  /// 群申请被接受
+  /// Group Application Accepted
   static const groupApplicationAcceptedNotification = 1505;
 
-  /// 群申请被拒绝
+  /// Group Application Rejected
   static const groupApplicationRejectedNotification = 1506;
 
-  /// 群拥有者权限转移
+  /// Group Owner Transferred
   static const groupOwnerTransferredNotification = 1507;
 
-  /// 群成员被踢出群
+  /// Member Kicked from Group
   static const memberKickedNotification = 1508;
 
-  /// 邀请进群
+  /// Member Invited to Group
   static const memberInvitedNotification = 1509;
 
-  /// 群成员进群
+  /// Member Entered Group
   static const memberEnterNotification = 1510;
 
-  /// 解散群
+  /// Dismiss Group
   static const dismissGroupNotification = 1511;
 
   static const groupNotificationEnd = 1599;
 
-  /// 群成员被禁言
+  /// Group Member Muted
   static const groupMemberMutedNotification = 1512;
 
-  /// 群成员被取消禁言
+  /// Group Member Cancel Muted
   static const groupMemberCancelMutedNotification = 1513;
 
-  /// 群禁言
+  /// Group Muted
   static const groupMutedNotification = 1514;
 
-  /// 取消群禁言
+  /// Cancel Group Muted
   static const groupCancelMutedNotification = 1515;
 
-  /// 群成员信息改变
+  /// Group Member Information Changed
   static const groupMemberInfoChangedNotification = 1516;
 
-  /// 群公告修改
+  /// Group Member Set to Admin
+  static const groupMemberSetToAdminNotification = 1517;
+
+  static const groupMemberSetToOrdinaryUserNotification = 1518;
+
+  /// Group Notice Changed
   static const groupNoticeChangedNotification = 1519;
 
-  /// 群名字修改
+  /// Group Name Changed
   static const groupNameChangedNotification = 1520;
 
-  static const signalingNotificationBegin = 1600;
-
-  /// 信令
-  static const signalingNotification = 1601;
-
-  static const signalingNotificationEnd = 1699;
-
-  /// 阅后即焚
+  /// Burn After Reading
   static const burnAfterReadingNotification = 1701;
 
   static const notificationEnd = 2000;
 
-  /// 撤回消息
+  /// Business Notification
+  static const businessNotification = 2001;
+
+  /// Recall Message
   static const revokeMessageNotification = 2101;
+
+  /// Single Chat Has Read Receipt
+  static const signalHasReadReceiptNotification = 2150;
+
+  /// Group Chat Has Read Receipt
+  static const groupHasReadReceiptNotification = 2155;
 }

@@ -1,17 +1,17 @@
-/// 会话强提示内容
+/// Conversation Strong Hint Content
 class GroupAtType {
-  /// 取消所有提示，即调用了resetConversationGroupAtType方法
+  /// Cancel all hints, equivalent to calling the resetConversationGroupAtType method
   static const atNormal = 0;
 
-  /// @了我提示
+  /// @ me hint
   static const atMe = 1;
 
-  /// @了所有人提示
+  /// @ all hint
   static const atAll = 2;
 
-  /// @了所有人@了我
+  /// @ all and @ me hint
   static const atAllAtMe = 3;
 
-  /// 群公告提示
+  /// Group notification hint
   static const groupNotification = 4;
 }

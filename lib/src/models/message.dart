@@ -3,116 +3,118 @@ import 'dart:io';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class Message {
-  /// 消息id，唯一标识
+  /// Message ID, a unique identifier.
   String? clientMsgID;
 
-  /// 服务端生成的id
+  /// Server-generated ID.
   String? serverMsgID;
 
-  /// 创建时间
+  /// Creation time.
   int? createTime;
 
-  /// 发送时间
+  /// Sending time.
   int? sendTime;
 
-  /// 会话类型[ConversationType]
+  /// Conversation type [ConversationType].
   int? sessionType;
 
-  /// 发送者id
+  /// Sender's ID.
   String? sendID;
 
-  /// 接收者id
+  /// Receiver's ID.
   String? recvID;
 
-  /// 来源
+  /// Source.
   int? msgFrom;
 
-  /// 消息类型[MessageType]
+  /// Message type [MessageType].
   int? contentType;
 
-  /// 平台[Platform]
+  /// Platform [Platform].
   int? senderPlatformID;
 
-  /// 发送者昵称
+  /// Sender's nickname.
   String? senderNickname;
 
-  /// 发送者头像
+  /// Sender's avatar.
   String? senderFaceUrl;
 
-  /// 群ID
+  /// Group ID.
   String? groupID;
 
-  /// 消息内容
-  // String? content;
+  /// Message content.
+// String? content;
 
-  /// 消息的seq
+  /// Message sequence number.
   int? seq;
 
-  /// 是否已读
+  /// Whether it's read.
   bool? isRead;
 
-  /// 已读时间
+  /// Read time.
   int? hasReadTime;
 
-  /// 消息发送状态[MessageStatus]
+  /// Message sending status [MessageStatus].
   int? status;
 
+  /// Is it a reaction.
   bool? isReact;
 
+  /// Is it an external extension.
   bool? isExternalExtensions;
 
-  /// 离线显示内容
+  /// Offline display content.
   OfflinePushInfo? offlinePush;
 
-  /// 附加信息
+  /// Additional information.
   String? attachedInfo;
 
-  /// 扩展信息
+  /// Extended information.
   String? ex;
 
-  /// 自定义扩展信息，目前用于客服端处理消息时间分段
+  /// Custom extended information, currently used for message time segmentation on the client side.
   Map<String, dynamic> exMap = {};
 
-  /// 图片
+  /// Image.
   PictureElem? pictureElem;
 
-  /// 语音
+  /// Voice.
   SoundElem? soundElem;
 
-  /// 视频
+  /// Video.
   VideoElem? videoElem;
 
-  /// 文件
+  /// File.
   FileElem? fileElem;
 
-  /// @信息
+  /// @ Information.
   AtTextElem? atTextElem;
 
-  /// 位置
+  /// Location.
   LocationElem? locationElem;
 
-  /// 自定义
+  /// Custom.
   CustomElem? customElem;
 
-  /// 引用
+  /// Quote.
   QuoteElem? quoteElem;
 
-  /// 合并
+  /// Merge.
   MergeElem? mergeElem;
 
-  /// 通知
+  /// Notification.
   NotificationElem? notificationElem;
 
-  /// 自定义表情
+  /// Custom emoji.
   FaceElem? faceElem;
 
-  /// 附加信息
+  /// Additional information.
   AttachedInfoElem? attachedInfoElem;
 
-  /// 文本内容
+  /// Text content.
   TextElem? textElem;
 
-  /// 个人名片
+  /// Business card.
   CardElem? cardElem;
 
   ///
@@ -334,27 +336,27 @@ class Message {
     typingElem = message.typingElem;
   }
 
-  /// 单聊消息
+  /// Single chat message
   bool get isSingleChat => sessionType == ConversationType.single;
 
-  /// 群聊消息
+  /// Group chat message
   bool get isGroupChat =>
       sessionType == ConversationType.group ||
       sessionType == ConversationType.superGroup;
 }
 
-/// 图片消息内容
+/// Image message content
 class PictureElem {
-  /// 原路径
+  /// Original path
   String? sourcePath;
 
-  /// 原图对象
+  /// Original picture object
   PictureInfo? sourcePicture;
 
-  /// 大图对象
+  /// Big picture object
   PictureInfo? bigPicture;
 
-  /// 缩率图对象
+  /// Thumbnail picture object
   PictureInfo? snapshotPicture;
 
   PictureElem(
@@ -392,24 +394,24 @@ class PictureElem {
   }
 }
 
-/// 图片信息
+/// Image information
 class PictureInfo {
-  /// id
+  /// ID
   String? uuid;
 
-  /// 图片mime类型
+  /// Image MIME type
   String? type;
 
-  /// 大小
+  /// Size
   int? size;
 
-  /// 宽度
+  /// Width
   int? width;
 
-  /// 长度
+  /// Height
   int? height;
 
-  /// 图片URL地址
+  /// Image URL
   String? url;
 
   PictureInfo(
@@ -436,21 +438,21 @@ class PictureInfo {
   }
 }
 
-/// 语音消息内容
+/// Voice message content
 class SoundElem {
-  /// id
+  /// ID
   String? uuid;
 
-  /// 原路径
+  /// Original path
   String? soundPath;
 
-  /// url地址
+  /// URL address
   String? sourceUrl;
 
-  /// 大小
+  /// Size
   int? dataSize;
 
-  /// 时间s
+  /// Duration in seconds
   int? duration;
 
   SoundElem(
@@ -479,42 +481,42 @@ class SoundElem {
   }
 }
 
-/// 视频消息内容
+/// Video message content
 class VideoElem {
-  /// 视频路径
+  /// Video path
   String? videoPath;
 
-  /// uuid
+  /// UUID
   String? videoUUID;
 
-  /// 视频的url地址
+  /// URL address of the video
   String? videoUrl;
 
-  /// mime类型
+  /// MIME type
   String? videoType;
 
-  /// 大小
+  /// Size
   int? videoSize;
 
-  /// 时长s
+  /// Duration in seconds
   int? duration;
 
-  /// 缩率图路径
+  /// Snapshot path
   String? snapshotPath;
 
-  /// 缩率图uuid
+  /// Snapshot UUID
   String? snapshotUUID;
 
-  /// 缩率图大小
+  /// Snapshot size
   int? snapshotSize;
 
-  /// 缩率图URL地址
+  /// Snapshot URL address
   String? snapshotUrl;
 
-  /// 缩率图宽度
+  /// Snapshot width
   int? snapshotWidth;
 
-  /// 缩率图高度
+  /// Snapshot height
   int? snapshotHeight;
 
   VideoElem(
@@ -564,21 +566,21 @@ class VideoElem {
   }
 }
 
-/// 文件消息内容
+/// File message content
 class FileElem {
-  /// 文件路径
+  /// File path
   String? filePath;
 
-  /// uuid
+  /// UUID
   String? uuid;
 
-  /// 文件URL地址
+  /// File URL address
   String? sourceUrl;
 
-  /// 文件名
+  /// File name
   String? fileName;
 
-  /// 文件大小
+  /// File size
   int? fileSize;
 
   FileElem(
@@ -603,21 +605,21 @@ class FileElem {
   }
 }
 
-/// @消息内容
+/// @ Message Content
 class AtTextElem {
-  /// 消息内容
+  /// Message content
   String? text;
 
-  /// 被@的用户ID列表
+  /// List of user IDs mentioned in the message
   List<String>? atUserList;
 
-  /// 是否包含自己
+  /// Whether it includes a mention of oneself
   bool? isAtSelf;
 
-  /// 被@的用户ID跟昵称关系列表，用于将消息内容里的用户id替换为昵称显示
+  /// List of user IDs and their nicknames mentioned in the message, used to replace user IDs with nicknames in the message content
   List<AtUserInfo>? atUsersInfo;
 
-  /// 被回复的消息体，回复别人并@了人
+  /// Message that is being replied to, when replying to someone and mentioning others
   Message? quoteMessage;
 
   AtTextElem({
@@ -655,15 +657,15 @@ class AtTextElem {
   }
 }
 
-/// 位置消息内日
+/// Location Message
 class LocationElem {
-  /// 位置描述
+  /// Location description
   String? description;
 
-  /// 经度
+  /// Longitude
   double? longitude;
 
-  /// 纬度
+  /// Latitude
   double? latitude;
 
   LocationElem({this.description, this.longitude, this.latitude});
@@ -692,15 +694,15 @@ class LocationElem {
   }
 }
 
-/// 自定义消息
+/// Custom Message
 class CustomElem {
-  /// 自定义数据
+  /// Custom data
   String? data;
 
-  /// 扩展内容
+  /// Extended content
   String? extension;
 
-  /// 描述内容
+  /// Description
   String? description;
 
   CustomElem({this.data, this.extension, this.description});
@@ -720,12 +722,12 @@ class CustomElem {
   }
 }
 
-/// 引用消息（被回复的消息）
+/// Quoted Message (Reply to a message)
 class QuoteElem {
-  /// 回复内容内容
+  /// Reply content
   String? text;
 
-  /// 被回复的消息体
+  /// The message being replied to
   Message? quoteMessage;
 
   QuoteElem({this.text, this.quoteMessage});
@@ -745,15 +747,15 @@ class QuoteElem {
   }
 }
 
-/// 合并消息体
+/// Merged Message Body
 class MergeElem {
-  /// 标题
+  /// Title
   String? title;
 
-  /// 摘要
+  /// Summary
   List<String>? abstractList;
 
-  /// 具体选择合并的消息列表
+  /// List of specific messages to merge
   List<Message>? multiMessage;
 
   MergeElem({this.title, this.abstractList, this.multiMessage});
@@ -779,12 +781,12 @@ class MergeElem {
   }
 }
 
-/// 通知
+/// Notification
 class NotificationElem {
-  /// 详情
+  /// Details
   String? detail;
 
-  /// 提示
+  /// Default tips
   String? defaultTips;
 
   NotificationElem({this.detail, this.defaultTips});
@@ -802,12 +804,12 @@ class NotificationElem {
   }
 }
 
-/// 表情
+/// Emoticon
 class FaceElem {
-  /// 位置表情，用户端对端自定义内嵌的表情包
+  /// Position emoticon, user-defined embedded emoticon for peer-to-peer communication
   int? index;
 
-  /// 其他表情，如URL表情直接返回url
+  /// Other emoticons, such as URL emoticons directly returning the URL
   String? data;
 
   FaceElem({this.index, this.data});
@@ -825,22 +827,22 @@ class FaceElem {
   }
 }
 
-/// 附加信息
+/// Additional Information
 class AttachedInfoElem {
-  /// 群消息已读信息
+  /// Group message read information
   GroupHasReadInfo? groupHasReadInfo;
 
-  /// 是否为私聊消息（阅后即焚消息），单聊有效
+  /// Whether it is a private chat message (burn after reading message), valid for one-on-one chats
   bool? isPrivateChat;
 
-  /// 已读时间
+  /// Read time
   int? hasReadTime;
 
-  /// 阅读时长 s
-  /// 即从hasReadTime时间算起，超过了burnDuration秒触发销毁
+  /// Reading duration in seconds
+  /// That is, it triggers destruction after burnDuration seconds from the hasReadTime time
   int? burnDuration;
 
-  /// 离线不发送推送
+  /// Do not send offline push notifications
   bool? notSenderNotificationPush;
 
   AttachedInfoElem({
@@ -981,15 +983,15 @@ class MessageEntity {
   }
 }
 
-/// 群消息已读信息
+/// Group message read information
 class GroupHasReadInfo {
-  /// 已读的用户id列表
+  /// List of user IDs that have read the message
   List<String>? hasReadUserIDList;
 
-  /// 已读总数
+  /// Total number of messages read
   int? hasReadCount;
 
-  /// 发送此条消息时的群人数
+  /// Number of group members when this message was sent
   int? groupMemberCount;
 
   GroupHasReadInfo.fromJson(Map<String, dynamic> json) {
@@ -1011,27 +1013,27 @@ class GroupHasReadInfo {
   }
 }
 
-/// 消息已读回执信息
+/// Message read receipt information
 class ReadReceiptInfo {
-  /// 发送者id
+  /// Sender's ID
   String? userID;
 
-  /// 群id
+  /// Group ID
   String? groupID;
 
-  /// 已读消息的clientMsgID集合
+  /// List of clientMsgIDs for read messages
   List<String>? msgIDList;
 
-  /// 读时间
+  /// Read time
   int? readTime;
 
-  /// 消息来源
+  /// Message source
   int? msgFrom;
 
-  /// 消息类型[MessageType]
+  /// Message type [MessageType]
   int? contentType;
 
-  /// 会话类型[ConversationType]
+  /// Conversation type [ConversationType]
   int? sessionType;
 
   ReadReceiptInfo(
@@ -1067,21 +1069,21 @@ class ReadReceiptInfo {
   }
 }
 
-/// 离线推送信息
+/// Offline push information
 class OfflinePushInfo {
-  /// 通知标题
+  /// Notification title
   String? title;
 
-  /// 通知描述
+  /// Notification description
   String? desc;
 
-  /// 扩展内容
+  /// Extended content
   String? ex;
 
-  /// 仅ios有效
+  /// iOS-specific
   String? iOSPushSound;
 
-  /// 仅ios有效
+  /// iOS-specific
   bool? iOSBadgeCount;
 
   OfflinePushInfo(
@@ -1106,12 +1108,12 @@ class OfflinePushInfo {
   }
 }
 
-/// @消息用户id跟昵称关系对象
+/// @ message user ID and nickname relationship object
 class AtUserInfo {
-  /// 被@的用户id
+  /// User ID who was @ mentioned
   String? atUserID;
 
-  /// 被@的用户昵称
+  /// User nickname who was @ mentioned
   String? groupNickname;
 
   AtUserInfo({this.atUserID, this.groupNickname});
@@ -1129,33 +1131,33 @@ class AtUserInfo {
   }
 }
 
-/// 消息撤回具体信息
+/// Message revocation details
 class RevokedInfo {
-  /// 撤回者ID
+  /// Revoker's ID
   String? revokerID;
 
-  /// 撤回者群角色 [GroupRoleLevel]
+  /// Revoker's group role [GroupRoleLevel]
   int? revokerRole;
 
-  /// 撤回者昵称
+  /// Revoker's nickname
   String? revokerNickname;
 
-  /// 消息id
+  /// Message ID
   String? clientMsgID;
 
-  /// 撤回时间
+  /// Revocation time
   int? revokeTime;
 
-  /// 消息发送时间
+  /// Message sending time
   int? sourceMessageSendTime;
 
-  /// 消息发送者
+  /// Message sender
   String? sourceMessageSendID;
 
-  /// 消息发送者昵称
+  /// Message sender's nickname
   String? sourceMessageSenderNickname;
 
-  /// 会话类型 [ConversationType]
+  /// Conversation type [ConversationType]
   int? sessionType;
 
   RevokedInfo({
@@ -1269,31 +1271,6 @@ class RichMessageInfo {
   }
 }
 
-///////////////////// 消息修改相关/////////////////////
-////////////////////////////////////////////////////
-
-class KeyValue {
-  String? typeKey;
-  String? value;
-  int? latestUpdateTime;
-
-  KeyValue({this.typeKey, this.value, this.latestUpdateTime});
-
-  KeyValue.fromJson(Map<String, dynamic> json) {
-    typeKey = json['typeKey'];
-    value = json['value'];
-    latestUpdateTime = json['latestUpdateTime'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    data['typeKey'] = this.typeKey;
-    data['value'] = this.value;
-    data['latestUpdateTime'] = this.latestUpdateTime;
-    return data;
-  }
-}
-
 class UserExInfo {
   String? userID;
   String? ex;
@@ -1309,132 +1286,6 @@ class UserExInfo {
     final data = Map<String, dynamic>();
     data['userID'] = this.userID;
     data['ex'] = this.ex;
-    return data;
-  }
-}
-
-class SingleTypeKeyInfoSum {
-  String? typeKey;
-  int? counter;
-  List<UserExInfo>? infoList;
-  bool? isContainSelf;
-
-  SingleTypeKeyInfoSum({
-    this.typeKey,
-    this.counter,
-    this.infoList,
-    this.isContainSelf,
-  });
-
-  SingleTypeKeyInfoSum.fromJson(Map<String, dynamic> json) {
-    typeKey = json['typeKey'];
-    counter = json['counter'];
-    infoList = json['infoList'] == null
-        ? null
-        : (json['infoList'] as List)
-            .map((e) => UserExInfo.fromJson(e))
-            .toList();
-    isContainSelf = json['isContainSelf'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    data['typeKey'] = this.typeKey;
-    data['counter'] = this.counter;
-    data['infoList'] = this.infoList?.map((e) => e.toJson()).toList();
-    data['isContainSelf'] = this.isContainSelf;
-    return data;
-  }
-}
-
-class MessageKv {
-  String? clientMsgID;
-  List<SingleTypeKeyInfoSum>? changedKvList;
-
-  MessageKv({this.clientMsgID, this.changedKvList});
-
-  MessageKv.fromJson(Map<String, dynamic> json) {
-    clientMsgID = json['clientMsgID'];
-    changedKvList = json['changedKvList'] == null
-        ? null
-        : (json['changedKvList'] as List)
-            .map((e) => SingleTypeKeyInfoSum.fromJson(e))
-            .toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    data['clientMsgID'] = this.clientMsgID;
-    data['changedKvList'] = this.changedKvList?.map((e) => e.toJson()).toList();
-    return data;
-  }
-}
-
-class TypeKeySetResult {
-  int? errCode;
-  String? errMsg;
-  String? typeKey;
-  int? latestUpdateTime;
-  String? value;
-
-  TypeKeySetResult(
-      {this.errCode,
-      this.errMsg,
-      this.typeKey,
-      this.latestUpdateTime,
-      this.value});
-
-  TypeKeySetResult.fromJson(Map<String, dynamic> json) {
-    errCode = json['errCode'];
-    errMsg = json['errMsg'];
-    typeKey = json['typeKey'];
-    latestUpdateTime = json['latestUpdateTime'];
-    value = json['value'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['errCode'] = this.errCode;
-    data['errMsg'] = this.errMsg;
-    data['typeKey'] = this.typeKey;
-    data['latestUpdateTime'] = this.latestUpdateTime;
-    data['value'] = this.value;
-    return data;
-  }
-}
-
-class MessageTypeKeyMapping {
-  int? errCode;
-  String? errMsg;
-  Map<String, KeyValue>? reactionExtensionList;
-  String? clientMsgID;
-
-  MessageTypeKeyMapping(
-      {this.errCode,
-      this.errMsg,
-      this.reactionExtensionList,
-      this.clientMsgID});
-
-  MessageTypeKeyMapping.fromJson(Map<String, dynamic> json) {
-    errCode = json['errCode'];
-    errMsg = json['errMsg'];
-    reactionExtensionList = json['reactionExtensionList'] != null
-        ? (json['reactionExtensionList'] as Map)
-            .map((key, value) => MapEntry(key, KeyValue.fromJson(value)))
-        : null;
-    clientMsgID = json['clientMsgID'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['errCode'] = this.errCode;
-    data['errMsg'] = this.errMsg;
-    if (this.reactionExtensionList != null) {
-      data['reactionExtensionList'] = this
-          .reactionExtensionList!
-          .map((key, value) => MapEntry(key, value.toJson()));
-    }
-    data['clientMsgID'] = this.clientMsgID;
     return data;
   }
 }
