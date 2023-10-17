@@ -52,11 +52,7 @@ class UserManager {
   Future<String?> setSelfInfo({
     String? nickname,
     String? faceURL,
-    int? gender,
     int? appManagerLevel,
-    String? phoneNumber,
-    int? birth,
-    String? email,
     String? ex,
     String? operationID,
   }) =>
@@ -66,11 +62,7 @@ class UserManager {
             // 'userID': userID,
             'nickname': nickname,
             'faceURL': faceURL,
-            'gender': gender,
             'appManagerLevel': appManagerLevel,
-            'phoneNumber': phoneNumber,
-            'birth': birth,
-            'email': email,
             'ex': ex,
             'operationID': Utils.checkOperationID(operationID),
           }));

@@ -114,3 +114,18 @@ class SearchParams {
     return data;
   }
 }
+
+class SearchFriendInfo extends FriendInfo {
+  late int relationship;
+  SearchFriendInfo({required this.relationship}) : super();
+
+  SearchFriendInfo.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    relationship = json['relationship'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = super.toJson();
+    data['relationship'] = this.relationship;
+    return data ?? {};
+  }
+}

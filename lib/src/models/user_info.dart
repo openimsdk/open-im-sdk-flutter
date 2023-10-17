@@ -197,6 +197,38 @@ class UserInfo {
   int get hashCode => userID.hashCode;
 }
 
+class FullUserInfo {
+  /// User's public information
+  PublicUserInfo? publicInfo;
+
+  /// Information visible only to friends
+  FriendInfo? friendInfo;
+
+  /// Blacklist information
+  BlacklistInfo? blackInfo;
+
+  FullUserInfo.fromJson(Map<String, dynamic> json) {
+    publicInfo = json['publicInfo'] != null
+        ? PublicUserInfo.fromJson(json['publicInfo'])
+        : null;
+    friendInfo = json['friendInfo'] != null
+        ? FriendInfo.fromJson(json['friendInfo'])
+        : null;
+    blackInfo = json['blackInfo'] != null
+        ? BlacklistInfo.fromJson(json['blackInfo'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = Map<String, dynamic>();
+    data['publicInfo'] = this.publicInfo?.toJson();
+    data['friendInfo'] = this.friendInfo?.toJson();
+    data['blackInfo'] = this.blackInfo?.toJson();
+
+    return data;
+  }
+}
+
 class PublicUserInfo {
   /// User ID
   String? userID;
@@ -249,6 +281,9 @@ class PublicUserInfo {
 }
 
 class FriendInfo {
+  /// owner User ID
+  String? ownerUserID;
+
   /// User ID
   String? userID;
 
@@ -286,6 +321,7 @@ class FriendInfo {
   String? operatorUserID;
 
   FriendInfo({
+    this.ownerUserID,
     this.userID,
     this.nickname,
     this.faceURL,
@@ -301,7 +337,7 @@ class FriendInfo {
   });
 
   FriendInfo.fromJson(Map<String, dynamic> json) {
-    // ownerUserID = json['ownerUserID'];
+    ownerUserID = json['ownerUserID'];
     userID = json['userID'];
     remark = json['remark'];
     createTime = json['createTime'];
@@ -318,7 +354,7 @@ class FriendInfo {
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
-    // data['ownerUserID'] = this.ownerUserID;
+    data['ownerUserID'] = this.ownerUserID;
     data['userID'] = this.userID;
     data['remark'] = this.remark;
     data['createTime'] = this.createTime;
@@ -349,6 +385,12 @@ class BlacklistInfo {
   /// Nickname
   String? nickname;
 
+  /// owner User ID
+  String? ownerUserID;
+
+  /// block User ID
+  String? blockUserID;
+
   /// Profile picture
   String? faceURL;
 
@@ -368,6 +410,8 @@ class BlacklistInfo {
   String? ex;
 
   BlacklistInfo({
+    this.ownerUserID,
+    this.blockUserID,
     this.userID,
     this.nickname,
     this.faceURL,
@@ -379,6 +423,8 @@ class BlacklistInfo {
   });
 
   BlacklistInfo.fromJson(Map<String, dynamic> json) {
+    ownerUserID = json['ownerUserID'];
+    blockUserID = json['blockUserID'];
     userID = json['userID'];
     nickname = json['nickname'];
     faceURL = json['faceURL'];
@@ -391,6 +437,8 @@ class BlacklistInfo {
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
+    data['ownerUserID'] = this.ownerUserID;
+    data['blockUserID'] = this.blockUserID;
     data['userID'] = this.userID;
     data['nickname'] = this.nickname;
     data['faceURL'] = this.faceURL;
@@ -435,9 +483,6 @@ class FriendApplicationInfo {
   /// Initiator user profile picture
   String? fromFaceURL;
 
-  /// Initiator user gender
-  int? fromGender;
-
   /// Recipient user ID
   String? toUserID;
 
@@ -446,9 +491,6 @@ class FriendApplicationInfo {
 
   /// Recipient user profile picture
   String? toFaceURL;
-
-  /// Recipient user gender
-  int? toGender;
 
   /// Handling result
   int? handleResult;
@@ -475,11 +517,9 @@ class FriendApplicationInfo {
       {this.fromUserID,
       this.fromNickname,
       this.fromFaceURL,
-      this.fromGender,
       this.toUserID,
       this.toNickname,
       this.toFaceURL,
-      this.toGender,
       this.handleResult,
       this.reqMsg,
       this.createTime,
@@ -492,11 +532,9 @@ class FriendApplicationInfo {
     fromUserID = json['fromUserID'];
     fromNickname = json['fromNickname'];
     fromFaceURL = json['fromFaceURL'];
-    fromGender = json['fromGender'];
     toUserID = json['toUserID'];
     toNickname = json['toNickname'];
     toFaceURL = json['toFaceURL'];
-    toGender = json['toGender'];
     handleResult = json['handleResult'];
     reqMsg = json['reqMsg'];
     createTime = json['createTime'];
@@ -511,11 +549,9 @@ class FriendApplicationInfo {
     data['fromUserID'] = this.fromUserID;
     data['fromNickname'] = this.fromNickname;
     data['fromFaceURL'] = this.fromFaceURL;
-    data['fromGender'] = this.fromGender;
     data['toUserID'] = this.toUserID;
     data['toNickname'] = this.toNickname;
     data['toFaceURL'] = this.toFaceURL;
-    data['toGender'] = this.toGender;
     data['handleResult'] = this.handleResult;
     data['reqMsg'] = this.reqMsg;
     data['createTime'] = this.createTime;

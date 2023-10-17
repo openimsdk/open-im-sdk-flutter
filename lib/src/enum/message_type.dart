@@ -30,9 +30,6 @@ class MessageType {
   /// Custom
   static const custom = 110;
 
-  /// Has Read Receipt
-  static const hasReadReceipt = 112;
-
   /// Typing
   static const typing = 113;
 

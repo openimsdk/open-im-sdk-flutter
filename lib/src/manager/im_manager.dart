@@ -362,6 +362,26 @@ class IMManager {
     });
   }
 
+  Future<bool?> init(
+    InitConfig config,
+    OnConnectListener listener, {
+    String? operationID,
+  }) {
+    this._connectListener = listener;
+    if (config.logFilePath == null) {
+      config.logFilePath = config.dataDir;
+    }
+    return _channel.invokeMethod(
+      'initSDK',
+      _buildParam(
+        {
+          ...config.toMap(),
+          "operationID": Utils.checkOperationID(operationID),
+        },
+      ),
+    );
+  }
+
   /// Initialize the SDK
   /// [platform] Platform ID [IMPlatform]
   /// [apiAddr] SDK API address

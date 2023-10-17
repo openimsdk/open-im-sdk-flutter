@@ -203,7 +203,7 @@ class FriendshipManager {
   /// [isSearchUserID] Whether to search for friend IDs with keywords (note: cannot be false at the same time), defaults to false if empty
   /// [isSearchNickname] Whether to search by nickname with keywords, defaults to false if empty
   /// [isSearchRemark] Whether to search by remark name with keywords, defaults to false if empty
-  Future<List<FriendInfo>> searchFriends({
+  Future<List<SearchFriendInfo>> searchFriends({
     List<String> keywordList = const [],
     bool isSearchUserID = false,
     bool isSearchNickname = false,
@@ -223,7 +223,7 @@ class FriendshipManager {
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) =>
-              Utils.toList(value, (map) => FriendInfo.fromJson(map)));
+              Utils.toList(value, (map) => SearchFriendInfo.fromJson(map)));
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "friendshipManager";
