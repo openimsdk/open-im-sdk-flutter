@@ -43,11 +43,7 @@ class UserManager {
   /// Modify the profile of the currently logged-in user
   /// [nickname] Nickname
   /// [faceURL] Profile picture
-  /// [gender] Gender
   /// [appManagerLevel]
-  /// [phoneNumber] Phone number
-  /// [birth] Date of birth
-  /// [email] Email
   /// [ex] Additional fields
   Future<String?> setSelfInfo({
     String? nickname,
@@ -78,8 +74,7 @@ class UserManager {
               'userIDs': userIDs,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) =>
-            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserStatusInfo>> unsubscribeUsersStatus(
@@ -93,8 +88,7 @@ class UserManager {
               'userIDs': userIDs,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) =>
-            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserStatusInfo>> getSubscribeUsersStatus({
@@ -106,8 +100,7 @@ class UserManager {
             _buildParam({
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) =>
-            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserStatusInfo>> getUserStatus(
@@ -121,8 +114,7 @@ class UserManager {
               'userIDs': userIDs,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) =>
-            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserInfo>> getUsersInfoStranger(

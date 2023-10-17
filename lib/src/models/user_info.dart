@@ -8,18 +8,6 @@ class UserInfo {
   /// Profile picture
   String? faceURL;
 
-  /// Gender
-  int? gender;
-
-  /// Phone number
-  String? phoneNumber;
-
-  /// Date of birth
-  int? birth;
-
-  /// Email
-  String? email;
-
   /// Additional information
   String? ex;
 
@@ -35,149 +23,42 @@ class UserInfo {
   /// 2: Accept online messages but not offline messages
   int? globalRecvMsgOpt;
 
-  /// Allow adding as a friend:
-  /// 1: Allowed
-  /// 2: Not allowed
-  int? allowAddFriend;
-
-  /// New message ringtone:
-  /// 1: Allowed
-  /// 2: Not allowed
-  int? allowBeep;
-
-  /// New message vibration:
-  /// 1: Allowed
-  /// 2: Not allowed
-  int? allowVibration;
-
-  /// Prohibited from logging in
-  int? forbidden;
-
-  /// User's public information
-  PublicUserInfo? publicInfo;
-
-  /// Information visible only to friends
-  FriendInfo? friendInfo;
-
-  /// Blacklist information
-  BlacklistInfo? blackInfo;
-
-  /// Whether there is a friendship relationship
-  bool? isFriendship;
-
-  /// Whether the user is in the blacklist
-  bool? isBlacklist;
+  int? appMangerLevel;
 
   UserInfo({
-    this.publicInfo,
-    this.friendInfo,
-    this.blackInfo,
-    this.isFriendship,
-    this.isBlacklist,
-    //
     this.userID,
     this.nickname,
     this.faceURL,
-    this.phoneNumber,
-    this.birth,
-    this.gender,
-    this.email,
+    this.appMangerLevel,
     this.ex,
     this.createTime,
     this.remark,
     this.globalRecvMsgOpt,
-    this.allowAddFriend,
-    this.allowBeep,
-    this.allowVibration,
-    this.forbidden,
   });
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    publicInfo = json['publicInfo'] != null
-        ? PublicUserInfo.fromJson(json['publicInfo'])
-        : null;
-    friendInfo = json['friendInfo'] != null
-        ? FriendInfo.fromJson(json['friendInfo'])
-        : null;
-    blackInfo = json['blackInfo'] != null
-        ? BlacklistInfo.fromJson(json['blackInfo'])
-        : null;
-
-    isFriendship = friendInfo != null;
-    isBlacklist = blackInfo != null;
-
-    userID = json['userID'] ?? _userID;
-    nickname = json['nickname'] ?? _nickname;
-    faceURL = json['faceURL'] ?? _faceUrl;
-    gender = json['gender'] ?? _gender;
-    phoneNumber = json['phoneNumber'] ?? _phoneNumber;
-    birth = json['birth'] ?? _birth;
-    email = json['email'] ?? _email;
-    remark = json['remark'] ?? _remark;
-    ex = json['ex'] ?? _ex;
+    userID = json['userID'] ?? userID;
+    nickname = json['nickname'] ?? nickname;
+    faceURL = json['faceURL'] ?? faceURL;
+    remark = json['remark'] ?? remark;
+    ex = json['ex'] ?? ex;
     createTime = json['createTime'];
     globalRecvMsgOpt = json['globalRecvMsgOpt'];
-    allowAddFriend = json['allowAddFriend'];
-    allowBeep = json['allowBeep'];
-    allowVibration = json['allowVibration'];
-    forbidden = json['forbidden'];
+    appMangerLevel = json['appMangerLevel'];
   }
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
-    data['publicInfo'] = this.publicInfo?.toJson();
-    data['friendInfo'] = this.friendInfo?.toJson();
-    data['blackInfo'] = this.blackInfo?.toJson();
-    //
-    data['isFriendship'] = this.isFriendship;
-    data['isBlacklist'] = this.isBlacklist;
+    data['appMangerLevel'] = this.appMangerLevel;
     data['userID'] = this.userID;
     data['nickname'] = this.nickname;
     data['faceURL'] = this.faceURL;
-    data['gender'] = this.gender;
-    data['phoneNumber'] = this.phoneNumber;
-    data['birth'] = this.birth;
-    data['email'] = this.email;
     data['ex'] = this.ex;
     data['createTime'] = this.createTime;
     data['remark'] = this.remark;
     data['globalRecvMsgOpt'] = this.globalRecvMsgOpt;
-    data['allowAddFriend'] = this.allowAddFriend;
-    data['allowBeep'] = this.allowBeep;
-    data['allowVibration'] = this.allowVibration;
-    data['forbidden'] = this.forbidden;
     return data;
   }
-
-  bool get isMale => gender == 1;
-
-  String get _userID => isFriendship!
-      ? friendInfo!.userID!
-      : (isBlacklist! ? blackInfo!.userID! : publicInfo!.userID!);
-
-  String? get _nickname => isFriendship!
-      ? friendInfo?.nickname
-      : (isBlacklist! ? blackInfo?.nickname : publicInfo?.nickname);
-
-  String? get _faceUrl => isFriendship!
-      ? friendInfo?.faceURL
-      : (isBlacklist! ? blackInfo?.faceURL : publicInfo?.faceURL);
-
-  int? get _gender => isFriendship!
-      ? friendInfo?.gender
-      : (isBlacklist! ? blackInfo?.gender : publicInfo?.gender);
-
-  String? get _ex => isFriendship!
-      ? friendInfo?.ex
-      : (isBlacklist! ? blackInfo?.ex : publicInfo?.ex);
-
-  String? get _phoneNumber => friendInfo?.phoneNumber;
-
-  int? get _birth => friendInfo?.birth;
-
-  String? get _email => friendInfo?.email;
-
-  String? get _remark => friendInfo?.remark;
 
   String getShowName() => _isNull(remark) ?? _isNull(nickname) ?? userID!;
 
@@ -187,11 +68,7 @@ class UserInfo {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserInfo &&
-          runtimeType == other.runtimeType &&
-          userID == other.userID;
+  bool operator ==(Object other) => identical(this, other) || other is UserInfo && runtimeType == other.runtimeType && userID == other.userID;
 
   @override
   int get hashCode => userID.hashCode;
@@ -208,15 +85,9 @@ class FullUserInfo {
   BlacklistInfo? blackInfo;
 
   FullUserInfo.fromJson(Map<String, dynamic> json) {
-    publicInfo = json['publicInfo'] != null
-        ? PublicUserInfo.fromJson(json['publicInfo'])
-        : null;
-    friendInfo = json['friendInfo'] != null
-        ? FriendInfo.fromJson(json['friendInfo'])
-        : null;
-    blackInfo = json['blackInfo'] != null
-        ? BlacklistInfo.fromJson(json['blackInfo'])
-        : null;
+    publicInfo = json['publicInfo'] != null ? PublicUserInfo.fromJson(json['publicInfo']) : null;
+    friendInfo = json['friendInfo'] != null ? FriendInfo.fromJson(json['friendInfo']) : null;
+    blackInfo = json['blackInfo'] != null ? BlacklistInfo.fromJson(json['blackInfo']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -239,9 +110,6 @@ class PublicUserInfo {
   /// Profile picture
   String? faceURL;
 
-  /// Gender
-  int? gender;
-
   /// App Manager Level:
   /// 1: AppOrdinaryUsers
   /// 2: AppAdmin
@@ -254,7 +122,6 @@ class PublicUserInfo {
     this.userID,
     this.nickname,
     this.faceURL,
-    this.gender,
     this.appManagerLevel,
     this.ex,
   });
@@ -263,7 +130,6 @@ class PublicUserInfo {
     userID = json['userID'];
     nickname = json['nickname'];
     faceURL = json['faceURL'];
-    gender = json['gender'];
     appManagerLevel = json['appManagerLevel'];
     ex = json['ex'];
   }
@@ -273,7 +139,6 @@ class PublicUserInfo {
     data['userID'] = this.userID;
     data['nickname'] = this.nickname;
     data['faceURL'] = this.faceURL;
-    data['gender'] = this.gender;
     data['appMangerLevel'] = this.appManagerLevel;
     data['ex'] = this.ex;
     return data;
@@ -293,17 +158,8 @@ class FriendInfo {
   /// Profile picture
   String? faceURL;
 
-  /// Gender
-  int? gender;
-
-  /// Phone number
-  String? phoneNumber;
-
-  /// Date of birth
-  int? birth;
-
-  /// Email
-  String? email;
+  /// friend User ID
+  String? friendUserID;
 
   /// Remark
   String? remark;
@@ -325,10 +181,7 @@ class FriendInfo {
     this.userID,
     this.nickname,
     this.faceURL,
-    this.gender,
-    this.phoneNumber,
-    this.birth,
-    this.email,
+    this.friendUserID,
     this.remark,
     this.ex,
     this.createTime,
@@ -345,10 +198,7 @@ class FriendInfo {
     operatorUserID = json['operatorUserID'];
     nickname = json['nickname'];
     faceURL = json['faceURL'];
-    gender = json['gender'];
-    phoneNumber = json['phoneNumber'];
-    birth = json['birth'];
-    email = json['email'];
+    friendUserID = json['friendUserID'];
     ex = json['ex'];
   }
 
@@ -362,10 +212,7 @@ class FriendInfo {
     data['operatorUserID'] = this.operatorUserID;
     data['nickname'] = this.nickname;
     data['faceURL'] = this.faceURL;
-    data['gender'] = this.gender;
-    data['phoneNumber'] = this.phoneNumber;
-    data['birth'] = this.birth;
-    data['email'] = this.email;
+    data['friendUserID'] = this.friendUserID;
     data['ex'] = this.ex;
     return data;
   }
@@ -591,9 +438,7 @@ class UserStatusInfo {
   UserStatusInfo.fromJson(Map<String, dynamic> json) {
     userID = json['userID'];
     status = json['status'];
-    platformIDs = json["platformIDs"] == null
-        ? []
-        : List<int>.from(json["platformIDs"].map((x) => x));
+    platformIDs = json["platformIDs"] == null ? [] : List<int>.from(json["platformIDs"].map((x) => x));
   }
 
   Map<String, dynamic> toJson() {

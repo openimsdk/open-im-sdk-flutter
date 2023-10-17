@@ -31,12 +31,10 @@ class SearchResult {
     final data = Map<String, dynamic>();
     data['totalCount'] = this.totalCount;
     if (this.searchResultItems != null) {
-      data['searchResultItems'] =
-          this.searchResultItems!.map((v) => v.toJson()).toList();
+      data['searchResultItems'] = this.searchResultItems!.map((v) => v.toJson()).toList();
     }
     if (this.findResultItems != null) {
-      data['findResultItems'] =
-          this.findResultItems!.map((v) => v.toJson()).toList();
+      data['findResultItems'] = this.findResultItems!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -115,11 +113,11 @@ class SearchParams {
   }
 }
 
-class SearchFriendInfo extends FriendInfo {
+class SearchFriendsInfo extends FriendInfo {
   late int relationship;
-  SearchFriendInfo({required this.relationship}) : super();
+  SearchFriendsInfo({required this.relationship}) : super();
 
-  SearchFriendInfo.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+  SearchFriendsInfo.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     relationship = json['relationship'];
   }
 
