@@ -7,6 +7,8 @@ The underlying SDK core is implemented in [OpenIM SDK Core](https://github.com/o
 
 The underlying SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an XCFramework for iOS integration. iOS interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, iOS utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
 
+Based on the above AAR and XCFramework packages, the IM SDK for Flutter is encapsulated through the Flutter plug-in.
+
 ## Documentation 📚
 
 Visit [https://doc.rentsoft.cn/](https://doc.rentsoft.cn/) for detailed documentation and guides.
