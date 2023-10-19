@@ -45,7 +45,8 @@ public class MessageManager: BaseServiceManager {
 
         self["findMessageList"] = findMessageList
         self["setMessageLocalEx"] = setMessageLocalEx
-   
+        self["setAppBadge"] = setAppBadge
+
         self["sendMessageNotOss"] = sendMessageNotOss
         self["createImageMessageByURL"] = createImageMessageByURL
         self["createSoundMessageByURL"] = createSoundMessageByURL
@@ -218,6 +219,10 @@ public class MessageManager: BaseServiceManager {
 
     func setMessageLocalEx(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSetMessageLocalEx(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[string: "clientMsgID"], methodCall[string: "localEx"])
+    }
+
+    func setAppBadge(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+            Open_im_sdkSetAppBadge(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int64: "count"])
     }
     
     func sendMessageNotOss(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

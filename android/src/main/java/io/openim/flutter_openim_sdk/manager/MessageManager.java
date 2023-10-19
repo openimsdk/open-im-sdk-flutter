@@ -322,6 +322,15 @@ public class MessageManager extends BaseManager {
                 value(methodCall, "localEx")
         );
     }
+
+    public void setAppBadge(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setAppBadge(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "count")
+        );
+    }
+
     public void sendMessageNotOss(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.sendMessageNotOss(
                 new OnMsgSendListener(result, methodCall),

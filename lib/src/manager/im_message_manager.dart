@@ -777,6 +777,17 @@ class MessageManager {
         }));
   }
 
+  Future setAppBadge(int count, {
+    String? operationID,
+  }) {
+    return _channel.invokeMethod(
+        'setAppBadge',
+        _buildParam({
+          'count': count,
+          'operationID': Utils.checkOperationID(operationID),
+        }));
+  }
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "messageManager";
     return param;
