@@ -152,10 +152,10 @@ class MessageType {
   static const groupMemberSetToOrdinaryUserNotification = 1518;
 
   /// Group Notice Changed
-  static const groupNoticeChangedNotification = 1519;
+  static const groupInfoSetAnnouncementNotification = 1519;
 
   /// Group Name Changed
-  static const groupNameChangedNotification = 1520;
+  static const groupInfoSetNameNotification = 1520;
 
   /// Burn After Reading
   static const burnAfterReadingNotification = 1701;

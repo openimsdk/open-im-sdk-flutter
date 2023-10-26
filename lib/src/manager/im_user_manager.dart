@@ -77,18 +77,16 @@ class UserManager {
         .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
-  Future<List<UserStatusInfo>> unsubscribeUsersStatus(
+  Future unsubscribeUsersStatus(
     List<String> userIDs, {
     String? operationID,
   }) {
-    return _channel
-        .invokeMethod(
-            'unsubscribeUsersStatus',
-            _buildParam({
-              'userIDs': userIDs,
-              'operationID': Utils.checkOperationID(operationID),
-            }))
-        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+    return _channel.invokeMethod(
+        'unsubscribeUsersStatus',
+        _buildParam({
+          'userIDs': userIDs,
+          'operationID': Utils.checkOperationID(operationID),
+        }));
   }
 
   Future<List<UserStatusInfo>> getSubscribeUsersStatus({
