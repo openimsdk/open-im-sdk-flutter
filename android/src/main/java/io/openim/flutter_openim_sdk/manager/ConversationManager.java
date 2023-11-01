@@ -193,4 +193,11 @@ public class ConversationManager extends BaseManager {
                 int2long(methodCall, "duration")
         );
     }
+
+    public void hideAllConversations(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.hideAllConversations(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID")
+        );
+    }
 }

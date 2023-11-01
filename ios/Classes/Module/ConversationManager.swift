@@ -26,6 +26,7 @@ public class ConversationManager: BaseServiceManager {
         self["getAtAllTag"] = getAtAllTag
         self["setGlobalRecvMessageOpt"] = setGlobalRecvMessageOpt
         self["setConversationBurnDuration"] = setConversationBurnDuration
+        self["hideAllConversations"] = hideAllConversations
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -112,6 +113,10 @@ public class ConversationManager: BaseServiceManager {
     
     func setConversationBurnDuration(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSetConversationBurnDuration(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[int32: "burnDuration"])
+    }
+
+    func hideAllConversations(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+            Open_im_sdkHideAllConversations(BaseCallback(result: result), methodCall[string: "operationID"])
     }
 }
 

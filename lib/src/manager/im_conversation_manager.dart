@@ -16,16 +16,13 @@ class ConversationManager {
   }
 
   /// Get All Conversations
-  Future<List<ConversationInfo>> getAllConversationList(
-          {String? operationID}) =>
-      _channel
-          .invokeMethod(
-              'getAllConversationList',
-              _buildParam({
-                "operationID": Utils.checkOperationID(operationID),
-              }))
-          .then((value) =>
-              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+  Future<List<ConversationInfo>> getAllConversationList({String? operationID}) => _channel
+      .invokeMethod(
+          'getAllConversationList',
+          _buildParam({
+            "operationID": Utils.checkOperationID(operationID),
+          }))
+      .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// Paginate Through Conversations
   /// [offset] Starting index
@@ -43,8 +40,7 @@ class ConversationManager {
                 'count': count,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+          .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// Query a Conversation; if it doesn't exist, it will be created
   /// [sourceID] UserID for one-on-one conversation, GroupID for group conversation
@@ -62,8 +58,7 @@ class ConversationManager {
                 "sessionType": sessionType,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => ConversationInfo.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => ConversationInfo.fromJson(map)));
 
   /// Get Multiple Conversations by Conversation ID
   /// [conversationIDList] List of conversation IDs
@@ -78,8 +73,7 @@ class ConversationManager {
                 "conversationIDList": conversationIDList,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+          .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// Set Conversation Draft
   /// [conversationID] Conversation ID
@@ -126,26 +120,25 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Get Total Unread Message Count
-  Future<dynamic> getTotalUnreadMsgCount({String? operationID}) =>
+  /// Hide All Conversations
+  Future hideAllConversations({
+    String? operationID,
+  }) =>
       _channel.invokeMethod(
-          'getTotalUnreadMsgCount',
+          'hideAllConversations',
           _buildParam({
             "operationID": Utils.checkOperationID(operationID),
           }));
 
-  /// Query Conversation ID
-  /// [sourceID] UserID for one-on-one, GroupID for group
-  /// [sessionType] Reference [ConversationType]
-  Future<dynamic> getConversationIDBySessionType({
-    required String sourceID,
-    required int sessionType,
+  /// get total unread message count
+  /// int.tryParse(count) ?? 0;
+  Future<dynamic> getTotalUnreadMsgCount({
+    String? operationID,
   }) =>
       _channel.invokeMethod(
-          'getConversationIDBySessionType',
+          'getTotalUnreadMsgCount',
           _buildParam({
-            "sourceID": sourceID,
-            "sessionType": sessionType,
+            "operationID": Utils.checkOperationID(operationID),
           }));
 
   /// Message Do-Not-Disturb Setting
@@ -333,14 +326,9 @@ class ConversationManager {
   /// Custom Sort for Conversation List
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list
     ..sort((a, b) {
-      if ((a.isPinned == true && b.isPinned == true) ||
-          (a.isPinned != true && b.isPinned != true)) {
-        int aCompare = a.draftTextTime! > a.latestMsgSendTime!
-            ? a.draftTextTime!
-            : a.latestMsgSendTime!;
-        int bCompare = b.draftTextTime! > b.latestMsgSendTime!
-            ? b.draftTextTime!
-            : b.latestMsgSendTime!;
+      if ((a.isPinned == true && b.isPinned == true) || (a.isPinned != true && b.isPinned != true)) {
+        int aCompare = a.draftTextTime! > a.latestMsgSendTime! ? a.draftTextTime! : a.latestMsgSendTime!;
+        int bCompare = b.draftTextTime! > b.latestMsgSendTime! ? b.draftTextTime! : b.latestMsgSendTime!;
         if (aCompare > bCompare) {
           return -1;
         } else if (aCompare < bCompare) {

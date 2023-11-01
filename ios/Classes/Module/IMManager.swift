@@ -85,7 +85,8 @@ public class IMMananger: BaseServiceManager {
     }
     
     func updateFcmToken(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkUpdateFcmToken(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "fcmToken"])
+            Open_im_sdkUpdateFcmToken(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "fcmToken"], methodCall[int64:
+            "expireTime"])
     }
     
     func setAppBackgroundStatus(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {

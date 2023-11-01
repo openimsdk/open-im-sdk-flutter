@@ -698,12 +698,14 @@ class MessageManager {
     required PictureInfo sourcePicture,
     required PictureInfo bigPicture,
     required PictureInfo snapshotPicture,
+    String? sourcePath,
     String? operationID,
   }) =>
       _channel
           .invokeMethod(
             'createImageMessageByURL',
             _buildParam({
+              'sourcePath': sourcePath,
               'sourcePicture': sourcePicture.toJson(),
               'bigPicture': bigPicture.toJson(),
               'snapshotPicture': snapshotPicture.toJson(),

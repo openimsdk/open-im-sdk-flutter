@@ -57,7 +57,8 @@ public class IMManager extends BaseManager {
         Open_im_sdk.updateFcmToken(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "fcmToken")
+                value(methodCall, "fcmToken"),
+                value(methodCall, "expireTime")
         );
     }
 
