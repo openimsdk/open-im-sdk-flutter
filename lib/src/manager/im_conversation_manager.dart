@@ -130,6 +130,23 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// Query Conversation ID
+  /// [sourceID] UserID for one-on-one, GroupID for group
+  /// [sessionType] Reference [ConversationType]
+  Future<dynamic> getConversationIDBySessionType({
+    required String sourceID,
+    required int sessionType,
+    String? operationID,
+  }) {
+    return _channel.invokeMethod(
+        'getConversationIDBySessionType',
+        _buildParam({
+          'sourceID': sourceID,
+          'sessionType': sessionType,
+          'operationID': Utils.checkOperationID(operationID),
+        }));
+  }
+
   /// get total unread message count
   /// int.tryParse(count) ?? 0;
   Future<dynamic> getTotalUnreadMsgCount({
