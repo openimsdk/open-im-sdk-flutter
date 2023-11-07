@@ -18,9 +18,7 @@ For the SDK reference, see [https://doc.rentsoft.cn/sdks/quickstart/flutter](htt
 ## Installation 💻
 ### Adding Dependencies
 ```dart
-  flutter_openim_sdk:
-    git:
-        url: https: //github.com/OpenIMSDK/Open-IM-SDK-Flutter.git
+  flutter_openim_sdk: lastest
 ```
 
 ## Usage 🚀
