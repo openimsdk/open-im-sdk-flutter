@@ -11,9 +11,9 @@ Based on the above AAR and XCFramework packages, the IM SDK for Flutter is encap
 
 ## Documentation 📚
 
-Visit [https://doc.rentsoft.cn/](https://doc.rentsoft.cn/) for detailed documentation and guides.
+Visit [https://docs.openim.io/](https://docs.openim.io/) for detailed documentation and guides.
 
-For the SDK reference, see [https://doc.rentsoft.cn/sdks/quickstart/flutter](https://doc.rentsoft.cn/sdks/quickstart/flutter).
+For the SDK reference, see [https://docs.openim.io/sdks/quickstart/flutter](https://docs.openim.io/sdks/quickstart/flutter).
 
 ## Installation 💻
 ### Adding Dependencies
