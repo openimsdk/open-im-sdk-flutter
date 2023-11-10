@@ -346,6 +346,7 @@ public class MessageManager extends BaseManager {
         CommonUtil.runMainThreadReturn(result,
                 Open_im_sdk.createImageMessageByURL(
                         value(methodCall, "operationID"),
+                        value(methodCall, "sourcePath"),
                         jsonValue(methodCall, "sourcePicture"),
                         jsonValue(methodCall, "bigPicture"),
                         jsonValue(methodCall, "snapshotPicture")));

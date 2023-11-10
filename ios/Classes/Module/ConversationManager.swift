@@ -96,7 +96,6 @@ public class ConversationManager: BaseServiceManager {
     }
     
     func deleteAllConversationFromLocal(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkDeleteAllConversationFromLocal(BaseCallback(result: result), methodCall[string: "operationID"])
     }
     
     func resetConversationGroupAtType(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

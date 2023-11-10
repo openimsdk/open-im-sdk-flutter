@@ -115,14 +115,14 @@ class UserManager {
         .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
-  Future<List<UserInfo>> getUsersInfoStranger(
+  Future<List<UserInfo>> getUsersInfoWithCache(
     List<String> userIDs, {
     String? groupID,
     String? operationID,
   }) {
     return _channel
         .invokeMethod(
-            'getUsersInfoStranger',
+            'getUsersInfoWithCache',
             _buildParam({
               'userIDs': userIDs,
               'groupID': groupID,

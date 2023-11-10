@@ -141,10 +141,6 @@ public class ConversationManager extends BaseManager {
     }
 
     public void deleteAllConversationFromLocal(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.deleteAllConversationFromLocal(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID")
-        );
     }
 
     public void resetConversationGroupAtType(MethodCall methodCall, MethodChannel.Result result) {

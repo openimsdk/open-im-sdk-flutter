@@ -58,7 +58,7 @@ public class IMManager extends BaseManager {
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "fcmToken"),
-                value(methodCall, "expireTime")
+                int2long(methodCall, "expireTime")
         );
     }
 

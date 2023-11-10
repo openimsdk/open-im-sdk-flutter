@@ -62,8 +62,8 @@ public class UserManager extends BaseManager {
                 jsonValue(methodCall, "userIDs"));
     }
 
-    public void getUsersInfoStranger(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getUsersInfoStranger(
+    public void getUsersInfoWithCache(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getUsersInfoWithCache(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "userIDs"),

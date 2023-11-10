@@ -222,7 +222,7 @@ public class MessageManager: BaseServiceManager {
     }
 
     func setAppBadge(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-            Open_im_sdkSetAppBadge(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int64: "count"])
+        Open_im_sdkSetAppBadge(BaseCallback(result: result), methodCall[string: "operationID"], Int32(methodCall[int64: "count"]))
     }
     
     func sendMessageNotOss(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -232,7 +232,7 @@ public class MessageManager: BaseServiceManager {
     }
     
     func createImageMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        callBack(result, Open_im_sdkCreateImageMessageByURL(methodCall[string: "operationID"], methodCall[jsonString: "sourcePicture"], methodCall[jsonString: "bigPicture"], methodCall[jsonString: "snapshotPicture"]))
+        callBack(result, Open_im_sdkCreateImageMessageByURL(methodCall[string: "operationID"], methodCall[string: "sourcePath"], methodCall[jsonString: "sourcePicture"], methodCall[jsonString: "bigPicture"], methodCall[jsonString: "snapshotPicture"]))
     }
     
     func createSoundMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

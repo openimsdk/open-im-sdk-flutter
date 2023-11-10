@@ -233,6 +233,7 @@ class ConversationManager {
           }));
 
   /// Delete All Local Conversations
+  @Deprecated('use hideAllConversations instead')
   Future<dynamic> deleteAllConversationFromLocal({
     String? operationID,
   }) =>
