@@ -920,37 +920,27 @@ class MessageEntity {
 
 /// Group message read information
 class GroupHasReadInfo {
-  /// List of user IDs that have read the message
-  List<String>? hasReadUserIDList;
-
-  /// Total number of messages read
+  /// Total number of reads
   int? hasReadCount;
 
-  /// Number of group members when this message was sent
-  int? groupMemberCount;
+  int? unreadCount;
 
   GroupHasReadInfo.fromJson(Map<String, dynamic> json) {
-    if (json['hasReadUserIDList'] == null) {
-      hasReadUserIDList = <String>[];
-    } else {
-      hasReadUserIDList = (json['hasReadUserIDList'] as List).cast<String>();
-    }
     hasReadCount = json['hasReadCount'] ?? 0;
-    groupMemberCount = json['groupMemberCount'] ?? 0;
+    unreadCount = json['unreadCount'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
-    data['hasReadUserIDList'] = this.hasReadUserIDList;
     data['hasReadCount'] = this.hasReadCount;
-    data['groupMemberCount'] = this.groupMemberCount;
+    data['unreadCount'] = this.unreadCount;
     return data;
   }
 }
 
 /// Message read receipt information
 class ReadReceiptInfo {
-  /// Sender's ID
+  /// Sender ID
   String? userID;
 
   /// Group ID

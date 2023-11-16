@@ -25,7 +25,7 @@ class ConversationInfo {
   int? recvMsgOpt;
 
   // Number of unread messages in the conversation
-  int? unreadCount;
+  int unreadCount = 0;
 
   // Latest message in the conversation
   Message? latestMsg;
@@ -72,7 +72,7 @@ class ConversationInfo {
     this.showName,
     this.faceURL,
     this.recvMsgOpt,
-    this.unreadCount,
+    this.unreadCount = 0,
     this.latestMsg,
     this.latestMsgSendTime,
     this.draftText,
@@ -87,8 +87,7 @@ class ConversationInfo {
     this.msgDestructTime,
   });
 
-  ConversationInfo.fromJson(Map<String, dynamic> json)
-      : conversationID = json['conversationID'] {
+  ConversationInfo.fromJson(Map<String, dynamic> json) : conversationID = json['conversationID'] {
     conversationType = json['conversationType'];
     userID = json['userID'];
     groupID = json['groupID'];
@@ -146,19 +145,14 @@ class ConversationInfo {
   bool get isSingleChat => conversationType == ConversationType.single;
 
   // Check if it's a group chat
-  bool get isGroupChat =>
-      conversationType == ConversationType.group ||
-      conversationType == ConversationType.superGroup;
+  bool get isGroupChat => conversationType == ConversationType.group || conversationType == ConversationType.superGroup;
 
   // Check if it's a valid conversation (not in a group if isNotInGroup is true)
   bool get isValid => isSingleChat || (isGroupChat && !isNotInGroup!);
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ConversationInfo &&
-          runtimeType == other.runtimeType &&
-          conversationID == other.conversationID;
+      identical(this, other) || other is ConversationInfo && runtimeType == other.runtimeType && conversationID == other.conversationID;
 
   @override
   int get hashCode => conversationID.hashCode;
