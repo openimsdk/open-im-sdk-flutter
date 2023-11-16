@@ -15,7 +15,7 @@ class UserManager {
 
   /// Get user information
   /// [userIDList] List of user IDs
-  Future<List<UserInfo>> getUsersInfo({
+  Future<List<FullUserInfo>> getUsersInfo({
     required List<String> userIDList,
     String? operationID,
   }) =>
@@ -26,7 +26,7 @@ class UserManager {
                 'userIDList': userIDList,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (v) => UserInfo.fromJson(v)));
+          .then((value) => Utils.toList(value, (v) => FullUserInfo.fromJson(v)));
 
   /// Get information of the currently logged-in user
   Future<UserInfo> getSelfUserInfo({
@@ -115,7 +115,7 @@ class UserManager {
         .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
-  Future<List<UserInfo>> getUsersInfoWithCache(
+  Future<List<FullUserInfo>> getUsersInfoWithCache(
     List<String> userIDs, {
     String? groupID,
     String? operationID,
@@ -128,7 +128,7 @@ class UserManager {
               'groupID': groupID,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => UserInfo.fromJson(map)));
+        .then((value) => Utils.toList(value, (map) => FullUserInfo.fromJson(map)));
   }
 
   static Map _buildParam(Map param) {

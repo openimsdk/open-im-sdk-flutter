@@ -63,13 +63,13 @@ class FriendshipManager {
       .then((value) => Utils.toList(value, (v) => FriendApplicationInfo.fromJson(v)));
 
   /// Get Friend List, including friends who have been put into the blacklist
-  Future<List<FriendInfo>> getFriendList({String? operationID}) => _channel
+  Future<List<FullUserInfo>> getFriendList({String? operationID}) => _channel
       .invokeMethod(
           'getFriendList',
           _buildParam({
             "operationID": Utils.checkOperationID(operationID),
           }))
-      .then((value) => Utils.toList(value, (v) => FriendInfo.fromJson(v)));
+      .then((value) => Utils.toList(value, (v) => FullUserInfo.fromJson(v)));
 
   /// Get Friend List, including friends who have been put into the blacklist (returns a map)
   Future<List<dynamic>> getFriendListMap({String? operationID}) => _channel

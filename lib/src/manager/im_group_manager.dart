@@ -566,8 +566,6 @@ class GroupManager {
 
   /// Modify the GroupMemberInfo ex field
   Future<dynamic> setGroupMemberInfo({
-    required String groupID,
-    required String userID,
     required GroupMembersInfo groupMembersInfo,
     String? operationID,
   }) =>

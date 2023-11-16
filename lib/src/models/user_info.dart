@@ -98,6 +98,22 @@ class FullUserInfo {
 
     return data;
   }
+
+  String get userID {
+    return publicInfo?.userID ?? friendInfo?.userID ?? blackInfo?.userID ?? '';
+  }
+
+  String get nickname {
+    return publicInfo?.nickname ?? friendInfo?.nickname ?? blackInfo?.nickname ?? '';
+  }
+
+  String get faceURL {
+    return publicInfo?.faceURL ?? friendInfo?.faceURL ?? blackInfo?.faceURL ?? '';
+  }
+
+  String get showName {
+    return friendInfo?.nickname ?? nickname;
+  }
 }
 
 class PublicUserInfo {
