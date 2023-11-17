@@ -15,7 +15,7 @@ class FriendshipManager {
 
   /// Query Friend Information
   /// [userIDList] List of user IDs
-  Future<List<FriendInfo>> getFriendsInfo({
+  Future<List<FullUserInfo>> getFriendsInfo({
     required List<String> userIDList,
     String? operationID,
   }) =>
@@ -26,7 +26,7 @@ class FriendshipManager {
                 "userIDList": userIDList,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (v) => FriendInfo.fromJson(v)));
+          .then((value) => Utils.toList(value, (v) => FullUserInfo.fromJson(v)));
 
   /// Send a Friend Request, the other party needs to accept the request to become friends.
   /// [userID] User ID to be invited
