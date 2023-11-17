@@ -1,3 +1,7 @@
+## 3.4.0+1
+
+- Adjust some fields and APIs.
+
 ## 3.4.0
 
 - [Bug fixes and performance enhancements.](https://github.com/openimsdk/openim-sdk-core/releases/tag/v3.4.0)
