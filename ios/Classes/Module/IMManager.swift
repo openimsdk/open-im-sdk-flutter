@@ -13,6 +13,7 @@ public class IMMananger: BaseServiceManager {
         self["logout"] = logout
         self["getLoginStatus"] = getLoginStatus
         self["uploadFile"] = uploadFile
+        self["uploadLogs"] = uploadLogs
         self["updateFcmToken"] = updateFcmToken
         self["setAppBackgroundStatus"] = setAppBackgroundStatus
         self["networkStatusChanged"] = networkStatusChanged
@@ -83,6 +84,10 @@ public class IMMananger: BaseServiceManager {
     func uploadFile(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkUploadFile(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString(), UploadFileListener(channel: self.channel,id: methodCall[string: "id"]))
     }
+
+    func uploadLogs(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkUploadLogs(BaseCallback(result: result), methodCall[string: "operationID"], UploadLogsListener(channel: self.channel))
+    }
     
     func updateFcmToken(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
             Open_im_sdkUpdateFcmToken(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "fcmToken"], methodCall[int64:
@@ -126,11 +131,28 @@ public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol 
     }
 }
 
+
+public class UploadLogsListener: NSObject, Open_im_sdk_callbackUploadLogProgressProtocol {
+
+    private let channel:FlutterMethodChannel
+
+    init(channel:FlutterMethodChannel) {
+        self.channel = channel
+    }
+
+    public func onProgress(_ current: Int64, size: Int64) {
+            var values: [String: Any] = [:]
+            values["current"] = current
+            values["size"] = size
+            CommonUtil.emitEvent(channel: channel, method: "uploadLogsListener", type: "onProgress", errCode: nil, errMsg: nil, data: values)
+        }
+ }
+
 public class UploadFileListener: NSObject, Open_im_sdk_callbackUploadFileCallbackProtocol {
     
     private let channel:FlutterMethodChannel
     private let id: String
-    
+
     init(channel:FlutterMethodChannel, id: String) {
         self.channel = channel
         self.id = id

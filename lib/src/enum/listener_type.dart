@@ -15,4 +15,5 @@ class ListenerType {
   static const messageKvInfoListener = "messageKvInfoListener";
   static const listenerForService = "listenerForService";
   static const uploadFileListener = "uploadFileListener";
+  static const uploadLogsListener = "uploadLogsListener";
 }

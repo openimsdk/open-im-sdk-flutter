@@ -1,3 +1,12 @@
+class OnUploadLogsListener {
+  Function(int current, int size)? onUploadProgress;
+  OnUploadLogsListener({this.onUploadProgress});
+
+  void onProgress(int current, int size) {
+    onUploadProgress?.call(current, size);
+  }
+}
+
 class OnUploadFileListener {
   Function(String id, int size, String url, int type)? onComplete;
   Function(String id, String partHash, String fileHash)? onHashPartComplete;

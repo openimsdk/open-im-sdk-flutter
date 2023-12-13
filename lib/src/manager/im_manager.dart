@@ -16,6 +16,8 @@ class IMManager {
   late OnConnectListener _connectListener;
   OnListenerForService? _listenerForService;
   OnUploadFileListener? _uploadFileListener;
+  OnUploadLogsListener? _uploadLogsListener;
+
   late String userID;
   late UserInfo userInfo;
   bool isLogined = false;
@@ -273,6 +275,15 @@ class IMManager {
               _listenerForService?.recvNewMessage(msg);
               break;
           }
+        } else if (call.method == ListenerType.uploadLogsListener) {
+          String type = call.arguments['type'];
+          dynamic data = call.arguments['data'];
+          switch (type) {
+          case 'onProgress':
+            int size = data['size'];
+            int current = data['current'];
+            _uploadLogsListener?.onProgress(current, size);
+          }
         } else if (call.method == ListenerType.uploadFileListener) {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
@@ -510,6 +521,21 @@ class IMManager {
             'expireTime': expireTime,
             'operationID': Utils.checkOperationID(operationID),
           }));
+
+  /// 上传日志
+  /// [uploadlogParams] system_type、ex
+  Future uploadLogs({
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'uploadLogs',
+          _buildParam({
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  void setUploadLogsListener(OnUploadLogsListener listener) {
+    _uploadLogsListener = listener;
+  }
 
   void setUploadFileListener(OnUploadFileListener listener) {
     _uploadFileListener = listener;

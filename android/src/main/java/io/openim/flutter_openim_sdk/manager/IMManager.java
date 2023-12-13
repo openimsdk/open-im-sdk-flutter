@@ -6,6 +6,7 @@ import io.openim.flutter_openim_sdk.FlutterOpenimSdkPlugin;
 import io.openim.flutter_openim_sdk.listener.OnBaseListener;
 import io.openim.flutter_openim_sdk.listener.OnConnListener;
 import io.openim.flutter_openim_sdk.listener.OnUploadFileListener;
+import io.openim.flutter_openim_sdk.listener.OnUploadLogsListener;
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 import open_im_sdk.Open_im_sdk;
 
@@ -62,6 +63,13 @@ public class IMManager extends BaseManager {
         );
     }
 
+    public void uploadLogs(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.uploadLogs(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                new OnUploadLogsListener(result, methodCall)
+        );
+    }
 
     public void setAppBackgroundStatus(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setAppBackgroundStatus(
