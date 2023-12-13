@@ -36,7 +36,6 @@ final success = await OpenIM.iMManager.initSDK(
   apiAddr: "",   // SDK's API interface address.
   wsAddr: "",    // SDK's WebSocket address.
   dataDir: "",   // Data storage path. For example, you can use getApplicationDocumentsDirectory() to get a path.
-  objectStorage: 'cos',  // Image server (default is 'cos').
   logLevel: 6,   // Log level (default value is 6).
   listener: OnConnectListener(
     onConnectSuccess: () {
