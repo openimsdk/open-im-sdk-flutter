@@ -196,4 +196,21 @@ public class ConversationManager extends BaseManager {
                 value(methodCall, "operationID")
         );
     }
+
+    public  void searchConversation(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchConversation(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "name")
+        );
+    }
+
+    public void setConversationEx(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setConversationEx(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                value(methodCall, "ex")
+        );
+    }
 }

@@ -64,7 +64,8 @@ public class FriendshipManager extends BaseManager {
         Open_im_sdk.addBlack(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                value(methodCall, "userID")
+                value(methodCall, "userID"),
+                value(methodCall, "ex")
         );
     }
 
@@ -120,6 +121,15 @@ public class FriendshipManager extends BaseManager {
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "searchParam")
+        );
+    }
+
+    public void setFriendsEx(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setFriendsEx(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "friendIDs"),
+                value(methodCall, "ex")
         );
     }
 }

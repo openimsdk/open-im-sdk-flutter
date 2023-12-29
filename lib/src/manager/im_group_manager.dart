@@ -207,20 +207,15 @@ class GroupManager {
 
   /// Apply to join a group, requiring approval from an administrator or the group.
   /// [joinSource] 2: Invited, 3: Searched, 4: Using a QR code
-  Future<dynamic> joinGroup({
-    required String groupID,
-    String? reason,
-    String? operationID,
-    int joinSource = 3,
-  }) =>
-      _channel.invokeMethod(
-          'joinGroup',
-          _buildParam({
-            'groupID': groupID,
-            'reason': reason,
-            'joinSource': joinSource,
-            'operationID': Utils.checkOperationID(operationID),
-          }));
+  Future<dynamic> joinGroup({required String groupID, String? reason, String? operationID, int joinSource = 3, String? ex}) => _channel.invokeMethod(
+      'joinGroup',
+      _buildParam({
+        'groupID': groupID,
+        'reason': reason,
+        'joinSource': joinSource,
+        'ex': ex,
+        'operationID': Utils.checkOperationID(operationID),
+      }));
 
   /// Exit a group
   Future<dynamic> quitGroup({

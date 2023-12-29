@@ -78,7 +78,8 @@ public class GroupManager: BaseServiceManager {
     }
     
     func joinGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkJoinGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[string: "reason"], methodCall[int32: "joinSource"])
+        Open_im_sdkJoinGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[string:
+        "reason"], methodCall[int32: "joinSource"], methodCall[jsonString: "ex"])
     }
     
     func quitGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

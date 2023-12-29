@@ -20,6 +20,7 @@ public class FriendshipManager: BaseServiceManager {
         self["acceptFriendApplication"] = acceptFriendApplication
         self["refuseFriendApplication"] = refuseFriendApplication
         self["searchFriends"] = searchFriends
+        self["setFriendsEx"] = setFriendsEx
     }
     
     func setFriendListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -52,7 +53,7 @@ public class FriendshipManager: BaseServiceManager {
     }
     
     func addBlacklist(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkAddBlack(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"])
+        Open_im_sdkAddBlack(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "userID"], methodCall[string: "ex"])
     }
     
     func getBlacklist(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -81,6 +82,10 @@ public class FriendshipManager: BaseServiceManager {
     
     func searchFriends(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSearchFriends(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "searchParam"])
+    }
+
+    func setFriendsEx(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetFriendsEx(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "friendIDs"], methodCall[string: "ex"])
     }
 }
 

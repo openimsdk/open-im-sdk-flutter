@@ -14,6 +14,7 @@ public class UserManager: BaseServiceManager {
         self["getSubscribeUsersStatus"] = getSubscribeUsersStatus
         self["getUserStatus"] = getUserStatus
         self["getUsersInfoWithCache"] = getUsersInfoWithCache
+        self["setSelfInfoEx"] = setSelfInfoEx
     }
 
     func setUserListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -52,6 +53,10 @@ public class UserManager: BaseServiceManager {
     func getUsersInfoWithCache(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetUsersInfoWithCache(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "userIDs"],
         methodCall[string: "groupID"])
+    }
+
+    func setSelfInfoEx(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetSelfInfoEx(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
 }
 

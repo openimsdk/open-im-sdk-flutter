@@ -341,6 +341,37 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// search Conversations
+  Future<List<ConversationInfo>> searchConversations(
+    String name, {
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'searchConversations',
+            _buildParam({
+              'name': name,
+              "operationID": Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+  }
+
+  Future<List<ConversationInfo>> setConversationEx(
+    String conversationID, {
+    String? ex,
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'setConversationEx',
+            _buildParam({
+              'conversationID': conversationID,
+              'ex': ex,
+              "operationID": Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+  }
+
   /// Custom Sort for Conversation List
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list
     ..sort((a, b) {

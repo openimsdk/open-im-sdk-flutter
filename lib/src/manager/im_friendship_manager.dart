@@ -100,12 +100,14 @@ class FriendshipManager {
   /// [userID] Friend's ID to be added to the blacklist
   Future<dynamic> addBlacklist({
     required String userID,
+    String? ex,
     String? operationID,
   }) =>
       _channel.invokeMethod(
           'addBlacklist',
           _buildParam({
             "userID": userID,
+            "ex": ex,
             "operationID": Utils.checkOperationID(operationID),
           }));
 
@@ -216,6 +218,20 @@ class FriendshipManager {
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toList(value, (map) => SearchFriendsInfo.fromJson(map)));
+
+  Future<String?> setFriendsEx(
+    List<String> friendIDs, {
+    String? ex,
+    String? operationID,
+  }) {
+    return _channel.invokeMethod(
+        'setFriendsEx',
+        _buildParam({
+          "friendIDs": friendIDs,
+          "ex": ex,
+          "operationID": Utils.checkOperationID(operationID),
+        }));
+  }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "friendshipManager";

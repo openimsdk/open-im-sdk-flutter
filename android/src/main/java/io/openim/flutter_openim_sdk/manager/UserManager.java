@@ -69,4 +69,11 @@ public class UserManager extends BaseManager {
                 jsonValue(methodCall, "userIDs"),
                 value(methodCall, "groupID"));
     }
+
+    public void setSelfInfoEx(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setSelfInfoEx(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall));
+    }
 }

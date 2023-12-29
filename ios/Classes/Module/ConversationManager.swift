@@ -27,6 +27,8 @@ public class ConversationManager: BaseServiceManager {
         self["setGlobalRecvMessageOpt"] = setGlobalRecvMessageOpt
         self["setConversationBurnDuration"] = setConversationBurnDuration
         self["hideAllConversations"] = hideAllConversations
+        self["searchConversation"] = searchConversation
+        self["setConversationEx"] = setConversationEx
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -116,6 +118,14 @@ public class ConversationManager: BaseServiceManager {
 
     func hideAllConversations(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
             Open_im_sdkHideAllConversations(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
+
+    func searchConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSearchConversation(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "name"])
+    }
+
+    func setConversationEx(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkSetConversationEx(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[jsonString: "ex"])
     }
 }
 

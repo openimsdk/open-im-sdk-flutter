@@ -92,7 +92,8 @@ public class GroupManager extends BaseManager {
                 value(methodCall, "operationID"),
                 value(methodCall, "groupID"),
                 value(methodCall, "reason"),
-                value(methodCall, "joinSource")
+                value(methodCall, "joinSource"),
+                value(methodCall, "ex")
         );
     }
 
