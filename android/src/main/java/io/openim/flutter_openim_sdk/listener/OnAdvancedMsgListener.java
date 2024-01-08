@@ -88,4 +88,12 @@ public class OnAdvancedMsgListener implements open_im_sdk_callback.OnAdvancedMsg
         values.put("message", s);
         CommonUtil.emitEvent("advancedMsgListener", "onRecvOfflineNewMessage", values);
     }
+
+    @Override
+    public void onRecvOnlineOnlyMessage(String s) {
+        final Map<String, String> values = new ArrayMap<>();
+        values.put("id", id);
+        values.put("message", s);
+        CommonUtil.emitEvent("advancedMsgListener", "onRecvOnlineOnlyMessage", values);
+    }
 }

@@ -11,6 +11,11 @@ public class OnConversationListener implements open_im_sdk_callback.OnConversati
     }
 
     @Override
+    public void onConversationUserInputStatusChanged(String s) {
+        CommonUtil.emitEvent("conversationListener", "onConversationUserInputStatusChanged", s);
+    }
+
+    @Override
     public void onNewConversation(String s) {
         CommonUtil.emitEvent("conversationListener", "onNewConversation", s);
     }
