@@ -161,6 +161,10 @@ public class ConversationListener: NSObject, Open_im_sdk_callbackOnConversationL
     public func onTotalUnreadMessageCountChanged(_ totalUnreadCount: Int32) {
         CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onTotalUnreadMessageCountChanged", errCode: nil, errMsg: nil, data: totalUnreadCount)
     }
+
+    public func onConversationUserInputStatusChanged(_ change: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onConversationUserInputStatusChanged", errCode: nil, errMsg: nil, data: change)
+    }
 }
 
 

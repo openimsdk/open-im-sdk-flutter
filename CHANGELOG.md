@@ -1,3 +1,7 @@
+## 3.5.1-alpha.2
+
+- [Bug fixes and performance enhancements.](https://github.com/openimsdk/openim-sdk-core/releases/tag/v3.5.1-alpha.2)
+
 ## 3.5.0-rc.1
 
 - [Bug fixes and performance enhancements.](https://github.com/openimsdk/openim-sdk-core/releases/tag/v3.5.0-rc.1)

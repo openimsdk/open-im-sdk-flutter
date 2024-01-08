@@ -3,7 +3,6 @@ class InitConfig {
   String apiAddr;
   String wsAddr;
   String dataDir;
-  String objectStorage;
   int logLevel;
   bool isLogStandardOutput;
   String? logFilePath;
@@ -13,7 +12,6 @@ class InitConfig {
     required this.apiAddr,
     required this.wsAddr,
     required this.dataDir,
-    required this.objectStorage,
     this.logLevel = 6,
     this.isLogStandardOutput = true,
     this.logFilePath,
@@ -25,7 +23,6 @@ class InitConfig {
       apiAddr: json['apiAddr'],
       wsAddr: json['wsAddr'],
       dataDir: json['dataDir'],
-      objectStorage: json['objectStorage'],
       logLevel: json['logLevel'],
       isLogStandardOutput: json['isLogStandardOutput'],
       logFilePath: json['logFilePath'],
@@ -38,7 +35,6 @@ class InitConfig {
       'apiAddr': apiAddr,
       'wsAddr': wsAddr,
       'dataDir': dataDir,
-      'objectStorage': objectStorage,
       'logLevel': logLevel,
       'isLogStandardOutput': isLogStandardOutput,
       'logFilePath': logFilePath,

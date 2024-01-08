@@ -160,6 +160,11 @@ class IMManager {
               final msg = Utils.toObj(value, (map) => Message.fromJson(map));
               messageManager.msgListener.recvOfflineNewMessage(msg);
               break;
+            case 'onRecvOnlineOnlyMessage':
+              var value = call.arguments['data']['message'];
+              final msg = Utils.toObj(value, (map) => Message.fromJson(map));
+              messageManager.msgListener.recvOnlineOnlyMessage(msg);
+              break;
           }
         } else if (call.method == ListenerType.msgSendProgressListener) {
           String type = call.arguments['type'];
@@ -279,10 +284,10 @@ class IMManager {
           String type = call.arguments['type'];
           dynamic data = call.arguments['data'];
           switch (type) {
-          case 'onProgress':
-            int size = data['size'];
-            int current = data['current'];
-            _uploadLogsListener?.onProgress(current, size);
+            case 'onProgress':
+              int size = data['size'];
+              int current = data['current'];
+              _uploadLogsListener?.onProgress(current, size);
           }
         } else if (call.method == ListenerType.uploadFileListener) {
           String type = call.arguments['type'];
@@ -383,7 +388,6 @@ class IMManager {
     required String dataDir,
     required OnConnectListener listener,
     int logLevel = 6,
-    String objectStorage = 'minio',
     bool isCompression = false,
     bool isLogStandardOutput = true,
     String? logFilePath,
@@ -399,7 +403,6 @@ class IMManager {
           "wsAddr": wsAddr,
           "dataDir": dataDir,
           "logLevel": logLevel,
-          "objectStorage": objectStorage,
           "isCompression": isCompression,
           "isLogStandardOutput": isLogStandardOutput,
           "logFilePath": logFilePath,

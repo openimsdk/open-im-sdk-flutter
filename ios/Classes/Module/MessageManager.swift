@@ -357,7 +357,13 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
           values["message"] = message
           CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOfflineNewMessage", errCode: nil, errMsg: nil, data: values);
       }
-      
+
+      public func onRecvOnlineOnlyMessage(_ message: String?) {
+           var values: [String: Any] = [:]
+           values["id"] = id
+           values["message"] = message
+           CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOnlineOnlyMessage", errCode: nil, errMsg: nil, data: values);
+      }
 }
 
 public class CustomBusinessListener: NSObject, Open_im_sdk_callbackOnCustomBusinessListenerProtocol {
