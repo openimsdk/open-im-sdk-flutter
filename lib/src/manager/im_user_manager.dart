@@ -131,6 +131,7 @@ class UserManager {
         .then((value) => Utils.toList(value, (map) => FullUserInfo.fromJson(map)));
   }
 
+/*
   Future<String?> setSelfUserInfoEx(
     UserInfo userInfo, {
     String? operationID,
@@ -142,7 +143,7 @@ class UserManager {
           'operationID': Utils.checkOperationID(operationID),
         }));
   }
-
+*/
   static Map _buildParam(Map param) {
     param["ManagerName"] = "userManager";
     return param;

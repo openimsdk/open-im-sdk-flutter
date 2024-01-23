@@ -67,6 +67,7 @@ public class IMManager extends BaseManager {
         Open_im_sdk.uploadLogs(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
+                value(methodCall, "ex"),
                 new OnUploadLogsListener(result, methodCall)
         );
     }

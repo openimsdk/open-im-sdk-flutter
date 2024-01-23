@@ -526,13 +526,15 @@ class IMManager {
           }));
 
   /// 上传日志
-  /// [uploadlogParams] system_type、ex
+  /// [uploadlogParams] ex
   Future uploadLogs({
+    String? ex,
     String? operationID,
   }) =>
       _channel.invokeMethod(
           'uploadLogs',
           _buildParam({
+            'ex': ex,
             'operationID': Utils.checkOperationID(operationID),
           }));
 

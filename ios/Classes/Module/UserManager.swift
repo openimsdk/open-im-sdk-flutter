@@ -54,10 +54,11 @@ public class UserManager: BaseServiceManager {
         Open_im_sdkGetUsersInfoWithCache(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "userIDs"],
         methodCall[string: "groupID"])
     }
-
+/*
     func setSelfInfoEx(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkSetSelfInfoEx(BaseCallback(result: result), methodCall[string: "operationID"], methodCall.toJsonString())
     }
+    */
 }
 
 public class UserListener: NSObject, Open_im_sdk_callbackOnUserListenerProtocol {
