@@ -86,7 +86,7 @@ public class IMMananger: BaseServiceManager {
     }
 
     func uploadLogs(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkUploadLogs(BaseCallback(result: result), methodCall[string: "operationID"], method[string: "ex"], UploadLogsListener(channel: self
+        Open_im_sdkUploadLogs(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "ex"], UploadLogsListener(channel: self
         .channel))
     }
     

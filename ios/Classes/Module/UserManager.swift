@@ -14,7 +14,9 @@ public class UserManager: BaseServiceManager {
         self["getSubscribeUsersStatus"] = getSubscribeUsersStatus
         self["getUserStatus"] = getUserStatus
         self["getUsersInfoWithCache"] = getUsersInfoWithCache
+        /*
         self["setSelfInfoEx"] = setSelfInfoEx
+        */
     }
 
     func setUserListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
