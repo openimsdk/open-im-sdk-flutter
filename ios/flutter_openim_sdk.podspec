@@ -17,8 +17,10 @@ A new Flutter project.
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
 
-  s.dependency 'OpenIMSDKCore','3.5.1-alpha.7'
+  s.dependency 'OpenIMSDKCore','3.5.1-alpha.8'
   s.static_framework = true
+  s.library = 'resolv'
+
   # s.vendored_frameworks = 'Framework/*.framework'
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386 arm64' }

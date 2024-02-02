@@ -18,43 +18,39 @@ class GroupManager {
   /// Invite users to a group, allowing them to join without approval.
   /// [groupID] Group ID
   /// [userIDList] List of user IDs
-  Future<List<GroupInviteResult>> inviteUserToGroup({
+  Future inviteUserToGroup({
     required String groupID,
     required List<String> userIDList,
     String? reason,
     String? operationID,
   }) =>
-      _channel
-          .invokeMethod(
-              'inviteUserToGroup',
-              _buildParam({
-                'groupID': groupID,
-                'userIDList': userIDList,
-                'reason': reason,
-                "operationID": Utils.checkOperationID(operationID),
-              }))
-          .then((value) => Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
+      _channel.invokeMethod(
+          'inviteUserToGroup',
+          _buildParam({
+            'groupID': groupID,
+            'userIDList': userIDList,
+            'reason': reason,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
 
   /// Remove group members
   /// [groupID] Group ID
   /// [userIDList] List of user IDs
   /// [reason] Reason for removal
-  Future<List<GroupInviteResult>> kickGroupMember({
+  Future kickGroupMember({
     required String groupID,
     required List<String> userIDList,
     String? reason,
     String? operationID,
   }) =>
-      _channel
-          .invokeMethod(
-              'kickGroupMember',
-              _buildParam({
-                'groupID': groupID,
-                'userIDList': userIDList,
-                'reason': reason,
-                "operationID": Utils.checkOperationID(operationID),
-              }))
-          .then((value) => Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
+      _channel.invokeMethod(
+          'kickGroupMember',
+          _buildParam({
+            'groupID': groupID,
+            'userIDList': userIDList,
+            'reason': reason,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
 
   /// Query group member information
   /// [groupID] Group ID
