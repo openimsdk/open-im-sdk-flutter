@@ -36,6 +36,7 @@ class MessageManager {
     required OfflinePushInfo offlinePushInfo,
     String? userID,
     String? groupID,
+    bool isOnlineOnly = false,
     String? operationID,
   }) =>
       _channel
@@ -46,6 +47,7 @@ class MessageManager {
                 'offlinePushInfo': offlinePushInfo.toJson(),
                 'userID': userID ?? '',
                 'groupID': groupID ?? '',
+                'isOnlineOnly': isOnlineOnly,
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
@@ -529,8 +531,7 @@ class MessageManager {
                 },
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => SearchResult.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
   /// Revoke a message
   /// [message] The message to be revoked
@@ -585,8 +586,7 @@ class MessageManager {
                 'lastMinSeq': lastMinSeq ?? 0,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
 
   /// Get chat history (newly received chat history after startMsg). Used for locating a specific message in global search and then fetching messages received after that message.
   /// [conversationID] Conversation ID, can be used for querying notifications
@@ -609,8 +609,7 @@ class MessageManager {
                 'lastMinSeq': lastMinSeq ?? 0,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
 
   /// Find message details
   /// [conversationID] Conversation ID
@@ -626,8 +625,7 @@ class MessageManager {
                 'searchParams': searchParams.map((e) => e.toJson()).toList(),
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) =>
-              Utils.toObj(value, (map) => SearchResult.fromJson(map)));
+          .then((value) => Utils.toObj(value, (map) => SearchResult.fromJson(map)));
 
   /// Rich text message
   /// [text] Input content
@@ -679,6 +677,7 @@ class MessageManager {
     required OfflinePushInfo offlinePushInfo,
     String? userID,
     String? groupID,
+    bool isOnlineOnly = false,
     String? operationID,
   }) =>
       _channel
@@ -689,6 +688,7 @@ class MessageManager {
                 'offlinePushInfo': offlinePushInfo.toJson(),
                 'userID': userID ?? '',
                 'groupID': groupID ?? '',
+                'isOnlineOnly': isOnlineOnly,
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => Message.fromJson(map)));
@@ -779,7 +779,8 @@ class MessageManager {
         }));
   }
 
-  Future setAppBadge(int count, {
+  Future setAppBadge(
+    int count, {
     String? operationID,
   }) {
     return _channel.invokeMethod(

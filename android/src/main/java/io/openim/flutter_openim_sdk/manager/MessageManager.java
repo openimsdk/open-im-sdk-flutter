@@ -27,7 +27,8 @@ public class MessageManager extends BaseManager {
                 jsonValue(methodCall, "message"),
                 value(methodCall, "userID"),
                 value(methodCall, "groupID"),
-                jsonValue(methodCall, "offlinePushInfo")
+                jsonValue(methodCall, "offlinePushInfo"),
+                value(methodCall, "isOnlineOnly")
         );
     }
 
@@ -338,7 +339,8 @@ public class MessageManager extends BaseManager {
                 jsonValue(methodCall, "message"),
                 value(methodCall, "userID"),
                 value(methodCall, "groupID"),
-                jsonValue(methodCall, "offlinePushInfo")
+                jsonValue(methodCall, "offlinePushInfo"),
+                value(methodCall, "isOnlineOnly")
         );
     }
 

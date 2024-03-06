@@ -65,7 +65,7 @@ public class MessageManager: BaseServiceManager {
     func sendMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let sendMsgProgressListener: SendMsgProgressListener = SendMsgProgressListener(channel: channel,result: result,methodCall: methodCall)
         Open_im_sdkSendMessage(sendMsgProgressListener, methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[string: "userID"],
-                               methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"])
+                               methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"], methodCall[bool: "isOnlineOnly"])
     }
     
     func revokeMessage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -228,7 +228,7 @@ public class MessageManager: BaseServiceManager {
     func sendMessageNotOss(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let sendMsgProgressListener: SendMsgProgressListener = SendMsgProgressListener(channel: channel,result: result,methodCall: methodCall)
         Open_im_sdkSendMessageNotOss(sendMsgProgressListener, methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[string: "userID"],
-                               methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"])
+                               methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"], methodCall[bool: "isOnlineOnly"])
     }
     
     func createImageMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
