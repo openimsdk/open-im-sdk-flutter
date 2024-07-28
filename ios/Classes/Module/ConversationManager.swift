@@ -131,31 +131,36 @@ public class ConversationManager: BaseServiceManager {
 
 
 public class ConversationListener: NSObject, Open_im_sdk_callbackOnConversationListenerProtocol {
-    
+
+    public func onSyncServerProgress(_ progress: Int) {
+        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onSyncServerProgress", errCode: nil, errMsg: nil, data: progress)
+    }
+
+
     private let channel:FlutterMethodChannel
-    
+
     init(channel:FlutterMethodChannel) {
         self.channel = channel
     }
-    
+
     public func onConversationChanged(_ conversationList: String?) {
         CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onConversationChanged", errCode: nil, errMsg: nil, data: conversationList)
     }
-    
+
     public func onNewConversation(_ conversationList: String?) {
         CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onNewConversation", errCode: nil, errMsg: nil, data: conversationList)
     }
-    
-    public func onSyncServerFailed() {
-        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onSyncServerFailed", errCode: nil, errMsg: nil, data: nil)
+
+    public func onSyncServerFailed(_ reinstalled: Bool) {
+        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onSyncServerFailed", errCode: nil, errMsg: nil, data: reinstalled)
     }
-    
-    public func onSyncServerFinish() {
-        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onSyncServerFinish", errCode: nil, errMsg: nil, data: nil)
+
+    public func onSyncServerFinish(_ reinstalled: Bool) {
+        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onSyncServerFinish", errCode: nil, errMsg: nil, data: reinstalled)
     }
-    
-    public func onSyncServerStart() {
-        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onSyncServerStart", errCode: nil, errMsg: nil, data: nil)
+
+    public func onSyncServerStart(_ reinstalled: Bool) {
+        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onSyncServerStart", errCode: nil, errMsg: nil, data: reinstalled)
     }
     
     public func onTotalUnreadMessageCountChanged(_ totalUnreadCount: Int32) {

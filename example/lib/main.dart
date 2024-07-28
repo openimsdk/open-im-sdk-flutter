@@ -14,13 +14,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    OpenIM.iMManager.initSDK(
-        platformID: 1,
-        apiAddr: '',
-        wsAddr: '',
-        dataDir: '/',
-        objectStorage: 'minio',
-        listener: OnConnectListener());
+    OpenIM.iMManager.initSDK(platformID: 1, apiAddr: '', wsAddr: '', dataDir: '/', listener: OnConnectListener());
   }
 
   @override

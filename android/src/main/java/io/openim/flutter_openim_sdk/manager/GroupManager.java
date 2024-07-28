@@ -62,6 +62,15 @@ public class GroupManager extends BaseManager {
         );
     }
 
+    public void getJoinedGroupListPage(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getJoinedGroupListPage(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "offset"),
+                value(methodCall, "count")
+        );
+    }
+
     public void createGroup(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.createGroup(
                 new OnBaseListener(result, methodCall),
@@ -263,6 +272,14 @@ public class GroupManager extends BaseManager {
         Open_im_sdk.isJoinGroup(new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "groupID")
+        );
+    }
+
+    public  void getUsersInGroup(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getUsersInGroup(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "groupID"),
+                jsonValue(methodCall, "userIDs")
         );
     }
 }

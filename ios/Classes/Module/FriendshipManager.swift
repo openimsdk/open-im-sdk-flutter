@@ -11,6 +11,7 @@ public class FriendshipManager: BaseServiceManager {
         self["getFriendApplicationListAsRecipient"] = getFriendApplicationListAsRecipient
         self["getFriendApplicationListAsApplicant"] = getFriendApplicationListAsApplicant
         self["getFriendList"] = getFriendList
+        self["getFriendListPage"] = getFriendListPage
         self["setFriendRemark"] = setFriendRemark
         self["addBlacklist"] = addBlacklist
         self["getBlacklist"] = getBlacklist
@@ -46,6 +47,10 @@ public class FriendshipManager: BaseServiceManager {
 
     func getFriendList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetFriendList(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
+
+    func getFriendListPage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+            Open_im_sdkGetFriendListPage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int32: "offset"], methodCall[int32: "count"])
     }
     
     func setFriendRemark(methodCall: FlutterMethodCall, result: @escaping FlutterResult){

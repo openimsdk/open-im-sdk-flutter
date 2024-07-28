@@ -52,6 +52,15 @@ public class FriendshipManager extends BaseManager {
         );
     }
 
+    public void getFriendListPage(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getFriendListPage(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "offset"),
+                value(methodCall, "count")
+        );
+    }
+
     public void setFriendRemark(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setFriendRemark(
                 new OnBaseListener(result, methodCall),

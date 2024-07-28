@@ -127,6 +127,16 @@ class GroupManager {
           }))
       .then((value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
+  Future<List<GroupInfo>> getJoinedGroupListPage({String? operationID, int offset = 0, int count = 40}) => _channel
+      .invokeMethod(
+          'getJoinedGroupListPage',
+          _buildParam({
+            'offset': offset,
+            'count': count,
+            'operationID': Utils.checkOperationID(operationID),
+          }))
+      .then((value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
+
   /// Query the list of joined groups
   Future<List<dynamic>> getJoinedGroupListMap({String? operationID}) => _channel
       .invokeMethod(
@@ -566,6 +576,20 @@ class GroupManager {
             'info': groupMembersInfo.toJson(),
             'operationID': Utils.checkOperationID(operationID),
           }));
+
+  Future<dynamic> getUsersInGroup(
+    String groupID,
+    List<String> userIDs, {
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'getUsersInGroup',
+          _buildParam({
+            'groupID': groupID,
+            'userIDs': userIDs,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
   static Map _buildParam(Map param) {
     param["ManagerName"] = "groupManager";
     log('param: $param');

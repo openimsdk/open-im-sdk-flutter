@@ -11,6 +11,7 @@ public class GroupManager: BaseServiceManager {
         self["getGroupMembersInfo"] = getGroupMembersInfo
         self["getGroupMemberList"] = getGroupMemberList
         self["getJoinedGroupList"] = getJoinedGroupList
+        self["getJoinedGroupListPage"] = getJoinedGroupListPage
         self["createGroup"] = createGroup
         self["setGroupInfo"] = setGroupInfo
         self["getGroupsInfo"] = getGroupsInfo
@@ -35,6 +36,7 @@ public class GroupManager: BaseServiceManager {
         self["searchGroupMembers"] = searchGroupMembers
         self["setGroupMemberInfo"] = setGroupMemberInfo
         self["isJoinGroup"] = isJoinGroup
+        self["getUsersInGroup"] = getUsersInGroup
     }
 
     func setGroupListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -63,6 +65,10 @@ public class GroupManager: BaseServiceManager {
     
     func getJoinedGroupList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkGetJoinedGroupList(BaseCallback(result: result), methodCall[string: "operationID"])
+    }
+
+    func getJoinedGroupListPage(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+            Open_im_sdkGetJoinedGroupListPage(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int32: "offset"], methodCall[int32: "count"])
     }
     
     func createGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -160,6 +166,11 @@ public class GroupManager: BaseServiceManager {
     
     func isJoinGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkIsJoinGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"])
+    }
+
+    func getUsersInGroup(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetUsersInGroup(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"],
+        methodCall[jsonString: "userIDs"])
     }
 }
 

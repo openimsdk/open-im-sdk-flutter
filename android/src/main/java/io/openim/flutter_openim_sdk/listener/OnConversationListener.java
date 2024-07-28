@@ -2,7 +2,6 @@ package io.openim.flutter_openim_sdk.listener;
 
 import io.openim.flutter_openim_sdk.util.CommonUtil;
 
-
 public class OnConversationListener implements open_im_sdk_callback.OnConversationListener {
 
     @Override
@@ -21,18 +20,23 @@ public class OnConversationListener implements open_im_sdk_callback.OnConversati
     }
 
     @Override
-    public void onSyncServerFailed() {
-        CommonUtil.emitEvent("conversationListener", "onSyncServerFailed", null);
+    public void onSyncServerFailed(boolean reinstalled) {
+        CommonUtil.emitEvent("conversationListener", "onSyncServerFailed", reinstalled);
     }
 
     @Override
-    public void onSyncServerFinish() {
-        CommonUtil.emitEvent("conversationListener", "onSyncServerFinish", null);
+    public void onSyncServerFinish(boolean reinstalled) {
+        CommonUtil.emitEvent("conversationListener", "onSyncServerFinish", reinstalled);
     }
 
     @Override
-    public void onSyncServerStart() {
-        CommonUtil.emitEvent("conversationListener", "onSyncServerStart", null);
+    public void onSyncServerStart(boolean reinstalled) {
+        CommonUtil.emitEvent("conversationListener", "onSyncServerStart", reinstalled);
+    }
+
+    @Override
+    public void onSyncServerProgress(long progress) {
+        CommonUtil.emitEvent("conversationListener", "onSyncServerProgress", progress);
     }
 
     @Override
