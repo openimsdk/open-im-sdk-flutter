@@ -86,8 +86,8 @@ public class IMMananger: BaseServiceManager {
     }
 
     func uploadLogs(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkUploadLogs(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "ex"], UploadLogsListener(channel: self
-        .channel))
+        Open_im_sdkUploadLogs(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int: "line"], methodCall[string: "ex"],
+        UploadLogsListener(channel: self.channel))
     }
     
     func updateFcmToken(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
