@@ -17,7 +17,7 @@ A new Flutter project.
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
 
-  s.dependency 'OpenIMSDKCore','3.8.0'
+  s.dependency 'OpenIMSDKCore','3.8.1-rc.0'
   s.static_framework = true
   s.library = 'resolv'
 
