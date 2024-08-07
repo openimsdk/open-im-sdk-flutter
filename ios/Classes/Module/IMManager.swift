@@ -108,7 +108,7 @@ public class ConnListener: NSObject, Open_im_sdk_callbackOnConnListenerProtocol 
     public func onUserTokenInvalid(_ errMsg: String?) {
         CommonUtil.emitEvent(channel: self.channel, method: "connectListener", type: "onUserTokenInvalid", errCode: nil, errMsg: errMsg, data: nil)
     }
-
+    
     private let channel:FlutterMethodChannel
     
     init(channel:FlutterMethodChannel) {

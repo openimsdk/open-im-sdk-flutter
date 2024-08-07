@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 /// Conversation Listener
@@ -5,17 +6,21 @@ class OnConversationListener {
   Function(List<ConversationInfo> list)? onConversationChanged;
   Function(List<ConversationInfo> list)? onNewConversation;
   Function(int count)? onTotalUnreadMessageCountChanged;
-  Function()? onSyncServerFailed;
-  Function()? onSyncServerFinish;
-  Function()? onSyncServerStart;
+  Function(bool? reinstalled)? onSyncServerStart;
+  Function(int? progress)? onSyncServerProgress;
+  Function(bool? reinstalled)? onSyncServerFinish;
+  Function(bool? reinstalled)? onSyncServerFailed;
+  ValueChanged<InputStatusChangedData>? onInputStatusChanged;
 
   OnConversationListener({
     this.onConversationChanged,
     this.onNewConversation,
     this.onTotalUnreadMessageCountChanged,
-    this.onSyncServerFailed,
-    this.onSyncServerFinish,
     this.onSyncServerStart,
+    this.onSyncServerProgress,
+    this.onSyncServerFinish,
+    this.onSyncServerFailed,
+    this.onInputStatusChanged,
   });
 
   /// Conversations have changed
@@ -33,15 +38,23 @@ class OnConversationListener {
     onTotalUnreadMessageCountChanged?.call(count);
   }
 
-  void syncServerFailed() {
-    onSyncServerFailed?.call();
+  void syncServerStart(bool? reinstalled) {
+    onSyncServerStart?.call(reinstalled);
   }
 
-  void syncServerFinish() {
-    onSyncServerFinish?.call();
+  void syncServerProgress(int? progress) {
+    onSyncServerProgress?.call(progress);
   }
 
-  void syncServerStart() {
-    onSyncServerStart?.call();
+  void syncServerFailed(bool? reinstalled) {
+    onSyncServerFailed?.call(reinstalled);
+  }
+
+  void syncServerFinish(bool? reinstalled) {
+    onSyncServerFinish?.call(reinstalled);
+  }
+
+  void conversationUserInputStatusChanged(InputStatusChangedData data) {
+    onInputStatusChanged?.call(data);
   }
 }

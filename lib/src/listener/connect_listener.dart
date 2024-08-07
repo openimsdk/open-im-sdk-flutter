@@ -5,6 +5,7 @@ class OnConnectListener {
   Function()? onConnecting;
   Function()? onKickedOffline;
   Function()? onUserTokenExpired;
+  Function()? onUserTokenInvalid;
 
   OnConnectListener({
     this.onConnectFailed,
@@ -12,6 +13,7 @@ class OnConnectListener {
     this.onConnecting,
     this.onKickedOffline,
     this.onUserTokenExpired,
+    this.onUserTokenInvalid,
   });
 
   /// SDK failed to connect to the server
@@ -37,5 +39,9 @@ class OnConnectListener {
   /// Login credentials have expired and require reauthentication
   void userTokenExpired() {
     onUserTokenExpired?.call();
+  }
+
+  void userTokenInvalid() {
+    onUserTokenInvalid?.call();
   }
 }

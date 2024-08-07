@@ -361,14 +361,13 @@ class ConversationManager {
     String? ex,
     String? operationID,
   }) {
-    return _channel
-        .invokeMethod(
-            'setConversationEx',
-            _buildParam({
-              'conversationID': conversationID,
-              'ex': ex,
-              "operationID": Utils.checkOperationID(operationID),
-            }));
+    return _channel.invokeMethod(
+        'setConversationEx',
+        _buildParam({
+          'conversationID': conversationID,
+          'ex': ex,
+          "operationID": Utils.checkOperationID(operationID),
+        }));
   }
 
   /// Custom Sort for Conversation List
@@ -390,6 +389,45 @@ class ConversationManager {
         return 1;
       }
     });
+
+  Future changeInputStates({
+    required String conversationID,
+    required bool focus,
+    String? operationID,
+  }) {
+    return _channel.invokeMethod(
+      'changeInputStates',
+      _buildParam(
+        {
+          'focus': focus,
+          'conversationID': conversationID,
+          'operationID': Utils.checkOperationID(operationID),
+        },
+      ),
+    );
+  }
+
+  Future<List<int>?> getInputStates(
+    String conversationID,
+    String userID, {
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+      'getInputStates',
+      _buildParam(
+        {
+          'conversationID': conversationID,
+          'userID': userID,
+          'operationID': Utils.checkOperationID(operationID),
+        },
+      ),
+    )
+        .then((value) {
+      final result = Utils.toListMap(value);
+      return List<int>.from(result);
+    });
+  }
 
   static Map _buildParam(Map param) {
     param["ManagerName"] = "conversationManager";

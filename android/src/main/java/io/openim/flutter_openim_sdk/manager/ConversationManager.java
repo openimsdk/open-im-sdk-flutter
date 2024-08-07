@@ -213,4 +213,22 @@ public class ConversationManager extends BaseManager {
                 value(methodCall, "ex")
         );
     }
+
+    public void changeInputStates(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.changeInputStates(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                value(methodCall, "focus")
+        );
+    }
+
+    public void getInputStates(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getInputStates(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                value(methodCall, "userID")
+        );
+    }
 }

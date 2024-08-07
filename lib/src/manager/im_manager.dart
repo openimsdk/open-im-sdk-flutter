@@ -56,6 +56,9 @@ class IMManager {
             case 'onUserTokenExpired':
               _connectListener.userTokenExpired();
               break;
+              case 'onUserTokenInvalid':
+              _connectListener.userTokenInvalid();
+              break;
           }
         } else if (call.method == ListenerType.userListener) {
           String type = call.arguments['type'];
@@ -184,14 +187,17 @@ class IMManager {
           dynamic data = call.arguments['data'];
           switch (type) {
             case 'onSyncServerStart':
-              conversationManager.listener.syncServerStart();
+              print('dart onSyncServerStart: $data');
+              conversationManager.listener.syncServerStart(data);
+              break;
+            case 'onSyncServerProgress':
+              conversationManager.listener.syncServerProgress(data);
               break;
             case 'onSyncServerFinish':
-              conversationManager.listener.syncServerFinish();
+              conversationManager.listener.syncServerFinish(data);
               break;
-
             case 'onSyncServerFailed':
-              conversationManager.listener.syncServerFailed();
+              conversationManager.listener.syncServerFailed(data);
               break;
             case 'onNewConversation':
               var list = Utils.toList(data, (map) => ConversationInfo.fromJson(map));
@@ -203,6 +209,10 @@ class IMManager {
               break;
             case 'onTotalUnreadMessageCountChanged':
               conversationManager.listener.totalUnreadMessageCountChanged(data ?? 0);
+              break;
+            case 'onConversationUserInputStatusChanged':
+              final i = Utils.toObj(data, (map) => InputStatusChangedData.fromJson(map));
+              conversationManager.listener.conversationUserInputStatusChanged(i);
               break;
           }
         } else if (call.method == ListenerType.friendListener) {
