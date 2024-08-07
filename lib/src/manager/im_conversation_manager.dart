@@ -356,7 +356,7 @@ class ConversationManager {
         .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
   }
 
-  Future<List<ConversationInfo>> setConversationEx(
+  Future setConversationEx(
     String conversationID, {
     String? ex,
     String? operationID,
@@ -368,8 +368,7 @@ class ConversationManager {
               'conversationID': conversationID,
               'ex': ex,
               "operationID": Utils.checkOperationID(operationID),
-            }))
-        .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+            }));
   }
 
   /// Custom Sort for Conversation List
