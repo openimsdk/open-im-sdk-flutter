@@ -90,6 +90,16 @@ class FriendshipManager {
           }))
       .then((value) => Utils.toListMap(value));
 
+  Future<List<dynamic>> getFriendListPageMap({String? operationID, int offset = 0, int count = 40}) => _channel
+    .invokeMethod(
+        'getFriendListPage',
+        _buildParam({
+          'offset': offset,
+          'count': count,
+          "operationID": Utils.checkOperationID(operationID),
+        }))
+    .then((value) => Utils.toListMap(value));
+
   /// Set Friend's Remark
   /// [userID] Friend's userID
   /// [remark] Friend's remark
