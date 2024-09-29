@@ -19,7 +19,8 @@ public class FriendshipManager extends BaseManager {
         Open_im_sdk.getSpecifiedFriendsInfo(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                jsonValue(methodCall, "userIDList")
+                jsonValue(methodCall, "userIDList"),
+                value(methodCall, "filterBlack")
         );
     }
 
@@ -48,7 +49,8 @@ public class FriendshipManager extends BaseManager {
     public void getFriendList(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getFriendList(
                 new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID")
+                value(methodCall, "operationID"),
+                value(methodCall, "filterBlack")
         );
     }
 
@@ -57,15 +59,8 @@ public class FriendshipManager extends BaseManager {
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "offset"),
-                value(methodCall, "count")
-        );
-    }
-
-    public void setFriendRemark(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setFriendRemark(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall)
+                value(methodCall, "count"),
+                value(methodCall, "filterBlack")
         );
     }
 
@@ -133,12 +128,11 @@ public class FriendshipManager extends BaseManager {
         );
     }
 
-    public void setFriendsEx(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setFriendsEx(
+    public void updateFriends(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.updateFriends(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
-                jsonValue(methodCall, "friendIDs"),
-                value(methodCall, "ex")
+                jsonValue(methodCall, "req")
         );
     }
 }

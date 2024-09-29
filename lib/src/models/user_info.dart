@@ -74,48 +74,6 @@ class UserInfo {
   int get hashCode => userID.hashCode;
 }
 
-class FullUserInfo {
-  /// User's public information
-  PublicUserInfo? publicInfo;
-
-  /// Information visible only to friends
-  FriendInfo? friendInfo;
-
-  /// Blacklist information
-  BlacklistInfo? blackInfo;
-
-  FullUserInfo.fromJson(Map<String, dynamic> json) {
-    publicInfo = json['publicInfo'] != null ? PublicUserInfo.fromJson(json['publicInfo']) : null;
-    friendInfo = json['friendInfo'] != null ? FriendInfo.fromJson(json['friendInfo']) : null;
-    blackInfo = json['blackInfo'] != null ? BlacklistInfo.fromJson(json['blackInfo']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    data['publicInfo'] = this.publicInfo?.toJson();
-    data['friendInfo'] = this.friendInfo?.toJson();
-    data['blackInfo'] = this.blackInfo?.toJson();
-
-    return data;
-  }
-
-  String get userID {
-    return publicInfo?.userID ?? friendInfo?.userID ?? blackInfo?.userID ?? '';
-  }
-
-  String get nickname {
-    return publicInfo?.nickname ?? friendInfo?.nickname ?? blackInfo?.nickname ?? '';
-  }
-
-  String get faceURL {
-    return publicInfo?.faceURL ?? friendInfo?.faceURL ?? blackInfo?.faceURL ?? '';
-  }
-
-  String get showName {
-    return friendInfo?.nickname ?? nickname;
-  }
-}
-
 class PublicUserInfo {
   /// User ID
   String? userID;

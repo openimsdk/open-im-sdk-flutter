@@ -24,66 +24,6 @@
 //    }
 //
 //    @Override
-//    public void onHangUp(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onInvitationCancelled(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onInvitationTimeout(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onInviteeAccepted(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onInviteeAcceptedByOtherDevice(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onInviteeRejected(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onInviteeRejectedByOtherDevice(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onReceiveCustomSignal(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onReceiveNewInvitation(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onRoomParticipantConnected(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onRoomParticipantDisconnected(String s) {
-//
-//    }
-//
-//    @Override
-//    public void onStreamChange(String s) {
-//
-//    }
-//
-//    @Override
 //    public void onRecvNewMessage(String s) {
 //        CommonUtil.emitEvent("listenerForService", "onRecvNewMessage", s);
 //    }

@@ -186,28 +186,10 @@ public class GroupManager extends BaseManager {
         );
     }
 
-    public void setGroupMemberNickname(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setGroupMemberNickname(new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "groupID"),
-                value(methodCall, "userID"),
-                value(methodCall, "groupNickname")
-        );
-    }
-
     public void searchGroups(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.searchGroups(new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "searchParam")
-        );
-    }
-
-    public void setGroupMemberRoleLevel(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setGroupMemberRoleLevel(new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "groupID"),
-                value(methodCall, "userID"),
-                int2long(methodCall, "roleLevel")
         );
     }
 
@@ -220,30 +202,6 @@ public class GroupManager extends BaseManager {
                 int2long(methodCall, "joinTimeBegin"),
                 int2long(methodCall, "joinTimeEnd"),
                 jsonValue(methodCall, "excludeUserIDList")
-        );
-    }
-
-    public void setGroupVerification(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setGroupVerification(new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "groupID"),
-                value(methodCall, "needVerification")
-        );
-    }
-
-    public void setGroupLookMemberInfo(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setGroupLookMemberInfo(new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "groupID"),
-                value(methodCall, "status")
-        );
-    }
-
-    public void setGroupApplyMemberFriend(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setGroupApplyMemberFriend(new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "groupID"),
-                value(methodCall, "status")
         );
     }
 

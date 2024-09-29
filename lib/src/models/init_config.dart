@@ -1,4 +1,5 @@
 class InitConfig {
+  String systemType;
   int platformID;
   String apiAddr;
   String wsAddr;
@@ -6,6 +7,7 @@ class InitConfig {
   int logLevel;
   bool isLogStandardOutput;
   String? logFilePath;
+  bool enabledCompression;
 
   InitConfig({
     required this.platformID,
@@ -15,18 +17,21 @@ class InitConfig {
     this.logLevel = 6,
     this.isLogStandardOutput = true,
     this.logFilePath,
+    this.enabledCompression = false,
+    this.systemType = 'flutter',
   });
 
   factory InitConfig.fromJson(Map<String, dynamic> json) {
     return InitConfig(
-      platformID: json['platformID'],
-      apiAddr: json['apiAddr'],
-      wsAddr: json['wsAddr'],
-      dataDir: json['dataDir'],
-      logLevel: json['logLevel'],
-      isLogStandardOutput: json['isLogStandardOutput'],
-      logFilePath: json['logFilePath'],
-    );
+        platformID: json['platformID'],
+        apiAddr: json['apiAddr'],
+        wsAddr: json['wsAddr'],
+        dataDir: json['dataDir'],
+        logLevel: json['logLevel'],
+        isLogStandardOutput: json['isLogStandardOutput'],
+        logFilePath: json['logFilePath'],
+        enabledCompression: json['isCompression'],
+        systemType: json['systemType']);
   }
 
   Map<String, dynamic> toMap() {
@@ -38,6 +43,8 @@ class InitConfig {
       'logLevel': logLevel,
       'isLogStandardOutput': isLogStandardOutput,
       'logFilePath': logFilePath,
+      'isCompression': enabledCompression,
+      'systemType': systemType,
     };
   }
 }

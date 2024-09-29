@@ -14,6 +14,7 @@ public class IMMananger: BaseServiceManager {
         self["getLoginStatus"] = getLoginStatus
         self["uploadFile"] = uploadFile
         self["uploadLogs"] = uploadLogs
+        self["logs"] = logs
         self["updateFcmToken"] = updateFcmToken
         self["setAppBackgroundStatus"] = setAppBackgroundStatus
         self["networkStatusChanged"] = networkStatusChanged
@@ -88,6 +89,10 @@ public class IMMananger: BaseServiceManager {
     func uploadLogs(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkUploadLogs(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int: "line"], methodCall[string: "ex"],
         UploadLogsListener(channel: self.channel))
+    }
+
+    func logs(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkLogs(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[int: "logLevel"], methodCall[string: "file"], methodCall[int: "line"], methodCall[string: "msgs"], methodCall[string: "err"], methodCall[string: "keyAndValue"])
     }
     
     func updateFcmToken(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {

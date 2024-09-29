@@ -5,8 +5,6 @@ class OnAdvancedMsgListener {
   Function(Message msg)? onMsgDeleted;
   Function(RevokedInfo info)? onNewRecvMessageRevoked;
   Function(List<ReadReceiptInfo> list)? onRecvC2CReadReceipt;
-  Function(List<ReadReceiptInfo> list)? onRecvGroupReadReceipt;
-  Function(String msgID, List<String> list)? onRecvMessageExtensionsDeleted;
   Function(Message msg)? onRecvNewMessage;
   Function(Message msg)? onRecvOfflineNewMessage;
   Function(Message msg)? onRecvOnlineOnlyMessage;
@@ -18,8 +16,6 @@ class OnAdvancedMsgListener {
     this.onMsgDeleted,
     this.onNewRecvMessageRevoked,
     this.onRecvC2CReadReceipt,
-    this.onRecvGroupReadReceipt,
-    this.onRecvMessageExtensionsDeleted,
     this.onRecvNewMessage,
     this.onRecvOfflineNewMessage,
     this.onRecvOnlineOnlyMessage,
@@ -37,17 +33,6 @@ class OnAdvancedMsgListener {
   /// C2C Message Read Receipt
   void recvC2CReadReceipt(List<ReadReceiptInfo> list) {
     onRecvC2CReadReceipt?.call(list);
-  }
-
-  /// Group Message Read Receipt
-  void recvGroupReadReceipt(List<ReadReceiptInfo> list) {
-    onRecvGroupReadReceipt?.call(list);
-  }
-
-  /// Received Extended Message Deleted
-  /// [list] TypeKey that was deleted
-  void recvMessageExtensionsDeleted(String msgID, List<String> list) {
-    onRecvMessageExtensionsDeleted?.call(msgID, list);
   }
 
   /// Received a new message

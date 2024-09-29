@@ -59,15 +59,6 @@ public class ConversationManager extends BaseManager {
         );
     }
 
-    public void pinConversation(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.pinConversation(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID"),
-                value(methodCall, "isPinned")
-        );
-    }
-
     public void hideConversation(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.hideConversation(
                 new OnBaseListener(result, methodCall),
@@ -98,32 +89,6 @@ public class ConversationManager extends BaseManager {
                 int2long(methodCall, "sessionType")));
     }
 
-    public void setConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setConversationRecvMessageOpt(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID"),
-                int2long(methodCall, "status")
-        );
-    }
-
-    public void getConversationRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.getConversationRecvMessageOpt(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                jsonValue(methodCall, "conversationIDList")
-        );
-    }
-
-    public void setConversationPrivateChat(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setConversationPrivateChat(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID"),
-                value(methodCall, "isPrivate")
-        );
-    }
-
     public void clearConversationAndDeleteAllMsg(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.clearConversationAndDeleteAllMsg(
                 new OnBaseListener(result, methodCall),
@@ -140,54 +105,8 @@ public class ConversationManager extends BaseManager {
         );
     }
 
-    public void deleteAllConversationFromLocal(MethodCall methodCall, MethodChannel.Result result) {
-    }
-
-    public void resetConversationGroupAtType(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.resetConversationGroupAtType(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID")
-        );
-    }
-
     public void getAtAllTag(MethodCall methodCall, MethodChannel.Result result) {
         CommonUtil.runMainThreadReturn(result, Open_im_sdk.getAtAllTag(value(methodCall, "operationID")));
-    }
-
-    public void setGlobalRecvMessageOpt(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setGlobalRecvMessageOpt(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                int2long(methodCall, "status")
-        );
-    }
-
-    public void setConversationBurnDuration(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setConversationBurnDuration(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID"),
-                value(methodCall, "burnDuration")
-        );
-    }
-
-    public void setConversationIsMsgDestruct(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setConversationIsMsgDestruct(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID"),
-                value(methodCall, "isMsgDestruct")
-        );
-    }
-
-    public void setConversationMsgDestructTime(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setConversationMsgDestructTime(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID"),
-                int2long(methodCall, "duration")
-        );
     }
 
     public void hideAllConversations(MethodCall methodCall, MethodChannel.Result result) {
@@ -202,15 +121,6 @@ public class ConversationManager extends BaseManager {
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 value(methodCall, "name")
-        );
-    }
-
-    public void setConversationEx(MethodCall methodCall, MethodChannel.Result result) {
-        Open_im_sdk.setConversationEx(
-                new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID"),
-                value(methodCall, "conversationID"),
-                value(methodCall, "ex")
         );
     }
 
@@ -229,6 +139,24 @@ public class ConversationManager extends BaseManager {
                 value(methodCall, "operationID"),
                 value(methodCall, "conversationID"),
                 value(methodCall, "userID")
+        );
+    }
+
+    public void setConversation(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.setConversation(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "conversationID"),
+                jsonValue(methodCall, "req")
+        );
+    }
+
+
+    public void searchConversations(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.searchConversation(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                value(methodCall, "name")
         );
     }
 }

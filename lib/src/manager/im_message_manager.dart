@@ -147,18 +147,14 @@ class MessageManager {
 
   /// Typing status update
   /// [msgTip] Custom content
+  @Deprecated('Use [OpenIM.iMManager.conversationManager.changeInputStates(conversationID:focus:)] instead')
   Future typingStatusUpdate({
     required String userID,
     String? msgTip,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'typingStatusUpdate',
-          _buildParam({
-            "msgTip": msgTip,
-            "userID": userID,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+  }) {
+    throw UnimplementedError('typingStatusUpdate');
+  }
 
   /// Create a text message
   Future<Message> createTextMessage({
@@ -551,6 +547,7 @@ class MessageManager {
   /// Mark messages as read
   /// [conversationID] Conversation ID
   /// [messageIDList] List of clientMsgIDs of messages to be marked as read
+  @Deprecated('Use markConversationMessageAsRead instead')
   Future markMessagesAsReadByMsgID({
     required String conversationID,
     required List<String> messageIDList,
@@ -791,8 +788,10 @@ class MessageManager {
         }));
   }
 
-  static Map _buildParam(Map param) {
+  static Map _buildParam(Map<String, dynamic> param) {
     param["ManagerName"] = "messageManager";
+    param = Utils.cleanMap(param);
+
     return param;
   }
 }

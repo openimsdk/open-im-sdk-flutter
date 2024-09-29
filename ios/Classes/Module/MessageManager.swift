@@ -227,8 +227,7 @@ public class MessageManager: BaseServiceManager {
     
     func sendMessageNotOss(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         let sendMsgProgressListener: SendMsgProgressListener = SendMsgProgressListener(channel: channel,result: result,methodCall: methodCall)
-        Open_im_sdkSendMessageNotOss(sendMsgProgressListener, methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[string: "userID"],
-                               methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"], methodCall[bool: "isOnlineOnly"])
+        Open_im_sdkSendMessageNotOss(sendMsgProgressListener, methodCall[string: "operationID"], methodCall[jsonString: "message"], methodCall[string: "userID"], methodCall[string: "groupID"], methodCall[jsonString: "offlinePushInfo"], methodCall[bool: "isOnlineOnly"])
     }
     
     func createImageMessageByURL(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -312,37 +311,6 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvC2CReadReceipt", errCode: nil, errMsg: nil, data: values)
     }
     
-    public func onRecvGroupReadReceipt(_ groupMsgReceiptList: String?) {
-        var values: [String: Any] = [:]
-        values["id"] = id
-        values["groupMsgReceiptList"] = groupMsgReceiptList
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvGroupReadReceipt", errCode: nil, errMsg: nil, data: values)
-    }
-    
-    public func onRecvMessageExtensionsAdded(_ msgID: String?, reactionExtensionList: String?) {
-        var values: [String: Any] = [:]
-        values["id"] = id
-        values["msgID"] = msgID
-        values["reactionExtensionList"] = reactionExtensionList
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsAdded", errCode: nil, errMsg: nil, data: values)
-    }
-    
-    public func onRecvMessageExtensionsChanged(_ msgID: String?, reactionExtensionList: String?) {
-        var values: [String: Any] = [:]
-        values["id"] = id
-        values["msgID"] = msgID
-        values["reactionExtensionList"] = reactionExtensionList
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsChanged", errCode: nil, errMsg: nil, data: values)
-    }
-    
-    public func onRecvMessageExtensionsDeleted(_ msgID: String?, reactionExtensionKeyList: String?) {
-        var values: [String: Any] = [:]
-        values["id"] = id
-        values["msgID"] = msgID
-        values["reactionExtensionKeyList"] = reactionExtensionKeyList
-        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvMessageExtensionsDeleted", errCode: nil, errMsg: nil, data: values)
-    }
-    
     public func onRecvNewMessage(_ message: String?) {
         var values: [String: Any] = [:]
         values["id"] = id
@@ -350,20 +318,19 @@ public class AdvancedMsgListener: NSObject, Open_im_sdk_callbackOnAdvancedMsgLis
         CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvNewMessage", errCode: nil, errMsg: nil, data: values)
     }
 
-    
-      public func onRecvOfflineNewMessage(_ message: String?) {
-          var values: [String: Any] = [:]
-          values["id"] = id
-          values["message"] = message
-          CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOfflineNewMessage", errCode: nil, errMsg: nil, data: values);
-      }
+    public func onRecvOfflineNewMessage(_ message: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["message"] = message
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOfflineNewMessage", errCode: nil, errMsg: nil, data: values);
+    }
 
-      public func onRecvOnlineOnlyMessage(_ message: String?) {
-           var values: [String: Any] = [:]
-           values["id"] = id
-           values["message"] = message
-           CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOnlineOnlyMessage", errCode: nil, errMsg: nil, data: values);
-      }
+    public func onRecvOnlineOnlyMessage(_ message: String?) {
+        var values: [String: Any] = [:]
+        values["id"] = id
+        values["message"] = message
+        CommonUtil.emitEvent(channel: channel, method: "advancedMsgListener", type: "onRecvOnlineOnlyMessage", errCode: nil, errMsg: nil, data: values);
+    }
 }
 
 public class CustomBusinessListener: NSObject, Open_im_sdk_callbackOnCustomBusinessListenerProtocol {
@@ -377,4 +344,3 @@ public class CustomBusinessListener: NSObject, Open_im_sdk_callbackOnCustomBusin
         CommonUtil.emitEvent(channel: channel, method: "customBusinessListener", type: "onRecvCustomBusinessMessage", errCode: nil, errMsg: nil, data: s)
     }
 }
-

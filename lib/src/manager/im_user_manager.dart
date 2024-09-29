@@ -15,7 +15,7 @@ class UserManager {
 
   /// Get user information
   /// [userIDList] List of user IDs
-  Future<List<FullUserInfo>> getUsersInfo({
+  Future<List<PublicUserInfo>> getUsersInfo({
     required List<String> userIDList,
     String? operationID,
   }) =>
@@ -26,7 +26,7 @@ class UserManager {
                 'userIDList': userIDList,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (v) => FullUserInfo.fromJson(v)));
+          .then((value) => Utils.toList(value, (v) => PublicUserInfo.fromJson(v)));
 
   /// Get information of the currently logged-in user
   Future<UserInfo> getSelfUserInfo({
@@ -48,17 +48,16 @@ class UserManager {
   Future<String?> setSelfInfo({
     String? nickname,
     String? faceURL,
-    int? appManagerLevel,
+    int? globalRecvMsgOpt,
     String? ex,
     String? operationID,
   }) =>
       _channel.invokeMethod(
           'setSelfInfo',
           _buildParam({
-            // 'userID': userID,
             'nickname': nickname,
             'faceURL': faceURL,
-            'appManagerLevel': appManagerLevel,
+            'globalRecvMsgOpt': globalRecvMsgOpt,
             'ex': ex,
             'operationID': Utils.checkOperationID(operationID),
           }));
@@ -115,37 +114,28 @@ class UserManager {
         .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
-  Future<List<FullUserInfo>> getUsersInfoWithCache(
+  @Deprecated('Use [getUsersInfo] instead')
+  Future<List<PublicUserInfo>> getUsersInfoWithCache(
     List<String> userIDs, {
-    String? groupID,
     String? operationID,
   }) {
-    return _channel
-        .invokeMethod(
-            'getUsersInfoWithCache',
-            _buildParam({
-              'userIDs': userIDs,
-              'groupID': groupID,
-              'operationID': Utils.checkOperationID(operationID),
-            }))
-        .then((value) => Utils.toList(value, (map) => FullUserInfo.fromJson(map)));
+    return getUsersInfo(userIDList: userIDs, operationID: operationID);
   }
 
-/*
-  Future<String?> setSelfUserInfoEx(
-    UserInfo userInfo, {
+/// Global Do Not Disturb
+/// [status] 0: Normal; 1: Do not accept messages; 2: Accept online messages but not offline messages;
+  @Deprecated('use [setSelfInfo] instead')
+  Future<dynamic> setGlobalRecvMessageOpt({
+    required int status,
     String? operationID,
   }) {
-    return _channel.invokeMethod(
-        'setSelfUserInfoEx',
-        _buildParam({
-          ...userInfo.toJson(),
-          'operationID': Utils.checkOperationID(operationID),
-        }));
+    return setSelfInfo(globalRecvMsgOpt: status);
   }
-*/
-  static Map _buildParam(Map param) {
+
+  static Map _buildParam(Map<String, dynamic> param) {
     param["ManagerName"] = "userManager";
+    param = Utils.cleanMap(param);
+
     return param;
   }
 }

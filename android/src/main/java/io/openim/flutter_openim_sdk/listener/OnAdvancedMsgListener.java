@@ -38,42 +38,6 @@ public class OnAdvancedMsgListener implements open_im_sdk_callback.OnAdvancedMsg
     }
 
     @Override
-    public void onRecvGroupReadReceipt(String s) {
-        final Map<String, String> values = new ArrayMap<>();
-        values.put("id", id);
-        values.put("groupMsgReceiptList", s);
-        CommonUtil.emitEvent("advancedMsgListener", "onRecvGroupReadReceipt", values);
-    }
-
-
-    @Override
-    public void onRecvMessageExtensionsAdded(String s, String s1) {
-        final Map<String, String> values = new ArrayMap<>();
-        values.put("id", id);
-        values.put("msgID", s);
-        values.put("reactionExtensionList", s1);
-        CommonUtil.emitEvent("advancedMsgListener", "onRecvMessageExtensionsAdded", values);
-    }
-
-    @Override
-    public void onRecvMessageExtensionsChanged(String s, String s1) {
-        final Map<String, String> values = new ArrayMap<>();
-        values.put("id", id);
-        values.put("msgID", s);
-        values.put("reactionExtensionList", s1);
-        CommonUtil.emitEvent("advancedMsgListener", "onRecvMessageExtensionsChanged", values);
-    }
-
-    @Override
-    public void onRecvMessageExtensionsDeleted(String s, String s1) {
-        final Map<String, String> values = new ArrayMap<>();
-        values.put("id", id);
-        values.put("msgID", s);
-        values.put("reactionExtensionKeyList", s1);
-        CommonUtil.emitEvent("advancedMsgListener", "onRecvMessageExtensionsDeleted", values);
-    }
-
-    @Override
     public void onRecvNewMessage(String s) {
         final Map<String, String> values = new ArrayMap<>();
         values.put("id", id);

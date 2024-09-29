@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+import 'package:flutter_openim_sdk/src/models/set_group_member_info.dart';
 
 class GroupManager {
   MethodChannel _channel;
@@ -18,39 +19,43 @@ class GroupManager {
   /// Invite users to a group, allowing them to join without approval.
   /// [groupID] Group ID
   /// [userIDList] List of user IDs
-  Future inviteUserToGroup({
+  Future<List<GroupInviteResult>> inviteUserToGroup({
     required String groupID,
     required List<String> userIDList,
     String? reason,
     String? operationID,
   }) =>
-      _channel.invokeMethod(
-          'inviteUserToGroup',
-          _buildParam({
-            'groupID': groupID,
-            'userIDList': userIDList,
-            'reason': reason,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+      _channel
+          .invokeMethod(
+              'inviteUserToGroup',
+              _buildParam({
+                'groupID': groupID,
+                'userIDList': userIDList,
+                'reason': reason,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
 
   /// Remove group members
   /// [groupID] Group ID
   /// [userIDList] List of user IDs
   /// [reason] Reason for removal
-  Future kickGroupMember({
+  Future<List<GroupInviteResult>> kickGroupMember({
     required String groupID,
     required List<String> userIDList,
     String? reason,
     String? operationID,
   }) =>
-      _channel.invokeMethod(
-          'kickGroupMember',
-          _buildParam({
-            'groupID': groupID,
-            'userIDList': userIDList,
-            'reason': reason,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+      _channel
+          .invokeMethod(
+              'kickGroupMember',
+              _buildParam({
+                'groupID': groupID,
+                'userIDList': userIDList,
+                'reason': reason,
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) => Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
 
   /// Query group member information
   /// [groupID] Group ID
@@ -213,15 +218,17 @@ class GroupManager {
 
   /// Apply to join a group, requiring approval from an administrator or the group.
   /// [joinSource] 2: Invited, 3: Searched, 4: Using a QR code
-  Future<dynamic> joinGroup({required String groupID, String? reason, String? operationID, int joinSource = 3, String? ex}) => _channel.invokeMethod(
-      'joinGroup',
-      _buildParam({
-        'groupID': groupID,
-        'reason': reason,
-        'joinSource': joinSource,
-        'ex': ex,
-        'operationID': Utils.checkOperationID(operationID),
-      }));
+  Future<dynamic> joinGroup(
+          {required String groupID, String? reason, String? operationID, int joinSource = 3, String? ex}) =>
+      _channel.invokeMethod(
+          'joinGroup',
+          _buildParam({
+            'groupID': groupID,
+            'reason': reason,
+            'joinSource': joinSource,
+            'ex': ex,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
 
   /// Exit a group
   Future<dynamic> quitGroup({
@@ -357,20 +364,17 @@ class GroupManager {
   /// [groupID] Group ID
   /// [userID] User ID of the group member
   /// [groupNickname] Group nickname
+  @Deprecated('Use [setGroupMemberInfo] instead')
   Future<dynamic> setGroupMemberNickname({
     required String groupID,
     required String userID,
     String? groupNickname,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setGroupMemberNickname',
-          _buildParam({
-            'groupID': groupID,
-            'userID': userID,
-            'groupNickname': groupNickname ?? '',
-            'operationID': Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = SetGroupMemberInfo(groupID: groupID, userID: userID, nickname: groupNickname);
+
+    return setGroupMemberInfo(groupMembersInfo: req, operationID: operationID);
+  }
 
   /// Query a group
   /// [keywordList] Search keywords; currently, only one keyword is supported, and it cannot be empty.
@@ -399,20 +403,17 @@ class GroupManager {
   /// [groupID] Group ID
   /// [userID] User ID of the group member
   /// [roleLevel] Role level; see [GroupRoleLevel]
+  @Deprecated('Use [setGroupMemberInfo] instead')
   Future<dynamic> setGroupMemberRoleLevel({
     required String groupID,
     required String userID,
     required int roleLevel,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setGroupMemberRoleLevel',
-          _buildParam({
-            'groupID': groupID,
-            'userID': userID,
-            'roleLevel': roleLevel,
-            'operationID': Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = SetGroupMemberInfo(groupID: groupID, userID: userID, roleLevel: roleLevel);
+
+    return setGroupMemberInfo(groupMembersInfo: req, operationID: operationID);
+  }
 
   /// Get a group member list based on join time
   Future<List<GroupMembersInfo>> getGroupMemberListByJoinTime({
@@ -441,50 +442,44 @@ class GroupManager {
   /// Set group verification for joining
   /// [groupID] Group ID
   /// [needVerification] Verification setting; see [GroupVerification] class
+  @Deprecated('Use [setGroupInfo] instead')
   Future<dynamic> setGroupVerification({
     required String groupID,
     required int needVerification,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setGroupVerification',
-          _buildParam({
-            'groupID': groupID,
-            'needVerification': needVerification,
-            'operationID': Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = GroupInfo(groupID: groupID, needVerification: needVerification);
 
-  /// Allow/disallow members to view each other's information through the group
-  /// [groupID] Group ID
-  /// [status] 0: Disable, 1: Enable
-  Future<dynamic> setGroupLookMemberInfo({
-    required String groupID,
-    required int status,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setGroupLookMemberInfo',
-          _buildParam({
-            'groupID': groupID,
-            'status': status,
-            'operationID': Utils.checkOperationID(operationID),
-          }));
+    return setGroupInfo(req, operationID: operationID);
+  }
 
   /// Allow/disallow members to add friends through the group
   /// [groupID] Group ID
   /// [status] 0: Disable, 1: Enable
+  @Deprecated('Use [setGroupInfo] instead')
+  Future<dynamic> setGroupLookMemberInfo({
+    required String groupID,
+    required int status,
+    String? operationID,
+  }) {
+    final req = GroupInfo(groupID: groupID, lookMemberInfo: status);
+
+    return setGroupInfo(req, operationID: operationID);
+  }
+
+  /// Allow/disallow members to add friends through the group
+  /// [groupID] Group ID
+  /// [status] 0: Disable, 1: Enable
+  @Deprecated('Use [setGroupInfo] instead')
   Future<dynamic> setGroupApplyMemberFriend({
     required String groupID,
     required int status,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setGroupApplyMemberFriend',
-          _buildParam({
-            'groupID': groupID,
-            'status': status,
-            'operationID': Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = GroupInfo(groupID: groupID, applyMemberFriend: status);
+
+    return setGroupInfo(req, operationID: operationID);
+  }
 
   /// Get group owners and administrators
   /// [groupId] Group ID
@@ -567,7 +562,7 @@ class GroupManager {
 
   /// Modify the GroupMemberInfo ex field
   Future<dynamic> setGroupMemberInfo({
-    required GroupMembersInfo groupMembersInfo,
+    required SetGroupMemberInfo groupMembersInfo,
     String? operationID,
   }) =>
       _channel.invokeMethod(
@@ -590,9 +585,13 @@ class GroupManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  static Map _buildParam(Map param) {
+  static Map _buildParam(Map<String, dynamic> param) {
     param["ManagerName"] = "groupManager";
+    param = Utils.cleanMap(param);
     log('param: $param');
+    
     return param;
   }
+
+
 }

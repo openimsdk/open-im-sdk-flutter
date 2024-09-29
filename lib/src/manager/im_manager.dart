@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -141,18 +142,6 @@ class IMManager {
               var list = Utils.toList(value, (map) => ReadReceiptInfo.fromJson(map));
               messageManager.msgListener.recvC2CReadReceipt(list);
               break;
-            case 'onRecvGroupReadReceipt':
-              var value = call.arguments['data']['groupMsgReceiptList'];
-              var list = Utils.toList(value, (map) => ReadReceiptInfo.fromJson(map));
-              messageManager.msgListener.recvGroupReadReceipt(list);
-              break;
-            case 'onRecvMessageExtensionsDeleted':
-              var msgID = call.arguments['data']['msgID'];
-              var value = call.arguments['data']['reactionExtensionKeyList'];
-              var list = Utils.toList(value, (map) => '$map');
-              messageManager.msgListener.recvMessageExtensionsDeleted(msgID, list);
-              break;
-
             case 'onRecvNewMessage':
               var value = call.arguments['data']['message'];
               final msg = Utils.toObj(value, (map) => Message.fromJson(map));
@@ -367,10 +356,8 @@ class IMManager {
     OnConnectListener listener, {
     String? operationID,
   }) {
-    this._connectListener = listener;
-    if (config.logFilePath == null) {
-      config.logFilePath = config.dataDir;
-    }
+    _connectListener = listener;
+    config.logFilePath ??= config.dataDir;
     return _channel.invokeMethod(
       'initSDK',
       _buildParam(
@@ -387,7 +374,6 @@ class IMManager {
   /// [apiAddr] SDK API address
   /// [wsAddr] SDK WebSocket address
   /// [dataDir] SDK database storage directory
-  /// [objectStorage] Object storage minio
   /// [logLevel] Log level, 1: no printing
   /// [enabledEncryption] true: encryption
   /// [enabledCompression] true: compression
@@ -398,12 +384,13 @@ class IMManager {
     required String dataDir,
     required OnConnectListener listener,
     int logLevel = 6,
+    bool isNeedEncryption = false,
     bool isCompression = false,
     bool isLogStandardOutput = true,
     String? logFilePath,
     String? operationID,
   }) {
-    this._connectListener = listener;
+    _connectListener = listener;
     return _channel.invokeMethod(
       'initSDK',
       _buildParam(
@@ -414,8 +401,10 @@ class IMManager {
           "dataDir": dataDir,
           "logLevel": logLevel,
           "isCompression": isCompression,
+          'isNeedEncryption': isNeedEncryption,
           "isLogStandardOutput": isLogStandardOutput,
           "logFilePath": logFilePath,
+          'systemType': 'flutter',
           "operationID": Utils.checkOperationID(operationID),
         },
       ),
@@ -535,7 +524,7 @@ class IMManager {
             'operationID': Utils.checkOperationID(operationID),
           }));
 
-  /// 上传日志
+  /// Upload logs
   Future uploadLogs({
     String? ex,
     int line = 0,
@@ -546,6 +535,27 @@ class IMManager {
           _buildParam({
             'ex': ex,
             'line': line,
+            'operationID': Utils.checkOperationID(operationID),
+          }));
+
+  Future logs({
+    int logLevel = 5,
+    String? file,
+    int line = 0,
+    String? msgs,
+    String? err,
+    List<dynamic>? keyAndValues,
+    String? operationID,
+  }) =>
+      _channel.invokeMethod(
+          'logs',
+          _buildParam({
+            'line': line,
+            'logLevel': logLevel,
+            'file': file,
+            'msgs': msgs,
+            'err': err,
+            if (keyAndValues != null) 'keyAndValue': jsonEncode(keyAndValues),
             'operationID': Utils.checkOperationID(operationID),
           }));
 
@@ -569,8 +579,10 @@ class IMManager {
 
   MethodChannel get channel => _channel;
 
-  static Map _buildParam(Map param) {
+  static Map _buildParam(Map<String, dynamic> param) {
     param["ManagerName"] = "imManager";
+    param = Utils.cleanMap(param);
+
     return param;
   }
 }

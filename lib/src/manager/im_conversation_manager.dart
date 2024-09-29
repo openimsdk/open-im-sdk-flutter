@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+
+import '../models/update_req.dart';
 
 class ConversationManager {
   MethodChannel _channel;
@@ -98,14 +101,11 @@ class ConversationManager {
     required String conversationID,
     required bool isPinned,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'pinConversation',
-          _buildParam({
-            "conversationID": conversationID,
-            "isPinned": isPinned,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = ConversationReq(isPinned: isPinned);
+
+    return setConversation(conversationID, req, operationID: operationID);
+  }
 
   /// Hide a Conversation
   /// [conversationID] Conversation ID
@@ -161,22 +161,20 @@ class ConversationManager {
   /// Message Do-Not-Disturb Setting
   /// [conversationID] Conversation ID
   /// [status] 0: normal; 1: not receiving messages; 2: receive online messages but not offline messages
+  @Deprecated('use [setConversation] instead')
   Future<dynamic> setConversationRecvMessageOpt({
     required String conversationID,
     required int status,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setConversationRecvMessageOpt',
-          _buildParam({
-            "conversationID": conversationID,
-            "status": status,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = ConversationReq(recvMsgOpt: status);
 
-  /// Query Do-Not-Disturb Status
-  /// [conversationIDList] List of conversation IDs
-  /// Returns: [{"conversationId":"single_13922222222","result":0}], result values: 0: normal; 1: not receiving messages; 2: receive online messages but not offline messages
+    return setConversation(conversationID, req, operationID: operationID);
+  }
+
+  /// Message Do-Not-Disturb Setting
+  /// [conversationID] Conversation ID
+  /// [status] 0: normal; 1: not receiving messages; 2: receive online messages but not offline messages
   Future<List<dynamic>> getConversationRecvMessageOpt({
     required List<String> conversationIDList,
     String? operationID,
@@ -193,18 +191,16 @@ class ConversationManager {
   /// Self-Destruct Messages
   /// [conversationID] Conversation ID
   /// [isPrivate] true: enable, false: disable
+  @Deprecated('use [setConversation] instead')
   Future<dynamic> setConversationPrivateChat({
     required String conversationID,
     required bool isPrivate,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setConversationPrivateChat',
-          _buildParam({
-            "conversationID": conversationID,
-            "isPrivate": isPrivate,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = ConversationReq(isPrivateChat: isPrivate);
+
+    return setConversation(conversationID, req, operationID: operationID);
+  }
 
   /// Delete a Conversation Locally and from the Server
   /// [conversationID] Conversation ID
@@ -245,16 +241,15 @@ class ConversationManager {
 
   /// Reset Mentioned (Group At) Flags [GroupAtType]
   /// [conversationID] Conversation ID
+  @Deprecated('use [setConversation] instead')
   Future<dynamic> resetConversationGroupAtType({
     required String conversationID,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'resetConversationGroupAtType',
-          _buildParam({
-            "conversationID": conversationID,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = ConversationReq(groupAtType: 0);
+
+    return setConversation(conversationID, req, operationID: operationID);
+  }
 
   /// Query @ All Flag
   Future<dynamic> getAtAllTag({
@@ -271,32 +266,27 @@ class ConversationManager {
 
   /// Global Do-Not-Disturb
   /// [status] 0: normal; 1: not receiving messages; 2: receive online messages but not offline messages
+  @Deprecated('use [OpenIM.iMManager.userManager.setSelfInfo()] instead')
   Future<dynamic> setGlobalRecvMessageOpt({
     required int status,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setGlobalRecvMessageOpt',
-          _buildParam({
-            "status": status,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+  }) {
+    throw UnimplementedError('setGlobalRecvMessageOpt');
+  }
 
   /// Set Self-Destruct Message Duration
   /// [conversationID] Conversation ID
   /// [burnDuration] Duration in seconds, default: 30s
+  @Deprecated('use [setConversation] instead')
   Future<dynamic> setConversationBurnDuration({
     required String conversationID,
     int burnDuration = 30,
     String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setConversationBurnDuration',
-          _buildParam({
-            "conversationID": conversationID,
-            "burnDuration": burnDuration,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
+  }) {
+    final req = ConversationReq(burnDuration: burnDuration);
+
+    return setConversation(conversationID, req, operationID: operationID);
+  }
 
   /// Mark Messages as Read
   /// [conversationID] Conversation ID
@@ -308,36 +298,6 @@ class ConversationManager {
           'markConversationMessageAsRead',
           _buildParam({
             "conversationID": conversationID,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
-  /// Enable Regular Deletion
-  /// [isMsgDestruct] true: enable
-  Future<dynamic> setConversationIsMsgDestruct({
-    required String conversationID,
-    bool isMsgDestruct = true,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setConversationIsMsgDestruct',
-          _buildParam({
-            "conversationID": conversationID,
-            "isMsgDestruct": isMsgDestruct,
-            "operationID": Utils.checkOperationID(operationID),
-          }));
-
-  /// Regularly Delete Chat Records
-  /// [duration] Seconds
-  Future<dynamic> setConversationMsgDestructTime({
-    required String conversationID,
-    int duration = 1 * 24 * 60 * 60,
-    String? operationID,
-  }) =>
-      _channel.invokeMethod(
-          'setConversationMsgDestructTime',
-          _buildParam({
-            "conversationID": conversationID,
-            "duration": duration,
             "operationID": Utils.checkOperationID(operationID),
           }));
 
@@ -356,18 +316,15 @@ class ConversationManager {
         .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
   }
 
+  @Deprecated('use [setConversation] instead')
   Future setConversationEx(
     String conversationID, {
     String? ex,
     String? operationID,
   }) {
-    return _channel.invokeMethod(
-        'setConversationEx',
-        _buildParam({
-          'conversationID': conversationID,
-          'ex': ex,
-          "operationID": Utils.checkOperationID(operationID),
-        }));
+    final req = ConversationReq(ex: ex);
+
+    return setConversation(conversationID, req, operationID: operationID);
   }
 
   /// Custom Sort for Conversation List
@@ -424,14 +381,34 @@ class ConversationManager {
       ),
     )
         .then((value) {
+      print('getInputStates: $value');
       final result = Utils.toListMap(value);
       return List<int>.from(result);
     });
   }
 
-  static Map _buildParam(Map param) {
+  Future setConversation(
+    String conversationID,
+    ConversationReq req, {
+    String? operationID,
+  }) {
+    return _channel.invokeMethod(
+      'setConversation',
+      _buildParam(
+        {
+          'conversationID': conversationID,
+          'req': req.toJson(),
+          'operationID': Utils.checkOperationID(operationID),
+        },
+      ),
+    );
+  }
+
+  static Map _buildParam(Map<String, dynamic> param) {
     param["ManagerName"] = "conversationManager";
+    param = Utils.cleanMap(param);
     log('param: $param');
+
     return param;
   }
 }

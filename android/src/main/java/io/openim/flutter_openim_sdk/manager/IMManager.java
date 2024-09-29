@@ -73,6 +73,19 @@ public class IMManager extends BaseManager {
         );
     }
 
+    public void logs(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.logs(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                int2long(methodCall, "logLevel"),
+                value(methodCall, "file"),
+                int2long(methodCall, "line"),
+                value(methodCall, "msgs"),
+                value(methodCall, "err"),
+                value(methodCall, "keyAndValue")
+        );
+    }
+
     public void setAppBackgroundStatus(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.setAppBackgroundStatus(
                 new OnBaseListener(result, methodCall),

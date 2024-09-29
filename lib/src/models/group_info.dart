@@ -115,16 +115,11 @@ class GroupInfo {
   }
 
   /// Corresponding Conversation Type for Group Type
-  int get sessionType => groupType == GroupType.general
-      ? ConversationType.group
-      : ConversationType.superGroup;
+  int get sessionType => groupType == GroupType.general ? ConversationType.group : ConversationType.superGroup;
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is GroupInfo &&
-          runtimeType == other.runtimeType &&
-          groupID == other.groupID;
+      identical(this, other) || other is GroupInfo && runtimeType == other.runtimeType && groupID == other.groupID;
 
   @override
   int get hashCode => groupID.hashCode;
