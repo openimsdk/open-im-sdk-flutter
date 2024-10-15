@@ -1,3 +1,7 @@
+## 3.8.1+1
+
+- [Bug fixes and performance enhancements.](https://github.com/openimsdk/openim-sdk-core/releases/tag/v3.8.1)
+
 ## 3.8.1
 
 - [Bug fixes and performance enhancements.](https://github.com/openimsdk/openim-sdk-core/releases/tag/v3.8.1)
