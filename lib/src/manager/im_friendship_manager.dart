@@ -19,7 +19,7 @@ class FriendshipManager {
 
   /// Query Friend Information
   /// [userIDList] List of user IDs
-  Future<List<PublicUserInfo>> getFriendsInfo({
+  Future<List<FriendInfo>> getFriendsInfo({
     required List<String> userIDList,
     bool filterBlack = false,
     String? operationID,
@@ -32,7 +32,7 @@ class FriendshipManager {
                 'filterBlack': filterBlack,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (v) => PublicUserInfo.fromJson(v)));
+          .then((value) => Utils.toList(value, (v) => FriendInfo.fromJson(v)));
 
   /// Send a Friend Request, the other party needs to accept the request to become friends.
   /// [userID] User ID to be invited
@@ -69,7 +69,7 @@ class FriendshipManager {
       .then((value) => Utils.toList(value, (v) => FriendApplicationInfo.fromJson(v)));
 
   /// Get Friend List, including friends who have been put into the blacklist
-  Future<List<PublicUserInfo>> getFriendList({
+  Future<List<FriendInfo>> getFriendList({
     String? operationID,
     bool filterBlack = false,
   }) =>
@@ -80,9 +80,9 @@ class FriendshipManager {
                 'filterBlack': filterBlack,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (v) => PublicUserInfo.fromJson(v)));
+          .then((value) => Utils.toList(value, (v) => FriendInfo.fromJson(v)));
 
-  Future<List<PublicUserInfo>> getFriendListPage({
+  Future<List<FriendInfo>> getFriendListPage({
     bool filterBlack = false,
     int offset = 0,
     int count = 40,
@@ -97,7 +97,7 @@ class FriendshipManager {
                 'filterBlack': filterBlack,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (v) => PublicUserInfo.fromJson(v)));
+          .then((value) => Utils.toList(value, (v) => FriendInfo.fromJson(v)));
 
   /// Get Friend List, including friends who have been put into the blacklist (returns a map)
   Future<List<dynamic>> getFriendListMap({String? operationID}) => _channel
