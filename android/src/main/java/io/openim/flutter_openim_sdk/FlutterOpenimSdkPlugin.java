@@ -47,6 +47,7 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
     private ConnectivityListener connectivityListener;
     private VisibilityListener visibilityListener;
     public static boolean isInitialized;
+    private FlutterPluginBinding flutterPluginBinding;
 
     public FlutterOpenimSdkPlugin() {
         FlutterOpenimSdkPlugin.imManager = new IMManager();
@@ -60,12 +61,21 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_NAME);
+        this.flutterPluginBinding = flutterPluginBinding;
+
         context = flutterPluginBinding.getApplicationContext();
-        channel.setMethodCallHandler(this);
         connectivityListener = new ConnectivityListener(context);
         visibilityListener = new VisibilityListener();
         connectivityListener.register();
+    }
+
+    private void registerMethodChannel() {
+        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_NAME);
+        channel.setMethodCallHandler(this);
+    }
+
+    private void unregisterMethodChannel() {
+        channel.setMethodCallHandler(null);
     }
 
     @Override
@@ -75,29 +85,36 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
 
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-        FlutterOpenimSdkPlugin.channel.setMethodCallHandler(null);
         connectivityListener.unregisterReceiver();
     }
 
 
     @Override
     public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+        registerMethodChannel();
+        
         visibilityListener.register(activity = binding.getActivity());
     }
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
+        unregisterMethodChannel();
+
         visibilityListener.unregisterReceiver(activity);
         activity = null;
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+        registerMethodChannel();
+
         visibilityListener.register(activity = binding.getActivity());
     }
 
     @Override
     public void onDetachedFromActivity() {
+        unregisterMethodChannel();
+
         visibilityListener.unregisterReceiver(activity);
         activity = null;
     }
