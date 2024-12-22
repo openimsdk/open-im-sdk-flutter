@@ -3,7 +3,6 @@ version '1.0'
 
 def dir = getCurrentProjectDir()
 
-// 将aar放到libs，本地仓库替换远程仓库
 def getCurrentProjectDir() {
     String result = ""
     rootProject.allprojects { project ->
@@ -16,20 +15,21 @@ def getCurrentProjectDir() {
 
 buildscript {
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.4'
+        classpath 'com.android.tools.build:gradle:7.3.1'
     }
 }
 
 rootProject.allprojects {
     repositories {
-        // 将aar放到libs，本地仓库替换远程仓库
-//        maven { url "$dir/libs" }
-        maven { url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/' }
         google()
         mavenCentral()
     }
@@ -38,7 +38,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 34
 
     defaultConfig {
         minSdkVersion 21
@@ -50,7 +50,5 @@ android {
 }
 
 dependencies {
-    // 本地依赖，现将aar复制到libs/io/openim/core-sdk/0.0.1/ 下，命名core-sdk-0.0.1.aar
-//    implementation 'io.openim:core-sdk:0.0.1@aar'
-    implementation 'io.openim:core-sdk:3.8.1@aar'
+    implementation 'io.openim:core-sdk:3.8.2@aar'
 }
