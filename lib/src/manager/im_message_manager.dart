@@ -33,7 +33,7 @@ class MessageManager {
   /// [offlinePushInfo] Offline message display content
   Future<Message> sendMessage({
     required Message message,
-    required OfflinePushInfo offlinePushInfo,
+    OfflinePushInfo? offlinePushInfo = null,
     String? userID,
     String? groupID,
     bool isOnlineOnly = false,
@@ -44,7 +44,7 @@ class MessageManager {
               'sendMessage',
               _buildParam({
                 'message': message.toJson(),
-                'offlinePushInfo': offlinePushInfo.toJson(),
+                'offlinePushInfo': offlinePushInfo?.toJson(),
                 'userID': userID ?? '',
                 'groupID': groupID ?? '',
                 'isOnlineOnly': isOnlineOnly,
