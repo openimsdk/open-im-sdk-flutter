@@ -38,6 +38,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
+    namespace = "io.openim.flutter_openim_sdk"
     compileSdkVersion 34
 
     defaultConfig {
