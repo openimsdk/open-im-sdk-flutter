@@ -569,7 +569,7 @@ class MessageManager {
   Future<AdvancedMessage> getAdvancedHistoryMessageList({
     String? conversationID,
     Message? startMsg,
-    int? lastMinSeq,
+    GetHistoryViewType viewType = GetHistoryViewType.history,
     int? count,
     String? operationID,
   }) =>
@@ -580,7 +580,7 @@ class MessageManager {
                 'conversationID': conversationID ?? '',
                 'startClientMsgID': startMsg?.clientMsgID ?? '',
                 'count': count ?? 40,
-                'lastMinSeq': lastMinSeq ?? 0,
+                'viewType': viewType.rawValue,
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
@@ -592,7 +592,7 @@ class MessageManager {
   Future<AdvancedMessage> getAdvancedHistoryMessageListReverse({
     String? conversationID,
     Message? startMsg,
-    int? lastMinSeq,
+    GetHistoryViewType viewType = GetHistoryViewType.history,
     int? count,
     String? operationID,
   }) =>
@@ -603,7 +603,7 @@ class MessageManager {
                 'conversationID': conversationID ?? '',
                 'startClientMsgID': startMsg?.clientMsgID ?? '',
                 'count': count ?? 40,
-                'lastMinSeq': lastMinSeq ?? 0,
+                'viewType': viewType.rawValue,
                 'operationID': Utils.checkOperationID(operationID),
               }))
           .then((value) => Utils.toObj(value, (map) => AdvancedMessage.fromJson(map)));
