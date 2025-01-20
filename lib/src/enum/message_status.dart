@@ -12,3 +12,12 @@ class MessageStatus {
   /// Already deleted
   static const deleted = 4;
 }
+
+enum GetHistoryViewType {
+  history(0),
+  search(1);
+
+  final int rawValue;
+
+  const GetHistoryViewType(this.rawValue);
+}
