@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 class OpenIM {
-  static const version = '3.8.3+2';
+  static const version = '3.8.3+3';
 
   static const _channel = MethodChannel('flutter_openim_sdk');
 
