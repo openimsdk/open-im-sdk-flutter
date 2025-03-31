@@ -57,7 +57,7 @@ class IMManager {
             case 'onUserTokenExpired':
               _connectListener.userTokenExpired();
               break;
-              case 'onUserTokenInvalid':
+            case 'onUserTokenInvalid':
               _connectListener.userTokenInvalid();
               break;
           }
@@ -412,8 +412,8 @@ class IMManager {
   }
 
   /// Deinitialize the SDK
-  Future<dynamic> unInitSDK() {
-    return _channel.invokeMethod('unInitSDK', _buildParam({}));
+  void unInitSDK() {
+    _channel.invokeMethod('unInitSDK', _buildParam({}));
   }
 
   /// Login
