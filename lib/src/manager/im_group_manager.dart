@@ -40,22 +40,20 @@ class GroupManager {
   /// [groupID] Group ID
   /// [userIDList] List of user IDs
   /// [reason] Reason for removal
-  Future<List<GroupInviteResult>> kickGroupMember({
+  Future kickGroupMember({
     required String groupID,
     required List<String> userIDList,
     String? reason,
     String? operationID,
   }) =>
-      _channel
-          .invokeMethod(
-              'kickGroupMember',
-              _buildParam({
-                'groupID': groupID,
-                'userIDList': userIDList,
-                'reason': reason,
-                "operationID": Utils.checkOperationID(operationID),
-              }))
-          .then((value) => Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
+      _channel.invokeMethod(
+          'kickGroupMember',
+          _buildParam({
+            'groupID': groupID,
+            'userIDList': userIDList,
+            'reason': reason,
+            "operationID": Utils.checkOperationID(operationID),
+          }));
 
   /// Query group member information
   /// [groupID] Group ID
@@ -589,9 +587,7 @@ class GroupManager {
     param["ManagerName"] = "groupManager";
     param = Utils.cleanMap(param);
     log('param: $param');
-    
+
     return param;
   }
-
-
 }
