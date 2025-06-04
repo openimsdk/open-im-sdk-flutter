@@ -15,10 +15,6 @@ def getCurrentProjectDir() {
 
 buildscript {
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/public' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         google()
         mavenCentral()
     }
@@ -30,6 +26,7 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        maven { url "$dir/libs" }
         google()
         mavenCentral()
     }
@@ -50,5 +47,5 @@ android {
 }
 
 dependencies {
-    implementation 'io.openim:core-sdk:3.8.3-patch7@aar'
+   implementation 'io.openim:core-sdk:0.0.1@aar'
 }
