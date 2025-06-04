@@ -126,14 +126,16 @@ public class GroupManager extends BaseManager {
     public void getGroupApplicationListAsRecipient(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getGroupApplicationListAsRecipient(
                 new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID")
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "req")
         );
     }
 
     public void getGroupApplicationListAsApplicant(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getGroupApplicationListAsApplicant(
                 new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID")
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "req")
         );
     }
 
@@ -238,6 +240,13 @@ public class GroupManager extends BaseManager {
                 value(methodCall, "operationID"),
                 value(methodCall, "groupID"),
                 jsonValue(methodCall, "userIDs")
+        );
+    }
+
+    public void getGroupApplicationUnhandledCount(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getGroupApplicationUnhandledCount(new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "req")
         );
     }
 }

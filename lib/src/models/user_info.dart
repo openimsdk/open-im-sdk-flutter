@@ -423,3 +423,78 @@ class UserStatusInfo {
     return data;
   }
 }
+
+class GetFriendApplicationListAsRecipientReq {
+  final List<int> handleResults;
+  final int offset;
+  final int count;
+
+  GetFriendApplicationListAsRecipientReq({
+    this.handleResults = const [],
+    required this.offset,
+    required this.count,
+  });
+
+  GetFriendApplicationListAsRecipientReq.fromJson(Map<String, dynamic> json)
+      : handleResults = json['handleResults'] == null ? [] : List<int>.from(json['handleResults'].map((x) => x)),
+        offset = json['offset'],
+        count = json['count'];
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['handleResults'] = handleResults;
+    data['offset'] = offset;
+    data['count'] = count;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return 'GetFriendApplicationListAsRecipientReq{handleResults: $handleResults, offset: $offset, count: $count}';
+  }
+}
+
+class GetFriendApplicationListAsApplicantReq {
+  final int offset;
+  final int count;
+
+  GetFriendApplicationListAsApplicantReq({
+    required this.offset,
+    required this.count,
+  });
+
+  GetFriendApplicationListAsApplicantReq.fromJson(Map<String, dynamic> json)
+      : offset = json['offset'],
+        count = json['count'];
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['offset'] = offset;
+    data['count'] = count;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return 'GetFriendApplicationListAsApplicantReq{offset: $offset, count: $count}';
+  }
+}
+
+class GetFriendApplicationUnhandledCountReq {
+  final int time;
+
+  GetFriendApplicationUnhandledCountReq({this.time = 0});
+
+  GetFriendApplicationUnhandledCountReq.fromJson(Map<String, dynamic> json) : time = json['time'];
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['time'] = time;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return 'GetSelfUnhandledApplyCountReq{time: $time}';
+  }
+}

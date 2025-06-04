@@ -422,3 +422,90 @@ class GroupInviteResult {
     return data;
   }
 }
+
+class GetGroupApplicationListAsRecipientReq {
+  final List<String> groupIDs;
+  final List<int> handleResults;
+  final int offset;
+  final int count;
+
+  GetGroupApplicationListAsRecipientReq({ 
+    this.groupIDs = const [],
+    this.handleResults = const [],
+    required this.offset,
+    required this.count,
+  });
+
+  GetGroupApplicationListAsRecipientReq.fromJson(Map<String, dynamic> json)
+      : groupIDs = json['groupIDs'] == null ? [] : List<String>.from(json['groupIDs'].map((x) => x)),
+        handleResults = json['handleResults'] == null ? [] : List<int>.from(json['handleResults'].map((x) => x)),
+        offset = json['offset'],
+        count = json['count'];
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['groupIDs'] = groupIDs;
+    data['handleResults'] = handleResults;
+    data['offset'] = offset;
+    data['count'] = count;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return 'GetGroupApplicationListAsRecipientReq{groupIDs: $groupIDs, handleResults: $handleResults, offset: $offset, count: $count}';
+  }
+}
+
+class GetGroupApplicationListAsApplicantReq {
+  final List<String> groupIDs;
+  final List<int> handleResults;
+  final int offset;
+  final int count;
+
+  GetGroupApplicationListAsApplicantReq({
+    this.groupIDs = const [],
+    this.handleResults = const [],
+    required this.offset,
+    required this.count,
+  });
+
+  GetGroupApplicationListAsApplicantReq.fromJson(Map<String, dynamic> json)
+      : groupIDs = json['groupIDs'] == null ? [] : List<String>.from(json['groupIDs'].map((x) => x)),
+        handleResults = json['handleResults'] == null ? [] : List<int>.from(json['handleResults'].map((x) => x)),
+        offset = json['offset'],
+        count = json['count'];
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['groupIDs'] = groupIDs;
+    data['handleResults'] = handleResults;
+    data['offset'] = offset;
+    data['count'] = count;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return 'GetGroupApplicationListAsApplicantReq{groupIDs: $groupIDs, handleResults: $handleResults, offset: $offset, count: $count}';
+  }
+}
+
+class GetGroupApplicationUnhandledCountReq {
+  final int time;
+
+  GetGroupApplicationUnhandledCountReq({this.time = 0});
+
+  GetGroupApplicationUnhandledCountReq.fromJson(Map<String, dynamic> json) : time = json['time'];
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['time'] = time;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return 'GetGroupApplicationUnhandledCountReq{time: $time}';
+  }
+}

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-import 'package:flutter_openim_sdk/src/models/set_group_member_info.dart';
 
 class GroupManager {
   MethodChannel _channel;
@@ -257,22 +256,41 @@ class GroupManager {
           }));
 
   /// Handle group membership applications received as a group owner or administrator
-  Future<List<GroupApplicationInfo>> getGroupApplicationListAsRecipient({String? operationID}) => _channel
-      .invokeMethod(
-          'getGroupApplicationListAsRecipient',
-          _buildParam({
-            'operationID': Utils.checkOperationID(operationID),
-          }))
-      .then((value) => Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
+  Future<List<GroupApplicationInfo>> getGroupApplicationListAsRecipient({
+    GetGroupApplicationListAsRecipientReq? req,
+    String? operationID,
+  }) {
+    if (req != null && req.offset > 0) {
+      assert(req.count > 0, 'count must be greater than 0');
+    }
+    return _channel
+        .invokeMethod(
+            'getGroupApplicationListAsRecipient',
+            _buildParam({
+              'req': req?.toJson() ?? {},
+              "operationID": Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
+  }
 
   /// Get the list of group membership applications sent by the user
-  Future<List<GroupApplicationInfo>> getGroupApplicationListAsApplicant({String? operationID}) => _channel
-      .invokeMethod(
-          'getGroupApplicationListAsApplicant',
-          _buildParam({
-            'operationID': Utils.checkOperationID(operationID),
-          }))
-      .then((value) => Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
+  Future<List<GroupApplicationInfo>> getGroupApplicationListAsApplicant({
+    GetGroupApplicationListAsApplicantReq? req,
+    String? operationID,
+  }) {
+    if (req != null && req.offset > 0) {
+      assert(req.count > 0, 'count must be greater than 0');
+    }
+
+    return _channel
+        .invokeMethod(
+            'getGroupApplicationListAsApplicant',
+            _buildParam({
+              'req': req?.toJson() ?? {},
+              "operationID": Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
+  }
 
   /// Accept a group membership application as an administrator or group owner
   /// Note: Membership applications require approval from administrators or the group.
