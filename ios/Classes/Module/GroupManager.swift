@@ -32,6 +32,7 @@ public class GroupManager: BaseServiceManager {
         self["setGroupListener"] = setGroupListener
         self["setGroupMemberInfo"] = setGroupMemberInfo
         self["transferGroupOwner"] = transferGroupOwner
+        self["getGroupApplicationUnhandledCount"] = getGroupApplicationUnhandledCount   
     }
 
     func acceptGroupApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -55,11 +56,11 @@ public class GroupManager: BaseServiceManager {
     }
 
     func getGroupApplicationListAsApplicant(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkGetGroupApplicationListAsApplicant(BaseCallback(result: result), methodCall[string: "operationID"])
+        Open_im_sdkGetGroupApplicationListAsApplicant(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "req"])
     }
 
     func getGroupApplicationListAsRecipient(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkGetGroupApplicationListAsRecipient(BaseCallback(result: result), methodCall[string: "operationID"])
+        Open_im_sdkGetGroupApplicationListAsRecipient(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "req"])
     }
 
     func getGroupMemberList(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -146,6 +147,10 @@ public class GroupManager: BaseServiceManager {
 
     func transferGroupOwner(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         Open_im_sdkTransferGroupOwner(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "groupID"], methodCall[string: "userID"])
+    }
+
+    func getGroupApplicationUnhandledCount(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
+        Open_im_sdkGetGroupApplicationUnhandledCount(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "req"])
     }
 }
 

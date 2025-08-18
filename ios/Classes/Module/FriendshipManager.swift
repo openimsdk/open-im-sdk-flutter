@@ -21,6 +21,7 @@ public class FriendshipManager: BaseServiceManager {
         self["searchFriends"] = searchFriends
         self["setFriendListener"] = setFriendListener
         self["updateFriends"] = updateFriends
+        self["getFriendApplicationUnhandledCount"] = getFriendApplicationUnhandledCount
     }
     
     func acceptFriendApplication(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -48,11 +49,11 @@ public class FriendshipManager: BaseServiceManager {
     }
     
     func getFriendApplicationListAsApplicant(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetFriendApplicationListAsApplicant(BaseCallback(result: result), methodCall[string: "operationID"])
+        Open_im_sdkGetFriendApplicationListAsApplicant(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "req"])
     }
 
     func getFriendApplicationListAsRecipient(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetFriendApplicationListAsRecipient(BaseCallback(result: result), methodCall[string: "operationID"])
+        Open_im_sdkGetFriendApplicationListAsRecipient(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "req"])
     }
 
     func getFriendList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -87,6 +88,10 @@ public class FriendshipManager: BaseServiceManager {
     func updateFriends(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkUpdateFriends(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "req"])
     }
+
+    func getFriendApplicationUnhandledCount(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+        Open_im_sdkGetFriendApplicationUnhandledCount(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[jsonString: "req"])
+    }   
 }
 
 public class FriendshipListener: NSObject, Open_im_sdk_callbackOnFriendshipListenerProtocol {

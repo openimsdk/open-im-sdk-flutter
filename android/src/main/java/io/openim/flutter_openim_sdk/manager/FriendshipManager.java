@@ -35,14 +35,16 @@ public class FriendshipManager extends BaseManager {
     public void getFriendApplicationListAsRecipient(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getFriendApplicationListAsRecipient(
                 new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID")
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "req")
         );
     }
 
     public void getFriendApplicationListAsApplicant(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.getFriendApplicationListAsApplicant(
                 new OnBaseListener(result, methodCall),
-                value(methodCall, "operationID")
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "req")
         );
     }
 
@@ -130,6 +132,14 @@ public class FriendshipManager extends BaseManager {
 
     public void updateFriends(MethodCall methodCall, MethodChannel.Result result) {
         Open_im_sdk.updateFriends(
+                new OnBaseListener(result, methodCall),
+                value(methodCall, "operationID"),
+                jsonValue(methodCall, "req")
+        );
+    }
+
+    public void getFriendApplicationUnhandledCount(MethodCall methodCall, MethodChannel.Result result) {
+        Open_im_sdk.getFriendApplicationUnhandledCount(
                 new OnBaseListener(result, methodCall),
                 value(methodCall, "operationID"),
                 jsonValue(methodCall, "req")

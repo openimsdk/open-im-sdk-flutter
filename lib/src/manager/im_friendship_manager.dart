@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
-import '../models/update_req.dart';
-
 class FriendshipManager {
   MethodChannel _channel;
   late OnFriendshipListener listener;
@@ -51,22 +49,36 @@ class FriendshipManager {
           }));
 
   /// Get Friend Requests Sent to Me
-  Future<List<FriendApplicationInfo>> getFriendApplicationListAsRecipient({String? operationID}) => _channel
-      .invokeMethod(
-          'getFriendApplicationListAsRecipient',
-          _buildParam({
-            "operationID": Utils.checkOperationID(operationID),
-          }))
-      .then((value) => Utils.toList(value, (v) => FriendApplicationInfo.fromJson(v)));
+  Future<List<FriendApplicationInfo>> getFriendApplicationListAsRecipient(
+      {GetFriendApplicationListAsRecipientReq? req, String? operationID}) {
+    if (req != null && req.offset > 0) {
+      assert(req.count > 0, 'count must be greater than 0');
+    }
+    return _channel
+        .invokeMethod(
+            'getFriendApplicationListAsRecipient',
+            _buildParam({
+              'req': req?.toJson() ?? {},
+              "operationID": Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (v) => FriendApplicationInfo.fromJson(v)));
+  }
 
   /// Get Friend Requests Sent by Me
-  Future<List<FriendApplicationInfo>> getFriendApplicationListAsApplicant({String? operationID}) => _channel
-      .invokeMethod(
-          'getFriendApplicationListAsApplicant',
-          _buildParam({
-            "operationID": Utils.checkOperationID(operationID),
-          }))
-      .then((value) => Utils.toList(value, (v) => FriendApplicationInfo.fromJson(v)));
+  Future<List<FriendApplicationInfo>> getFriendApplicationListAsApplicant(
+      {GetFriendApplicationListAsApplicantReq? req, String? operationID}) {
+    if (req != null && req.offset > 0) {
+      assert(req.count > 0, 'count must be greater than 0');
+    }
+    return _channel
+        .invokeMethod(
+            'getFriendApplicationListAsApplicant',
+            _buildParam({
+              'req': req?.toJson() ?? {},
+              "operationID": Utils.checkOperationID(operationID),
+            }))
+        .then((value) => Utils.toList(value, (v) => FriendApplicationInfo.fromJson(v)));
+  }
 
   /// Get Friend List, including friends who have been put into the blacklist
   Future<List<FriendInfo>> getFriendList({

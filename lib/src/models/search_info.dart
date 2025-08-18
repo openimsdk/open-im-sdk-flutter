@@ -124,6 +124,6 @@ class SearchFriendsInfo extends FriendInfo {
   Map<String, dynamic> toJson() {
     final data = super.toJson();
     data['relationship'] = this.relationship;
-    return data ?? {};
+    return data;
   }
 }
