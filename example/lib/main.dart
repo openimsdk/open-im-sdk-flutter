@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -15,11 +17,17 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     OpenIM.iMManager.initSDK(
-        platformID: 1,
-        apiAddr: '',
-        wsAddr: '',
-        dataDir: '/',
-        listener: OnConnectListener());
+      platformID: 2,
+      apiAddr: 'https://www.openim.io/api',
+      wsAddr: 'https://www.openim.io/',
+      dataDir: '/',
+      listener: OnConnectListener(),
+    );
+    OpenIM.iMManager.messageManager.customBusinessListener = OnCustomBusinessListener(
+      onRecvCustomBusinessMessage: (message) {},
+    );
+
+    OpenIM.iMManager.login(userID: '123', token: '123');
   }
 
   @override
@@ -31,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            TextButton(onPressed: () {}, child: Text('login')),
+            TextButton(onPressed: () {}, child: const Text('login')),
           ],
         ),
       ),

@@ -1,30 +1,14 @@
-group 'io.openim.flutter_openim_sdk'
-version '1.0'
-
-def dir = getCurrentProjectDir()
-
-def getCurrentProjectDir() {
-    String result = ""
-    rootProject.allprojects { project ->
-        if (project.properties.get("name").toString() == "flutter_openim_sdk") {
-            result = project.properties.get("projectDir").toString()
-        }
-    }
-    return result
-}
+group = "io.openim.flutter_openim_sdk"
+version = "1.0"
 
 buildscript {
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/public' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath("com.android.tools.build:gradle:8.7.3")
     }
 }
 
@@ -35,20 +19,35 @@ rootProject.allprojects {
     }
 }
 
-apply plugin: 'com.android.library'
+apply plugin: "com.android.library"
 
 android {
-    compileSdkVersion 34
+    namespace = "io.openim.flutter_openim_sdk"
+
+    compileSdk = 35
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdk = 21
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-}
 
-dependencies {
-    implementation 'io.openim:core-sdk:3.8.3-patch7@aar'
+    dependencies {
+        implementation 'io.openim:core-sdk:3.8.3-patch7@aar'
+        testImplementation("junit:junit:4.13.2")
+        testImplementation("org.mockito:mockito-core:5.0.0")
+    }
+
+    testOptions {
+        unitTests.all {
+            testLogging {
+               events "passed", "skipped", "failed", "standardOut", "standardError"
+               outputs.upToDateWhen {false}
+               showStandardStreams = true
+            }
+        }
+    }
 }
