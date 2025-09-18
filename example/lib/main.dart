@@ -26,8 +26,6 @@ class _MyAppState extends State<MyApp> {
     OpenIM.iMManager.messageManager.customBusinessListener = OnCustomBusinessListener(
       onRecvCustomBusinessMessage: (message) {},
     );
-
-    OpenIM.iMManager.login(userID: '123', token: '123');
   }
 
   @override
