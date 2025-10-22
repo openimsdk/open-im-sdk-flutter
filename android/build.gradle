@@ -36,7 +36,7 @@ android {
     }
 
     dependencies {
-        implementation 'io.openim:core-sdk:3.8.3-patch7@aar'
+        implementation 'io.openim:core-sdk:3.8.3-patch10@aar'
         testImplementation("junit:junit:4.13.2")
         testImplementation("org.mockito:mockito-core:5.0.0")
     }
