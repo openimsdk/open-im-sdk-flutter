@@ -299,6 +299,17 @@ class FriendshipManager {
         .then((value) => value);
   }
 
+  Future<int> getFriendApplicationUnhandledCount(GetFriendApplicationUnhandledCountReq req,
+          {String? operationID}) =>
+      _channel
+          .invokeMethod(
+              'getFriendApplicationUnhandledCount',
+              _buildParam({
+                'req': req.toJson(),
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) => int.parse(value));
+
   static Map _buildParam(Map<String, dynamic> param) {
     param["ManagerName"] = "friendshipManager";
     param = Utils.cleanMap(param);
