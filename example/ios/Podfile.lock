@@ -2,8 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_openim_sdk (0.0.1):
     - Flutter
-    - OpenIMSDKCore (= 3.8.3-hotfix.10)
-  - OpenIMSDKCore (3.8.3-hotfix.10)
+    - OpenIMSDKCore (= 3.8.3-hotfix.12)
+  - OpenIMSDKCore (3.8.3-hotfix.12)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -21,9 +21,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_openim_sdk: 59aa0c08eb7499a1790168e10539e4dd915ced6e
-  OpenIMSDKCore: bc9a6e5de2aabed76e4f69fe06a7c9df1d945afc
+  flutter_openim_sdk: bb2a5af4aeda4b44362ca6c223c1515e2fee795d
+  OpenIMSDKCore: 02383b2a3f989a1fff29ad5f83c1dac1ee5bfb36
 
-PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+PODFILE CHECKSUM: 7be2f5f74864d463a8ad433546ed1de7e0f29aef
 
 COCOAPODS: 1.16.2

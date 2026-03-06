@@ -429,7 +429,7 @@ class GetGroupApplicationListAsRecipientReq {
   final int offset;
   final int count;
 
-  GetGroupApplicationListAsRecipientReq({ 
+  GetGroupApplicationListAsRecipientReq({
     this.groupIDs = const [],
     this.handleResults = const [],
     required this.offset,
@@ -466,8 +466,8 @@ class GetGroupApplicationListAsApplicantReq {
   GetGroupApplicationListAsApplicantReq({
     this.groupIDs = const [],
     this.handleResults = const [],
-    required this.offset,
-    required this.count,
+    this.offset = 0,
+    this.count = 40,
   });
 
   GetGroupApplicationListAsApplicantReq.fromJson(Map<String, dynamic> json)

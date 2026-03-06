@@ -257,7 +257,8 @@ class Message {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is Message && runtimeType == other.runtimeType && clientMsgID == other.clientMsgID;
+      identical(this, other) ||
+      other is Message && runtimeType == other.runtimeType && clientMsgID == other.clientMsgID;
 
   @override
   int get hashCode => clientMsgID.hashCode;
@@ -787,12 +788,15 @@ class AttachedInfoElem {
   /// Do not send offline push notifications
   bool? notSenderNotificationPush;
 
+  UploadProgress? uploadProgress;
+
   AttachedInfoElem({
     this.groupHasReadInfo,
     this.isPrivateChat,
     this.hasReadTime,
     this.burnDuration,
     this.notSenderNotificationPush,
+    this.uploadProgress,
   });
 
   AttachedInfoElem.fromJson(Map<String, dynamic> json) {
@@ -801,6 +805,7 @@ class AttachedInfoElem {
     hasReadTime = json['hasReadTime'];
     burnDuration = json['burnDuration'];
     notSenderNotificationPush = json['notSenderNotificationPush'];
+    uploadProgress = json['uploadProgress'] == null ? null : UploadProgress.fromJson(json['uploadProgress']);
   }
 
   Map<String, dynamic> toJson() {
@@ -810,6 +815,33 @@ class AttachedInfoElem {
     data['hasReadTime'] = this.hasReadTime;
     data['burnDuration'] = this.burnDuration;
     data['notSenderNotificationPush'] = this.notSenderNotificationPush;
+    data['uploadProgress'] = uploadProgress?.toJson();
+
+    return data;
+  }
+}
+
+class UploadProgress {
+  int? total;
+  int? save;
+  int? current;
+  String? uploadID;
+
+  UploadProgress({this.total, this.save, this.current, this.uploadID});
+
+  UploadProgress.fromJson(Map<String, dynamic> json) {
+    total = json['total'] ?? 0;
+    save = json['save'] ?? 0;
+    current = json['current'] ?? 0;
+    uploadID = json['uploadID'] ?? '';
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['total'] = total;
+    data['save'] = save;
+    data['current'] = current;
+    data['uploadID'] = uploadID;
     return data;
   }
 }
@@ -879,7 +911,9 @@ class AdvancedTextElem {
 
   AdvancedTextElem.fromJson(Map<String, dynamic> json) {
     text = json['text'];
-    messageEntityList = json['messageEntityList'] == null ? null : (json['messageEntityList'] as List).map((e) => MessageEntity.fromJson(e)).toList();
+    messageEntityList = json['messageEntityList'] == null
+        ? null
+        : (json['messageEntityList'] as List).map((e) => MessageEntity.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -961,7 +995,8 @@ class ReadReceiptInfo {
   /// Conversation type [ConversationType]
   int? sessionType;
 
-  ReadReceiptInfo({this.userID, this.groupID, this.msgIDList, this.readTime, this.msgFrom, this.contentType, this.sessionType});
+  ReadReceiptInfo(
+      {this.userID, this.groupID, this.msgIDList, this.readTime, this.msgFrom, this.contentType, this.sessionType});
 
   ReadReceiptInfo.fromJson(Map<String, dynamic> json) {
     userID = json['uid'] ?? json['userID'];
@@ -1132,7 +1167,8 @@ class AdvancedMessage {
   });
 
   AdvancedMessage.fromJson(Map<String, dynamic> json) {
-    messageList = json['messageList'] == null ? null : (json['messageList'] as List).map((e) => Message.fromJson(e)).toList();
+    messageList =
+        json['messageList'] == null ? null : (json['messageList'] as List).map((e) => Message.fromJson(e)).toList();
     isEnd = json['isEnd'];
     errCode = json['errCode'];
     errMsg = json['errMsg'];
