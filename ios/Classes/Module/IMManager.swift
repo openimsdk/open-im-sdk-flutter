@@ -4,6 +4,15 @@ import OpenIMCore
 public class IMMananger: BaseServiceManager {
     
     let reachability = try? Reachability()
+
+    /// initSDK дахин дуудагдахад (hot restart, re-init) observer давхар бүртгэгдэхгүй.
+    private var observersAdded = false
+    /// Сүүлд SDK-д мэдэгдсэн сүлжээний төрөл — өөрчлөгдөөгүй бол дахин мэдэгдэхгүй.
+    private var lastConnection: Reachability.Connection?
+    private var foregroundAt: Date?
+    /// Foreground-д орсны дараах энэ хугацаанд reachability-ийн callback-ыг алгасна
+    /// (foreground handler өөрөө дахин холбогдсон).
+    private let foregroundGrace: TimeInterval = 2
     
     public override func registerHandlers() {
         super.registerHandlers()
@@ -21,6 +30,8 @@ public class IMMananger: BaseServiceManager {
     }
     
     fileprivate func addObservers() {
+        guard !observersAdded else { return }
+        observersAdded = true
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(applicationWillEnterForeground),
                                                name: UIApplication.willEnterForegroundNotification,
@@ -38,17 +49,23 @@ public class IMMananger: BaseServiceManager {
                 print("reachability: \(e)")
             }
             
-            reachability.whenReachable = { _ in
-                Open_im_sdkNetworkStatusChanged(BaseCallback(result: { _ in
-                }), UUID().uuidString)
-            }
-            reachability.whenUnreachable = { _ in
-                Open_im_sdkNetworkStatusChanged(BaseCallback(result: { _ in
-                }), UUID().uuidString)
-            }
+            reachability.whenReachable = { [weak self] r in self?.onReachabilityChanged(r.connection) }
+            reachability.whenUnreachable = { [weak self] r in self?.onReachabilityChanged(r.connection) }
         }
     }
     
+    /// iOS resume үед одоогийн сүлжээний төлөвийг дахин (заримдаа 2 удаа) мэдэгддэг. Тэр бүрт
+    /// NetworkStatusChanged дуудвал SDK шинэ холболтоо тасалж, түүгээр явж байсан sync /
+    /// SetAppBackgroundStatus хүсэлтүүд 10с timeout болтол хүлээгддэг байсан — background-аас
+    /// буцахад шинэ мессеж 4–10с хоцорч ирдэг байв. Зөвхөн бодит өөрчлөлтөд мэдэгдэнэ.
+    private func onReachabilityChanged(_ connection: Reachability.Connection) {
+        guard connection != lastConnection else { return }
+        lastConnection = connection
+        if let foregroundAt, Date().timeIntervalSince(foregroundAt) < foregroundGrace { return }
+        Open_im_sdkNetworkStatusChanged(BaseCallback(result: { _ in
+        }), UUID().uuidString)
+    }
+
     @objc
     fileprivate func applicationDidEnterBackground() {
         Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
@@ -57,8 +74,16 @@ public class IMMananger: BaseServiceManager {
     
     @objc
     fileprivate func applicationWillEnterForeground() {
-        Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
-        }), UUID().uuidString, false)
+        foregroundAt = Date()
+        lastConnection = reachability?.connection
+        // Suspend-ийн дараа хуучин socket үхсэн байж болно: эхлээд цэвэр дахин холбогдоод
+        // (≈20ms, холбогдмогц SDK sync эхлүүлнэ), background төлөвийг шинэ холболтоор илгээнэ.
+        Open_im_sdkNetworkStatusChanged(BaseCallback(result: { _ in
+        }), UUID().uuidString)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            Open_im_sdkSetAppBackgroundStatus(BaseCallback(result: { _ in
+            }), UUID().uuidString, false)
+        }
     }
     
     func initSDK(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
