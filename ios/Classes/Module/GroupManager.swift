@@ -2,6 +2,8 @@ import Foundation
 import OpenIMCore
 
 public class GroupManager: BaseServiceManager {
+
+    private static let applicationListReq = "{\"handleResults\":[],\"offset\":0,\"count\":100}"
     
     public override func registerHandlers() {
         super.registerHandlers()
@@ -55,11 +57,11 @@ public class GroupManager: BaseServiceManager {
     }
 
     func getGroupApplicationListAsApplicant(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkGetGroupApplicationListAsApplicant(BaseCallback(result: result), methodCall[string: "operationID"])
+        Open_im_sdkGetGroupApplicationListAsApplicant(BaseCallback(result: result), methodCall[string: "operationID"], Self.applicationListReq)
     }
 
     func getGroupApplicationListAsRecipient(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
-        Open_im_sdkGetGroupApplicationListAsRecipient(BaseCallback(result: result), methodCall[string: "operationID"])
+        Open_im_sdkGetGroupApplicationListAsRecipient(BaseCallback(result: result), methodCall[string: "operationID"], Self.applicationListReq)
     }
 
     func getGroupMemberList(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {

@@ -2,6 +2,8 @@ import Foundation
 import OpenIMCore
 
 public class FriendshipManager: BaseServiceManager {
+
+    private static let applicationListReq = "{\"handleResults\":[],\"offset\":0,\"count\":100}"
     
     public override func registerHandlers() {
         super.registerHandlers()
@@ -48,11 +50,11 @@ public class FriendshipManager: BaseServiceManager {
     }
     
     func getFriendApplicationListAsApplicant(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetFriendApplicationListAsApplicant(BaseCallback(result: result), methodCall[string: "operationID"])
+        Open_im_sdkGetFriendApplicationListAsApplicant(BaseCallback(result: result), methodCall[string: "operationID"], Self.applicationListReq)
     }
 
     func getFriendApplicationListAsRecipient(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
-        Open_im_sdkGetFriendApplicationListAsRecipient(BaseCallback(result: result), methodCall[string: "operationID"])
+        Open_im_sdkGetFriendApplicationListAsRecipient(BaseCallback(result: result), methodCall[string: "operationID"], Self.applicationListReq)
     }
 
     func getFriendList(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
