@@ -1,7 +1,7 @@
 import Flutter
 import UIKit
 
-public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
+public class FlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
     let imManager: IMMananger
     let conversationManager: ConversationManager
     let friendshipManager: FriendshipManager
@@ -20,7 +20,7 @@ public class SwiftFlutterOpenimSdkPlugin: NSObject, FlutterPlugin {
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "flutter_openim_sdk", binaryMessenger: registrar.messenger())
-        let instance = SwiftFlutterOpenimSdkPlugin(channel: channel)
+        let instance = FlutterOpenimSdkPlugin(channel: channel)
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     
