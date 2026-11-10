@@ -13,7 +13,7 @@ Based on the above AAR and XCFramework packages, the IM SDK for Flutter is encap
 
 Visit [https://docs.openim.io/](https://docs.openim.io/) for detailed documentation and guides.
 
-For the SDK reference, see [https://docs.openim.io/sdks/quickstart/flutter](https://docs.openim.io/sdks/quickstart/flutter).
+For the SDK reference, see [https://docs.openim.io/sdk/flutter/overview](https://docs.openim.io/sdk/flutter/overview).
 
 ## Installation 💻
 ### Adding Dependencies
@@ -162,7 +162,7 @@ This software is licensed under a dual-license model:
 
 If you wish to use this software under commercial terms, please contact us at: contact@openim.io
 
-For more information, see: https://www.openim.io/en/licensing
+For more information, see: https://www.openim.io/enterprise/
 
 
 
