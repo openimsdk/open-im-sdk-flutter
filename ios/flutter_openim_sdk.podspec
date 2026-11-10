@@ -13,9 +13,9 @@ A new Flutter project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'flutter_openim_sdk/Sources/flutter_openim_sdk/**/*.swift'
   s.dependency 'Flutter'
-  s.platform = :ios, '11.0'
+  s.platform = :ios, '13.0'
 
   s.dependency 'OpenIMSDKCore', '3.8.3-hotfix.15'
   s.static_framework = true
@@ -26,5 +26,5 @@ A new Flutter project.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
 
-  s.resource_bundles = {'flutter_openim_sdk_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'flutter_openim_sdk_privacy' => ['flutter_openim_sdk/Sources/flutter_openim_sdk/PrivacyInfo.xcprivacy']}
 end

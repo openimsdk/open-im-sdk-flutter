@@ -1,3 +1,4 @@
+import Flutter
 import Foundation
 import OpenIMCore
 

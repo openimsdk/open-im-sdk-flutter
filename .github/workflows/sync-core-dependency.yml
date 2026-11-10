@@ -95,6 +95,10 @@ jobs:
           sed -i '' "s/s.dependency 'OpenIMSDKCore'.*/s.dependency 'OpenIMSDKCore', '${TARGET_IOS_TAG}'/g" ios/flutter_openim_sdk.podspec
           echo "Updated ios/flutter_openim_sdk.podspec -> OpenIMSDKCore: ${TARGET_IOS_TAG}"
 
+          # 1b. Update Swift Package Manager manifest
+          sed -i '' -E "s/(openim-sdk-core-ios\.git\", exact: \")[^\"]+(\")/\1${TARGET_IOS_TAG}\2/" ios/flutter_openim_sdk/Package.swift
+          echo "Updated ios/flutter_openim_sdk/Package.swift -> OpenIMSDKCore: ${TARGET_IOS_TAG}"
+
           # 2. Update Android build.gradle
           sed -i '' "s/implementation 'io.openim:core-sdk:.*@aar'/implementation 'io.openim:core-sdk:${TARGET_AAR_VER}@aar'/g" android/build.gradle
           echo "Updated android/build.gradle -> core-sdk: ${TARGET_AAR_VER}@aar"
@@ -157,7 +161,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ios/flutter_openim_sdk.podspec android/build.gradle pubspec.yaml
+          git add ios/flutter_openim_sdk.podspec ios/flutter_openim_sdk/Package.swift android/build.gradle pubspec.yaml
           git commit -m "chore(deps): bump core dependencies (iOS: ${TARGET_IOS_TAG}, Android: ${TARGET_AAR_VER})"
           git push origin HEAD
 
