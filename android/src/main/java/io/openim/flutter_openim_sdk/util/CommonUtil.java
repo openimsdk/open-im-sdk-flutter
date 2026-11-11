@@ -49,7 +49,9 @@ public class CommonUtil {
                 res.put("errMsg", errMsg);
             }
             Log.i("F-OpenIMSDK(native call flutter)", "thread: " + threadName + " { method:" + method + ",  type:" + type + " }");
-            FlutterOpenimSdkPlugin.channel.invokeMethod(method, res);
+            // Бүх engine салгагдсан (апп хаагдаж буй) үед null байж болно.
+            MethodChannel channel = FlutterOpenimSdkPlugin.channel;
+            if (channel != null) channel.invokeMethod(method, res);
         });
     }
 
