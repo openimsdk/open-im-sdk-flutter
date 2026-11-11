@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.flutter.Log;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -35,7 +37,15 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
     private static final String CHANNEL_NAME = "flutter_openim_sdk";
+    /// OpenIM-ийн event (listener) илгээх channel — OpenIM-ийг ашиглаж буй (хамгийн сүүлд method дуудсан)
+    /// engine-ийнх. Нэг процесст хэд хэдэн engine байж болно (жиш нь call SDK-ийн CallActivity, FCM background):
+    /// өмнө нь static channel-ийг хамгийн сүүлд холбогдсон engine-ээр сольж, detach үед ӨӨРИЙНХИЙГ биш static-ийг
+    /// салгадаг байсан → апп хаалттай үед дуудлага хүлээж аваад апп-ыг нээж, дуудлага дуусахад апп-ын channel
+    /// салгагдаж MissingPluginException (чат хоосон); эсвэл event үхсэн engine рүү явдаг байв (2026-11-11).
+    /// Зөвхөн main thread дээр уншиж/бичнэ.
     public static MethodChannel channel;
+    private static final List<MethodChannel> attachedChannels = new ArrayList<>();
+    private MethodChannel ownChannel;
     private static IMManager imManager;
     private static UserManager userManager;
     private static FriendshipManager friendshipManager;
@@ -60,9 +70,12 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_NAME);
+        ownChannel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_NAME);
+        ownChannel.setMethodCallHandler(this);
+        attachedChannels.add(ownChannel);
+        // Event-ийг одоо ашиглаж буй engine-ээс булаахгүй — OpenIM method дуудмагц [onMethodCall] шилжүүлнэ.
+        if (channel == null) channel = ownChannel;
         context = flutterPluginBinding.getApplicationContext();
-        channel.setMethodCallHandler(this);
         connectivityListener = new ConnectivityListener(context);
         visibilityListener = new VisibilityListener();
         connectivityListener.register();
@@ -70,12 +83,17 @@ public class FlutterOpenimSdkPlugin implements FlutterPlugin, MethodCallHandler,
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
+        channel = ownChannel;
         parse(call, result);
     }
 
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-        FlutterOpenimSdkPlugin.channel.setMethodCallHandler(null);
+        ownChannel.setMethodCallHandler(null);
+        attachedChannels.remove(ownChannel);
+        if (channel == ownChannel) {
+            channel = attachedChannels.isEmpty() ? null : attachedChannels.get(attachedChannels.size() - 1);
+        }
         connectivityListener.unregisterReceiver();
     }
 
