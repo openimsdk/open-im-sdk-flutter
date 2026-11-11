@@ -87,7 +87,7 @@ FOUNDATION_EXPORT NSString* _Nonnull const Open_im_sdkLogoutTips;
  * IMUserContext is the global user context instance
  */
 + (Open_im_sdkUserContext* _Nullable) imUserContext;
-+ (void) setImUserContext:(Open_im_sdkUserContext* _Nullable)v;
++ (void) setIMUserContext:(Open_im_sdkUserContext* _Nullable)v;
 
 @end
 
